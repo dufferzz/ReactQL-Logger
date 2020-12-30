@@ -61,6 +61,30 @@ const typeDefs = gql`
 
 	type Mutation {
 		addProduct(title: String!): Product
+		addJob(
+			firstname: String
+			lastname: String
+			email: String
+			city: String
+			district: String
+			postcode: String
+			date: String
+			todo: String
+			done: String
+			status: String
+		): Job
+		editJob(
+			firstname: String
+			lastname: String
+			email: String
+			city: String
+			district: String
+			postcode: String
+			date: String
+			todo: String
+			done: String
+			status: String
+		): Job
 	}
 
 	type Subscription {

@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { doLogin, doLogout } from "../features/authData";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import Logo from "../assets/logoo.webp";
 
@@ -21,13 +20,13 @@ const NavLogo = styled.img`
 `;
 
 const TopNav = () => {
-	const authSlice = useSelector((state) => state.authSlice);
-	const dispatch = useDispatch();
+	const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+
 	const LoginButton = () => (
 		<button
 			style={{ float: "right" }}
 			onClick={() => {
-				dispatch(doLogin());
+				loginWithRedirect();
 			}}
 		>
 			Login
@@ -37,7 +36,7 @@ const TopNav = () => {
 		<button
 			style={{ float: "right" }}
 			onClick={() => {
-				dispatch(doLogout());
+				logout({ returnTo: window.location.origin });
 			}}
 		>
 			Logout
@@ -50,7 +49,7 @@ const TopNav = () => {
 				<NavLogo src={Logo} />
 			</Link>
 			<div style={{ width: "100%", textAlign: "right", marginRight: "0.5rem" }}>
-				{authSlice.isLoggedIn ? <LogoutButton /> : <LoginButton />}
+				{isAuthenticated ? <LogoutButton /> : <LoginButton />}
 			</div>
 		</Nav>
 	);

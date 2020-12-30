@@ -2,3 +2,6 @@
 	min-height: 80vh;
 	background-color: #eee;
 }
+input {
+	min-width: 50px;
+}

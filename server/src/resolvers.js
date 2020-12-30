@@ -3,6 +3,7 @@ const Categories = require("../models/categories");
 const { Orders } = require("../models/orders");
 const Jobs = require("../models/job");
 const NEW_PRODUCT = "NEW_PRODUCT";
+const NEW_JOB = "NEW_JOB";
 
 const { date } = require("./scalars");
 
@@ -35,6 +36,33 @@ const resolvers = {
 				addProduct: newprod,
 			});
 			return { title: title };
+		},
+		addJob: async (
+			_,
+			{
+				firstname,
+				lastname,
+				email,
+				city,
+				district,
+				postcode,
+				date,
+				todo,
+				done,
+				status,
+			},
+			{ isAuthenticated, pubsub }
+		) => {
+			if (!isAuthenticated) {
+				return "";
+			}
+			const newjob = {
+				firstname,
+			};
+			pubsub.publish(NEW_JOB, {
+				addJob: newjob,
+			});
+			return { firstname: firstname };
 		},
 	},
 };

@@ -16,10 +16,10 @@ Built as experimentation with GraphQL. Not Deploymment ready yet ;)
 - RBAC on GQL Mutations & Querys (Todo)
 - Dockerisation (Todo)
 
-## gql/.env
+## server/.env
 
 ```bash
-    PORT=3000
+    PORT=3001
     DB_URL=mongodb://
     AUTH0_DOMAIN=
     API_IDENTIFIER=
@@ -30,7 +30,7 @@ Built as experimentation with GraphQL. Not Deploymment ready yet ;)
 ## Running
 
 ```bash
-    touch gql/.env
-    nvim gql/.env # add info
+    touch server/.env
+    nvim server/.env # add info
     npm start
 ```

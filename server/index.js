@@ -69,12 +69,12 @@ const startServer = async () => {
 	var start = new Date();
 	await connectDB();
 
-	const port = process.env.PORT || 3000;
+	const port = process.env.PORT || 3001;
 
 	app.listen(port, () => {
 		var end = new Date() - start;
 		log(
-			`🚀 Server ready at http://localhost:3000${server.graphqlPath} - Init: ${end}ms`
+			`🚀 Server ready at http://localhost:${port}${server.graphqlPath} - Init: ${end}ms`
 		);
 	});
 };

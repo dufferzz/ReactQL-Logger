@@ -1,6 +1,6 @@
 import React from "react";
 import JobsList from "../components/JobsList";
-import { useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const JobList = () => {
 	return (
@@ -34,9 +34,9 @@ const HomePage = () => {
 };
 
 const Home = () => {
-	const authSlice = useSelector((state) => state.authSlice);
+	const { isAuthenticated } = useAuth0();
 
-	return <div>{authSlice.isLoggedIn ? <JobList /> : <HomePage />}</div>;
+	return <div>{isAuthenticated ? <JobList /> : <HomePage />}</div>;
 };
 
 export default Home;
