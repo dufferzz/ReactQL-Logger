@@ -3,10 +3,30 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { configureStore } from '@reduxjs/toolkit'
+import combinedReducers from "./features";
+import { Provider } from "react-redux";
+
+const client = new ApolloClient({
+  uri: 'http://192.168.1.47:3000/graphql',
+  cache: new InMemoryCache()
+});
+const store = configureStore({
+  reducer: combinedReducers,
+});
+
 
 ReactDOM.render(
   <React.StrictMode>
+        <ApolloProvider client={client}>
+        <Provider store={store}>
+
     <App />
+    </Provider>
+
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
