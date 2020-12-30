@@ -6,7 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Logo from "../assets/logoo.webp";
 
 const Nav = styled.div`
-	background-color: #333;
+	background-color: #222;
 	color: white;
 	display: flex;
 	height: 5rem;

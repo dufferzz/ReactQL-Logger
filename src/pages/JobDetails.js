@@ -6,7 +6,8 @@ import JobDetailsForm from "../components/JobDetailsForm";
 
 const JobDetails = () => {
 	const { id } = useParams();
-	const query = gql`query {
+	const query = gql`
+    query {
         getJob (_id: "${id}") {
             _id
             firstname
@@ -30,6 +31,7 @@ const JobDetails = () => {
 
 	return (
 		<div>
+			<h2 style={{ textAlign: "center", width: "100%" }}>Job Details: {id}</h2>
 			<JobDetailsForm data={data?.getJob} />
 		</div>
 	);

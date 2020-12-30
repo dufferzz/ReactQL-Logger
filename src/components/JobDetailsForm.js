@@ -11,23 +11,174 @@ const Section = styled.div`
 	grid-gap: 0.25rem;
 	margin: 0 0 1.5rem 0;
 	line-break: anywhere;
+	background-color: #eee;
 `;
 
 const SectionHeader = styled.div`
 	grid-area: header;
-	padding: 0.75rem 0;
 	text-align: center;
 	font-size: 1.1rem;
-	border: 1px solid #aaa;
-	border-radius: 10px;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 	width: 100%;
 	margin-bottom: 0.5rem;
 `;
 
+const SubmitButton = styled.button`
+	width: 100%;
+	background-color: rgba(0, 200, 0, 0.7);
+	border: 1px solid #aaa;
+	border-radius: 5px;
+	font-size: 1rem;
+	padding: 0.7rem;
+	outline: none;
+	&:hover {
+		box-shadow: 0 0 7px rgba(137, 195, 235, 1);
+		border: 1px solid rgba(137, 195, 235, 1);
+		transition: box-shadow 0.2s;
+		cursor: pointer;
+	}
+`;
+
+const CustomerInfo = () => {
+	return (
+		<Section
+			style={{
+				display: "grid",
+				gridTemplateColumns: "1fr 1fr 1fr",
+				gridTemplateAreas: `
+                        'header header header'
+                        'content content content'
+                    `,
+			}}
+		>
+			<SectionHeader>Customer Information</SectionHeader>
+			<div style={{ display: "grid", gridGap: "0.25rem" }}>
+				<label htmlFor="firstName">First Name</label>
+				<Field type="firstName" name="firstName" />
+				<ErrorMessage
+					style={{ color: "red" }}
+					name="firstName"
+					component="div"
+				/>
+			</div>
+			<div style={{ display: "grid", margin: "0.25rem" }}>
+				<label htmlFor="lastName">Last Name</label>
+				<Field type="lastName" name="lastName" />
+				<ErrorMessage
+					style={{ color: "red" }}
+					name="lastName"
+					component="div"
+				/>
+			</div>
+			<div style={{ display: "grid", margin: "0.25rem" }}>
+				<label htmlFor="email">E-Mail</label>
+				<Field type="email" name="email" />
+				<ErrorMessage style={{ color: "red" }} name="email" component="div" />
+			</div>
+			<div style={{ display: "grid", margin: "0.25rem" }}>
+				<label htmlFor="city">City</label>
+				<Field type="city" name="city" />
+				<ErrorMessage style={{ color: "red" }} name="city" component="div" />
+			</div>
+			<div style={{ display: "grid", margin: "0.25rem" }}>
+				<label htmlFor="district">District</label>
+				<Field type="district" name="district" />
+				<ErrorMessage
+					style={{ color: "red" }}
+					name="district"
+					component="div"
+				/>
+			</div>
+			<div style={{ display: "grid", margin: "0.25rem" }}>
+				<label htmlFor="postCode">Postcode</label>
+				<Field type="postcode" name="postcode" />
+				<ErrorMessage
+					style={{ color: "red" }}
+					name="postcode"
+					component="div"
+				/>
+			</div>
+		</Section>
+	);
+};
+
+const JobDetails = ({ values, handleChange }) => (
+	<Section
+		style={{
+			display: "grid",
+			gridTemplateColumns: "1fr",
+			gridTemplateAreas: `
+                        'header'
+                        'content'
+                    `,
+		}}
+	>
+		<SectionHeader>Job Details</SectionHeader>
+
+		<label htmlFor="todo">Todo</label>
+		<textarea
+			onChange={handleChange}
+			name="todo"
+			value={values.todo}
+			rows="7"
+		></textarea>
+		<ErrorMessage name="todo" component="div" />
+
+		<label htmlFor="done">Done</label>
+		<textarea
+			rows="7"
+			onChange={handleChange}
+			name="done"
+			value={values.done}
+		></textarea>
+		<ErrorMessage name="done" component="div" />
+	</Section>
+);
+
+const InternalUse = () => (
+	<Section
+		style={{
+			display: "grid",
+			gridTemplateColumns: "1fr 1fr 1fr",
+			gridTemplateAreas: `
+                        'header header header '
+                        'content content content '
+                    `,
+		}}
+	>
+		<SectionHeader>Internal Use</SectionHeader>
+		stuff
+	</Section>
+);
+
+const Parts = () => {
+	return (
+		<Section
+			style={{
+				display: "grid",
+				gridTemplateColumns: "1fr 1fr 1fr",
+				gridTemplateAreas: `
+								'header header header '
+								'content content content '
+							`,
+			}}
+		>
+			<SectionHeader>Parts</SectionHeader>
+			stuff
+		</Section>
+	);
+};
+
+const Submit = ({ isSubmitting }) => (
+	<div style={{ width: "100%", textAlign: "center" }}>
+		<SubmitButton type="submit" disabled={isSubmitting}>
+			Save Job
+		</SubmitButton>
+	</div>
+);
+
 const JobDetailsForm = ({ data }) => {
 	return (
-		<div style={{ width: "90%", margin: "auto", paddingTop: "1rem" }}>
+		<div style={{ width: "90%", margin: "auto" }}>
 			<Formik
 				initialValues={{
 					firstName: `${data.firstname}`,
@@ -65,122 +216,12 @@ const JobDetailsForm = ({ data }) => {
 			>
 				{({ isSubmitting, values, handleSubmit, handleChange }) => (
 					<Form onSubmit={handleSubmit}>
-						<Section
-							style={{
-								display: "grid",
-								gridTemplateColumns: "1fr 1fr 1fr",
-								gridTemplateAreas: `
-                        'header header header'
-                        'content content content'
-                    `,
-							}}
-						>
-							<SectionHeader>Customer Information</SectionHeader>
-							<div style={{ display: "grid", gridGap: "0.25rem" }}>
-								<label htmlFor="firstName">First Name</label>
-								<Field type="firstName" name="firstName" />
-								<ErrorMessage
-									style={{ color: "red" }}
-									name="firstName"
-									component="div"
-								/>
-							</div>
-							<div style={{ display: "grid", margin: "0.25rem" }}>
-								<label htmlFor="lastName">Last Name</label>
-								<Field type="lastName" name="lastName" />
-								<ErrorMessage
-									style={{ color: "red" }}
-									name="lastName"
-									component="div"
-								/>
-							</div>
-							<div style={{ display: "grid", margin: "0.25rem" }}>
-								<label htmlFor="email">E-Mail</label>
-								<Field type="email" name="email" />
-								<ErrorMessage
-									style={{ color: "red" }}
-									name="email"
-									component="div"
-								/>
-							</div>
-							<div style={{ display: "grid", margin: "0.25rem" }}>
-								<label htmlFor="city">City</label>
-								<Field type="city" name="city" />
-								<ErrorMessage
-									style={{ color: "red" }}
-									name="city"
-									component="div"
-								/>
-							</div>
-							<div style={{ display: "grid", margin: "0.25rem" }}>
-								<label htmlFor="district">District</label>
-								<Field type="district" name="district" />
-								<ErrorMessage
-									style={{ color: "red" }}
-									name="district"
-									component="div"
-								/>
-							</div>
-							<div style={{ display: "grid", margin: "0.25rem" }}>
-								<label htmlFor="postCode">Postcode</label>
-								<Field type="postcode" name="postcode" />
-								<ErrorMessage
-									style={{ color: "red" }}
-									name="postcode"
-									component="div"
-								/>
-							</div>
-						</Section>
-						<Section
-							style={{
-								display: "grid",
-								gridTemplateColumns: "1fr",
-								gridTemplateAreas: `
-                        'header'
-                        'content'
-                    `,
-							}}
-						>
-							<SectionHeader>Job Details</SectionHeader>
+						<CustomerInfo />
+						<JobDetails values={values} handleChange={handleChange} />
 
-							<label htmlFor="todo">Todo</label>
-							<textarea
-								onChange={handleChange}
-								name="todo"
-								value={values.todo}
-								rows="7"
-							></textarea>
-							<ErrorMessage name="todo" component="div" />
-
-							<label htmlFor="done">Done</label>
-							<textarea
-								rows="7"
-								onChange={handleChange}
-								name="done"
-								value={values.done}
-							></textarea>
-							<ErrorMessage name="done" component="div" />
-						</Section>
-
-						<Section
-							style={{
-								display: "grid",
-								gridTemplateColumns: "1fr 1fr 1fr",
-								gridTemplateAreas: `
-                        'header header header '
-                        'content content content '
-                    `,
-							}}
-						>
-							<SectionHeader>Internal Use</SectionHeader>
-							stuff
-						</Section>
-
-						<div style={{ width: "100%", textAlign: "center" }}>
-							<button type="submit" disabled={isSubmitting}>
-								Submit
-							</button>
-						</div>
+						<Parts />
+						<InternalUse />
+						<Submit isSubmitting={isSubmitting} />
 					</Form>
 				)}
 			</Formik>
