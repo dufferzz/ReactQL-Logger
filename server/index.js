@@ -2,11 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const { makeExecutableSchema } = require("graphql-tools");
 const cors = require("cors");
-const { ApolloServer, PubSub } = require("apollo-server-express");
+const { ApolloServer } = require("apollo-server-express");
+const { PubSub } = require("graphql-subscriptions");
 
 const { connectDB } = require("./src/db");
 const { log } = require("./src/utils/logger");
 const isTokenValid = require("./src/utils/validate");
+const http = require("http");
 
 const resolvers = require("./src/resolvers");
 const typeDefs = require("./src/typedefs");
@@ -22,8 +24,8 @@ const server = new ApolloServer({
 	schema,
 	context: async ({ req, connection }) => {
 		if (connection) {
-			console.log("ws connection?");
-			return connection.context;
+			const context = connection.context;
+			return { context, pubsub };
 		} else {
 			let isAuthenticated = false;
 			const token = req.headers.authorization || "";
@@ -48,30 +50,27 @@ const server = new ApolloServer({
 			}
 		}
 	},
-	subscriptions: {
-		onConnect: (connectionParams, webSocket) => {
-			console.log("ws connection");
-		},
-	},
 });
 
-var corsOptions = {
-	origin: "http://localhost:3001",
-	credentials: true,
-};
-
-const app = express();
-
-server.applyMiddleware({ app });
-app.use(cors(corsOptions));
-
 const startServer = async () => {
-	var start = new Date();
+	var corsOptions = {
+		origin: "http://localhost:3000",
+		credentials: true,
+	};
+
+	const app = express();
+	app.use(cors(corsOptions));
+	server.applyMiddleware({ app });
+
+	const httpServer = http.createServer(app);
+	server.installSubscriptionHandlers(httpServer);
+
+	const start = new Date();
 	await connectDB();
 
 	const port = process.env.PORT || 3001;
 
-	app.listen(port, () => {
+	httpServer.listen(port, () => {
 		var end = new Date() - start;
 		log(
 			`🚀 Server ready at http://localhost:${port}${server.graphqlPath} - Init: ${end}ms`
@@ -79,3 +78,5 @@ const startServer = async () => {
 	});
 };
 startServer();
+
+module.exports = pubsub;

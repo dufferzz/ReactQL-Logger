@@ -2,11 +2,15 @@
 
 Built as experimentation with GraphQL. Not Deploymment ready yet ;)
 
+Need to build out functions and types still...
+
+Frontend is a long ways from anywhere near finished
+
 ## Features
 
-- GraphQL
 - Basically nothing useful yet
-- WS GQL Subscriptions (Todo)
+- GraphQL
+- Create, Update, Delete WS GQL Subscriptions
 - Calendar (Todo)
 - PWA & Push Notifications (Todo)
 - Custom Theming (Todo)

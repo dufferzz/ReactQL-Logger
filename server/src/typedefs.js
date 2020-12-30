@@ -61,6 +61,9 @@ const typeDefs = gql`
 
 	type Mutation {
 		addProduct(title: String!): Product
+		updateProduct(title: String!): Product
+		deleteProduct(_id: String!): Product
+
 		addJob(
 			firstname: String
 			lastname: String
@@ -73,7 +76,7 @@ const typeDefs = gql`
 			done: String
 			status: String
 		): Job
-		editJob(
+		updateJob(
 			firstname: String
 			lastname: String
 			email: String
@@ -85,10 +88,16 @@ const typeDefs = gql`
 			done: String
 			status: String
 		): Job
+		deleteJob(_id: String): Job
 	}
 
 	type Subscription {
 		addProduct: Product!
+		updateProduct: Product!
+		deleteProduct: Product!
+		addJob: Job!
+		updateJob: Job!
+		deleteJob: Job!
 	}
 `;
 

@@ -2,6 +2,7 @@ import React from "react";
 import JobsList from "../components/JobsList";
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
+import { useSubscription, gql } from "@apollo/client";
 
 const Section = styled.div`
 	grid-area: content;
@@ -21,9 +22,26 @@ const SectionHeader = styled.div`
 	width: 100%;
 	margin-bottom: 0.5rem;
 `;
+
+const Sub = () => {
+	const JOB_SUBSCRIPTION = gql`
+		subscription addProduct {
+			addProduct {
+				title
+			}
+		}
+	`;
+	const { data, loading } = useSubscription(JOB_SUBSCRIPTION, {
+		variables: {},
+	});
+	console.log(data);
+	return <h4>{!loading && <div>New Job: {JSON.stringify(data)} </div>}</h4>;
+};
+
 const JobList = () => {
 	return (
 		<Section>
+			<Sub />
 			<SectionHeader>All Jobs</SectionHeader>
 			<table
 				style={{

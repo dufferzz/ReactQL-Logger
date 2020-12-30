@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, useSubscription, gql } from "@apollo/client";
 import dayjs from "dayjs";
 import { useHistory } from "react-router-dom";
 
