@@ -213,54 +213,52 @@ const Submit = ({ isSubmitting }) => (
 
 const JobDetailsForm = ({ data }) => {
 	return (
-		<div style={{ width: "90%", margin: "auto" }}>
-			<Formik
-				initialValues={{
-					firstName: `${data.firstname}`,
-					lastName: `${data.lastname}`,
-					email: `${data.email}`,
-					city: `${data.city}`,
-					district: `${data.district}`,
-					postcode: `${data.postcode}`,
-					date: `${data.date}`,
-					todo: `${data.todo}`,
-					done: `${data.done}`,
-				}}
-				validate={(values) => {
-					const errors = {};
-					if (!values.email) {
-						errors.email = "Required";
-					} else if (
-						!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-					) {
-						errors.email = "Invalid email address";
-					}
-					if (!values.firstName) {
-						errors.firstName = "Required";
-					} else if (values.firstName.length > 15) {
-						errors.firstName = "Name Too Long. Max 15 Chars";
-					}
-					return errors;
-				}}
-				onSubmit={(values, { setSubmitting }) => {
-					setTimeout(() => {
-						alert(JSON.stringify(values, null, 2));
-						setSubmitting(false);
-					}, 400);
-				}}
-			>
-				{({ isSubmitting, values, handleSubmit, handleChange }) => (
-					<Form onSubmit={handleSubmit}>
-						<CustomerInfo />
-						<JobDetails values={values} handleChange={handleChange} />
+		<Formik
+			initialValues={{
+				firstName: `${data.firstname}`,
+				lastName: `${data.lastname}`,
+				email: `${data.email}`,
+				city: `${data.city}`,
+				district: `${data.district}`,
+				postcode: `${data.postcode}`,
+				date: `${data.date}`,
+				todo: `${data.todo}`,
+				done: `${data.done}`,
+			}}
+			validate={(values) => {
+				const errors = {};
+				if (!values.email) {
+					errors.email = "Required";
+				} else if (
+					!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+				) {
+					errors.email = "Invalid email address";
+				}
+				if (!values.firstName) {
+					errors.firstName = "Required";
+				} else if (values.firstName.length > 15) {
+					errors.firstName = "Name Too Long. Max 15 Chars";
+				}
+				return errors;
+			}}
+			onSubmit={(values, { setSubmitting }) => {
+				setTimeout(() => {
+					alert(JSON.stringify(values, null, 2));
+					setSubmitting(false);
+				}, 400);
+			}}
+		>
+			{({ isSubmitting, values, handleSubmit, handleChange }) => (
+				<Form onSubmit={handleSubmit}>
+					<CustomerInfo />
+					<JobDetails values={values} handleChange={handleChange} />
 
-						<Parts />
-						<InternalUse id={data._id} />
-						<Submit isSubmitting={isSubmitting} />
-					</Form>
-				)}
-			</Formik>
-		</div>
+					<Parts />
+					<InternalUse id={data._id} />
+					<Submit isSubmitting={isSubmitting} />
+				</Form>
+			)}
+		</Formik>
 	);
 };
 

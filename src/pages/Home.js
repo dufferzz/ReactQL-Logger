@@ -42,34 +42,39 @@ const Sub = () => {
 };
 
 const JobList = () => {
+	const { user } = useAuth0();
+
 	return (
-		<Section>
-			<Sub />
-			<SectionHeader>All Jobs</SectionHeader>
-			<table
-				style={{
-					width: "100%",
-					textAlign: "center",
-				}}
-			>
-				<thead>
-					<tr style={{ fontSize: "1.1rem" }}>
-						<td>Status</td>
-						<td>ID</td>
-						<td>Client</td>
-						<td>Created</td>
-					</tr>
-				</thead>
-				<tbody>
-					<JobsList />
-				</tbody>
-			</table>
-		</Section>
+		<>
+			<h1>{user.email}</h1>
+			<Section>
+				<Sub />
+				<SectionHeader>All Jobs</SectionHeader>
+				<table
+					style={{
+						width: "100%",
+						textAlign: "center",
+					}}
+				>
+					<thead>
+						<tr style={{ fontSize: "1.1rem" }}>
+							<td>Status</td>
+							<td>ID</td>
+							<td>Client</td>
+							<td>Created</td>
+						</tr>
+					</thead>
+					<tbody>
+						<JobsList />
+					</tbody>
+				</table>
+			</Section>
+		</>
 	);
 };
 
 const HomePage = () => {
-	const { loginWithRedirect } = useAuth0();
+	const { loginWithRedirect, user } = useAuth0();
 
 	return (
 		<div style={{ textAlign: "center" }}>
