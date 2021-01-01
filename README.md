@@ -35,13 +35,6 @@ Handling RBAC and Scoping on QL Mutations is interesting
 - A whole lot of design, tidying, refactoring, optimisation, structure, etc
 - Make a Wiki / GitHub Page
 
-## .env.local
-
-```bash
-    AUTH0_API_DOMAIN=
-    AUTH0_CLIENT_ID=
-```
-
 ## server/.env
 
 ```bash
@@ -58,7 +51,7 @@ Handling RBAC and Scoping on QL Mutations is interesting
 ```bash
     touch server/.env
     nvim server/.env # add info
-    npm start
+    yarn start
 ```
 
 ## Notes / Todos / Stuff / Misc
