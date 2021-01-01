@@ -3,7 +3,6 @@ const express = require("express");
 const { mergeSchemas } = require("graphql-tools");
 const cors = require("cors");
 const { ApolloServer } = require("apollo-server-express");
-const { PubSub } = require("graphql-subscriptions");
 
 const { connectDB } = require("./src/db");
 const { log } = require("./src/utils/logger");
@@ -18,8 +17,6 @@ const schema = mergeSchemas({
 	schemas,
 	resolvers,
 });
-
-const pubsub = new PubSub();
 
 const server = new ApolloServer({
 	schema,
@@ -75,5 +72,3 @@ const startServer = async () => {
 	});
 };
 startServer();
-
-module.exports = pubsub;

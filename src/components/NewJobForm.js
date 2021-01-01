@@ -1,9 +1,27 @@
 import React from "react";
 import styled from "styled-components";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 
-import Section from "./styledComponents/Section";
-import SectionHeader from "./styledComponents/SectionHeader";
+const Section = styled.div`
+	grid-area: content;
+	border: 1px solid #aaa;
+	padding: 1rem;
+	border-radius: 10px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	grid-gap: 0.25rem;
+	margin: 0 0 1.5rem 0;
+	line-break: anywhere;
+	background-color: #eee;
+	align-items: flex-start;
+`;
+
+const SectionHeader = styled.div`
+	grid-area: header;
+	text-align: center;
+	font-size: 1.1rem;
+	width: 100%;
+	margin-bottom: 0.5rem;
+`;
 
 const SubmitButton = styled.button`
 	width: 100%;
@@ -25,12 +43,26 @@ const deleteJob = (id) => {
 	console.log(`deleting job ${id}!`);
 };
 
+const YearSelection = () => {
+	let years = [];
+	for (let year = 2021; year > 1980; year--) {
+		years.push(year);
+	}
+
+	return years.map((year) => (
+		<option key={year} value={year}>
+			{year}
+		</option>
+	));
+};
+
 export const CustomerInfo = () => {
 	return (
 		<Section
 			style={{
 				display: "grid",
 				gridTemplateColumns: "1fr 1fr 1fr",
+				alignItems: "flex-start",
 				gridTemplateAreas: `
                         'header header header'
                         'content content content'
@@ -105,11 +137,31 @@ export const JobDetails = ({ values, handleChange }) => (
 				display: "grid",
 				gridTemplateColumns: "1fr 1fr 1fr",
 				gridArea: "machineDetails",
+				alignItems: "flex-start",
 			}}
 		>
-			<div>1</div>
-			<div>2</div>
-			<div>3</div>
+			<div style={{ display: "grid", margin: "0.25rem" }}>
+				<label htmlFor="make">Make</label>
+				<Field type="make" name="make" />
+				<ErrorMessage style={{ color: "red" }} name="make" component="div" />
+			</div>
+
+			<div style={{ display: "grid", margin: "0.25rem" }}>
+				<label htmlFor="model">Model</label>
+				<Field type="model" name="model" />
+				<ErrorMessage style={{ color: "red" }} name="model" component="div" />
+			</div>
+
+			<div style={{ display: "grid", margin: "0.25rem" }}>
+				<label htmlFor="year">Year</label>
+
+				<Field style={{ height: "2.5rem" }} as="select" name="year">
+					<YearSelection />
+				</Field>
+
+				<ErrorMessage style={{ color: "red" }} name="year" component="div" />
+			</div>
+
 			<div>1</div>
 			<div>2</div>
 			<div>3</div>
@@ -144,7 +196,7 @@ export const JobDetails = ({ values, handleChange }) => (
 	</Section>
 );
 
-export const InternalUse = ({ id }) => (
+export const InternalUse = () => (
 	<Section
 		style={{
 			display: "grid",
@@ -157,14 +209,6 @@ export const InternalUse = ({ id }) => (
 	>
 		<SectionHeader>Internal Use</SectionHeader>
 		stuff
-		<button
-			type="button"
-			onClick={() => {
-				deleteJob(id);
-			}}
-		>
-			Delete Job
-		</button>
 	</Section>
 );
 
@@ -189,24 +233,27 @@ export const Parts = () => {
 export const Submit = ({ isSubmitting }) => (
 	<div style={{ width: "100%", textAlign: "center" }}>
 		<SubmitButton type="submit" disabled={isSubmitting}>
-			Save Job
+			Add Job
 		</SubmitButton>
 	</div>
 );
 
-export const JobDetailsForm = ({ data }) => {
+export const NewJobForm = () => {
 	return (
 		<Formik
 			initialValues={{
-				firstName: `${data?.firstname}` || "",
-				lastName: `${data?.lastname}` || "",
-				email: `${data?.email}` || "",
-				city: `${data?.city}` || "",
-				district: `${data?.district}` || "",
-				postcode: `${data?.postcode}` || "",
-				date: `${data?.date}` || "",
-				todo: `${data?.todo}` || "",
-				done: `${data?.done}` || "",
+				firstName: "",
+				lastName: "",
+				email: "",
+				city: "",
+				district: "",
+				postcode: "",
+				date: "",
+				todo: "",
+				done: "",
+				make: "",
+				model: "",
+				year: "",
 			}}
 			validate={(values) => {
 				const errors = {};
@@ -237,7 +284,7 @@ export const JobDetailsForm = ({ data }) => {
 					<JobDetails values={values} handleChange={handleChange} />
 
 					<Parts />
-					<InternalUse id={data?._id} />
+					<InternalUse />
 					<Submit isSubmitting={isSubmitting} />
 				</Form>
 			)}
@@ -245,4 +292,4 @@ export const JobDetailsForm = ({ data }) => {
 	);
 };
 
-export default JobDetailsForm;
+export default NewJobForm;

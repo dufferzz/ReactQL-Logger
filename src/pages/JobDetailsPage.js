@@ -7,25 +7,10 @@ import JobDetailsForm from "../components/JobDetailsForm";
 
 const JobDetails = () => {
 	const { id } = useParams();
-	const query = gql`
-    query {
-        getJob (_id: "${id}") {
-            _id
-            firstname
-            lastname
-            email
-            city
-            district
-            postcode
-            date
-            todo
-            done
-            status
-            created
-        }
-    }
-    `;
-	const { loading, error, data } = useQuery(query, { errorPolicy: "all" });
+	const queryParams = { id };
+	const { loading, error, data } = useQuery(genQuery(queryParams), {
+		errorPolicy: "all",
+	});
 
 	if (loading) return <Loading />;
 	if (error) {
@@ -40,5 +25,24 @@ const JobDetails = () => {
 		</div>
 	);
 };
+
+const genQuery = ({ id }) => gql`
+query {
+    getJob (_id: "${id}") {
+        _id
+        firstname
+        lastname
+        email
+        city
+        district
+        postcode
+        date
+        todo
+        done
+        status
+        created
+    }
+}
+`;
 
 export default JobDetails;
