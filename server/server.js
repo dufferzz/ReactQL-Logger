@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const { makeExecutableSchema } = require("graphql-tools");
+const { mergeSchemas } = require("graphql-tools");
 const cors = require("cors");
 const { ApolloServer } = require("apollo-server-express");
 const { PubSub } = require("graphql-subscriptions");
@@ -11,10 +11,11 @@ const isTokenValid = require("./src/utils/validate");
 const http = require("http");
 
 const resolvers = require("./src/resolvers");
-const typeDefs = require("./src/typedefs");
 
-const schema = makeExecutableSchema({
-	typeDefs,
+const schemas = require("./src/schemas");
+
+const schema = mergeSchemas({
+	schemas,
 	resolvers,
 });
 

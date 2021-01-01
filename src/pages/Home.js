@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import JobsList from "../components/JobsList";
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
@@ -25,14 +25,16 @@ const SectionHeader = styled.div`
 
 const Sub = () => {
 	const JOB_SUBSCRIPTION = gql`
-		subscription addProduct {
-			addProduct {
-				title
+		subscription jobAdded {
+			jobAdded {
+				firstname
+				lastname
 			}
 		}
 	`;
 	const { data, loading } = useSubscription(JOB_SUBSCRIPTION, {
 		variables: {},
+		errorPolicy: "all",
 	});
 	console.log(data);
 	return <h4>{!loading && <div>New Job: {JSON.stringify(data)} </div>}</h4>;
@@ -58,7 +60,9 @@ const JobList = () => {
 					</tr>
 				</thead>
 				<tbody>
-					<JobsList />
+					<Suspense fallback={<h1>Loading..</h1>}>
+						<JobsList />
+					</Suspense>
 				</tbody>
 			</table>
 		</Section>

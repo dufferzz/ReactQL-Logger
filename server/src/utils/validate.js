@@ -48,7 +48,7 @@ async function isTokenValid(token) {
 						resolve({ error });
 					}
 					if (decoded) {
-						// console.log(decoded);
+						console.log(decoded); // For checking permissions/scope atm
 						resolve({ decoded });
 					}
 				}

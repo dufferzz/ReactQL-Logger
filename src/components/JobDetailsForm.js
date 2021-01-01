@@ -38,6 +38,10 @@ const SubmitButton = styled.button`
 	}
 `;
 
+const deleteJob = (id) => {
+	console.log(`deleting job ${id}!`);
+};
+
 const CustomerInfo = () => {
 	return (
 		<Section
@@ -107,34 +111,57 @@ const JobDetails = ({ values, handleChange }) => (
 			display: "grid",
 			gridTemplateColumns: "1fr",
 			gridTemplateAreas: `
-                        'header'
-                        'content'
+			'header '
+			'machineDetails'
+                        'contentt '
                     `,
 		}}
 	>
+		<div
+			style={{
+				display: "grid",
+				gridTemplateColumns: "1fr 1fr 1fr",
+				gridArea: "machineDetails",
+			}}
+		>
+			<div>1</div>
+			<div>2</div>
+			<div>3</div>
+			<div>1</div>
+			<div>2</div>
+			<div>3</div>
+		</div>
 		<SectionHeader>Job Details</SectionHeader>
 
-		<label htmlFor="todo">Todo</label>
-		<textarea
-			onChange={handleChange}
-			name="todo"
-			value={values.todo}
-			rows="7"
-		></textarea>
-		<ErrorMessage name="todo" component="div" />
+		<div
+			style={{
+				display: "grid",
+				gridTemplateColumns: "1fr",
+				gridArea: "contentt",
+			}}
+		>
+			<label htmlFor="todo">Todo</label>
+			<textarea
+				onChange={handleChange}
+				name="todo"
+				value={values.todo}
+				rows="7"
+			></textarea>
+			<ErrorMessage name="todo" component="div" />
 
-		<label htmlFor="done">Done</label>
-		<textarea
-			rows="7"
-			onChange={handleChange}
-			name="done"
-			value={values.done}
-		></textarea>
-		<ErrorMessage name="done" component="div" />
+			<label htmlFor="done">Done</label>
+			<textarea
+				rows="7"
+				onChange={handleChange}
+				name="done"
+				value={values.done}
+			></textarea>
+			<ErrorMessage name="done" component="div" />
+		</div>
 	</Section>
 );
 
-const InternalUse = () => (
+const InternalUse = ({ id }) => (
 	<Section
 		style={{
 			display: "grid",
@@ -147,6 +174,14 @@ const InternalUse = () => (
 	>
 		<SectionHeader>Internal Use</SectionHeader>
 		stuff
+		<button
+			type="button"
+			onClick={() => {
+				deleteJob(id);
+			}}
+		>
+			Delete Job
+		</button>
 	</Section>
 );
 
@@ -220,7 +255,7 @@ const JobDetailsForm = ({ data }) => {
 						<JobDetails values={values} handleChange={handleChange} />
 
 						<Parts />
-						<InternalUse />
+						<InternalUse id={data._id} />
 						<Submit isSubmitting={isSubmitting} />
 					</Form>
 				)}

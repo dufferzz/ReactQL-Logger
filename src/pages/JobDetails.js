@@ -24,7 +24,7 @@ const JobDetails = () => {
         }
     }
     `;
-	const { loading, error, data } = useQuery(query);
+	const { loading, error, data } = useQuery(query, { errorPolicy: "all" });
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :( {JSON.stringify(error)}</p>;

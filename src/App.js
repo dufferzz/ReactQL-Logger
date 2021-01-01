@@ -19,7 +19,7 @@ function App() {
 					<Route path="/newjob">
 						<NewJob />
 					</Route>
-					<Route path="/job/:id">
+					<Route path="/job/:id ">
 						<JobDetails />
 					</Route>
 				</Switch>

@@ -42,6 +42,21 @@ const JobsList = () => {
 	});
 };
 
+const Sub = () => {
+	const {
+		data: { commentAdded },
+		loading,
+	} = useSubscription(JOB_SUBSCRIPTION, { variables: {} });
+	return <h4>New comment: {!loading && commentAdded.content}</h4>;
+};
+const JOB_SUBSCRIPTION = gql`
+	subscription addProduct {
+		addProduct(title: String) {
+			title
+		}
+	}
+`;
+
 const QUERY = gql`
 	query {
 		jobs {
