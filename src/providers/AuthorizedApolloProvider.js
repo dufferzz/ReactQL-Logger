@@ -24,10 +24,10 @@ const AuthorizedApolloProvider = ({ children }) => {
 
 	// Initialise our links
 	const httpLink = new HttpLink({
-		uri: "http://localhost:3001/graphql",
+		uri: "http://192.168.1.47:3001/graphql",
 	});
 	const wsLink = new WebSocketLink({
-		uri: `ws://localhost:3001/graphql`,
+		uri: `ws://192.168.1.47:3001/graphql`,
 		options: {
 			reconnect: true,
 		},

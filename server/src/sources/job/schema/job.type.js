@@ -21,6 +21,7 @@ const jobType = gql`
 		serial: String
 		parts: String
 		assigned: String
+		labourHours: Int
 	}
 `;
 

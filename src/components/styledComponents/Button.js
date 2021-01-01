@@ -1,23 +1,53 @@
 import styled from "styled-components";
 
 const Button = styled.button`
-	background: rgb(255, 140, 0);
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	margin: 2px;
+	width: max-content;
+	background: rgb(255, 136, 0);
 	background: linear-gradient(
 		0deg,
-		rgba(255, 140, 0, 1) 0%,
-		rgb(255, 168, 62) 100%
+		rgba(255, 136, 0, 1) 0%,
+		rgba(250, 166, 52, 1) 100%
 	);
-	color: black;
-	padding: 0.5rem 1.5rem;
-	border: 1px solid black;
+	color: #000;
 	border-radius: 7px;
-	font-size: 1rem;
+	border: 1px solid rgba(0, 0, 0, 0.7);
+	outline: none;
+	cursor: pointer;
 	&:hover {
 		background: rgb(255, 168, 62);
 		background: linear-gradient(
-			0deg,
-			rgb(255, 168, 62) 0%,
-			rgba(255, 140, 0, 1) 100%
+			180deg,
+			rgba(255, 136, 0, 1) 0%,
+			rgba(250, 166, 52, 1) 100%
+		);
+	}
+`;
+
+export const AdminButton = styled(Button)`
+	background: rgb(255, 8, 0);
+	background: linear-gradient(0deg, rgb(255, 0, 0) 0%, rgb(250, 52, 52) 100%);
+	&:hover {
+		background: rgb(250, 52, 52);
+		background: linear-gradient(
+			180deg,
+			rgb(255, 0, 0) 0%,
+			rgb(250, 52, 52) 100%
+		);
+	}
+`;
+
+export const SuccessButton = styled(Button)`
+	background: rgb(0, 255, 0);
+	background: linear-gradient(0deg, rgb(0, 255, 0) 0%, rgb(52, 250, 52) 100%);
+	&:hover {
+		background: rgb(52, 250, 52);
+		background: linear-gradient(
+			180deg,
+			rgb(0, 255, 0) 0%,
+			rgb(52, 250, 52) 100%
 		);
 	}
 `;

@@ -30,7 +30,7 @@ const JobList = () => {
 	return (
 		<>
 			<div style={{ width: "100%", textAlign: "center", margin: "1rem" }}>
-				<h1>{user.email}</h1>
+				<h2>{user.email}</h2>
 				<Link to="/newjob">
 					<Button>Create Job</Button>
 				</Link>

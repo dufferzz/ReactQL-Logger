@@ -2,26 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 
-const Section = styled.div`
-	grid-area: content;
-	border: 1px solid #aaa;
-	padding: 1rem;
-	border-radius: 10px;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-	grid-gap: 0.25rem;
-	margin: 0 0 1.5rem 0;
-	line-break: anywhere;
-	background-color: #eee;
-	align-items: flex-start;
-`;
-
-const SectionHeader = styled.div`
-	grid-area: header;
-	text-align: center;
-	font-size: 1.1rem;
-	width: 100%;
-	margin-bottom: 0.5rem;
-`;
+import Section from "./styledComponents/Section";
+import SectionHeader from "./styledComponents/SectionHeader";
+import SectionElement from "./styledComponents/SectionElement";
 
 const SubmitButton = styled.button`
 	width: 100%;
@@ -38,10 +21,6 @@ const SubmitButton = styled.button`
 		cursor: pointer;
 	}
 `;
-
-const deleteJob = (id) => {
-	console.log(`deleting job ${id}!`);
-};
 
 const YearSelection = () => {
 	let years = [];
@@ -70,7 +49,7 @@ export const CustomerInfo = () => {
 			}}
 		>
 			<SectionHeader>Customer Information</SectionHeader>
-			<div style={{ display: "grid", gridGap: "0.25rem" }}>
+			<SectionElement>
 				<label htmlFor="firstName">First Name</label>
 				<Field type="firstName" name="firstName" />
 				<ErrorMessage
@@ -78,8 +57,8 @@ export const CustomerInfo = () => {
 					name="firstName"
 					component="div"
 				/>
-			</div>
-			<div style={{ display: "grid", margin: "0.25rem" }}>
+			</SectionElement>
+			<SectionElement>
 				<label htmlFor="lastName">Last Name</label>
 				<Field type="lastName" name="lastName" />
 				<ErrorMessage
@@ -87,18 +66,18 @@ export const CustomerInfo = () => {
 					name="lastName"
 					component="div"
 				/>
-			</div>
-			<div style={{ display: "grid", margin: "0.25rem" }}>
+			</SectionElement>
+			<SectionElement>
 				<label htmlFor="email">E-Mail</label>
 				<Field type="email" name="email" />
 				<ErrorMessage style={{ color: "red" }} name="email" component="div" />
-			</div>
-			<div style={{ display: "grid", margin: "0.25rem" }}>
+			</SectionElement>
+			<SectionElement>
 				<label htmlFor="city">City</label>
 				<Field type="city" name="city" />
 				<ErrorMessage style={{ color: "red" }} name="city" component="div" />
-			</div>
-			<div style={{ display: "grid", margin: "0.25rem" }}>
+			</SectionElement>
+			<SectionElement>
 				<label htmlFor="district">District</label>
 				<Field type="district" name="district" />
 				<ErrorMessage
@@ -106,8 +85,8 @@ export const CustomerInfo = () => {
 					name="district"
 					component="div"
 				/>
-			</div>
-			<div style={{ display: "grid", margin: "0.25rem" }}>
+			</SectionElement>
+			<SectionElement>
 				<label htmlFor="postCode">Postcode</label>
 				<Field type="postcode" name="postcode" />
 				<ErrorMessage
@@ -115,7 +94,7 @@ export const CustomerInfo = () => {
 					name="postcode"
 					component="div"
 				/>
-			</div>
+			</SectionElement>
 		</Section>
 	);
 };
@@ -140,19 +119,19 @@ export const JobDetails = ({ values, handleChange }) => (
 				alignItems: "flex-start",
 			}}
 		>
-			<div style={{ display: "grid", margin: "0.25rem" }}>
+			<SectionElement>
 				<label htmlFor="make">Make</label>
 				<Field type="make" name="make" />
 				<ErrorMessage style={{ color: "red" }} name="make" component="div" />
-			</div>
+			</SectionElement>
 
-			<div style={{ display: "grid", margin: "0.25rem" }}>
+			<SectionElement>
 				<label htmlFor="model">Model</label>
 				<Field type="model" name="model" />
 				<ErrorMessage style={{ color: "red" }} name="model" component="div" />
-			</div>
+			</SectionElement>
 
-			<div style={{ display: "grid", margin: "0.25rem" }}>
+			<SectionElement>
 				<label htmlFor="year">Year</label>
 
 				<Field style={{ height: "2.5rem" }} as="select" name="year">
@@ -160,11 +139,41 @@ export const JobDetails = ({ values, handleChange }) => (
 				</Field>
 
 				<ErrorMessage style={{ color: "red" }} name="year" component="div" />
-			</div>
+			</SectionElement>
 
-			<div>1</div>
-			<div>2</div>
-			<div>3</div>
+			<SectionElement>
+				<label htmlFor="serial">Serial</label>
+				<Field type="serial" name="serial" />
+				<ErrorMessage style={{ color: "red" }} name="serial" component="div" />
+			</SectionElement>
+
+			<SectionElement>
+				<label htmlFor="status">Job Status</label>
+				<Field
+					style={{ height: "2.5rem" }}
+					as="select"
+					type="status"
+					name="status"
+				>
+					<option default value="not-started">
+						Not Started
+					</option>
+					<option value="await">Awaiting Parts</option>
+					<option value="fuck">FUCK!</option>
+					<option value="completed">Completed</option>
+				</Field>
+				<ErrorMessage style={{ color: "red" }} name="status" component="div" />
+			</SectionElement>
+
+			<SectionElement>
+				<label htmlFor="labourHours">Labour (hrs)</label>
+				<Field type="labourHours" name="labourHours" />
+				<ErrorMessage
+					style={{ color: "red" }}
+					name="labourHours"
+					component="div"
+				/>
+			</SectionElement>
 		</div>
 		<SectionHeader>Job Details</SectionHeader>
 
@@ -226,6 +235,26 @@ export const Parts = () => {
 		>
 			<SectionHeader>Parts</SectionHeader>
 			stuff
+			<table
+				style={{
+					width: "100%",
+					textAlign: "center",
+				}}
+			>
+				<thead>
+					<tr style={{ fontSize: "1.1rem" }}>
+						<td>Status</td>
+						<td>ID</td>
+						<td>Client</td>
+						<td>Created</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colSpan={4}>No Parts</td>
+					</tr>
+				</tbody>
+			</table>
 		</Section>
 	);
 };
@@ -254,6 +283,9 @@ export const NewJobForm = () => {
 				make: "",
 				model: "",
 				year: "",
+				serial: "",
+				status: "",
+				labourHours: "",
 			}}
 			validate={(values) => {
 				const errors = {};

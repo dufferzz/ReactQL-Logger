@@ -19,11 +19,12 @@ const jobMutation = gql`
 			make: String
 			year: String
 			serial: String
-			assigned: String
+			assigned: String!
+			labourHours: Int
 		): Job
 
 		updateJob(
-			_id: String
+			_id: String!
 			firstname: String
 			lastname: String
 			email: String
@@ -41,6 +42,7 @@ const jobMutation = gql`
 			year: String
 			serial: String
 			assigned: String
+			labourHours: Int
 		): Job
 
 		deleteJob(_id: String): Job

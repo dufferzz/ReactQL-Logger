@@ -38,3 +38,6 @@ table tr:last-child td:last-child {
 input {
 	height: 1.5rem;
 }
+label {
+	padding-bottom: 0.25rem;
+}

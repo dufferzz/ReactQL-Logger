@@ -4,7 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 
 import Section from "./styledComponents/Section";
 import SectionHeader from "./styledComponents/SectionHeader";
-
+import SectionElement from "./styledComponents/SectionElement";
 const SubmitButton = styled.button`
 	width: 100%;
 	background-color: rgba(0, 200, 0, 0.7);
@@ -25,20 +25,34 @@ const deleteJob = (id) => {
 	console.log(`deleting job ${id}!`);
 };
 
+const CustomerInfoSection = styled(Section)`
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-areas:
+		"header header header"
+		"content content content";
+	@media (max-width: 500px) {
+		grid-template-columns: 1fr 1fr;
+		grid-template-areas:
+			"header header "
+			"content content";
+	}
+`;
+
+const JobDetailsSection = styled.div`
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gridarea: "machineDetails";
+	@media (max-width: 500px) {
+		grid-template-columns: 1fr 1fr;
+	}
+`;
+
 export const CustomerInfo = () => {
 	return (
-		<Section
-			style={{
-				display: "grid",
-				gridTemplateColumns: "1fr 1fr 1fr",
-				gridTemplateAreas: `
-                        'header header header'
-                        'content content content'
-                    `,
-			}}
-		>
+		<CustomerInfoSection style={{}}>
 			<SectionHeader>Customer Information</SectionHeader>
-			<div style={{ display: "grid", gridGap: "0.25rem" }}>
+			<SectionElement>
 				<label htmlFor="firstName">First Name</label>
 				<Field type="firstName" name="firstName" />
 				<ErrorMessage
@@ -46,8 +60,8 @@ export const CustomerInfo = () => {
 					name="firstName"
 					component="div"
 				/>
-			</div>
-			<div style={{ display: "grid", margin: "0.25rem" }}>
+			</SectionElement>
+			<SectionElement>
 				<label htmlFor="lastName">Last Name</label>
 				<Field type="lastName" name="lastName" />
 				<ErrorMessage
@@ -55,18 +69,18 @@ export const CustomerInfo = () => {
 					name="lastName"
 					component="div"
 				/>
-			</div>
-			<div style={{ display: "grid", margin: "0.25rem" }}>
+			</SectionElement>
+			<SectionElement>
 				<label htmlFor="email">E-Mail</label>
 				<Field type="email" name="email" />
 				<ErrorMessage style={{ color: "red" }} name="email" component="div" />
-			</div>
-			<div style={{ display: "grid", margin: "0.25rem" }}>
+			</SectionElement>
+			<SectionElement>
 				<label htmlFor="city">City</label>
 				<Field type="city" name="city" />
 				<ErrorMessage style={{ color: "red" }} name="city" component="div" />
-			</div>
-			<div style={{ display: "grid", margin: "0.25rem" }}>
+			</SectionElement>
+			<SectionElement>
 				<label htmlFor="district">District</label>
 				<Field type="district" name="district" />
 				<ErrorMessage
@@ -74,8 +88,8 @@ export const CustomerInfo = () => {
 					name="district"
 					component="div"
 				/>
-			</div>
-			<div style={{ display: "grid", margin: "0.25rem" }}>
+			</SectionElement>
+			<SectionElement>
 				<label htmlFor="postCode">Postcode</label>
 				<Field type="postcode" name="postcode" />
 				<ErrorMessage
@@ -83,9 +97,22 @@ export const CustomerInfo = () => {
 					name="postcode"
 					component="div"
 				/>
-			</div>
-		</Section>
+			</SectionElement>
+		</CustomerInfoSection>
 	);
+};
+
+const YearSelection = () => {
+	let years = [];
+	for (let year = 2021; year > 1980; year--) {
+		years.push(year);
+	}
+
+	return years.map((year) => (
+		<option key={year} value={year}>
+			{year}
+		</option>
+	));
 };
 
 export const JobDetails = ({ values, handleChange }) => (
@@ -96,24 +123,67 @@ export const JobDetails = ({ values, handleChange }) => (
 			gridTemplateAreas: `
 			'header '
 			'machineDetails'
-                        'contentt '
+          'contentt '
                     `,
 		}}
 	>
-		<div
-			style={{
-				display: "grid",
-				gridTemplateColumns: "1fr 1fr 1fr",
-				gridArea: "machineDetails",
-			}}
-		>
-			<div>1</div>
-			<div>2</div>
-			<div>3</div>
-			<div>1</div>
-			<div>2</div>
-			<div>3</div>
-		</div>
+		<JobDetailsSection>
+			<SectionElement>
+				<label htmlFor="make">Make</label>
+				<Field type="make" name="make" />
+				<ErrorMessage style={{ color: "red" }} name="make" component="div" />
+			</SectionElement>
+
+			<SectionElement>
+				<label htmlFor="model">Model</label>
+				<Field type="model" name="model" />
+				<ErrorMessage style={{ color: "red" }} name="model" component="div" />
+			</SectionElement>
+
+			<SectionElement>
+				<label htmlFor="year">Year</label>
+
+				<Field style={{ height: "2.5rem" }} as="select" name="year">
+					<YearSelection />
+				</Field>
+
+				<ErrorMessage style={{ color: "red" }} name="year" component="div" />
+			</SectionElement>
+
+			<SectionElement>
+				<label htmlFor="serial">Serial</label>
+				<Field type="serial" name="serial" />
+				<ErrorMessage style={{ color: "red" }} name="serial" component="div" />
+			</SectionElement>
+
+			<SectionElement>
+				<label htmlFor="status">Job Status</label>
+				<Field
+					style={{ height: "2.5rem" }}
+					as="select"
+					type="status"
+					name="status"
+				>
+					<option default value="not-started">
+						Not Started
+					</option>
+					<option value="await">Awaiting Parts</option>
+					<option value="fuck">FUCK!</option>
+					<option value="completed">Completed</option>
+				</Field>
+				<ErrorMessage style={{ color: "red" }} name="status" component="div" />
+			</SectionElement>
+
+			<SectionElement>
+				<label htmlFor="labourHours">Labour (hrs)</label>
+				<Field type="labourHours" name="labourHours" />
+				<ErrorMessage
+					style={{ color: "red" }}
+					name="labourHours"
+					component="div"
+				/>
+			</SectionElement>
+		</JobDetailsSection>
 		<SectionHeader>Job Details</SectionHeader>
 
 		<div
@@ -198,15 +268,22 @@ export const JobDetailsForm = ({ data }) => {
 	return (
 		<Formik
 			initialValues={{
-				firstName: `${data?.firstname}` || "",
-				lastName: `${data?.lastname}` || "",
-				email: `${data?.email}` || "",
-				city: `${data?.city}` || "",
-				district: `${data?.district}` || "",
-				postcode: `${data?.postcode}` || "",
-				date: `${data?.date}` || "",
-				todo: `${data?.todo}` || "",
-				done: `${data?.done}` || "",
+				firstName: `${data?.firstname}`,
+				lastName: `${data?.lastname}`,
+				email: `${data?.email}`,
+				city: `${data?.city}`,
+				district: `${data?.district}`,
+				postcode: `${data?.postcode}`,
+				date: `${data?.date}`,
+				todo: `${data?.todo}`,
+				done: `${data?.done}`,
+				status: `${data?.status}`,
+				assigned: `${data?.assigned}`,
+				make: `${data?.make}`,
+				model: `${data?.model}`,
+				year: `${data?.year}`,
+				serial: `${data?.serial}`,
+				labourHours: `${data?.labourHours}`,
 			}}
 			validate={(values) => {
 				const errors = {};

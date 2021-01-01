@@ -15,9 +15,9 @@ const JobDetails = () => {
 	if (loading) return <Loading />;
 	if (error) {
 		console.error(error);
-		return <p>Error :(</p>;
+		return <p>Error :( {JSON.stringify(error)}</p>;
 	}
-
+	console.log(data);
 	return (
 		<div>
 			<h2 style={{ textAlign: "center", width: "100%" }}>Job Details: {id}</h2>
@@ -41,6 +41,12 @@ query {
         done
         status
         created
+		make
+		model
+		year
+		serial
+		assigned
+		labourHours
     }
 }
 `;
