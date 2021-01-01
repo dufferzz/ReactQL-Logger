@@ -1,4 +1,4 @@
-const Job = require("./job.model");
+import Job from "./job.model";
 
 const jobController = {
 	jobs: () => Job.find({}),
@@ -64,4 +64,4 @@ const jobController = {
 	},
 };
 
-module.exports = { jobController };
+export default jobController;

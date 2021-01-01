@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const mongoosePaginate = require("mongoose-paginate-v2");
+import mongoose from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 // const AutoIncrement = require("mongoose-sequence")(mongoose);
 
 const dbb = mongoose.connection.useDb("jobs");
@@ -101,4 +101,4 @@ JobSchema.plugin(mongoosePaginate);
 
 const Job = dbb.model("Job", JobSchema);
 
-module.exports = Job;
+export default Job;

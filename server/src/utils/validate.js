@@ -1,25 +1,25 @@
-// src/validate.js
+// Need to rebase this to TS
 
-require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const jwksClient = require("jwks-rsa");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const client = jwksClient({
 	jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
 });
 
-function getKey(header, callback) {
+const getKey = (header, callback) => {
 	client.getSigningKey(header.kid, function (error, key) {
 		const signingKey = key.publicKey || key.rsaPublicKey;
 		callback(null, signingKey);
 	});
-}
+};
 
-async function isTokenValid(token) {
+const isTokenValid = (token) => {
 	if (token) {
 		const bearerToken = token.split(" ");
-
-		const result = new Promise((resolve, reject) => {
+		return new Promise((resolve, reject) => {
 			jwt.verify(
 				bearerToken[1],
 				getKey,
@@ -38,11 +38,9 @@ async function isTokenValid(token) {
 				}
 			);
 		});
-
-		return result;
 	}
 
 	return { error: "No token provided" };
-}
+};
 
 module.exports = isTokenValid;

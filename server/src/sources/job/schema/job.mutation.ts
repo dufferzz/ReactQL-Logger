@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server-express");
+import { gql } from "apollo-server-express";
 
 const jobMutation = gql`
 	type Mutation {
@@ -48,4 +48,4 @@ const jobMutation = gql`
 		deleteJob(_id: String): Job
 	}
 `;
-module.exports = { jobMutation };
+export default jobMutation;

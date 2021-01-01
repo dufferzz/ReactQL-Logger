@@ -8,9 +8,8 @@ import combinedReducers from "./features";
 import { Provider, useDispatch } from "react-redux";
 import { Auth0Provider } from "@auth0/auth0-react";
 import AuthorizedApolloProvider from "./providers/AuthorizedApolloProvider";
-import dotenv from "dotenv";
-
-dotenv.config({ path: "../.env" });
+import LogRocket from "logrocket";
+LogRocket.init("nao4j2/dfz-store");
 
 const store = configureStore({
 	reducer: combinedReducers,

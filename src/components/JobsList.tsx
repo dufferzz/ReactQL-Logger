@@ -6,8 +6,8 @@ import iconNew from "../assets/icons/new.svg";
 import iconSpanner from "../assets/icons/spanner.svg";
 import iconPackage from "../assets/icons/package.svg";
 import iconError from "../assets/icons/error.svg";
-import iconCash from "../assets/icons/cash.svg";
-import iconClock from "../assets/icons/clock.svg";
+// import iconCash from "../assets/icons/cash.svg";
+// import iconClock from "../assets/icons/clock.svg";
 import iconSuccess from "../assets/icons/success.svg";
 
 // TODO: vvvvvvvvvvvv

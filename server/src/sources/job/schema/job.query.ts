@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server-express");
+import { gql } from "apollo-server-express";
 
 const jobQuery = gql`
 	type Query {
@@ -8,4 +8,4 @@ const jobQuery = gql`
 	}
 `;
 
-module.exports = { jobQuery };
+export default jobQuery;

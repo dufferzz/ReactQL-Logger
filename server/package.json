@@ -1,9 +1,10 @@
 {
-	"name": "gql",
+	"name": "gqlserver",
 	"version": "1.0.0",
-	"description": "",
+	"description": "DFZ GQL API Server",
 	"main": "server.js",
 	"scripts": {
+		"start": "nodemon server.ts",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "",
@@ -23,6 +24,7 @@
 		"graphql-tools": "^7.0.2",
 		"jsonwebtoken": "^8.5.1",
 		"jwks-rsa": "^1.12.0",
+		"logrocket": "^1.0.14",
 		"mongoose": "^5.11.8",
 		"mongoose-paginate": "^5.0.3",
 		"mongoose-paginate-v2": "^1.3.13",
@@ -31,6 +33,9 @@
 	"devDependencies": {
 		"@babel/cli": "^7.12.10",
 		"@babel/core": "^7.12.10",
-		"@babel/preset-env": "^7.12.11"
+		"@babel/preset-env": "^7.12.11",
+		"@types/node": "^14.14.19",
+		"ts-node": "^9.1.1",
+		"typescript": "^4.1.3"
 	}
 }

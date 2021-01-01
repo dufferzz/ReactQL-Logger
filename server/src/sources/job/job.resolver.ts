@@ -1,5 +1,5 @@
-const pubsub = require("../../../pubsub");
-const { jobController } = require("./job.controller");
+import pubsub from "../../../pubsub";
+import jobController from "./job.controller";
 
 const JOB_ADDED = "JOB_ADDED";
 const JOB_UPDATED = "JOB_UPDATED";
@@ -58,5 +58,4 @@ const jobResolver = {
 		},
 	},
 };
-
-module.exports = { jobResolver };
+export default jobResolver;

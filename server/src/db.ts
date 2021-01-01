@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { log, trace } = require("./utils/logger");
+import mongoose from "mongoose";
+import { log, trace } from "./utils/logger";
 
 mongoose.set("useCreateIndex", true);
 mongoose.set("useNewUrlParser", true);
@@ -30,4 +30,4 @@ db.once("open", () => {
 	log(`⚡ Connected to MongoDB Atlas`);
 });
 
-module.exports = { connectDB, db };
+export { connectDB, db };

@@ -1,18 +1,20 @@
+import express from "express";
+import { mergeSchemas } from "graphql-tools";
+import cors from "cors";
+import { ApolloServer } from "apollo-server-express";
+
+import { connectDB } from "./src/db";
+import { log } from "./src/utils/logger";
+import isTokenValid from "./src/utils/validate";
+import http from "http";
+
+import resolvers from "./src/resolvers";
+
+import schemas from "./src/schemas";
+import LogRocket from "logrocket";
+LogRocket.init("nao4j2/dfz-store");
+
 require("dotenv").config();
-const express = require("express");
-const { mergeSchemas } = require("graphql-tools");
-const cors = require("cors");
-const { ApolloServer } = require("apollo-server-express");
-
-const { connectDB } = require("./src/db");
-const { log } = require("./src/utils/logger");
-const isTokenValid = require("./src/utils/validate");
-const http = require("http");
-
-const resolvers = require("./src/resolvers");
-
-const schemas = require("./src/schemas");
-
 const schema = mergeSchemas({
 	schemas,
 	resolvers,
@@ -20,7 +22,8 @@ const schema = mergeSchemas({
 
 const server = new ApolloServer({
 	schema,
-	context: async ({ req, connection }) => {
+	//TODO: vvvvvvvvvvvvv
+	context: async ({ req, connection }: any) => {
 		if (connection) {
 			return connection.context;
 		} else {
@@ -59,16 +62,12 @@ const startServer = async () => {
 	const httpServer = http.createServer(app);
 	server.installSubscriptionHandlers(httpServer);
 
-	const start = new Date();
 	await connectDB();
 
 	const port = process.env.PORT || 3001;
 
 	httpServer.listen(port, () => {
-		var end = new Date() - start;
-		log(
-			`🚀 Server ready at http://localhost:${port}${server.graphqlPath} - Init: ${end}ms`
-		);
+		log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`);
 	});
 };
 startServer();

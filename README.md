@@ -58,6 +58,7 @@ Handling RBAC and Scoping on QL Mutations is interesting
     DB_URL=mongodb://
     AUTH0_DOMAIN=
     API_IDENTIFIER=
+    LOGROCKET_CONFIG=
 ```
 
 ## Running
