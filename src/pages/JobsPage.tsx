@@ -18,7 +18,6 @@ const Sub = () => {
 	`;
 	const { data, loading } = useSubscription(JOB_SUBSCRIPTION, {
 		variables: {},
-		errorPolicy: "all",
 	});
 	console.log(data);
 	return <h4>{!loading && <div>New Job: {JSON.stringify(data)} </div>}</h4>;

@@ -1,9 +1,7 @@
-import authSlice from "./authData.js";
-import jobSlice from "./jobs";
+import authSlice from "./authData";
 import { combineReducers } from "redux";
 const r = {
 	authSlice: authSlice,
-	jobSlice: jobSlice,
 };
 
 const combinedReducers = combineReducers(r);

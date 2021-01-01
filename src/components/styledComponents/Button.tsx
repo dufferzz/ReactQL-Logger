@@ -26,7 +26,7 @@ const Button = styled.button`
 	}
 `;
 
-export const AdminButton = styled(Button)`
+export const DangerButton = styled(Button)`
 	background: rgb(255, 8, 0);
 	background: linear-gradient(0deg, rgb(255, 0, 0) 0%, rgb(250, 52, 52) 100%);
 	&:hover {

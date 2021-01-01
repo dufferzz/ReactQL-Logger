@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import Button, { AdminButton } from "./styledComponents/Button";
+import Button, { DangerButton } from "./styledComponents/Button";
 import Logo from "../assets/logoo.webp";
 
 const Nav = styled.div`
@@ -23,7 +23,7 @@ const TopNav = () => {
 	const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
 	console.log(user);
 
-	const LadminButton = () => {
+	const AdminButton = () => {
 		let userRole;
 		if (user["https://dfzservice.no/roles"]) {
 			userRole = user["https://dfzservice.no/roles"][0];
@@ -31,9 +31,10 @@ const TopNav = () => {
 		if (userRole === "admin")
 			return (
 				<Link to="/admin">
-					<AdminButton>Admin Panel</AdminButton>
+					<DangerButton>Admin Panel</DangerButton>
 				</Link>
 			);
+		return <></>;
 	};
 
 	const LoginButton = () => (
@@ -64,7 +65,7 @@ const TopNav = () => {
 			</Link>
 			<div style={{ width: "100%", textAlign: "right", marginRight: "0.5rem" }}>
 				{isAuthenticated ? <LogoutButton /> : <LoginButton />}
-				{isAuthenticated && <LadminButton></LadminButton>}
+				{isAuthenticated && <AdminButton />}
 			</div>
 		</Nav>
 	);

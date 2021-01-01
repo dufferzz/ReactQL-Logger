@@ -5,8 +5,12 @@ import { useQuery, gql } from "@apollo/client";
 import Loading from "../components/Loading";
 import JobDetailsForm from "../components/JobDetailsForm";
 
+interface ParamTypes {
+	id: string;
+}
+
 const JobDetails = () => {
-	const { id } = useParams();
+	const { id } = useParams<ParamTypes>();
 	const queryParams = { id };
 	const { loading, error, data } = useQuery(genQuery(queryParams), {
 		errorPolicy: "all",
@@ -26,7 +30,7 @@ const JobDetails = () => {
 	);
 };
 
-const genQuery = ({ id }) => gql`
+const genQuery = ({ id }: any) => gql`
 query {
     getJob (_id: "${id}") {
         _id
