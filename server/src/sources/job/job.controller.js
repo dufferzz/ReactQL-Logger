@@ -3,7 +3,7 @@ const Job = require("./job.model");
 const jobController = {
 	jobs: () => Job.find({}),
 	getJob: (args) => Job.findById(args._id),
-	getMyJobs: (args) => Job.find({ assigned: args.user }),
+	getAssignedJobs: (args) => Job.find({ assigned: args.user }),
 	updateJob: (args) =>
 		Job.findOneAndUpdate(
 			{

@@ -13,15 +13,9 @@ function App() {
 			<TopNav />
 			<div className="App">
 				<Switch>
-					<Route exact path="/">
-						<Home />
-					</Route>
-					<Route path="/newjob">
-						<NewJob />
-					</Route>
-					<Route path="/job/:id ">
-						<JobDetails />
-					</Route>
+					<Route exact path="/" component={Home} />
+					<Route path="/newjob" component={NewJob} />
+					<Route path="/job/:id" component={JobDetails} />
 				</Switch>
 			</div>
 			<Footer />

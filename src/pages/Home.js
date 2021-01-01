@@ -1,8 +1,9 @@
-import React, { Suspense } from "react";
+import React from "react";
 import JobsList from "../components/JobsList";
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import { useSubscription, gql } from "@apollo/client";
+// import Loading from "../components/Loading";
 
 const Section = styled.div`
 	grid-area: content;
@@ -60,9 +61,7 @@ const JobList = () => {
 					</tr>
 				</thead>
 				<tbody>
-					<Suspense fallback={<h1>Loading..</h1>}>
-						<JobsList />
-					</Suspense>
+					<JobsList />
 				</tbody>
 			</table>
 		</Section>
@@ -70,7 +69,7 @@ const JobList = () => {
 };
 
 const HomePage = () => {
-	const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+	const { loginWithRedirect } = useAuth0();
 
 	return (
 		<div style={{ textAlign: "center" }}>

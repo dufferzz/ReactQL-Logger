@@ -2,8 +2,6 @@
 
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const expressJwt = require("express-jwt");
-
 const jwksClient = require("jwks-rsa");
 
 const client = jwksClient({
@@ -11,19 +9,6 @@ const client = jwksClient({
 });
 
 function getKey(header, callback) {
-	const x = expressJwt({
-		secret: jwksClient.expressJwtSecret({
-			cache: true,
-			rateLimit: true,
-			jwksRequestsPerMinute: 5,
-			jwksUri: "https://dfz.eu.auth0.com/.well-known/jwks.json",
-		}),
-		audience: "https://dfz.eu.auth0.com/api/v2/",
-		issuer: "https://dfz.eu.auth0.com/",
-		algorithms: ["RS256"],
-	});
-	// console.log(x);
-
 	client.getSigningKey(header.kid, function (error, key) {
 		const signingKey = key.publicKey || key.rsaPublicKey;
 		callback(null, signingKey);
@@ -48,7 +33,6 @@ async function isTokenValid(token) {
 						resolve({ error });
 					}
 					if (decoded) {
-						console.log(decoded); // For checking permissions/scope atm
 						resolve({ decoded });
 					}
 				}

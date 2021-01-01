@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 
+import Loading from "../components/Loading";
 import JobDetailsForm from "../components/JobDetailsForm";
 
 const JobDetails = () => {
@@ -26,8 +27,11 @@ const JobDetails = () => {
     `;
 	const { loading, error, data } = useQuery(query, { errorPolicy: "all" });
 
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error :( {JSON.stringify(error)}</p>;
+	if (loading) return <Loading />;
+	if (error) {
+		console.error(error);
+		return <p>Error :(</p>;
+	}
 
 	return (
 		<div>

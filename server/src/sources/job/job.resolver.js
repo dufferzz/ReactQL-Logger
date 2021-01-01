@@ -1,3 +1,4 @@
+const pubsub = require("../../../pubsub");
 const { jobController } = require("./job.controller");
 
 const JOB_ADDED = "JOB_ADDED";
@@ -7,15 +8,13 @@ const JOB_DELETED = "JOB_DELETED";
 const jobResolver = {
 	Subscription: {
 		jobAdded: {
-			subscribe: (_, __, context) => context.pubsub.asyncIterator([JOB_ADDED]),
+			subscribe: (_, __, context) => pubsub.asyncIterator([JOB_ADDED]),
 		},
 		jobUpdated: {
-			subscribe: (_, __, context) =>
-				context.pubsub.asyncIterator([JOB_UPDATED]),
+			subscribe: (_, __, context) => pubsub.asyncIterator([JOB_UPDATED]),
 		},
 		jobDeleted: {
-			subscribe: (_, __, context) =>
-				context.pubsub.asyncIterator([JOB_DELETED]),
+			subscribe: (_, __, context) => pubsub.asyncIterator([JOB_DELETED]),
 		},
 	},
 	Query: {
@@ -25,9 +24,17 @@ const jobResolver = {
 			return jobController.jobs();
 		},
 		getJob(root, args, context) {
+			const { permissions } = context.decoded;
 			console.log("getJob");
-			// if (!context.isAuthenticated) return {};
-			return jobController.getJob(args);
+			if (!context.isAuthenticated) return {};
+			console.log(permissions);
+			if (
+				permissions.includes("readAssigned: jobs") ||
+				permissions.includes("readAll:jobs")
+			) {
+				console.log(`${context.decoded.sub} accessed getJob ${args._id}`);
+				return jobController.getJob(args);
+			}
 		},
 		getAssignedJobs(root, args, context) {
 			return jobController.getAssignedJobs(args);
@@ -36,17 +43,17 @@ const jobResolver = {
 	Mutation: {
 		addJob(root, args, context) {
 			if (!context.isAuthenticated) return "";
-			context.pubsub.publish(JOB_ADDED, { jobAdded: args });
+			pubsub.publish(JOB_ADDED, { jobAdded: args });
 			return jobController.addJob(args);
 		},
 		updateJob(root, args, context) {
 			if (!context.isAuthenticated) return "";
-			context.pubsub.publish(JOB_UPDATED, { jobUpdated: args });
+			pubsub.publish(JOB_UPDATED, { jobUpdated: args });
 			return jobController.updateJob(args);
 		},
 		deleteJob(root, args, context) {
 			if (!context.isAuthenticated) return "";
-			context.pubsub.publish(JOB_DELETED, { jobDeleted: args });
+			pubsub.publish(JOB_DELETED, { jobDeleted: args });
 			return jobController.deleteJob(args);
 		},
 	},

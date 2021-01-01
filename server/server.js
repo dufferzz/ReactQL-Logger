@@ -25,23 +25,19 @@ const server = new ApolloServer({
 	schema,
 	context: async ({ req, connection }) => {
 		if (connection) {
-			const context = connection.context;
-			return { context, pubsub };
+			return connection.context;
 		} else {
 			let isAuthenticated = false;
 			const token = req.headers.authorization || "";
-
 			if (token !== "") {
 				try {
-					const { error } = await isTokenValid(token);
+					const { error, decoded } = await isTokenValid(token);
+					if (error) throw new Error(error);
 
-					if (error) {
-						throw new Error(error);
-					}
 					isAuthenticated = true;
 					return {
 						isAuthenticated,
-						pubsub,
+						decoded,
 					};
 				} catch (err) {
 					isAuthenticated = false;
