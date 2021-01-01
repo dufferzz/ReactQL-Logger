@@ -1,13 +1,19 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-import { setContext } from "apollo-link-context";
+import {
+	ApolloClient,
+	ApolloProvider,
+	InMemoryCache,
+	split,
+	HttpLink,
+} from "@apollo/client";
+import { setContext } from "@apollo/link-context";
 import React from "react";
 import { WebSocketLink } from "@apollo/client/link/ws";
 
-import { split, HttpLink } from "@apollo/client";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { useAuth0 } from "@auth0/auth0-react";
 
-const AuthorizedApolloProvider = ({ children }) => {
+//TODO: vvvvvvvvvvv fix any type
+const AuthorizedApolloProvider = ({ children }: any) => {
 	const { getAccessTokenSilently } = useAuth0();
 
 	// Get our Auth0 token and return valid header

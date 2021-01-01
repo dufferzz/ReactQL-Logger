@@ -10,7 +10,8 @@ import iconCash from "../assets/icons/cash.svg";
 import iconClock from "../assets/icons/clock.svg";
 import iconSuccess from "../assets/icons/success.svg";
 
-const StatusImage = ({ status }) => {
+// TODO: vvvvvvvvvvvv
+const StatusImage = ({ status }: any) => {
 	let image = null;
 	switch (status) {
 		case "not-started":
@@ -49,24 +50,25 @@ const JobsList = () => {
 	const { loading, error, data } = useQuery(QUERY);
 
 	const history = useHistory();
-	const handleRowClick = (row) => {
+	const handleRowClick = (row: any) => {
 		history.push(`/job/${row}`);
 	};
 
 	if (loading)
 		return (
 			<tr>
-				<td colSpan="4"> Loading... </td>
+				<td colSpan={4}> Loading... </td>
 			</tr>
 		);
 	if (error)
 		return (
 			<tr>
-				<td colSpan="4">Error :( {JSON.stringify(error)} </td>
+				<td colSpan={4}>Error :( {JSON.stringify(error)} </td>
 			</tr>
 		);
 
-	return data.jobs.map((job, i) => (
+	// TODO: vvvvvvvvvvv
+	return data.jobs.map((job: any, i: number) => (
 		<tr
 			style={{ cursor: "pointer", padding: "0 0.25rem" }}
 			onClick={() => handleRowClick(job._id)}

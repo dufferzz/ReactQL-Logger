@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { configureStore } from "@reduxjs/toolkit";
 import combinedReducers from "./features";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { Auth0Provider } from "@auth0/auth0-react";
 import AuthorizedApolloProvider from "./providers/AuthorizedApolloProvider";
 import dotenv from "dotenv";
@@ -34,3 +34,7 @@ ReactDOM.render(
 );
 
 reportWebVitals();
+export type RootState = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>();
