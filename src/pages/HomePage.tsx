@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Button from "../components/styledComponents/Button";
 import Section from "../components/styledComponents/Section";
 
-const HomePage = () => {
+const Home = () => {
 	const { loginWithRedirect } = useAuth0();
 
 	return (
@@ -38,10 +38,10 @@ const HomePage = () => {
 	);
 };
 
-const Home = () => {
+const HomePage = () => {
 	const { isAuthenticated } = useAuth0();
 
-	return <>{!isAuthenticated ? <HomePage /> : <Jobs />}</>;
+	return <>{!isAuthenticated ? <Home /> : <Jobs />}</>;
 };
 
-export default Home;
+export default HomePage;

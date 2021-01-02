@@ -1,34 +1,39 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 import Loading from "../components/Loading";
-import JobDetailsForm from "../components/formComponents/JobDetailsForm";
-
-interface ParamTypes {
+import ErrorComponent from "../components/ErrorComponent";
+import JobDetailsForm from "../components/formComponents/jobs/JobDetailsForm";
+interface ID {
 	id: string;
 }
 
 const JobDetails = () => {
-	const { id } = useParams<ParamTypes>();
+	const { id } = useParams<ID>();
 	const queryParams = { id };
 	const { loading, error, data } = useQuery(genQuery(queryParams), {
 		errorPolicy: "all",
 	});
 
 	if (loading) return <Loading />;
-	if (error) return <p>Error :( {JSON.stringify(error)}</p>;
+	if (error)
+		return (
+			<div style={{ width: "100%", textAlign: "center" }}>
+				<ErrorComponent error={error} />
+			</div>
+		);
 
 	console.log(data);
 	return (
 		<div>
 			<h2 style={{ textAlign: "center", width: "100%" }}>Job Details: {id}</h2>
-			<JobDetailsForm id={id} data={data?.getJob} />
+			<JobDetailsForm id={id} data={data.getJob} />
 		</div>
 	);
 };
-
-const genQuery = ({ id }: any) => gql`
+const genQuery = ({ id }: ID) => gql`
 query {
     getJob (_id: "${id}") {
         _id
@@ -59,4 +64,6 @@ query {
 }
 `;
 
-export default JobDetails;
+export default withAuthenticationRequired(JobDetails, {
+	onRedirecting: () => <Loading />,
+});

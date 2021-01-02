@@ -1,8 +1,10 @@
 # WorkshopLogger GQL React
 
-Built as experimentation with GraphQL. Not Deploymment ready yet ;)
+## Description
 
-I will be re-basing dfstore-react-redux to GraphQL + Gatsby and including it in this project too.
+Built mostly as experimentation with GraphQL. Not Deployment ready yet ;)
+
+I will be re-basing dfzstorereactredux to GraphQL + Gatsby and including it in this project too.
 
 The idea is to have a stack to control the entire infrastructure of my (currently) hypothetical Workshop & Store.
 
@@ -12,44 +14,41 @@ The idea is to have a stack to control the entire infrastructure of my (currentl
 - Internal Management (Users, Employees, Orders, Deliverys, Scheduling, Products, Parts, etc)
 - Attendance Tracking App (Put on a cheap tablet mounted in workshop - used to clock in/out daily)
 
-Frontend is a long ways from anywhere near finished.. Focus is primarily on Backend atm.
+Frontend is a long ways from anywhere near finished.. Focus is currently on backend and handling RBAC properly.
 
-Everything will be migrated to TS for the sake of my sanity and ease of development. Types will be changing regularly until I get to a point where I feel
+Will design a 'proper' frontend ... eventually
 
-Haven't even made a Figma design of anything yet. Purely working on 'getting things working' before I even consider making it pretty - or as configurable as I intend to.
-
-Handling RBAC and Scoping on QL Mutations is interesting
+Database is currently MongoDB Atlas, I will be moving to Postgres once I have everything else 'mostly done'
 
 ## Features
 
 - GraphQL (With RBAC)
+- Auth0 Authentication
 - Basically nothing useful yet
 - Create, Update, Delete WS GQL Subscriptions
-- Auth0 Authentication (Protected Frontend routes are TODO, API is 50/50)
 
 ## Todos (Not in any particular order)
 
 - Better handling of Success/Errors from GQL
 - Redis Caching
+- GQL Rate Limiting
 - Per-Employee Calendars
 - Clock In/Out System
 - PWA & Push Notifications
 - Custom Theming
 - Customisable Shop layouts
 - Image Upload & thumbnails
+- Generate Printable cards with QR codes to identify machines in storage
 - PDF Upload & thumbnails
 - Inventory Management
 - Dockerization
 - User Activity Logging
-- Store all create, update, delete commands, userid, time and create backups
-- Typescriptification! Frontend and Backend!
-- First Admin login section. Create users, config logo, footer, sitename, etc
+- Initial/Deployment Config. Create users, config logo, footer, sitename, etc
 - A whole lot of design, tidying, refactoring, optimisation, structure, etc
 - Swagger Docs for API routes
 - Make a Wiki / GitHub Page
 - Add Tests?
 - Make Server logging less janky
-- Considering implementing a logger like LogRocket..
 
 ## server/.env
 
@@ -58,7 +57,6 @@ Handling RBAC and Scoping on QL Mutations is interesting
     DB_URL=mongodb://
     AUTH0_DOMAIN=
     API_IDENTIFIER=
-    LOGROCKET_CONFIG=
 ```
 
 ## Running
@@ -72,46 +70,6 @@ There are a lot of hard-coded URLs in the src tree for now. I will move them to 
     nvim server/.env # add info
     yarn start
 ```
-
-## Notes / Todos / Stuff / Misc
-
-### RBAC / Scope based Authentication
-
-RBAC Is still being constructed...
-
-Scopes (category: description):
-
-jobs: CRUD + Abilities to read + update jobs only assigned to that user
-
-categories: CRUD
-
-parts: CRUD
-
-orders: CRUD
-
-storeOrders: CRUD
-
-customers: CRUD
-
-attachments: CRUD
-
-userSettings: CRUD
-
-deploySettings: CRUD - To store all information like shop name, logo, tax %, url, etc
-
-### User-Roles
-
-Default scopes applied to users. Will be selectable on New User interface. These will be the default selected checkbox/toggle options once a User Type is selected on User Creation interface. Admins will be able to modify the assigned Scopes and Role applied to a selected user.
-
-User - Read Products only
-
-Employee - Ability to read all jobs by any user, create new orders. no modify / delete permissions at all
-
-Mechanic - CRU all Jobs, Parts. NO deletey! If anything is 'deleted' by a mechanic, copy it to a seperate collection / table and remove(or mark removed)
-
-Administrator - All CRUD Everywhere except deploySettings
-
-Superuser - i am root
 
 ## License
 

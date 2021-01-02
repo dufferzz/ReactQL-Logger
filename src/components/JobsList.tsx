@@ -63,7 +63,7 @@ const JobsList = () => {
 	if (error)
 		return (
 			<tr>
-				<td colSpan={4}>Error :( {JSON.stringify(error)} </td>
+				<td colSpan={4}>🥺 {JSON.stringify(error.message)} </td>
 			</tr>
 		);
 

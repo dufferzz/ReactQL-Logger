@@ -3,9 +3,9 @@ import React from "react";
 import styled from "styled-components";
 import { Field, ErrorMessage } from "formik";
 
-import Section from "../styledComponents/Section";
-import SectionHeader from "../styledComponents/SectionHeader";
-import SectionElement from "../styledComponents/SectionElement";
+import Section from "../../styledComponents/Section";
+import SectionHeader from "../../styledComponents/SectionHeader";
+import SectionElement from "../../styledComponents/SectionElement";
 
 const JobDetailsSection = styled.div`
 	display: grid;

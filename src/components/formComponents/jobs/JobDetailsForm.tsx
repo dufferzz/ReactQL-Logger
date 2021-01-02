@@ -5,28 +5,28 @@ import CustomerInfo from "./CustomerInfo";
 import JobDetails from "./JobDetails";
 import InternalUse from "./InternalUse";
 import Parts from "./Parts";
-import SubmitFormButton from "./SubmitFormButton";
+import SubmitFormButton from "../SubmitFormButton";
 
-export const NewJobForm = () => {
+const JobDetailsForm = ({ data, id }: any) => {
 	return (
 		<Formik
 			initialValues={{
-				firstname: "",
-				lastname: "",
-				email: "",
-				city: "",
-				district: "",
-				postcode: "",
-				date: "",
-				todo: "",
-				done: "",
-				make: "",
-				model: "",
-				assigned: "",
-				year: "",
-				serial: "",
-				status: "",
-				labourHours: "",
+				firstname: `${data.firstname}`,
+				lastname: `${data.lastname}`,
+				email: `${data.email}`,
+				city: `${data.city}`,
+				district: `${data.district}`,
+				postcode: `${data.postcode}`,
+				date: `${data.date}`,
+				todo: `${data.todo}`,
+				done: `${data.done}`,
+				status: `${data.status}`,
+				assigned: `${data.assigned}`,
+				make: `${data.make}`,
+				model: `${data.model}`,
+				year: `${data.year}`,
+				serial: `${data.serial}`,
+				labourHours: `${data.labourHours}`,
 			}}
 			validate={(values) => {
 				const errors: any = {};
@@ -45,7 +45,7 @@ export const NewJobForm = () => {
 				return errors;
 			}}
 			onSubmit={(values, { setSubmitting }) => {
-				alert(JSON.stringify(values, null, 2));
+				console.log(values);
 				setSubmitting(false);
 			}}
 		>
@@ -54,8 +54,8 @@ export const NewJobForm = () => {
 					<CustomerInfo />
 					<JobDetails values={values} handleChange={handleChange} />
 
-					<Parts />
-					<InternalUse />
+					<Parts parts={data.parts} />
+					<InternalUse id={id} />
 					<SubmitFormButton isSubmitting={isSubmitting} />
 				</Form>
 			)}
@@ -63,4 +63,4 @@ export const NewJobForm = () => {
 	);
 };
 
-export default NewJobForm;
+export default JobDetailsForm;

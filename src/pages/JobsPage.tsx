@@ -1,10 +1,11 @@
 import Section from "../components/styledComponents/Section";
 import SectionHeader from "../components/styledComponents/SectionHeader";
-import { useAuth0 } from "@auth0/auth0-react";
-
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { useSubscription, gql } from "@apollo/client";
 import { Link } from "react-router-dom";
 import Button from "../components/styledComponents/Button";
+import Loading from "../components/Loading";
+
 import JobsList from "../components/JobsList";
 
 const Sub = () => {
@@ -19,7 +20,6 @@ const Sub = () => {
 	const { data, loading } = useSubscription(JOB_SUBSCRIPTION, {
 		variables: {},
 	});
-	console.log(data);
 	return <h4>{!loading && <div>New Job: {JSON.stringify(data)} </div>}</h4>;
 };
 
@@ -66,4 +66,6 @@ const JobList = () => {
 
 const Jobs = () => <JobList />;
 
-export default Jobs;
+export default withAuthenticationRequired(Jobs, {
+	onRedirecting: () => <Loading />,
+});

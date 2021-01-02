@@ -1,7 +1,7 @@
 import React from "react";
-import Section from "../styledComponents/Section";
-import SectionHeader from "../styledComponents/SectionHeader";
-import Button, { DangerButton } from "../styledComponents/Button";
+import Section from "../../styledComponents/Section";
+import SectionHeader from "../../styledComponents/SectionHeader";
+import Button, { DangerButton } from "../../styledComponents/Button";
 
 const deleteJob = (id: String) => {
 	console.log(`deleting job ${id}!`);

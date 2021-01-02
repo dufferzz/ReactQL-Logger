@@ -1,7 +1,7 @@
 import "./App.css";
 import TopNav from "./components/TopNav";
 import Footer from "./components/Footer";
-import Home from "./pages/HomePage";
+import HomePage from "./pages/HomePage";
 import NewJob from "./pages/NewJobPage";
 import JobDetails from "./pages/JobDetailsPage";
 import Jobs from "./pages/JobsPage";
@@ -24,7 +24,7 @@ function App() {
 			<TopNav />
 			<div className="App">
 				<Switch>
-					<Route exact path="/" component={Home} />
+					<Route exact path="/" component={HomePage} />
 					<Route path="/jobs" component={Jobs} />
 					<Route path="/newjob" component={NewJob} />
 					<Route path="/job/:id" component={JobDetails} />

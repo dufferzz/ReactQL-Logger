@@ -1,11 +1,11 @@
 import React from "react";
-import Section from "../styledComponents/Section";
-import SectionHeader from "../styledComponents/SectionHeader";
-import Button, { DangerButton } from "../styledComponents/Button";
+import Section from "../../styledComponents/Section";
+import SectionHeader from "../../styledComponents/SectionHeader";
+import Button from "../../styledComponents/Button";
 import styled from "styled-components";
 import { Field, ErrorMessage } from "formik";
 
-import SectionElement from "../styledComponents/SectionElement";
+import SectionElement from "../../styledComponents/SectionElement";
 
 type Part = {
 	partName: string;
@@ -25,7 +25,7 @@ const AddItemDiv = styled.div`
 `;
 
 const PartsItems = ({ parts }: Partss) => {
-	if (parts) {
+	if (parts && parts.length > 0) {
 		let i: number = 0;
 		const listItems = parts.map((part) => {
 			i++;
