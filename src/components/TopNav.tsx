@@ -2,7 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import Button, { DangerButton } from "./styledComponents/Button";
+import LoginButton from "./utilComponents/LoginButton";
+import LogoutButton from "./utilComponents/LogoutButton";
+import AdminButton from "./utilComponents/AdminButton";
+
 import Logo from "../assets/logoo.webp";
 
 const Nav = styled.div`
@@ -19,54 +22,23 @@ const NavLogo = styled.img`
 	margin-left: 0.5rem;
 `;
 
+const NavButtons = () => {
+	const { isAuthenticated } = useAuth0();
+	return (
+		<div style={{ width: "100%", textAlign: "right", marginRight: "0.5rem" }}>
+			<AdminButton />
+			{isAuthenticated ? <LogoutButton /> : <LoginButton />}
+		</div>
+	);
+};
+
 const TopNav = () => {
-	const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
-	console.log(user);
-
-	const AdminButton = () => {
-		let userRole;
-		if (user["https://dfzservice.no/roles"]) {
-			userRole = user["https://dfzservice.no/roles"][0];
-		}
-		if (userRole === "admin")
-			return (
-				<Link to="/admin">
-					<DangerButton>Admin Panel</DangerButton>
-				</Link>
-			);
-		return <></>;
-	};
-
-	const LoginButton = () => (
-		<Button
-			style={{ float: "right" }}
-			onClick={() => {
-				loginWithRedirect();
-			}}
-		>
-			Login
-		</Button>
-	);
-	const LogoutButton = () => (
-		<Button
-			style={{ float: "right" }}
-			onClick={() => {
-				logout({ returnTo: window.location.origin });
-			}}
-		>
-			Logout
-		</Button>
-	);
-
 	return (
 		<Nav>
 			<Link style={{ textDecoration: "none", color: "inherit" }} to="/">
 				<NavLogo src={Logo} />
 			</Link>
-			<div style={{ width: "100%", textAlign: "right", marginRight: "0.5rem" }}>
-				{isAuthenticated ? <LogoutButton /> : <LoginButton />}
-				{isAuthenticated && <AdminButton />}
-			</div>
+			<NavButtons />
 		</Nav>
 	);
 };

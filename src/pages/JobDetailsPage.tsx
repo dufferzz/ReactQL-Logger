@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 
 import Loading from "../components/Loading";
-import JobDetailsForm from "../components/JobDetailsForm";
+import JobDetailsForm from "../components/formComponents/JobDetailsForm";
 
 interface ParamTypes {
 	id: string;
@@ -17,15 +17,13 @@ const JobDetails = () => {
 	});
 
 	if (loading) return <Loading />;
-	if (error) {
-		console.error(error);
-		return <p>Error :( {JSON.stringify(error)}</p>;
-	}
+	if (error) return <p>Error :( {JSON.stringify(error)}</p>;
+
 	console.log(data);
 	return (
 		<div>
 			<h2 style={{ textAlign: "center", width: "100%" }}>Job Details: {id}</h2>
-			<JobDetailsForm data={data?.getJob} />
+			<JobDetailsForm id={id} data={data?.getJob} />
 		</div>
 	);
 };
@@ -43,6 +41,12 @@ query {
         date
         todo
         done
+		parts{
+			partName
+			partNumber
+			partQty
+			partPrice
+		}
         status
         created
 		make

@@ -20,6 +20,7 @@ const jobMutation = gql`
 			year: String
 			serial: String
 			assigned: String!
+			parts: String
 			labourHours: Int
 		): Job
 
@@ -42,6 +43,7 @@ const jobMutation = gql`
 			year: String
 			serial: String
 			assigned: String
+			parts: String
 			labourHours: Int
 		): Job
 

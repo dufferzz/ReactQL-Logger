@@ -1,5 +1,5 @@
 import React from "react";
-import { NewJobForm } from "../components/NewJobForm";
+import { NewJobForm } from "../components/formComponents/NewJobForm";
 const NewJob = () => {
 	return (
 		<div>
