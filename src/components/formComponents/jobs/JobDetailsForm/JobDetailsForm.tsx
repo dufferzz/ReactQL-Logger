@@ -1,11 +1,11 @@
 import React from "react";
 import { Formik, Form } from "formik";
 
-import CustomerInfo from "./CustomerInfo";
-import JobDetails from "./JobDetails";
-import InternalUse from "./InternalUse";
-import Parts from "./Parts";
-import SubmitFormButton from "../SubmitFormButton";
+import CustomerInfo from "../CustomerInfo";
+import JobDetails from "../JobDetails";
+import InternalUse from "../InternalUse";
+import Parts from "../Parts";
+import SubmitFormButton from "../../SubmitFormButton";
 
 const JobDetailsForm = ({ data, id }: any) => {
 	return (

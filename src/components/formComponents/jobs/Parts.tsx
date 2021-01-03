@@ -26,9 +26,7 @@ const AddItemDiv = styled.div`
 
 const PartsItems = ({ parts }: Partss) => {
 	if (parts && parts.length > 0) {
-		let i: number = 0;
 		const listItems = parts.map((part) => {
-			i++;
 			return (
 				<>
 					<td>{part.partName}</td>
@@ -38,7 +36,7 @@ const PartsItems = ({ parts }: Partss) => {
 				</>
 			);
 		});
-		return <tr key={i}>{listItems}</tr>;
+		return <tr>{listItems}</tr>;
 	}
 
 	return (

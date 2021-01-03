@@ -1,20 +1,20 @@
 import "./App.css";
-import TopNav from "./components/TopNav";
-import Footer from "./components/Footer";
-import HomePage from "./pages/HomePage";
-import NewJob from "./pages/NewJobPage";
-import JobDetails from "./pages/JobDetailsPage";
-import Jobs from "./pages/JobsPage";
-import NotFound from "./pages/NotFoundPage";
+import TopNav from "./components/TopNav/TopNav";
+import Footer from "./components/Footer/Footer";
+import HomePage from "./pages/HomePage/HomePage";
+import NewJob from "./pages/NewJobPage/NewJobPage";
+import JobDetails from "./pages/JobDetailsPage/JobDetailsPage";
+import Jobs from "./pages/JobsPage/JobsPage";
+import NotFound from "./pages/NotFoundPage/NotFoundPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Loading from "./components/Loading";
+import Loading from "./components/Loading/Loading";
 import { useAuth0 } from "@auth0/auth0-react";
 
-function App() {
+const App = () => {
 	const { isLoading } = useAuth0();
 	if (isLoading) {
 		return (
-			<div style={{ width: "100vw", height: "100vh" }}>
+			<div className="App">
 				<Loading />
 			</div>
 		);
@@ -34,6 +34,6 @@ function App() {
 			<Footer />
 		</Router>
 	);
-}
+};
 
 export default App;

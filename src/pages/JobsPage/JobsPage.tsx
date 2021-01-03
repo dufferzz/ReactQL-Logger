@@ -1,12 +1,12 @@
-import Section from "../components/styledComponents/Section";
-import SectionHeader from "../components/styledComponents/SectionHeader";
+import Section from "../../components/styledComponents/Section";
+import SectionHeader from "../../components/styledComponents/SectionHeader";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { useSubscription, gql } from "@apollo/client";
 import { Link } from "react-router-dom";
-import Button from "../components/styledComponents/Button";
-import Loading from "../components/Loading";
+import Button from "../../components/styledComponents/Button";
+import Loading from "../../components/Loading/Loading";
 
-import JobsList from "../components/JobsList";
+import JobsList from "../../components/JobsList/JobsList";
 
 const Sub = () => {
 	const JOB_SUBSCRIPTION = gql`

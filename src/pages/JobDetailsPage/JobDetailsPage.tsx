@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
-import Loading from "../components/Loading";
-import ErrorComponent from "../components/ErrorComponent";
-import JobDetailsForm from "../components/formComponents/jobs/JobDetailsForm";
+import Loading from "../../components/Loading/Loading";
+import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
+import JobDetailsForm from "../../components/formComponents/jobs/JobDetailsForm/JobDetailsForm";
 interface ID {
 	id: string;
 }
