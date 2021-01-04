@@ -11,22 +11,19 @@ const JobsTableRow = ({ job }: JobPropType) => {
 	};
 
 	return (
-		<>
-			<tr
-				key={job._id}
-				style={{ cursor: "pointer", padding: "0 0.25rem" }}
-				onClick={() => handleRowClick(job._id)}
-			>
-				<td width="55px">
-					<StatusImage status={job.status} />
-				</td>
-				<td>{job._id}</td>
-				<td>
-					{job.firstname} {job.lastname}
-				</td>
-				<td>{dayjs(job.created).format("DD/MM/YYYY")}</td>
-			</tr>
-		</>
+		<tr
+			style={{ cursor: "pointer", padding: "0 0.25rem" }}
+			onClick={() => handleRowClick(job._id)}
+		>
+			<td width="55px">
+				<StatusImage status={job.status} />
+			</td>
+			<td>{job._id}</td>
+			<td>
+				{job.firstname} {job.lastname}
+			</td>
+			<td>{dayjs(job.created).format("DD/MM/YYYY")}</td>
+		</tr>
 	);
 };
 
@@ -49,7 +46,7 @@ const JobsTable = ({ jobs }: any) => {
 				</thead>
 				<tbody>
 					{jobs &&
-						jobs.map((job: Job, i: number) => <JobsTableRow job={job} />)}
+						jobs.map((job: Job) => <JobsTableRow key={job._id} job={job} />)}
 				</tbody>
 			</table>
 		</>

@@ -15,7 +15,7 @@ const AddItemDiv = styled.div`
 
 const PartsItem = ({ part }: PartPropType) => {
 	return (
-		<tr key={part.partNumber}>
+		<tr>
 			<td>{part.partName}</td>
 			<td>{part.partNumber}</td>
 			<td>{part.partQty}</td>
@@ -44,7 +44,7 @@ const PartsTable = ({ parts }: JobPartsProp) => {
 				{parts &&
 					parts.length > 0 &&
 					parts.map((part) => {
-						return <PartsItem part={part} />;
+						return <PartsItem key={part.partNumber} part={part} />;
 					})}
 				{parts && parts.length === 0 && (
 					<tr>
