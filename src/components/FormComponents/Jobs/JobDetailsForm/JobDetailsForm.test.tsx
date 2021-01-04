@@ -4,6 +4,8 @@ import JobDetailsForm from "./JobDetailsForm";
 import { MockedProvider } from "@apollo/client/testing";
 
 const mocks: any[] = []; // We'll fill this in next
+const date = new Date();
+const modif = new Date();
 const FakeData = {
 	_id: "rgregnergneonogrie",
 	firstname: "sam",
@@ -22,8 +24,8 @@ const FakeData = {
 	year: "sam",
 	serial: "sam",
 	labourHours: "sam",
-	created: new Date(),
-	modified: new Date(),
+	created: date,
+	modified: modif,
 	parts: [
 		{ partName: "fuck", partNumber: "fuck", partQty: "2", partPrice: "345435" },
 	],

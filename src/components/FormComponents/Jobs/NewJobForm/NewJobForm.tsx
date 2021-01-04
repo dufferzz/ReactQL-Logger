@@ -6,12 +6,16 @@ import CustomerInfo from "../CustomerInfo";
 import JobDetails from "../JobDetails";
 import InternalUse from "../InternalUse";
 import Parts from "../Parts";
+
 import SubmitFormButton from "../../../SharedComponents/SubmitFormButton";
 import FormErrorModal from "../../FormErrorModal/FormErrorModal";
-import FormSubmitErrorModal from "../../FormSubmitErrorModal/FormSubmitErrorModal";
-import NewJobSuccessModal from "../NewJobSuccessModal/NewJobSuccessModal";
 import NEWJOB_MUTATION from "./NewJobMutation";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 import * as Yup from "yup";
+
+const MySwal = withReactContent(Swal);
 
 const JobSchema = Yup.object().shape({
 	firstname: Yup.string()
@@ -25,10 +29,41 @@ const JobSchema = Yup.object().shape({
 		.required("Required"),
 
 	email: Yup.string().email("Invalid email").required("Required"),
+	city: Yup.string().required("Required"),
+	district: Yup.string().required("Required"),
+	postcode: Yup.string().required("Required"),
+	assigned: Yup.string().required("Required"),
+	status: Yup.string().required("Required"),
 });
 
+const submitForm = async (
+	addJob: any,
+	data: any,
+	values: any,
+	setSubmitting: any
+) => {
+	await addJob({ variables: values })
+		.then((daa: any) => {
+			console.log(daa);
+			MySwal.fire({
+				title: <p>Success!</p>,
+				icon: "success",
+				text: `Job Added successfully. ${data.addJob._id}`,
+			});
+			setSubmitting(false);
+		})
+		.catch((err: any) => {
+			MySwal.fire({
+				title: <p>Error!</p>,
+				icon: "error",
+				text: err.message,
+			});
+			console.error(err);
+		});
+};
+
 export const NewJobForm = () => {
-	const [addJob, { data, error }] = useMutation(NEWJOB_MUTATION);
+	const [addJob, { data }] = useMutation(NEWJOB_MUTATION);
 
 	return (
 		<Formik
@@ -51,10 +86,8 @@ export const NewJobForm = () => {
 				labourHours: "",
 			}}
 			validationSchema={JobSchema}
-			onSubmit={(values, { setSubmitting }) => {
-				console.log(values);
-				addJob({ variables: values });
-				setSubmitting(false);
+			onSubmit={async (values, { setSubmitting }) => {
+				await submitForm(addJob, data, values, setSubmitting);
 			}}
 		>
 			{({ isSubmitting, values, errors, handleSubmit, handleChange }) => (
@@ -65,12 +98,9 @@ export const NewJobForm = () => {
 					<Parts />
 					<InternalUse />
 					<SubmitFormButton isSubmitting={isSubmitting} />
-					{error && <FormSubmitErrorModal error={error} />}
 					{errors && (
 						<FormErrorModal isSubmitting={isSubmitting} errors={errors} />
 					)}
-
-					{data && <NewJobSuccessModal data={data} />}
 				</Form>
 			)}
 		</Formik>

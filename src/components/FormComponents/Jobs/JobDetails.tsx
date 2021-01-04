@@ -6,6 +6,7 @@ import { Field, ErrorMessage } from "formik";
 import Section from "../../StyledComponents/Section";
 import SectionHeader from "../../StyledComponents/SectionHeader";
 import SectionElement from "../../StyledComponents/SectionElement";
+import ErrorField from "../../StyledComponents/ErrorField";
 
 const JobDetailsSection = styled.div`
 	display: grid;
@@ -49,13 +50,13 @@ const JobDetails = ({ values, handleChange }: IProps) => (
 			<SectionElement>
 				<label htmlFor="make">Make</label>
 				<Field type="make" name="make" />
-				<ErrorMessage name="make" component="div" />
+				<ErrorField name="make" component="div" />
 			</SectionElement>
 
 			<SectionElement>
 				<label htmlFor="model">Model</label>
 				<Field type="model" name="model" />
-				<ErrorMessage name="model" component="div" />
+				<ErrorField name="model" component="div" />
 			</SectionElement>
 
 			<SectionElement>
@@ -63,13 +64,13 @@ const JobDetails = ({ values, handleChange }: IProps) => (
 
 				<YearSelection />
 
-				<ErrorMessage name="year" component="div" />
+				<ErrorField name="year" component="div" />
 			</SectionElement>
 
 			<SectionElement>
 				<label htmlFor="serial">Serial</label>
 				<Field type="serial" name="serial" />
-				<ErrorMessage name="serial" component="div" />
+				<ErrorField name="serial" component="div" />
 			</SectionElement>
 
 			<SectionElement>
@@ -85,7 +86,7 @@ const JobDetails = ({ values, handleChange }: IProps) => (
 					<option value="fuck">FUCK!</option>
 					<option value="completed">Completed</option>
 				</Field>
-				<ErrorMessage name="status" component="div" />
+				<ErrorField name="status" component="div" />
 			</SectionElement>
 
 			<SectionElement>
@@ -101,12 +102,12 @@ const JobDetails = ({ values, handleChange }: IProps) => (
 					<option value="3">3</option>
 					<option value="4">4</option>
 				</Field>
-				<ErrorMessage name="labourHours" component="div" />
+				<ErrorField name="labourHours" component="div" />
 			</SectionElement>
 			<SectionElement>
 				<label htmlFor="assigned">Assigned To</label>
 				<Field type="assigned" name="assigned" />
-				<ErrorMessage name="assigned" component="div" />
+				<ErrorField name="assigned" component="div" />
 			</SectionElement>
 		</JobDetailsSection>
 		<SectionHeader>Job Details</SectionHeader>
@@ -130,7 +131,7 @@ const JobDetails = ({ values, handleChange }: IProps) => (
 				<textarea onChange={handleChange} name="todo" rows={7}></textarea>
 			)}
 
-			<ErrorMessage name="todo" component="div" />
+			<ErrorField name="todo" component="div" />
 
 			<label htmlFor="done">Done</label>
 			{values ? (
@@ -143,7 +144,7 @@ const JobDetails = ({ values, handleChange }: IProps) => (
 			) : (
 				<textarea rows={7} onChange={handleChange} name="done"></textarea>
 			)}
-			<ErrorMessage name="done" component="div" />
+			<ErrorField name="done" component="div" />
 		</div>
 	</Section>
 );

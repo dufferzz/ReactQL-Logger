@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { Field, ErrorMessage } from "formik";
+import { Field } from "formik";
 
 import Section from "../../StyledComponents/Section";
 import SectionHeader from "../../StyledComponents/SectionHeader";
 import SectionElement from "../../StyledComponents/SectionElement";
+import ErrorField from "../../StyledComponents/ErrorField";
 
 const CustomerInfoSection = styled(Section)`
 	display: grid;
@@ -28,32 +29,32 @@ const CustomerInfo = () => {
 			<SectionElement>
 				<label htmlFor="firstname">First Name*</label>
 				<Field type="firstname" name="firstname" />
-				<ErrorMessage name="firstname" component="div" />
+				<ErrorField name="firstname" component="div" />
 			</SectionElement>
 			<SectionElement>
 				<label htmlFor="lastname">Last Name*</label>
 				<Field type="lastname" name="lastname" />
-				<ErrorMessage name="lastname" component="div" />
+				<ErrorField name="lastname" component="div" />
 			</SectionElement>
 			<SectionElement>
 				<label htmlFor="email">E-Mail*</label>
 				<Field type="email" name="email" />
-				<ErrorMessage name="email" component="div" />
+				<ErrorField name="email" component="div" />
 			</SectionElement>
 			<SectionElement>
 				<label htmlFor="city">City*</label>
 				<Field type="city" name="city" />
-				<ErrorMessage name="city" component="div" />
+				<ErrorField name="city" component="div" />
 			</SectionElement>
 			<SectionElement>
 				<label htmlFor="district">District*</label>
 				<Field type="district" name="district" />
-				<ErrorMessage name="district" component="div" />
+				<ErrorField name="district" component="div" />
 			</SectionElement>
 			<SectionElement>
 				<label htmlFor="postCode">Postcode*</label>
 				<Field type="postcode" name="postcode" />
-				<ErrorMessage name="postcode" component="div" />
+				<ErrorField name="postcode" component="div" />
 			</SectionElement>
 		</CustomerInfoSection>
 	);

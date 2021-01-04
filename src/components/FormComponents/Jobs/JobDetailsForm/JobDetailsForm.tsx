@@ -2,19 +2,19 @@ import React from "react";
 import { Formik, Form } from "formik";
 import { useMutation } from "@apollo/client";
 import * as Yup from "yup";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 import CustomerInfo from "../CustomerInfo";
 import JobDetails from "../JobDetails";
 import InternalUse from "../InternalUse";
-import Parts from "../Parts";
-
+import PartsView from "../Parts";
 import SubmitFormButton from "../../../SharedComponents/SubmitFormButton";
-import UpdateJobSuccessModal from "../UpdateJobSuccessModal/UpdateJobSuccessModal";
 import FormErrorModal from "../../FormErrorModal/FormErrorModal";
-import FormSubmitErrorModal from "../../FormSubmitErrorModal/FormSubmitErrorModal";
 
 import UPDATE_JOB_MUTATION from "./UpdateJobMutation";
 
+const MySwal = withReactContent(Swal);
 const JobSchema = Yup.object().shape({
 	firstname: Yup.string()
 		.min(2, "Too Short!")
@@ -27,9 +27,40 @@ const JobSchema = Yup.object().shape({
 		.required("Required"),
 
 	email: Yup.string().email("Invalid email").required("Required"),
+	city: Yup.string().required("Required"),
+	district: Yup.string().required("Required"),
+	postcode: Yup.string().required("Required"),
+	assigned: Yup.string().required("Required"),
+	status: Yup.string().required("Required"),
 });
 
-const JobDetailsForm = ({ job }: JobPropType) => {
+const submitForm = async (
+	updateJob: any,
+	values: any,
+	job: any,
+	setSubmitting: any
+) => {
+	await updateJob({ variables: values })
+		.then((daa: any) => {
+			console.log(daa);
+			MySwal.fire({
+				title: <p>Success!</p>,
+				icon: "success",
+				text: `Job Saved successfully. ${daa.data.updateJob._id}`,
+			});
+			setSubmitting(false);
+		})
+		.catch((err: any) => {
+			MySwal.fire({
+				title: <p>Error!</p>,
+				icon: "error",
+				text: err.message,
+			});
+			console.error(err);
+		});
+};
+
+const JobDetailsForm = React.memo(({ job }: JobPropType) => {
 	const [updateJob, { data, error }] = useMutation(UPDATE_JOB_MUTATION);
 
 	return (
@@ -54,35 +85,27 @@ const JobDetailsForm = ({ job }: JobPropType) => {
 			}}
 			validationSchema={JobSchema}
 			onSubmit={async (values, { setSubmitting }) => {
-				console.log(values);
-				await updateJob({ variables: values });
-
-				setSubmitting(false);
+				await submitForm(updateJob, values, job, setSubmitting);
 			}}
 		>
-			{({ isSubmitting, values, errors, handleSubmit, handleChange }) => (
-				<Form onSubmit={handleSubmit}>
-					<CustomerInfo />
-					<JobDetails values={values} handleChange={handleChange} />
+			{({ isSubmitting, values, errors, handleSubmit, handleChange }) => {
+				return (
+					<Form onSubmit={handleSubmit}>
+						<CustomerInfo />
+						<JobDetails values={values} handleChange={handleChange} />
 
-					<Parts parts={job.parts} />
-					<InternalUse id={job._id} />
-					{error && <FormSubmitErrorModal error={error} />}
-					{errors && (
-						<FormErrorModal isSubmitting={isSubmitting} errors={errors} />
-					)}
-					{data && (
-						<UpdateJobSuccessModal
-							isSubmitting={isSubmitting}
-							errors={errors}
-						/>
-					)}
+						<PartsView parts={job.parts} />
+						<InternalUse id={job._id} />
+						{errors && (
+							<FormErrorModal isSubmitting={isSubmitting} errors={errors} />
+						)}
 
-					<SubmitFormButton isSubmitting={isSubmitting} />
-				</Form>
-			)}
+						<SubmitFormButton isSubmitting={isSubmitting} />
+					</Form>
+				);
+			}}
 		</Formik>
 	);
-};
+});
 
 export default JobDetailsForm;

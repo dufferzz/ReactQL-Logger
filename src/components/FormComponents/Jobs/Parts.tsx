@@ -2,6 +2,7 @@ import React from "react";
 import Section from "../../StyledComponents/Section";
 import SectionHeader from "../../StyledComponents/SectionHeader";
 import Button from "../../StyledComponents/Button";
+import CenterDiv from "../../StyledComponents/CenteredDiv";
 import styled from "styled-components";
 import { Field, ErrorMessage } from "formik";
 
@@ -24,7 +25,7 @@ const PartsItem = ({ part }: PartPropType) => {
 	);
 };
 
-const PartsTable = ({ parts }: JobPartsProp) => {
+const PartsTable = React.memo(({ parts }: JobPartsProp) => {
 	return (
 		<table
 			style={{
@@ -51,10 +52,15 @@ const PartsTable = ({ parts }: JobPartsProp) => {
 						<td colSpan={4}>No Items</td>
 					</tr>
 				)}
+				{!parts && (
+					<tr>
+						<td colSpan={4}>No Items</td>
+					</tr>
+				)}
 			</tbody>
 		</table>
 	);
-};
+});
 
 const PartsView = ({ parts }: JobPartsProp) => {
 	return (
@@ -70,9 +76,7 @@ const PartsView = ({ parts }: JobPartsProp) => {
 		>
 			<SectionHeader>Parts</SectionHeader>
 			<PartsTable parts={parts} />
-			<div
-				style={{ display: "block", width: "100%", justifyContent: "center" }}
-			>
+			<CenterDiv>
 				<AddItemDiv>
 					<SectionElement>
 						<label htmlFor="partName">Name</label>
@@ -93,7 +97,7 @@ const PartsView = ({ parts }: JobPartsProp) => {
 						<Button style={{ width: "100%", height: "2.5rem" }}>Add</Button>
 					</SectionElement>
 				</AddItemDiv>
-			</div>
+			</CenterDiv>
 		</Section>
 	);
 };

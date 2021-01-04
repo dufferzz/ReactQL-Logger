@@ -32,10 +32,6 @@ const JobSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	date: {
-		type: String,
-		required: false,
-	},
 	todo: {
 		type: String,
 		required: false,
