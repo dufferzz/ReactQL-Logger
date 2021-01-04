@@ -15,6 +15,7 @@ import FormErrorModal from "../../FormErrorModal/FormErrorModal";
 import UPDATE_JOB_MUTATION from "./UpdateJobMutation";
 
 const MySwal = withReactContent(Swal);
+
 const JobSchema = Yup.object().shape({
 	firstname: Yup.string()
 		.min(2, "Too Short!")

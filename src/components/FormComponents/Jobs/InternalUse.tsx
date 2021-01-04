@@ -1,8 +1,11 @@
 import React from "react";
+import { Field } from "formik";
+
 import Section from "../../StyledComponents/Section";
 import SectionHeader from "../../StyledComponents/SectionHeader";
 import Button, { DangerButton } from "../../StyledComponents/Button";
-
+import SectionElement from "../../StyledComponents/SectionElement";
+import ErrorField from "../../StyledComponents/ErrorField";
 const deleteJob = (id: String) => {
 	console.log(`deleting job ${id}!`);
 };
@@ -15,7 +18,9 @@ const ManagementButtons = ({ id }: IProps) => {
 	if (!id) return <></>;
 
 	return (
-		<div style={{ display: "flex", justifyContent: "center" }}>
+		<div
+			style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+		>
 			<DangerButton
 				type="button"
 				style={{ color: "white" }}
@@ -43,7 +48,12 @@ const InternalUse = ({ id }: IProps) => (
 		}}
 	>
 		<SectionHeader>Internal Use</SectionHeader>
-		<div></div>
+
+		<SectionElement>
+			<label htmlFor="assigned">Assigned To*</label>
+			<Field type="assigned" name="assigned" />
+			<ErrorField name="assigned" component="div" />
+		</SectionElement>
 		<ManagementButtons id={id} />
 	</Section>
 );

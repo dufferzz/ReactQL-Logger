@@ -97,17 +97,14 @@ const JobDetails = ({ values, handleChange }: IProps) => (
 					type="labourHours"
 					name="labourHours"
 				>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
+					<option value={0}>0</option>
+
+					<option value={1}>1</option>
+					<option value={2}>2</option>
+					<option value={3}>3</option>
+					<option value={4}>4</option>
 				</Field>
 				<ErrorField name="labourHours" component="div" />
-			</SectionElement>
-			<SectionElement>
-				<label htmlFor="assigned">Assigned To</label>
-				<Field type="assigned" name="assigned" />
-				<ErrorField name="assigned" component="div" />
 			</SectionElement>
 		</JobDetailsSection>
 		<SectionHeader>Job Details</SectionHeader>

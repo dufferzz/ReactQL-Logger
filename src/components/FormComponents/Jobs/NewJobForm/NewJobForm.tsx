@@ -36,19 +36,14 @@ const JobSchema = Yup.object().shape({
 	status: Yup.string().required("Required"),
 });
 
-const submitForm = async (
-	addJob: any,
-	data: any,
-	values: any,
-	setSubmitting: any
-) => {
+const submitForm = async (addJob: any, values: any, setSubmitting: any) => {
 	await addJob({ variables: values })
 		.then((daa: any) => {
 			console.log(daa);
 			MySwal.fire({
 				title: <p>Success!</p>,
 				icon: "success",
-				text: `Job Added successfully. ${data.addJob._id}`,
+				text: `Job Added successfully. ${daa.data.addJob._id}`,
 			});
 			setSubmitting(false);
 		})
@@ -83,11 +78,12 @@ export const NewJobForm = () => {
 				year: "",
 				serial: "",
 				status: "not-started",
-				labourHours: "",
+				labourHours: "0",
 			}}
 			validationSchema={JobSchema}
 			onSubmit={async (values, { setSubmitting }) => {
-				await submitForm(addJob, data, values, setSubmitting);
+				// console.log(values);
+				await submitForm(addJob, values, setSubmitting);
 			}}
 		>
 			{({ isSubmitting, values, errors, handleSubmit, handleChange }) => (

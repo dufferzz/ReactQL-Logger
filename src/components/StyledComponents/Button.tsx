@@ -40,14 +40,19 @@ export const DangerButton = styled(Button)`
 `;
 
 export const SuccessButton = styled(Button)`
-	background: rgb(0, 255, 0);
-	background: linear-gradient(0deg, rgb(0, 255, 0) 0%, rgb(52, 250, 52) 100%);
+	background: rgb(84, 199, 0);
+	background: linear-gradient(
+		0deg,
+		rgba(84, 199, 0, 1) 0%,
+		rgba(120, 232, 48, 1) 100%
+	);
+
 	&:hover {
-		background: rgb(52, 250, 52);
+		background: rgb(84, 199, 0);
 		background: linear-gradient(
 			180deg,
-			rgb(0, 255, 0) 0%,
-			rgb(52, 250, 52) 100%
+			rgba(84, 199, 0, 1) 0%,
+			rgba(120, 232, 48, 1) 100%
 		);
 	}
 `;
