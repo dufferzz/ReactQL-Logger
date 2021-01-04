@@ -3064,6 +3064,11 @@ graphql-extensions@^0.12.7:
     apollo-server-env "^2.4.5"
     apollo-server-types "^0.6.2"
 
+graphql-iso-date@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/graphql-iso-date/-/graphql-iso-date-3.6.1.tgz#bd2d0dc886e0f954cbbbc496bbf1d480b57ffa96"
+  integrity sha512-AwFGIuYMJQXOEAgRlJlFL4H1ncFM8n8XmoVDTNypNOZyQ8LFDG2ppMFlsS862BSTCDcSUfHp8PD3/uJhv7t59Q==
+
 graphql-scalar-objectid@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/graphql-scalar-objectid/-/graphql-scalar-objectid-0.1.2.tgz#a170b27cb7e41c11f3fd25bb9dfa57080b6f1508"

@@ -1,22 +1,11 @@
 import React from "react";
-import Section from "../../styledComponents/Section";
-import SectionHeader from "../../styledComponents/SectionHeader";
-import Button from "../../styledComponents/Button";
+import Section from "../../StyledComponents/Section";
+import SectionHeader from "../../StyledComponents/SectionHeader";
+import Button from "../../StyledComponents/Button";
 import styled from "styled-components";
 import { Field, ErrorMessage } from "formik";
 
-import SectionElement from "../../styledComponents/SectionElement";
-
-type Part = {
-	partName: string;
-	partNumber: string;
-	partQty: string;
-	partPrice: string;
-};
-
-interface Partss {
-	parts?: Part[];
-}
+import SectionElement from "../../StyledComponents/SectionElement";
 
 const AddItemDiv = styled.div`
 	display: grid;
@@ -24,29 +13,50 @@ const AddItemDiv = styled.div`
 	align-items: flex-end;
 `;
 
-const PartsItems = ({ parts }: Partss) => {
-	if (parts && parts.length > 0) {
-		const listItems = parts.map((part) => {
-			return (
-				<>
-					<td>{part.partName}</td>
-					<td>{part.partNumber}</td>
-					<td>{part.partQty}</td>
-					<td>{part.partPrice}</td>
-				</>
-			);
-		});
-		return <tr>{listItems}</tr>;
-	}
-
+const PartsItem = ({ part }: PartPropType) => {
 	return (
-		<tr>
-			<td colSpan={4}>No Parts</td>
+		<tr key={part.partNumber}>
+			<td>{part.partName}</td>
+			<td>{part.partNumber}</td>
+			<td>{part.partQty}</td>
+			<td>{part.partPrice}</td>
 		</tr>
 	);
 };
 
-const Parts = ({ parts }: Partss) => {
+const PartsTable = ({ parts }: JobPartsProp) => {
+	return (
+		<table
+			style={{
+				width: "100%",
+				textAlign: "center",
+			}}
+		>
+			<thead>
+				<tr style={{ fontSize: "1.1rem" }}>
+					<td>#</td>
+					<td>Name</td>
+					<td>Qty</td>
+					<td>Price</td>
+				</tr>
+			</thead>
+			<tbody>
+				{parts &&
+					parts.length > 0 &&
+					parts.map((part) => {
+						return <PartsItem part={part} />;
+					})}
+				{parts && parts.length === 0 && (
+					<tr>
+						<td colSpan={4}>No Items</td>
+					</tr>
+				)}
+			</tbody>
+		</table>
+	);
+};
+
+const PartsView = ({ parts }: JobPartsProp) => {
 	return (
 		<Section
 			style={{
@@ -59,24 +69,7 @@ const Parts = ({ parts }: Partss) => {
 			}}
 		>
 			<SectionHeader>Parts</SectionHeader>
-			<table
-				style={{
-					width: "100%",
-					textAlign: "center",
-				}}
-			>
-				<thead>
-					<tr style={{ fontSize: "1.1rem" }}>
-						<td>#</td>
-						<td>Name</td>
-						<td>Qty</td>
-						<td>Price</td>
-					</tr>
-				</thead>
-				<tbody>
-					<PartsItems parts={parts} />
-				</tbody>
-			</table>
+			<PartsTable parts={parts} />
 			<div
 				style={{ display: "block", width: "100%", justifyContent: "center" }}
 			>
@@ -105,4 +98,4 @@ const Parts = ({ parts }: Partss) => {
 	);
 };
 
-export default Parts;
+export default PartsView;

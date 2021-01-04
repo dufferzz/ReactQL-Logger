@@ -1,3 +1,5 @@
+import { GraphQLDateTime } from "graphql-iso-date";
+
 import pubsub from "../../../pubsub";
 import jobController from "./job.controller";
 
@@ -6,6 +8,8 @@ const JOB_UPDATED = "JOB_UPDATED";
 const JOB_DELETED = "JOB_DELETED";
 
 const jobResolver = {
+	DateTime: GraphQLDateTime,
+
 	Subscription: {
 		jobAdded: {
 			subscribe: (_, __, context) => pubsub.asyncIterator([JOB_ADDED]),
@@ -25,14 +29,11 @@ const jobResolver = {
 		},
 		getJob(root, args, context) {
 			const { permissions } = context.decoded;
-			console.log("getJob");
 			if (!context.isAuthenticated) return {};
-			console.log(permissions);
 			if (
 				permissions.includes("readAssigned: jobs") ||
 				permissions.includes("readAll:jobs")
 			) {
-				console.log(`${context.decoded.sub} accessed getJob ${args._id}`);
 				return jobController.getJob(args);
 			}
 		},

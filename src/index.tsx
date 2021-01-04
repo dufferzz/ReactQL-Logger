@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import { configureStore } from "@reduxjs/toolkit";
 import combinedReducers from "./features";
 import { Provider, useDispatch } from "react-redux";
@@ -32,7 +31,6 @@ ReactDOM.render(
 	document.getElementById("root")
 );
 
-reportWebVitals();
 export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;

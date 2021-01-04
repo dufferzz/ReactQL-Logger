@@ -5,10 +5,7 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 import Loading from "../../components/Loading/Loading";
 import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
-import JobDetailsForm from "../../components/formComponents/jobs/JobDetailsForm/JobDetailsForm";
-interface ID {
-	id: string;
-}
+import JobDetailsForm from "../../components/FormComponents/Jobs/JobDetailsForm/JobDetailsForm";
 
 const JobDetails = () => {
 	const { id } = useParams<ID>();
@@ -25,16 +22,17 @@ const JobDetails = () => {
 			</div>
 		);
 
-	console.log(data);
+	console.log(data.getJob);
 	return (
 		<div>
 			<h2 style={{ textAlign: "center", width: "100%" }}>Job Details: {id}</h2>
-			<JobDetailsForm id={id} data={data.getJob} />
+			<JobDetailsForm job={data.getJob} />
 		</div>
 	);
 };
+
 const genQuery = ({ id }: ID) => gql`
-query {
+query GetJob{
     getJob (_id: "${id}") {
         _id
         firstname
@@ -43,7 +41,6 @@ query {
         city
         district
         postcode
-        date
         todo
         done
 		parts{

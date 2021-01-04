@@ -1,7 +1,7 @@
 import Job from "./job.model";
 
 const jobController = {
-	jobs: () => Job.find({}),
+	jobs: () => Job.find({}).sort({ created: 1 }),
 	getJob: (args) => Job.findById(args._id),
 	getAssignedJobs: (args) => Job.find({ assigned: args.user }),
 	updateJob: (args) =>
@@ -48,7 +48,7 @@ const jobController = {
 			todo: args.todo,
 			done: args.done,
 			modified: args.modified,
-			created: args.created,
+			created: new Date(),
 			status: args.status,
 			model: args.model,
 			make: args.make,
@@ -57,7 +57,7 @@ const jobController = {
 			assigned: args.assigned,
 			// parts: args.parts,
 			// images: args.images,
-			labourHours: args.labourHours,
+			labourHours: parseInt(args.labourHours),
 			// jobNumber: args.jobNumber,
 		});
 		return newjob.save();

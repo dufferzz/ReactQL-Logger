@@ -1,29 +1,30 @@
-import Section from "../../components/styledComponents/Section";
-import SectionHeader from "../../components/styledComponents/SectionHeader";
+import Section from "../../components/StyledComponents/Section";
+import SectionHeader from "../../components/StyledComponents/SectionHeader";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import { useSubscription, gql } from "@apollo/client";
+import { useSubscription, useQuery, gql } from "@apollo/client";
 import { Link } from "react-router-dom";
-import Button from "../../components/styledComponents/Button";
+import Button from "../../components/StyledComponents/Button";
 import Loading from "../../components/Loading/Loading";
+import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
 
-import JobsList from "../../components/JobsList/JobsList";
+import JobsTable from "../../components/JobsTable/JobsTable";
 
 const Sub = () => {
 	const JOB_SUBSCRIPTION = gql`
 		subscription jobAdded {
 			jobAdded {
+				_id
 				firstname
 				lastname
 			}
 		}
 	`;
-	const { data, loading } = useSubscription(JOB_SUBSCRIPTION, {
-		variables: {},
-	});
+	const { data, loading } = useSubscription(JOB_SUBSCRIPTION);
 	return <h4>{!loading && <div>New Job: {JSON.stringify(data)} </div>}</h4>;
 };
 
-const JobList = () => {
+const JobsPage = () => {
+	const { loading, error, data } = useQuery(QUERY);
 	const { user } = useAuth0();
 
 	return (
@@ -41,31 +42,27 @@ const JobList = () => {
 			<Section>
 				<Sub />
 				<SectionHeader>All Jobs</SectionHeader>
-				<table
-					style={{
-						width: "100%",
-						textAlign: "center",
-					}}
-				>
-					<thead>
-						<tr style={{ fontSize: "1.1rem" }}>
-							<td>Status</td>
-							<td>ID</td>
-							<td>Client</td>
-							<td>Created</td>
-						</tr>
-					</thead>
-					<tbody>
-						<JobsList />
-					</tbody>
-				</table>
+				{loading && <Loading />}
+				{error && <ErrorComponent error={error} />}
+				{data && <JobsTable jobs={data.jobs} />}
 			</Section>
 		</>
 	);
 };
 
-const Jobs = () => <JobList />;
+const QUERY = gql`
+	query GetJobs {
+		jobs {
+			_id
+			firstname
+			lastname
+			created
+			modified
+			status
+		}
+	}
+`;
 
-export default withAuthenticationRequired(Jobs, {
+export default withAuthenticationRequired(JobsPage, {
 	onRedirecting: () => <Loading />,
 });

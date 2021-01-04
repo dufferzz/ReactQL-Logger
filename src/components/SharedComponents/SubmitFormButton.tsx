@@ -1,5 +1,5 @@
 import React from "react";
-import { SuccessButton } from "../styledComponents/Button";
+import { SuccessButton } from "../StyledComponents/Button";
 const SubmitFormButton = ({ isSubmitting }: any) => (
 	<div style={{ width: "100%" }}>
 		<SuccessButton

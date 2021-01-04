@@ -19,10 +19,8 @@ const schema = mergeSchemas({
 	schemas,
 	resolvers,
 });
-
 const server = new ApolloServer({
 	schema,
-	//TODO: vvvvvvvvvvvvv
 	context: async ({ req, connection }: any) => {
 		if (connection) {
 			return connection.context;

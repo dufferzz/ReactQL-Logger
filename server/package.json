@@ -19,6 +19,7 @@
 		"express": "^4.17.1",
 		"express-jwt": "^6.0.0",
 		"graphql": "^15.4.0",
+		"graphql-iso-date": "^3.6.1",
 		"graphql-scalar-objectid": "^0.1.2",
 		"graphql-subscriptions": "^1.1.0",
 		"graphql-tools": "^7.0.2",

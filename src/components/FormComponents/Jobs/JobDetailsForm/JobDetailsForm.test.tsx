@@ -1,7 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import JobDetailsForm from "./JobDetailsForm";
 
+import { MockedProvider } from "@apollo/client/testing";
+
+const mocks: any[] = []; // We'll fill this in next
 const FakeData = {
+	_id: "rgregnergneonogrie",
 	firstname: "sam",
 	lastname: "sam",
 	email: "sam",
@@ -18,11 +22,20 @@ const FakeData = {
 	year: "sam",
 	serial: "sam",
 	labourHours: "sam",
+	created: new Date(),
+	modified: new Date(),
+	parts: [
+		{ partName: "fuck", partNumber: "fuck", partQty: "2", partPrice: "345435" },
+	],
 };
 
 describe("JobDetailsForm Component Tests", () => {
 	test("Am I present?", () => {
-		render(<JobDetailsForm data={FakeData} />);
+		render(
+			<MockedProvider mocks={mocks} addTypename={false}>
+				<JobDetailsForm job={FakeData} />
+			</MockedProvider>
+		);
 		const footerText = screen.getByText(/Job Details/i);
 		expect(footerText).toBeInTheDocument();
 	});

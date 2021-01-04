@@ -51,15 +51,16 @@ const JobSchema = new Schema({
 	},
 	modified: {
 		type: Date,
-		//default: Date.now
+		default: Date.now,
 	},
 	created: {
 		type: Date,
-		required: false,
+		required: true,
 	},
 	status: {
 		type: String,
 		required: false,
+		default: "not-started",
 	},
 	model: {
 		type: String,
@@ -88,7 +89,8 @@ const JobSchema = new Schema({
 	},
 	assigned: {
 		type: String,
-		required: true,
+		required: false,
+		default: "not-assigned",
 	},
 	jobNumber: {
 		type: Number,

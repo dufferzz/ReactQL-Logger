@@ -1,6 +1,7 @@
 import { gql } from "apollo-server-express";
 
 const jobType = gql`
+	scalar DateTime
 	type Job {
 		_id: String
 		firstname: String
@@ -9,11 +10,10 @@ const jobType = gql`
 		city: String
 		district: String
 		postcode: String
-		date: String
 		todo: String
 		done: String
-		modified: String
-		created: String
+		modified: DateTime
+		created: DateTime
 		status: String
 		model: String
 		make: String
@@ -21,7 +21,7 @@ const jobType = gql`
 		serial: String
 		parts: [Part]
 		assigned: String
-		labourHours: Int
+		labourHours: String
 	}
 	type Part {
 		partName: String

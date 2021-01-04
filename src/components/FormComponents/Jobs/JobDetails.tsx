@@ -3,9 +3,9 @@ import React from "react";
 import styled from "styled-components";
 import { Field, ErrorMessage } from "formik";
 
-import Section from "../../styledComponents/Section";
-import SectionHeader from "../../styledComponents/SectionHeader";
-import SectionElement from "../../styledComponents/SectionElement";
+import Section from "../../StyledComponents/Section";
+import SectionHeader from "../../StyledComponents/SectionHeader";
+import SectionElement from "../../StyledComponents/SectionElement";
 
 const JobDetailsSection = styled.div`
 	display: grid;
@@ -33,40 +33,6 @@ const YearSelection = () => {
 	);
 };
 
-type Part = {
-	partName: string;
-	partNumber: string;
-	partQty: string;
-	partPrice: string;
-};
-
-type Values = {
-	_id?: string | undefined;
-	firstname: string;
-	lastname: string;
-	email: string;
-	city: string;
-	district: string;
-	postcode: string;
-	date: string;
-	todo: string;
-	done: string;
-	modified?: string;
-	created?: string | undefined;
-	status: string;
-	model: string;
-	make: string;
-	year: string;
-	serial: string;
-	parts?: Part[];
-	assigned: string;
-	labourHours: string;
-};
-
-interface IProps {
-	values?: Values;
-	handleChange: any;
-}
 const JobDetails = ({ values, handleChange }: IProps) => (
 	<Section
 		style={{
@@ -124,8 +90,23 @@ const JobDetails = ({ values, handleChange }: IProps) => (
 
 			<SectionElement>
 				<label htmlFor="labourHours">Labour (hrs)</label>
-				<Field type="labourHours" name="labourHours" />
+				<Field
+					style={{ height: "2.5rem" }}
+					as="select"
+					type="labourHours"
+					name="labourHours"
+				>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+				</Field>
 				<ErrorMessage name="labourHours" component="div" />
+			</SectionElement>
+			<SectionElement>
+				<label htmlFor="assigned">Assigned To</label>
+				<Field type="assigned" name="assigned" />
+				<ErrorMessage name="assigned" component="div" />
 			</SectionElement>
 		</JobDetailsSection>
 		<SectionHeader>Job Details</SectionHeader>

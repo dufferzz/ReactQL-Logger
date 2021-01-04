@@ -1,5 +1,5 @@
 import React from "react";
-import { DangerButton } from "../styledComponents/Button";
+import { DangerButton } from "../StyledComponents/Button";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 

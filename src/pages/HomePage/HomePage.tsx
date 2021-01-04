@@ -1,8 +1,8 @@
 import React from "react";
-import Jobs from "../JobsPage/JobsPage";
+import JobsPage from "../JobsPage/JobsPage";
 import { useAuth0 } from "@auth0/auth0-react";
-import Button from "../../components/styledComponents/Button";
-import Section from "../../components/styledComponents/Section";
+import Button from "../../components/StyledComponents/Button";
+import Section from "../../components/StyledComponents/Section";
 
 const Home = () => {
 	const { loginWithRedirect } = useAuth0();
@@ -41,7 +41,7 @@ const Home = () => {
 const HomePage = () => {
 	const { isAuthenticated } = useAuth0();
 
-	return <>{!isAuthenticated ? <Home /> : <Jobs />}</>;
+	return <>{!isAuthenticated ? <Home /> : <JobsPage />}</>;
 };
 
 export default HomePage;
