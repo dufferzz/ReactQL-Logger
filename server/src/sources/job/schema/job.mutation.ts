@@ -9,17 +9,17 @@ const jobMutation = gql`
 			city: String!
 			district: String!
 			postcode: String!
-			todo: String
-			done: String
+			todo: String!
+			done: String!
 			status: String!
-			model: String
-			make: String
-			year: String
+			model: String!
+			make: String!
+			year: String!
 			serial: String
-			assigned: String
-			parts: String
-			labourHours: String
-		): Job
+			assigned: String!
+			parts: [PartInput]
+			labourHours: String!
+		): Job!
 
 		updateJob(
 			_id: String!
@@ -29,18 +29,17 @@ const jobMutation = gql`
 			city: String!
 			district: String!
 			postcode: String!
-			date: String
-			todo: String
-			done: String
+			todo: String!
+			done: String!
 			status: String!
-			model: String
-			make: String
-			year: String
+			model: String!
+			make: String!
+			year: String!
 			serial: String
-			assigned: String
+			assigned: String!
 			parts: String
-			labourHours: String
-		): Job
+			labourHours: String!
+		): Job!
 
 		deleteJob(_id: String): Job
 	}

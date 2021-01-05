@@ -1,11 +1,3 @@
-.App {
-	min-height: 80vh;
-	background-color: #ddd;
-	padding-top: 1rem;
-	padding-bottom: 1rem;
-	width: 90%;
-	margin: auto;
-}
 input,
 textarea {
 	min-width: 50px;

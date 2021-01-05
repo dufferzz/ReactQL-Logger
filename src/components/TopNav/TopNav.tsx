@@ -22,13 +22,19 @@ const NavLogo = styled.img`
 	margin-left: 0.5rem;
 `;
 
+const NavBarButtons = styled.div`
+	width: 100%;
+	text-align: right;
+	margin-right: 0.5rem;
+`;
+
 const NavButtons = () => {
 	const { isAuthenticated } = useAuth0();
 	return (
-		<div style={{ width: "100%", textAlign: "right", marginRight: "0.5rem" }}>
+		<NavBarButtons>
 			<AdminButton />
 			{isAuthenticated ? <LogoutButton /> : <LoginButton />}
-		</div>
+		</NavBarButtons>
 	);
 };
 

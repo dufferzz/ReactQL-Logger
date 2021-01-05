@@ -13,24 +13,36 @@ const Foot = styled.div`
 	color: white;
 	padding: 0.75rem;
 `;
+
+const FootLeft = styled.div`
+	grid-area: left;
+`;
+
+const FootRight = styled.div`
+	grid-area: right;
+`;
+const FootBottom = styled.div`
+	grid-area: bottom;
+`;
+
 const Footer = () => {
 	return (
 		<Foot>
-			<div style={{ gridArea: "left" }}>
+			<FootLeft>
 				<div>Request Account</div>
 				<div>Site Map</div>
-			</div>
-			<div style={{ gridArea: "right" }}>
+			</FootLeft>
+			<FootRight>
 				<div>Contact Us</div>
 				<div>About Us</div>
 				<div>View on Google Maps</div>
-			</div>
-			<div style={{ gridArea: "bottom" }}>
+			</FootRight>
+			<FootBottom>
 				<div>Created By Sam Duff for DFZ Service and Repair</div>
 				<div>
 					View <a href="https://dufferz.net">Dufferz.net</a>
 				</div>
-			</div>
+			</FootBottom>
 		</Foot>
 	);
 };

@@ -72,40 +72,6 @@ const JobDetails = ({ values, handleChange }: IProps) => (
 				<Field type="serial" name="serial" />
 				<ErrorField name="serial" component="div" />
 			</SectionElement>
-
-			<SectionElement>
-				<label htmlFor="status">Job Status</label>
-				<Field
-					style={{ height: "2.5rem" }}
-					as="select"
-					type="status"
-					name="status"
-				>
-					<option value="not-started">Not Started</option>
-					<option value="await">Awaiting Parts</option>
-					<option value="fuck">FUCK!</option>
-					<option value="completed">Completed</option>
-				</Field>
-				<ErrorField name="status" component="div" />
-			</SectionElement>
-
-			<SectionElement>
-				<label htmlFor="labourHours">Labour (hrs)</label>
-				<Field
-					style={{ height: "2.5rem" }}
-					as="select"
-					type="labourHours"
-					name="labourHours"
-				>
-					<option value={0}>0</option>
-
-					<option value={1}>1</option>
-					<option value={2}>2</option>
-					<option value={3}>3</option>
-					<option value={4}>4</option>
-				</Field>
-				<ErrorField name="labourHours" component="div" />
-			</SectionElement>
 		</JobDetailsSection>
 		<SectionHeader>Job Details</SectionHeader>
 

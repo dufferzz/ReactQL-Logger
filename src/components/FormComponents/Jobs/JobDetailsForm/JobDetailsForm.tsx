@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import { useMutation } from "@apollo/client";
 import * as Yup from "yup";
@@ -10,9 +10,10 @@ import JobDetails from "../JobDetails";
 import InternalUse from "../InternalUse";
 import PartsView from "../Parts";
 import SubmitFormButton from "../../../SharedComponents/SubmitFormButton";
-import FormErrorModal from "../../FormErrorModal/FormErrorModal";
+import FormError from "../../FormError/FormError";
 
-import UPDATE_JOB_MUTATION from "./UpdateJobMutation";
+import UPDATE_JOB_MUTATION from "../../../../querys/UpdateJobMutation";
+import GET_ALL_JOBS_QUERY from "../../../../querys/JobsQuery";
 
 const MySwal = withReactContent(Swal);
 
@@ -35,35 +36,8 @@ const JobSchema = Yup.object().shape({
 	status: Yup.string().required("Required"),
 });
 
-const submitForm = async (
-	updateJob: any,
-	values: any,
-	job: any,
-	setSubmitting: any
-) => {
-	await updateJob({ variables: values })
-		.then((daa: any) => {
-			console.log(daa);
-			MySwal.fire({
-				title: <p>Success!</p>,
-				icon: "success",
-				text: `Job Saved successfully. ${daa.data.updateJob._id}`,
-			});
-			setSubmitting(false);
-		})
-		.catch((err: any) => {
-			MySwal.fire({
-				title: <p>Error!</p>,
-				icon: "error",
-				text: err.message,
-			});
-			console.error(err);
-		});
-};
-
-const JobDetailsForm = React.memo(({ job }: JobPropType) => {
-	const [updateJob, { data, error }] = useMutation(UPDATE_JOB_MUTATION);
-
+const JobDetailsForm = ({ job }: JobPropType) => {
+	const [updateJob] = useMutation(UPDATE_JOB_MUTATION);
 	return (
 		<Formik
 			initialValues={{
@@ -86,7 +60,24 @@ const JobDetailsForm = React.memo(({ job }: JobPropType) => {
 			}}
 			validationSchema={JobSchema}
 			onSubmit={async (values, { setSubmitting }) => {
-				await submitForm(updateJob, values, job, setSubmitting);
+				await updateJob({ variables: values })
+					.then((daa: any) => {
+						console.log(daa);
+						MySwal.fire({
+							title: <p>Success!</p>,
+							icon: "success",
+							text: `Job Saved successfully. ${daa.data.updateJob._id}`,
+						});
+						setSubmitting(false);
+					})
+					.catch((err: any) => {
+						MySwal.fire({
+							title: <p>Error!</p>,
+							icon: "error",
+							text: err.message,
+						});
+						console.error(err);
+					});
 			}}
 		>
 			{({ isSubmitting, values, errors, handleSubmit, handleChange }) => {
@@ -98,7 +89,7 @@ const JobDetailsForm = React.memo(({ job }: JobPropType) => {
 						<PartsView parts={job.parts} />
 						<InternalUse id={job._id} />
 						{errors && (
-							<FormErrorModal isSubmitting={isSubmitting} errors={errors} />
+							<FormError isSubmitting={isSubmitting} errors={errors} />
 						)}
 
 						<SubmitFormButton isSubmitting={isSubmitting} />
@@ -107,6 +98,6 @@ const JobDetailsForm = React.memo(({ job }: JobPropType) => {
 			}}
 		</Formik>
 	);
-});
+};
 
 export default JobDetailsForm;

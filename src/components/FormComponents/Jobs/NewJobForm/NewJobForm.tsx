@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import { useMutation } from "@apollo/client";
 
 import CustomerInfo from "../CustomerInfo";
 import JobDetails from "../JobDetails";
 import InternalUse from "../InternalUse";
-import Parts from "../Parts";
+import PartsView from "../Parts";
 
 import SubmitFormButton from "../../../SharedComponents/SubmitFormButton";
-import FormErrorModal from "../../FormErrorModal/FormErrorModal";
-import NEWJOB_MUTATION from "./NewJobMutation";
+import FormError from "../../FormError/FormError";
+import NEWJOB_MUTATION from "../../../../querys/NewJobMutation";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+
+// import GET_ALL_JOBS_QUERY from "../../../../querys/JobsQuery";
 
 import * as Yup from "yup";
 
@@ -36,29 +38,16 @@ const JobSchema = Yup.object().shape({
 	status: Yup.string().required("Required"),
 });
 
-const submitForm = async (addJob: any, values: any, setSubmitting: any) => {
-	await addJob({ variables: values })
-		.then((daa: any) => {
-			console.log(daa);
-			MySwal.fire({
-				title: <p>Success!</p>,
-				icon: "success",
-				text: `Job Added successfully. ${daa.data.addJob._id}`,
-			});
-			setSubmitting(false);
-		})
-		.catch((err: any) => {
-			MySwal.fire({
-				title: <p>Error!</p>,
-				icon: "error",
-				text: err.message,
-			});
-			console.error(err);
-		});
-};
-
 export const NewJobForm = () => {
-	const [addJob, { data }] = useMutation(NEWJOB_MUTATION);
+	const [addJob, { data }] = useMutation(NEWJOB_MUTATION, {});
+	const [parts, setParts] = useState([
+		{
+			partName: "Fake Item",
+			partNumber: "234234",
+			partQty: "2",
+			partPrice: "342",
+		},
+	]);
 
 	return (
 		<Formik
@@ -74,7 +63,7 @@ export const NewJobForm = () => {
 				done: "",
 				make: "",
 				model: "",
-				assigned: "",
+				assigned: "nobody",
 				year: "",
 				serial: "",
 				status: "not-started",
@@ -82,8 +71,27 @@ export const NewJobForm = () => {
 			}}
 			validationSchema={JobSchema}
 			onSubmit={async (values, { setSubmitting }) => {
-				// console.log(values);
-				await submitForm(addJob, values, setSubmitting);
+				console.log(values);
+				let newvalues: any = values;
+				newvalues.parts = parts;
+				await addJob({ variables: newvalues })
+					.then((daa: any) => {
+						console.log(daa);
+						MySwal.fire({
+							title: <p>Success!</p>,
+							icon: "success",
+							text: `Job Added successfully. ${daa.data.addJob._id}`,
+						});
+						setSubmitting(false);
+					})
+					.catch((err: any) => {
+						MySwal.fire({
+							title: <p>Error!</p>,
+							icon: "error",
+							text: err.message,
+						});
+						console.error(err);
+					});
 			}}
 		>
 			{({ isSubmitting, values, errors, handleSubmit, handleChange }) => (
@@ -91,12 +99,10 @@ export const NewJobForm = () => {
 					<CustomerInfo />
 					<JobDetails values={values} handleChange={handleChange} />
 
-					<Parts />
+					<PartsView parts={parts} setParts={setParts} />
 					<InternalUse />
 					<SubmitFormButton isSubmitting={isSubmitting} />
-					{errors && (
-						<FormErrorModal isSubmitting={isSubmitting} errors={errors} />
-					)}
+					{errors && <FormError isSubmitting={isSubmitting} errors={errors} />}
 				</Form>
 			)}
 		</Formik>

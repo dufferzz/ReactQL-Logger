@@ -6,7 +6,7 @@ const MySwal = withReactContent(Swal);
 
 const isEmptyObject = (errors: any) => JSON.stringify(errors) === "{}";
 
-const FormErrorModal = ({ errors, isSubmitting }: any) => {
+const FormError = ({ errors, isSubmitting }: any) => {
 	if (isSubmitting && !isEmptyObject(errors)) {
 		MySwal.fire({
 			title: <p>Invalid Form</p>,
@@ -22,4 +22,4 @@ const FormErrorModal = ({ errors, isSubmitting }: any) => {
 	return <></>;
 };
 
-export default FormErrorModal;
+export default FormError;

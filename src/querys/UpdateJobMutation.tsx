@@ -1,7 +1,8 @@
 import { gql } from "@apollo/client";
 
-const NEWJOB_MUTATION = gql`
-	mutation AddJob(
+const UPDATE_JOB_MUTATION = gql`
+	mutation UpdateJob(
+		$_id: String!
 		$firstname: String!
 		$lastname: String!
 		$email: String!
@@ -10,16 +11,17 @@ const NEWJOB_MUTATION = gql`
 		$postcode: String!
 		$assigned: String!
 		$status: String!
-		$todo: String
-		$done: String
-		$model: String
-		$make: String
-		$year: String
-		$serial: String
+		$todo: String!
+		$done: String!
+		$model: String!
+		$make: String!
+		$year: String!
+		$serial: String!
 		$parts: String
-		$labourHours: String
+		$labourHours: String!
 	) {
-		addJob(
+		updateJob(
+			_id: $_id
 			firstname: $firstname
 			lastname: $lastname
 			email: $email
@@ -38,8 +40,30 @@ const NEWJOB_MUTATION = gql`
 			labourHours: $labourHours
 		) {
 			_id
+			firstname
+			lastname
+			email
+			city
+			district
+			postcode
+			todo
+			done
+			parts {
+				partName
+				partNumber
+				partQty
+				partPrice
+			}
+			status
+			created
+			make
+			model
+			year
+			serial
+			assigned
+			labourHours
 		}
 	}
 `;
 
-export default NEWJOB_MUTATION;
+export default UPDATE_JOB_MUTATION;

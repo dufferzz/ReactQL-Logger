@@ -1,6 +1,7 @@
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { useSubscription, useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
+
 import CenterDiv from "../../components/StyledComponents/CenteredDiv";
 import FlexDiv from "../../components/StyledComponents/FlexDiv";
 import Section from "../../components/StyledComponents/Section";
@@ -11,17 +12,19 @@ import Loading from "../../components/Loading/Loading";
 import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
 import JobsTable from "../../components/JobsTable/JobsTable";
 
-import GET_ALL_JOBS_QUERY from "./JobsQuery";
-import JOBS_SUBSCRIPTION from "./JobsSubscription";
+import GET_ALL_JOBS_QUERY from "../../querys/JobsQuery";
+import JOBS_SUBSCRIPTION from "../../querys/JobsSubscription";
 
 const Sub = () => {
 	const { data, loading } = useSubscription(JOBS_SUBSCRIPTION);
+	console.log(data);
 	return <h4>{!loading && <div>New Job: {JSON.stringify(data)} </div>}</h4>;
 };
 
 const JobsPage = () => {
-	const { loading, error, data } = useQuery(GET_ALL_JOBS_QUERY);
 	const { user } = useAuth0();
+
+	const { loading, error, data } = useQuery(GET_ALL_JOBS_QUERY, {});
 
 	return (
 		<>

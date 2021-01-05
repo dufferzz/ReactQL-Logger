@@ -9,20 +9,30 @@ import NotFound from "./pages/NotFoundPage/NotFoundPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Loading from "./components/Loading/Loading";
 import { useAuth0 } from "@auth0/auth0-react";
+import styled from "styled-components";
+
+const AppContainer = styled.div`
+	min-height: 80vh;
+	background-color: #ddd;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	width: 90%;
+	margin: auto;
+`;
 
 const App = () => {
 	const { isLoading } = useAuth0();
 	if (isLoading) {
 		return (
-			<div className="App">
+			<AppContainer>
 				<Loading />
-			</div>
+			</AppContainer>
 		);
 	}
 	return (
 		<Router>
 			<TopNav />
-			<div className="App">
+			<AppContainer>
 				<Switch>
 					<Route exact path="/" component={HomePage} />
 					<Route path="/jobs" component={Jobs} />
@@ -30,7 +40,7 @@ const App = () => {
 					<Route path="/job/:id" component={JobDetails} />
 					<Route component={NotFound} />
 				</Switch>
-			</div>
+			</AppContainer>
 			<Footer />
 		</Router>
 	);

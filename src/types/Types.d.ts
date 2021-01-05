@@ -79,4 +79,5 @@ interface PartPropType {
 }
 interface JobPartsProp {
 	parts?: Part[];
+	setParts?: any;
 }
