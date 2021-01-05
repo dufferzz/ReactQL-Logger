@@ -1,7 +1,7 @@
 import Job from "./job.model";
 
 const jobController = {
-	jobs: () => Job.find({}).sort({ created: 1 }),
+	jobs: () => Job.find({}).sort({ created: -1 }),
 	getJob: (args) => Job.findById(args._id),
 	getAssignedJobs: (args) => Job.find({ assigned: args.user }),
 	updateJob: (args) =>

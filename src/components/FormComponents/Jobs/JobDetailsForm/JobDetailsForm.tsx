@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form } from "formik";
 import { useMutation } from "@apollo/client";
 import * as Yup from "yup";
@@ -13,7 +13,6 @@ import SubmitFormButton from "../../../SharedComponents/SubmitFormButton";
 import FormError from "../../FormError/FormError";
 
 import UPDATE_JOB_MUTATION from "../../../../querys/UpdateJobMutation";
-import GET_ALL_JOBS_QUERY from "../../../../querys/JobsQuery";
 
 const MySwal = withReactContent(Swal);
 

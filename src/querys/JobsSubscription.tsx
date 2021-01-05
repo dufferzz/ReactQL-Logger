@@ -1,14 +1,14 @@
 import { gql } from "@apollo/client";
 
 const JOBS_SUBSCRIPTION = gql`
-	subscription jobs {
-		jobs {
+	subscription jobAdded {
+		jobAdded {
 			_id
 			firstname
 			lastname
 			status
 			created
-			modified
+			assigned
 		}
 	}
 `;

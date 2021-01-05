@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import dayjs from "dayjs";
 import { useHistory } from "react-router-dom";
 import StatusImage from "../StyledComponents/StatusImage";
@@ -27,7 +27,11 @@ const JobsTableRow = ({ job }: JobPropType) => {
 	);
 };
 
-const JobsTable = ({ jobs }: any) => {
+const JobsTable = ({ jobs, subscribeToNewJobs }: any) => {
+	useEffect(() => {
+		subscribeToNewJobs();
+	}, [subscribeToNewJobs]);
+
 	return (
 		<>
 			<table
@@ -46,11 +50,14 @@ const JobsTable = ({ jobs }: any) => {
 				</thead>
 				<tbody>
 					{jobs &&
-						jobs.map((job: Job) => <JobsTableRow key={job._id} job={job} />)}
+						jobs.jobs.map((job: Job) => (
+							<JobsTableRow key={job._id} job={job} />
+						))}
 				</tbody>
 			</table>
 		</>
 	);
+	// }
 };
 
 export default JobsTable;

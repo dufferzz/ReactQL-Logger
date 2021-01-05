@@ -39,7 +39,7 @@ const JobSchema = Yup.object().shape({
 });
 
 export const NewJobForm = () => {
-	const [addJob, { data }] = useMutation(NEWJOB_MUTATION, {});
+	const [addJob] = useMutation(NEWJOB_MUTATION, {});
 	const [parts, setParts] = useState([
 		{
 			partName: "Fake Item",
