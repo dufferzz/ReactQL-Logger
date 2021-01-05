@@ -5,8 +5,6 @@ import mongoosePaginate from "mongoose-paginate-v2";
 const dbb = mongoose.connection.useDb("jobs");
 
 const Schema = mongoose.Schema;
-//TODO: Come back and add more specific requirements
-
 const JobSchema = new Schema({
 	firstname: {
 		type: String,
@@ -47,7 +45,7 @@ const JobSchema = new Schema({
 	},
 	modified: {
 		type: Date,
-		default: Date.now,
+		required: true,
 	},
 	created: {
 		type: Date,
@@ -55,8 +53,7 @@ const JobSchema = new Schema({
 	},
 	status: {
 		type: String,
-		required: false,
-		default: "not-started",
+		required: true,
 	},
 	model: {
 		type: String,
@@ -77,23 +74,20 @@ const JobSchema = new Schema({
 	images: {
 		type: Array,
 		required: false,
-		// select: false
 	},
 	labourHours: {
 		type: String,
-		required: false,
+		required: true,
 	},
 	assigned: {
 		type: String,
-		required: false,
-		default: "not-assigned",
+		required: true,
 	},
 	jobNumber: {
 		type: Number,
 		required: false,
 	},
 });
-// JobSchema.plugin(AutoIncrement, { inc_field: "jobNumber" });
 
 JobSchema.plugin(mongoosePaginate);
 

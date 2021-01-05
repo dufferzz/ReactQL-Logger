@@ -17,7 +17,10 @@ import JOBS_SUBSCRIPTION from "../../querys/JobsSubscription";
 const JobsPage = () => {
 	const { user } = useAuth0();
 	const { data, error, loading, subscribeToMore, ...result } = useQuery(
-		GET_ALL_JOBS_QUERY
+		GET_ALL_JOBS_QUERY,
+		{
+			fetchPolicy: "cache-and-network",
+		}
 	);
 
 	return (

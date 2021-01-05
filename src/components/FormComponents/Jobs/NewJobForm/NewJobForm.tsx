@@ -38,16 +38,15 @@ const JobSchema = Yup.object().shape({
 	status: Yup.string().required("Required"),
 });
 
+// {
+// 	partName: "Fake Item",
+// 	partNumber: "234234",
+// 	partQty: "2",
+// 	partPrice: "342",
+// },
 export const NewJobForm = () => {
 	const [addJob] = useMutation(NEWJOB_MUTATION, {});
-	const [parts, setParts] = useState([
-		{
-			partName: "Fake Item",
-			partNumber: "234234",
-			partQty: "2",
-			partPrice: "342",
-		},
-	]);
+	const [parts, setParts] = useState([]);
 
 	return (
 		<Formik
@@ -72,7 +71,7 @@ export const NewJobForm = () => {
 			validationSchema={JobSchema}
 			onSubmit={async (values, { setSubmitting }) => {
 				console.log(values);
-				let newvalues: any = values;
+				const newvalues: any = values;
 				newvalues.parts = parts;
 				await addJob({ variables: newvalues })
 					.then((daa: any) => {
