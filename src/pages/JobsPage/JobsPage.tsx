@@ -11,7 +11,7 @@ import Loading from "../../components/Loading/Loading";
 import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
 import JobsTable from "../../components/JobsTable/JobsTable";
 
-import GET_ALL_JOBS_QUERY from "../../querys/JobsQuery";
+import GET_ALL_JOBS_QUERY from "../../querys/GetAllJobsQuery";
 import JOBS_SUBSCRIPTION from "../../querys/JobsSubscription";
 
 const JobsPage = () => {

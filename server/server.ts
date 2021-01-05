@@ -33,6 +33,7 @@ const server = new ApolloServer({
 					if (error) throw new Error(error);
 
 					isAuthenticated = true;
+					// console.log(token);
 					return {
 						isAuthenticated,
 						decoded,
@@ -49,7 +50,7 @@ const server = new ApolloServer({
 
 const startServer = async () => {
 	var corsOptions = {
-		origin: "http://localhost:3000",
+		origin: "https://localhost:3000",
 		credentials: true,
 	};
 
@@ -65,7 +66,7 @@ const startServer = async () => {
 	const port = process.env.PORT || 3001;
 
 	httpServer.listen(port, () => {
-		log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`);
+		log(`🚀 Server ready at https://localhost:${port}${server.graphqlPath}`);
 	});
 };
 startServer();

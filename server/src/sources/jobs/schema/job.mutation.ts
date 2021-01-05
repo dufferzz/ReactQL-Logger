@@ -37,7 +37,7 @@ const jobMutation = gql`
 			year: String!
 			serial: String
 			assigned: String!
-			parts: String
+			parts: [PartInput]
 			labourHours: String!
 		): Job!
 

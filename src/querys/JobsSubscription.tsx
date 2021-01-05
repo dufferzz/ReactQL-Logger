@@ -8,6 +8,7 @@ const JOBS_SUBSCRIPTION = gql`
 			lastname
 			status
 			created
+			modified
 			assigned
 		}
 	}

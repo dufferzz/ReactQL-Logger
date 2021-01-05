@@ -39,7 +39,7 @@ const AuthorizedApolloProvider = ({ children }: any) => {
 		},
 	});
 
-	// Split our link requests by query type for WS Subscriptions
+	// Split our link requests by type for WS Subscriptions
 
 	const splitLink = split(
 		({ query }) => {

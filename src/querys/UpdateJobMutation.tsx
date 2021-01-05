@@ -17,7 +17,7 @@ const UPDATE_JOB_MUTATION = gql`
 		$make: String!
 		$year: String!
 		$serial: String!
-		$parts: String
+		$parts: [PartInput]
 		$labourHours: String!
 	) {
 		updateJob(

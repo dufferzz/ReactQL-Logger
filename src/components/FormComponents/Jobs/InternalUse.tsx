@@ -1,5 +1,7 @@
 import React from "react";
 import { Field } from "formik";
+import { gql, useMutation } from "@apollo/client";
+import { useHistory } from "react-router-dom";
 
 import Section from "../../StyledComponents/Section";
 import SectionHeader from "../../StyledComponents/SectionHeader";
@@ -7,14 +9,27 @@ import Button, { DangerButton } from "../../StyledComponents/Button";
 import SectionElement from "../../StyledComponents/SectionElement";
 import ErrorField from "../../StyledComponents/ErrorField";
 
-const deleteJob = (id: String) => {
+import DELETE_JOB_MUTATION from "../../../querys/DeleteJobMutation";
+const deleteJob = async (id: String, sendDeleteJob: any, history: any) => {
 	console.log(`deleting job ${id}!`);
+	await sendDeleteJob(id)
+		.then((daa: any) => {
+			history.push(`/`);
+		})
+		.catch((err: any) => {
+			console.error(err);
+		});
 };
 interface IProps {
 	id?: string;
 }
 
 const ManagementButtons = ({ id }: IProps) => {
+	const [sendDeleteJob] = useMutation(DELETE_JOB_MUTATION, {
+		variables: { _id: id },
+	});
+	const history = useHistory();
+
 	if (!id) return <></>;
 
 	return (
@@ -25,7 +40,7 @@ const ManagementButtons = ({ id }: IProps) => {
 				type="button"
 				style={{ color: "white" }}
 				onClick={() => {
-					deleteJob(id);
+					deleteJob(id, sendDeleteJob, history);
 				}}
 			>
 				Delete

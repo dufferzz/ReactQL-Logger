@@ -4,7 +4,7 @@ const jobType = gql`
 	scalar DateTime
 
 	type Job {
-		_id: String!
+		_id: ID!
 		firstname: String!
 		lastname: String!
 		email: String!

@@ -5,6 +5,7 @@ const FlexDivCenter = styled.div`
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: center;
+	margin-bottom: 1rem;
 `;
 
 export default FlexDivCenter;

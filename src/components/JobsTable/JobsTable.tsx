@@ -22,7 +22,7 @@ const JobsTableRow = ({ job }: JobPropType) => {
 			<td>
 				{job.firstname} {job.lastname}
 			</td>
-			<td>{dayjs(job.created).format("DD/MM/YY")}</td>
+			<td>{dayjs(job.created).format("DD/MM/YY - HH:mm")}</td>
 		</tr>
 	);
 };

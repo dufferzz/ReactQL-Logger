@@ -39,7 +39,7 @@
 	},
 	"scripts": {
 		"start": "npx concurrently \"yarn startserver\" \"yarn startclient\"",
-		"startclient": "HOST=0.0.0.0 react-scripts start",
+		"startclient": "HTTPS=true HOST=0.0.0.0 react-scripts start",
 		"startserver": "cd server; yarn start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",

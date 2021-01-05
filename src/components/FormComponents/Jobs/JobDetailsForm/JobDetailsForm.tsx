@@ -59,7 +59,15 @@ const JobDetailsForm = ({ job }: JobPropType) => {
 			}}
 			validationSchema={JobSchema}
 			onSubmit={async (values, { setSubmitting }) => {
-				await updateJob({ variables: values })
+				const newvalues: any = values;
+				console.log(job.parts);
+				newvalues.parts = job.parts.map((part: Part) => ({
+					partName: part.partName,
+					partNumber: part.partNumber,
+					partQty: part.partQty,
+					partPrice: part.partPrice,
+				}));
+				await updateJob({ variables: newvalues })
 					.then((daa: any) => {
 						console.log(daa);
 						MySwal.fire({
