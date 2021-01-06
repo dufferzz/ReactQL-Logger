@@ -1,6 +1,6 @@
 import React from "react";
 import { Field } from "formik";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import Section from "../../StyledComponents/Section";
@@ -9,7 +9,7 @@ import Button, { DangerButton } from "../../StyledComponents/Button";
 import SectionElement from "../../StyledComponents/SectionElement";
 import ErrorField from "../../StyledComponents/ErrorField";
 
-import DELETE_JOB_MUTATION from "../../../querys/DeleteJobMutation";
+import DELETE_JOB_MUTATION from "../../../querys/jobs/DeleteJobMutation";
 const deleteJob = async (id: String, sendDeleteJob: any, history: any) => {
 	console.log(`deleting job ${id}!`);
 	await sendDeleteJob(id)

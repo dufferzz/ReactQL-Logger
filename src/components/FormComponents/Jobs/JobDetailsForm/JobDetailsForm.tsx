@@ -12,7 +12,7 @@ import PartsView from "../Parts";
 import SubmitFormButton from "../../../SharedComponents/SubmitFormButton";
 import FormError from "../../FormError/FormError";
 
-import UPDATE_JOB_MUTATION from "../../../../querys/UpdateJobMutation";
+import UPDATE_JOB_MUTATION from "../../../../querys/jobs/UpdateJobMutation";
 
 const MySwal = withReactContent(Swal);
 

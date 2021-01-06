@@ -11,8 +11,8 @@ import Loading from "../../components/Loading/Loading";
 import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
 import JobsTable from "../../components/JobsTable/JobsTable";
 
-import GET_ALL_JOBS_QUERY from "../../querys/GetAllJobsQuery";
-import JOBS_SUBSCRIPTION from "../../querys/JobsSubscription";
+import GET_ALL_JOBS_QUERY from "../../querys/jobs/GetAllJobsQuery";
+import JOBS_SUBSCRIPTION from "../../querys/jobs/JobsSubscription";
 
 const JobsPage = () => {
 	const { user } = useAuth0();

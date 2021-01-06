@@ -77,9 +77,11 @@ There are a lot of hard-coded URLs in the src tree for now. I will move them to 
 
 Auth0 is a salty little one when you try and access from other machines on the local network. auth0-spa-js must run on a secure origin. unless is localhost dev. lvh.me doesn't work, nor adding hosts entry.
 
-You will likely need to add certificate exceptions. WSS socket is irritating with CERT_AUTHORITY errors.
+You will likely need to add certificate exceptions, or run Chrome(ium) with the --ignore-certificate-errors flag.
 
-Perhaps it is possible an SSH tunnel to negate having to do all this
+WSS socket is irritating with CERT_AUTHORITY errors.
+
+It is possible to use an SSH tunnel to negate having to do all this.
 
 ```bash
     cd server

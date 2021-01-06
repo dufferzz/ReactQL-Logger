@@ -9,7 +9,7 @@ import PartsView from "../Parts";
 
 import SubmitFormButton from "../../../SharedComponents/SubmitFormButton";
 import FormError from "../../FormError/FormError";
-import NEWJOB_MUTATION from "../../../../querys/NewJobMutation";
+import NEWJOB_MUTATION from "../../../../querys/jobs/NewJobMutation";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 

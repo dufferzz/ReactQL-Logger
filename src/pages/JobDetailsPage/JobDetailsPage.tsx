@@ -9,7 +9,7 @@ import Loading from "../../components/Loading/Loading";
 import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
 import JobDetailsForm from "../../components/FormComponents/Jobs/JobDetailsForm/JobDetailsForm";
 
-import GET_JOB_QUERY from "../../querys/JobDetailsQuery";
+import GET_JOB_QUERY from "../../querys/jobs/JobDetailsQuery";
 
 const JobDetails = () => {
 	const { id } = useParams<ID>();
