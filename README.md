@@ -47,27 +47,49 @@ Database is currently MongoDB Atlas, I will be moving to Postgres once I have ev
 - A whole lot of design, tidying, refactoring, optimisation, structure, etc
 - Swagger Docs for API routes
 - Make a Wiki / GitHub Page
-- Add Tests?
-- Make Server logging less janky
 
 ## server/.env
 
 ```bash
     PORT=3001
+    CLIENT_PORT=3000
     DB_URL=mongodb://
     AUTH0_DOMAIN=
     API_IDENTIFIER=
+    HTTPS=false
 ```
 
 ## Running
 
-IMPORANT NOTE: DEFAULT HOST=0.0.0.0 - Change package.json start script if not wanted!
+IMPORANT NOTE: HOST=0.0.0.0 - Change package.json start script and update CORS, config/config.tsx if not wanted!
 
-There are a lot of hard-coded URLs in the src tree for now. I will move them to easily modifiable env vars at some point
+There are a lot of hard-coded URLs in the src tree for now. I will move them to easily modifiable env vars at some point. Possibly will add a switch statement to deal with CORS for development.
+
+### Plain HTTP Development Mode
 
 ```bash
     touch server/.env
     nvim server/.env # add info
+    yarn start
+```
+
+### Secure HTTPS Development Mode
+
+Auth0 is a salty little one when you try and access from other machines on the local network. auth0-spa-js must run on a secure origin. unless is localhost dev. lvh.me doesn't work, nor adding hosts entry.
+
+You will likely need to add certificate exceptions. WSS socket is irritating with CERT_AUTHORITY errors.
+
+Perhaps it is possible an SSH tunnel to negate having to do all this
+
+```bash
+    cd server
+    openssl req -x509 -newkey rsa:2048 -keyout keytmp.pem -out cert.pem -days 365
+    openssl rsa -in keytmp.pem -out key.pem
+    touch .env
+    nvim .env # add info & HTTPS=true
+    cd ..
+    nvim config/config.tsx # Change URL variables
+    nvim package.json # Append HTTPS=true to start script
     yarn start
 ```
 

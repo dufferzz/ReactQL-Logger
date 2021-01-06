@@ -9,10 +9,11 @@ import isTokenValid from "./src/utils/validate";
 import http from "http";
 
 import resolvers from "./src/resolvers";
-
 import schemas from "./src/schemas";
-import LogRocket from "logrocket";
-LogRocket.init("nao4j2/dfz-store");
+import fs from "fs";
+import https from "https";
+const key = fs.readFileSync("./key.pem");
+const cert = fs.readFileSync("./cert.pem");
 
 require("dotenv").config();
 const schema = mergeSchemas({
@@ -49,8 +50,15 @@ const server = new ApolloServer({
 });
 
 const startServer = async () => {
+	const port = process.env.PORT || 3001;
+	const clientPort = process.env.CLIENT_PORT || 3000;
+	const HTTPS = process.env.HTTPS || false;
+
 	var corsOptions = {
-		origin: "https://localhost:3000",
+		origin:
+			HTTPS === "true"
+				? `https://localhost:${clientPort}`
+				: `http://localhost:${clientPort}`,
 		credentials: true,
 	};
 
@@ -58,15 +66,27 @@ const startServer = async () => {
 	app.use(cors(corsOptions));
 	server.applyMiddleware({ app });
 
-	const httpServer = http.createServer(app);
-	server.installSubscriptionHandlers(httpServer);
+	if (HTTPS === "true") {
+		const https_server = https.createServer({ key: key, cert: cert }, app);
+		server.installSubscriptionHandlers(https_server);
+		await connectDB();
 
-	await connectDB();
+		https_server.listen(port, () => {
+			log(
+				`🚀 HTTPS Server ready at https://localhost:${port}${server.graphqlPath}`
+			);
+		});
+	} else {
+		const httpServer = http.createServer(app);
 
-	const port = process.env.PORT || 3001;
+		server.installSubscriptionHandlers(httpServer);
+		await connectDB();
 
-	httpServer.listen(port, () => {
-		log(`🚀 Server ready at https://localhost:${port}${server.graphqlPath}`);
-	});
+		httpServer.listen(port, () => {
+			log(
+				`🚀 HTTP Server ready at http://localhost:${port}${server.graphqlPath}`
+			);
+		});
+	}
 };
 startServer();

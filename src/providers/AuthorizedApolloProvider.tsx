@@ -8,6 +8,7 @@ import {
 import { setContext } from "@apollo/link-context";
 import React from "react";
 import { WebSocketLink } from "@apollo/client/link/ws";
+import config from "../config/config";
 
 import { getMainDefinition } from "@apollo/client/utilities";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -30,10 +31,10 @@ const AuthorizedApolloProvider = ({ children }: any) => {
 
 	// Initialise our links
 	const httpLink = new HttpLink({
-		uri: "http://localhost:3001/graphql",
+		uri: config.apolloHttpUrl,
 	});
 	const wsLink = new WebSocketLink({
-		uri: `ws://localhost:3001/graphql`,
+		uri: config.apolloWSUrl,
 		options: {
 			reconnect: true,
 		},
@@ -50,7 +51,7 @@ const AuthorizedApolloProvider = ({ children }: any) => {
 			);
 		},
 		wsLink,
-		authLink.concat(httpLink)
+		authLink.concat(httpLink) // Bind our auth headers to the httplink
 	);
 
 	const apolloClient = new ApolloClient({
