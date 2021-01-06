@@ -1,22 +1,23 @@
 import React from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-
+import { FormikErrors } from "formik";
 const MySwal = withReactContent(Swal);
 
-const isEmptyObject = (errors: any) => JSON.stringify(errors) === "{}";
+const isEmptyObject = (errors: FormikErrors<any>) =>
+	JSON.stringify(errors) === "{}";
 
-const FormError = ({ errors, isSubmitting }: any) => {
+interface FormErrorProps {
+	errors: FormikErrors<any>;
+	isSubmitting: boolean;
+}
+
+const FormError = ({ errors, isSubmitting }: FormErrorProps) => {
 	if (isSubmitting && !isEmptyObject(errors)) {
 		MySwal.fire({
 			title: <p>Invalid Form</p>,
 			icon: "error",
 			text: JSON.stringify(errors),
-			didOpen: () => {
-				// `MySwal` is a subclass of `Swal`
-				//   with all the same instance & static methods
-				// MySwal.clickConfirm();
-			},
 		});
 	}
 	return <></>;

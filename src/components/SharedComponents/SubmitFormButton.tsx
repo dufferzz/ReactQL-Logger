@@ -1,6 +1,11 @@
 import React from "react";
 import { SuccessButton } from "../StyledComponents/Button";
-const SubmitFormButton = ({ isSubmitting }: any) => (
+
+interface SubmitFormProps {
+	isSubmitting: boolean;
+}
+
+const SubmitFormButton = ({ isSubmitting }: SubmitFormProps) => (
 	<div style={{ width: "100%" }}>
 		<SuccessButton
 			style={{ width: "100%", height: "3rem" }}

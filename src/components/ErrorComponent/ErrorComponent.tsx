@@ -9,7 +9,7 @@ const ErrorComponent = ({ error }: ErrorProp) => {
 	return (
 		<>
 			<span style={{ width: "100%", textAlign: "center" }}>
-				<span style={{ fontSize: "5rem" }}>🥺 {String(error.message)}</span>
+				<span style={{ fontSize: "2rem" }}>🥺 {String(error.message)}</span>
 				{error.graphQLErrors.map(({ message }: any, i: number) => (
 					<span key={i}>{message}</span>
 				))}
