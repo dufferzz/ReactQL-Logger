@@ -78,6 +78,7 @@ const JobDetailsForm = ({ job }: JobPropType) => {
 					partQty: part.partQty,
 					partPrice: part.partPrice,
 				}));
+				console.log(newvalues);
 				await updateJob({ variables: newvalues })
 					.then((daa: any) => {
 						console.log(daa);

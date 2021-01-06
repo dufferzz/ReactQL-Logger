@@ -41,12 +41,12 @@ const partResolver = {
 			pubsub.publish(PART_ADDED, { partAdded: args });
 			return partController.addPart(args);
 		},
-		updateJob(root, args, context) {
+		updatePart(root, args, context) {
 			if (!context.isAuthenticated) return "";
 			pubsub.publish(PART_UPDATED, { partUpdated: args });
 			return partController.updatePart(args);
 		},
-		deleteJob(root, args, context) {
+		deletePart(root, args, context) {
 			if (!context.isAuthenticated) return "";
 			pubsub.publish(PART_DELETED, { partDeleted: args });
 			return partController.deletePart(args);

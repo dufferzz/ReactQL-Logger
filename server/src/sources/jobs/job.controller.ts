@@ -4,8 +4,9 @@ const jobController = {
 	jobs: () => Job.find({}).sort({ created: -1 }),
 	getJob: (args) => Job.findById(args._id),
 	getAssignedJobs: (args) => Job.find({ assigned: args.user }),
-	updateJob: (args) =>
-		Job.findOneAndUpdate(
+	updateJob: async (args) => {
+		console.log(args);
+		return await Job.findOneAndUpdate(
 			{
 				_id: args._id,
 			},
@@ -31,7 +32,8 @@ const jobController = {
 					modified: new Date(),
 				},
 			}
-		),
+		);
+	},
 
 	deleteJob: (args) => Job.deleteOne({ _id: args._id }),
 
