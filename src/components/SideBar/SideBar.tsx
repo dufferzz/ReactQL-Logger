@@ -1,13 +1,14 @@
 import React from "react";
 import Button from "../StyledComponents/Button";
 import { Link } from "react-router-dom";
+import FlexDiv from "../StyledComponents/FlexDiv";
 const SideBar = () => {
 	return (
-		<div>
+		<FlexDiv style={{ marginTop: "0.7rem" }}>
 			<Link to="/parts">
-				<Button>Parts Mangement</Button>
+				<Button>Parts Management</Button>
 			</Link>
-		</div>
+		</FlexDiv>
 	);
 };
 

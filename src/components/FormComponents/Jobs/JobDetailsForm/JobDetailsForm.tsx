@@ -35,6 +35,17 @@ const JobSchema = Yup.object().shape({
 	status: Yup.string().required("Required"),
 });
 
+interface JobPropType {
+	job: Job;
+}
+
+type Part = {
+	partName: string;
+	partNumber: string;
+	partQty: string;
+	partPrice: string;
+};
+
 const JobDetailsForm = ({ job }: JobPropType) => {
 	const [updateJob] = useMutation(UPDATE_JOB_MUTATION);
 	return (

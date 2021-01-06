@@ -10,21 +10,24 @@ textarea {
 input:focus {
 	box-shadow: 0 0 4px rgba(0, 0, 0, 0.01), 0px 0px 8px rgba(0, 0, 0, 0.2);
 }
+
+tbody tr {
+	transition: background-color 0.2s;
+}
 tbody tr:hover {
+	transition: background-color 0.2s;
 	background-color: rgba(0, 0, 0, 0.1) !important;
 }
 tbody tr:nth-child(odd) {
+	transition: background-color 0.2s;
 	background-color: #ddd;
 }
 table {
 	border-collapse: collapse;
-}
-table tr:last-child td:first-child {
-	border-bottom-left-radius: 5px;
-}
-
-table tr:last-child td:last-child {
-	border-bottom-right-radius: 5px;
+	border-collapse: collapse;
+	border-radius: 10px;
+	border-style: hidden; /* hide standard table (collapsed) border */
+	box-shadow: 0 0 0 1px #aaa; /* this draws the table border  */
 }
 
 input {
@@ -32,4 +35,13 @@ input {
 }
 label {
 	padding-bottom: 0.25rem;
+}
+
+thead {
+	font-size: 1rem;
+}
+
+thead td {
+	padding: 10px 0;
+	font-weight: bold;
 }

@@ -1,15 +1,20 @@
 import React from "react";
+import { ApolloError } from "@apollo/client";
 
-const ErrorComponent = ({ error }: any) => {
+interface ErrorProp {
+	error: ApolloError;
+}
+
+const ErrorComponent = ({ error }: ErrorProp) => {
 	return (
-		<h2>
-			🥺 {String(error.message)}
-			<pre>
+		<>
+			<span style={{ width: "100%", textAlign: "center" }}>
+				<span style={{ fontSize: "5rem" }}>🥺 {String(error.message)}</span>
 				{error.graphQLErrors.map(({ message }: any, i: number) => (
 					<span key={i}>{message}</span>
 				))}
-			</pre>
-		</h2>
+			</span>
+		</>
 	);
 };
 

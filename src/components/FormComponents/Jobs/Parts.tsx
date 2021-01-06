@@ -18,7 +18,7 @@ const AddItemDiv = styled.div`
 	align-items: flex-end;
 `;
 
-const PartsItem = ({ part }: PartPropType) => {
+const PartsItem = ({ part }: SinglePartProp) => {
 	return (
 		<tr>
 			<td> X </td>
@@ -40,7 +40,7 @@ const PartsTable = ({ parts }: JobPartsProp) => {
 		>
 			<thead>
 				<tr style={{ fontSize: "1.1rem" }}>
-					<td width="30px">Del</td>
+					<td width="30px"></td>
 					<td>Name</td>
 					<td>#</td>
 					<td>Qty</td>

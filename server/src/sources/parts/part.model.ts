@@ -41,6 +41,7 @@ const partsSchema = new Schema({
 	},
 	price: {
 		type: String,
+		default: "N/A",
 		required: true,
 	},
 	Location: {

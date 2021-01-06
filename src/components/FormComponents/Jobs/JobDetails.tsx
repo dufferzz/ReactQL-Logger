@@ -34,7 +34,7 @@ const YearSelection = () => {
 	);
 };
 
-const JobDetails = ({ values, handleChange }: IProps) => (
+const JobDetails = ({ values, handleChange }: JobDetailsFormProps) => (
 	<Section
 		style={{
 			display: "grid",

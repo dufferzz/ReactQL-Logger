@@ -11,6 +11,7 @@ const SearchBar = styled.div`
 	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 0.1fr;
+	margin-bottom: 0.7rem;
 `;
 
 const SearchParts = () => {
@@ -34,7 +35,7 @@ const SearchParts = () => {
 const PartsPage = () => {
 	return (
 		<Section>
-			<SectionHeader>All Parts (Limit 100)</SectionHeader>
+			<SectionHeader>Search All Parts (Limit 100)</SectionHeader>
 			<SearchParts />
 			<PartsTable />
 		</Section>

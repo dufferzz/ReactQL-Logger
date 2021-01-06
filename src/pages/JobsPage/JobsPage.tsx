@@ -9,6 +9,7 @@ import PageHeading from "../../components/StyledComponents/PageHeading";
 import Button from "../../components/StyledComponents/Button";
 import Loading from "../../components/Loading/Loading";
 import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
+import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import JobsTable from "../../components/JobsTable/JobsTable";
 
 import GET_ALL_JOBS_QUERY from "../../querys/jobs/GetAllJobsQuery";
@@ -35,6 +36,9 @@ const JobsPage = () => {
 				<Link to="/search">
 					<Button>Search</Button>
 				</Link>
+				<Link to="/parts">
+					<Button>Parts Mangement</Button>
+				</Link>
 			</FlexDiv>
 			<Section>
 				{/* <Sub /> */}
@@ -43,24 +47,26 @@ const JobsPage = () => {
 				{loading && <Loading />}
 				{error && <ErrorComponent error={error} />}
 				{data && (
-					<JobsTable
-						jobs={data}
-						{...result}
-						subscribeToNewJobs={() =>
-							subscribeToMore({
-								document: JOBS_SUBSCRIPTION,
-								updateQuery: (currentData, { subscriptionData }) => {
-									if (!subscriptionData.data) {
-										return currentData;
-									}
-									const newJobItem = subscriptionData.data.jobAdded;
-									return Object.assign({}, currentData, {
-										jobs: [newJobItem, ...currentData.jobs],
-									});
-								},
-							})
-						}
-					/>
+					<ErrorBoundary>
+						<JobsTable
+							jobs={data}
+							{...result}
+							subscribeToNewJobs={() =>
+								subscribeToMore({
+									document: JOBS_SUBSCRIPTION,
+									updateQuery: (currentData, { subscriptionData }) => {
+										if (!subscriptionData.data) {
+											return currentData;
+										}
+										const newJobItem = subscriptionData.data.jobAdded;
+										return Object.assign({}, currentData, {
+											jobs: [newJobItem, ...currentData.jobs],
+										});
+									},
+								})
+							}
+						/>
+					</ErrorBoundary>
 				)}
 			</Section>
 		</>

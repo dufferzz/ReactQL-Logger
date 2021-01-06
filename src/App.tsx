@@ -13,6 +13,7 @@ import JobDetails from "./pages/JobDetailsPage/JobDetailsPage";
 import Jobs from "./pages/JobsPage/JobsPage";
 import NotFound from "./pages/NotFoundPage/NotFoundPage";
 import Loading from "./components/Loading/Loading";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import "./App.css";
 
 const AppContainer = styled.div`
@@ -36,17 +37,19 @@ const App = () => {
 	return (
 		<Router>
 			<TopNav />
-			<SideBar />
-			<AppContainer>
-				<Switch>
-					<Route exact path="/" component={HomePage} />
-					<Route path="/jobs" component={Jobs} />
-					<Route path="/parts" component={PartsPage} />
-					<Route path="/newjob" component={NewJob} />
-					<Route path="/job/:id" component={JobDetails} />
-					<Route component={NotFound} />
-				</Switch>
-			</AppContainer>
+			{/* <SideBar /> */}
+			<ErrorBoundary>
+				<AppContainer>
+					<Switch>
+						<Route exact path="/" component={HomePage} />
+						<Route path="/jobs" component={Jobs} />
+						<Route path="/parts" component={PartsPage} />
+						<Route path="/newjob" component={NewJob} />
+						<Route path="/job/:id" component={JobDetails} />
+						<Route component={NotFound} />
+					</Switch>
+				</AppContainer>
+			</ErrorBoundary>
 			<Footer />
 		</Router>
 	);

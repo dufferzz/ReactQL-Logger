@@ -20,11 +20,11 @@ const deleteJob = async (id: String, sendDeleteJob: any, history: any) => {
 			console.error(err);
 		});
 };
-interface IProps {
+interface IDProp {
 	id?: string;
 }
 
-const ManagementButtons = ({ id }: IProps) => {
+const ManagementButtons = ({ id }: IDProp) => {
 	const [sendDeleteJob] = useMutation(DELETE_JOB_MUTATION, {
 		variables: { _id: id },
 	});
@@ -51,7 +51,7 @@ const ManagementButtons = ({ id }: IProps) => {
 	);
 };
 
-const InternalUse = ({ id }: IProps) => (
+const InternalUse = ({ id }: IDProp) => (
 	<Section
 		style={{
 			display: "grid",

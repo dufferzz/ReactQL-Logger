@@ -11,6 +11,7 @@ type DBPart = {
 	partNumber: string;
 	Location: string;
 	thumbnail: string;
+	supplier: string;
 };
 
 interface PartPropType {
@@ -20,8 +21,8 @@ interface PartPropType {
 
 const PartsTableRow = ({ part }: PartPropType) => {
 	return (
-		<tr>
-			<td width="75px">
+		<tr title={`Supplier: ${part.supplier}`}>
+			<td style={{ padding: "5px 5px" }} width="75px">
 				<img style={{ width: "75px" }} alt="" src={part.thumbnail} />
 			</td>
 			<td>{part.partName}</td>
@@ -49,12 +50,12 @@ const PartsTable = () => {
 			<tbody>
 				{loading && (
 					<tr>
-						<td colSpan={3}>Loading..</td>
+						<td colSpan={5}>Loading..</td>
 					</tr>
 				)}
 				{error && (
 					<tr>
-						<td colSpan={3}>{JSON.stringify(error)}</td>
+						<td colSpan={5}>{JSON.stringify(error)}</td>
 					</tr>
 				)}
 				{data &&

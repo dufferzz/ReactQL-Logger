@@ -3,6 +3,10 @@ import dayjs from "dayjs";
 import { useHistory } from "react-router-dom";
 import StatusImage from "../StyledComponents/StatusImage";
 
+interface JobPropType {
+	job: Job;
+}
+
 const JobsTableRow = ({ job }: JobPropType) => {
 	const history = useHistory();
 
@@ -27,9 +31,9 @@ const JobsTableRow = ({ job }: JobPropType) => {
 	);
 };
 
-const JobsTable = ({ jobs, subscribeToNewJobs }: any) => {
+const JobsTable = ({ jobs, subscribeToNewJobs, playAlert }: any) => {
 	useEffect(() => {
-		subscribeToNewJobs();
+		if (subscribeToNewJobs !== undefined) subscribeToNewJobs();
 	}, [subscribeToNewJobs]);
 
 	return (
@@ -42,7 +46,7 @@ const JobsTable = ({ jobs, subscribeToNewJobs }: any) => {
 			>
 				<thead>
 					<tr style={{ fontSize: "1.1rem" }}>
-						<td>Status</td>
+						<td></td>
 						<td>ID</td>
 						<td>Client</td>
 						<td>Created</td>

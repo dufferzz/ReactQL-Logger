@@ -1,7 +1,7 @@
 type Job = {
 	_id: string;
 	firstname: string;
-	parts: Part[];
+	parts: JobPart[];
 	lastname: string;
 	email: string;
 	city: string;
@@ -20,28 +20,24 @@ type Job = {
 	labourHours: string;
 };
 
-interface Jobs {
-	job: Job[];
-}
-
-interface JobPropType {
+interface SingleJobProp {
 	job: Job;
 }
 interface StatusType {
-	status?: string;
+	status: string;
 }
 
 type ID = {
 	id: string;
 };
 
-type StatusImage = {
+type StatusImageProp = {
 	image: string;
-	status?: string;
+	status: string;
 };
 
-type Values = {
-	_id?: string | undefined;
+type JobFormValuesProp = {
+	_id?: string;
 	firstname: string;
 	lastname: string;
 	email: string;
@@ -51,33 +47,33 @@ type Values = {
 	todo: string;
 	done: string;
 	modified?: string;
-	created?: string | undefined;
+	created?: string;
 	status: string;
 	model: string;
 	make: string;
 	year: string;
 	serial: string;
-	parts?: Part[];
+	parts?: JobPart[];
 	assigned: string;
 	labourHours: string;
 };
 
-interface IProps {
-	values?: Values;
+interface JobDetailsFormProps {
+	values?: JobFormValuesProp;
 	handleChange: any;
 }
 
-type Part = {
+type JobPart = {
 	partName: string;
 	partNumber: string;
 	partQty: string;
 	partPrice: string;
 };
 
-interface PartPropType {
-	part: Part;
+interface SinglePartProp {
+	part: JobPart;
 }
 interface JobPartsProp {
-	parts?: Part[];
+	parts?: JobPart[];
 	setParts?: any;
 }
