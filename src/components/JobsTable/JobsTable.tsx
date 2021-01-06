@@ -57,7 +57,6 @@ const JobsTable = ({ jobs, subscribeToNewJobs }: any) => {
 			</table>
 		</>
 	);
-	// }
 };
 
 export default JobsTable;

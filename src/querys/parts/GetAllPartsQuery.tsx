@@ -1,12 +1,15 @@
 import { gql } from "@apollo/client";
 
 const GET_ALL_PARTS_QUERY = gql`
-	query GetJobs {
+	query GetParts {
 		parts {
 			_id
 			partName
+			price
 			partNumber
-			partPrice
+			supplier
+			Location
+			thumbnail
 		}
 	}
 `;

@@ -39,6 +39,7 @@ const JobsPage = () => {
 			<Section>
 				{/* <Sub /> */}
 				<SectionHeader>All Jobs</SectionHeader>
+
 				{loading && <Loading />}
 				{error && <ErrorComponent error={error} />}
 				{data && (

@@ -9,7 +9,6 @@ const partsSchema = new Schema({
 	},
 	modified: {
 		type: Date,
-		default: Date.now,
 		required: false,
 	},
 	stockCount: {
@@ -22,12 +21,10 @@ const partsSchema = new Schema({
 	},
 	thumbnail: {
 		type: String,
-		default: "/images/na.png",
 		required: true,
 	},
 	stock: {
 		type: String,
-		default: "000",
 		required: true,
 	},
 	location: {
@@ -39,12 +36,11 @@ const partsSchema = new Schema({
 		required: false,
 	},
 	partNumber: {
-		type: Array, // Array to be able to use part packages/combos
+		type: String,
 		required: true,
 	},
 	price: {
 		type: String,
-		default: "0",
 		required: true,
 	},
 	Location: {

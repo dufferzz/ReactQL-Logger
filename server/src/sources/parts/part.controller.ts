@@ -1,7 +1,7 @@
 import Part from "./part.model";
 
 const partController = {
-	parts: async () => await Part.find({}).limit(100),
+	parts: async () => await Part.find().limit(100),
 	getPart: async (args) => await Part.findById(args._id),
 	updatePart: async (args) =>
 		await Part.findOneAndUpdate(
@@ -12,7 +12,7 @@ const partController = {
 				$set: {
 					partName: args.partName,
 					partNumber: args.partNumber,
-					partPrice: args.partPrice,
+					price: args.partPrice,
 				},
 			}
 		),
@@ -24,7 +24,7 @@ const partController = {
 		const newjob = new Part({
 			partName: args.partName,
 			partNumber: args.partNumber,
-			partPrice: args.partPrice,
+			price: args.partPrice,
 		});
 		return await newjob.save();
 	},

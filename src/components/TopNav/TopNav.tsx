@@ -6,7 +6,7 @@ import LoginButton from "../SharedComponents/LoginButton";
 import LogoutButton from "../SharedComponents/LogoutButton";
 import AdminButton from "../SharedComponents/AdminButton";
 
-import Logo from "../../assets/logoo.webp";
+import Logo from "../../assets/images/logoo.webp";
 
 const Nav = styled.div`
 	background-color: #222;
