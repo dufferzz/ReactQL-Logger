@@ -8,12 +8,11 @@ interface ErrorProp {
 const ErrorComponent = ({ error }: ErrorProp) => {
 	return (
 		<>
-			<span style={{ width: "100%", textAlign: "center" }}>
-				<span style={{ fontSize: "2rem" }}>🥺 {String(error.message)}</span>
-				{error.graphQLErrors.map(({ message }: any, i: number) => (
-					<span key={i}>{message}</span>
-				))}
-			</span>
+			<div style={{ width: "100%", fontSize: "2rem", textAlign: "center" }}>
+				🥺 Error!
+				<br />
+				Unauthorized!
+			</div>
 		</>
 	);
 };

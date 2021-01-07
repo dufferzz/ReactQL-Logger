@@ -13,7 +13,6 @@ import config from "../config/config";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { useAuth0 } from "@auth0/auth0-react";
 
-//TODO: vvvvvvvvvvv fix any type
 const AuthorizedApolloProvider = ({ children }: any) => {
 	const { getAccessTokenSilently } = useAuth0();
 
@@ -21,7 +20,9 @@ const AuthorizedApolloProvider = ({ children }: any) => {
 	const authLink = setContext(async () => {
 		const token = await getAccessTokenSilently({
 			audience: `https://api.dufferz.net`,
+			scope: "openid email profile",
 		});
+		// console.log("token:", token);
 		return {
 			headers: {
 				Authorization: `Bearer ${token}`,

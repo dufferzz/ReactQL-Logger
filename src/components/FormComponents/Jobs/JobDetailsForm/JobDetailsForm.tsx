@@ -70,7 +70,7 @@ const JobDetailsForm = ({ job }: JobPropType) => {
 			}}
 			validationSchema={JobSchema}
 			onSubmit={async (values, { setSubmitting }) => {
-				const newvalues: any = values;
+				const newvalues: JobFormValuesProp = values;
 				console.log(job.parts);
 				newvalues.parts = job.parts.map((part: Part) => ({
 					partName: part.partName,

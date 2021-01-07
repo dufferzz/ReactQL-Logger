@@ -26,10 +26,12 @@ const isTokenValid = (token) => {
 				{
 					audience: process.env.API_IDENTIFIER,
 					issuer: `https://${process.env.AUTH0_DOMAIN}/`,
+					scope: "openid profile email",
 					algorithms: ["RS256"],
 				},
 				(error, decoded) => {
 					if (error) {
+						console.log(error);
 						resolve({ error });
 					}
 					if (decoded) {

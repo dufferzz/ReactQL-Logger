@@ -5,7 +5,7 @@ import styled from "styled-components";
 import HomePage from "./pages/HomePage/HomePage";
 import PartsPage from "./pages/PartsPage/PartsPage";
 
-import SideBar from "./components/SideBar/SideBar";
+// import SideBar from "./components/SideBar/SideBar";
 import TopNav from "./components/TopNav/TopNav";
 import Footer from "./components/Footer/Footer";
 import NewJob from "./pages/NewJobPage/NewJobPage";
@@ -29,9 +29,13 @@ const App = () => {
 	const { isLoading } = useAuth0();
 	if (isLoading) {
 		return (
-			<AppContainer>
-				<Loading />
-			</AppContainer>
+			<Router>
+				<TopNav />
+				<AppContainer>
+					<Loading />
+				</AppContainer>
+				<Footer />
+			</Router>
 		);
 	}
 	return (

@@ -36,6 +36,7 @@ const jobResolver = {
 			) {
 				return jobController.getJob(args);
 			}
+			return;
 		},
 		getAssignedJobs(root, args, context) {
 			return jobController.getAssignedJobs(args);

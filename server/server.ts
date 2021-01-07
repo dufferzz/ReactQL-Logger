@@ -12,8 +12,6 @@ import resolvers from "./src/resolvers";
 import schemas from "./src/schemas";
 import fs from "fs";
 import https from "https";
-const key = fs.readFileSync("./key.pem");
-const cert = fs.readFileSync("./cert.pem");
 
 require("dotenv").config();
 const schema = mergeSchemas({
@@ -24,10 +22,12 @@ const server = new ApolloServer({
 	schema,
 	context: async ({ req, connection }: any) => {
 		if (connection) {
+			// console.log(connection);
 			return connection.context;
 		} else {
 			let isAuthenticated = false;
 			const token = req.headers.authorization || "";
+			// console.log(token);
 			if (token !== "") {
 				try {
 					const { error, decoded } = await isTokenValid(token);
@@ -50,15 +50,17 @@ const server = new ApolloServer({
 });
 
 const startServer = async () => {
+	const domain = process.env.DOMAIN || "lvh.me";
+	const HTTPS = process.env.HTTPS || true;
+
 	const port = process.env.PORT || 3001;
 	const clientPort = process.env.CLIENT_PORT || 3000;
-	const HTTPS = process.env.HTTPS || false;
 
-	var corsOptions = {
+	const corsOptions = {
 		origin:
 			HTTPS === "true"
-				? `https://localhost:${clientPort}`
-				: `http://localhost:${clientPort}`,
+				? `https://${domain}:${clientPort}`
+				: `http://${domain}:${clientPort}`,
 		credentials: true,
 	};
 
@@ -67,13 +69,19 @@ const startServer = async () => {
 	server.applyMiddleware({ app });
 
 	if (HTTPS === "true") {
-		const https_server = https.createServer({ key: key, cert: cert }, app);
+		const https_server = https.createServer(
+			{
+				key: fs.readFileSync("./key.pem"),
+				cert: fs.readFileSync("./cert.pem"),
+			},
+			app
+		);
 		server.installSubscriptionHandlers(https_server);
 		await connectDB();
 
 		https_server.listen(port, () => {
 			log(
-				`🚀 HTTPS Server ready at https://localhost:${port}${server.graphqlPath}`
+				`🚀 HTTPS Server ready at https://${domain}:${port}${server.graphqlPath}`
 			);
 		});
 	} else {
@@ -84,7 +92,7 @@ const startServer = async () => {
 
 		httpServer.listen(port, () => {
 			log(
-				`🚀 HTTP Server ready at http://localhost:${port}${server.graphqlPath}`
+				`🚀 HTTP Server ready at http://${domain}:${port}${server.graphqlPath}`
 			);
 		});
 	}
