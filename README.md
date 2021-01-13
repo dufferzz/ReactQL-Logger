@@ -53,9 +53,9 @@ I haven't created a user management section hooked to the Auth0 Management API y
 ## .env
 
 ```bash
-    PORT=3001
+    SERVER_PORT=3001
     CLIENT_PORT=3000
-    DOMAIN=lvh.me
+    DOMAIN=localhost
     DB_URL=mongodb://
     AUTH0_DOMAIN=
     API_IDENTIFIER=

@@ -59,7 +59,7 @@ const startServer = async () => {
 	const domain = process.env.DOMAIN || "lvh.me";
 	const HTTPS = process.env.HTTPS || true;
 
-	const port = process.env.PORT || 3001;
+	const port = process.env.SERVER_PORT || 3001;
 	const clientPort = process.env.CLIENT_PORT || 3000;
 
 	const corsOptions = {
