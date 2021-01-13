@@ -5,6 +5,7 @@
 	"main": "server.js",
 	"scripts": {
 		"start": "npx concurrently \"yarn startserver\" \"yarn startclient\"",
+		"startdev": "npx concurrently \"yarn startdevserver\" \"yarn startclient\"",
 		"startclient": "cd frontend; HOST=0.0.0.0 yarn start",
 		"startserver": "ts-node server.ts",
 		"startdevserver": "nodemon server.ts",

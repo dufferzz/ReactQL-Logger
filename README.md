@@ -61,7 +61,7 @@ I haven't created a user management section hooked to the Auth0 Management API y
     API_IDENTIFIER=
 ```
 
-## Running
+## Starting
 
 IMPORANT NOTES:
 
@@ -75,38 +75,13 @@ It is possible to use an SSH tunnel with HTTP Dev Server to negate having start 
     ssh -N -L 3000:127.0.0.1:3000 user@yourserversip
 ```
 
-### Plain HTTP
+### Running Development server
 
 ```bash
     yarn install && cd frontend && yarn install && cd ..
     nvim frontend/config/config.tsx # Change server URL variables
     touch .env && nvim .env # add info
-    yarn start
-```
-
-### Secure HTTPS Development Mode
-
-Auth0 is a mildly annoying.
-
-WSS socket is irritating with CERT_AUTHORITY errors.
-
-You will need to make sure you use specify correct URLs on Auth0 Management.
-
-You will likely need to add certificate exceptions, or run Chrome(ium) with the --ignore-certificate-errors flag.
-
-I would _Strongly_ recommend SSH Tunneling as noted above.
-
-```bash
-    yarn install
-    openssl req -x509 -newkey rsa:2048 -keyout keytmp.pem -out cert.pem -days 365
-    openssl rsa -in keytmp.pem -out key.pem
-    cd frontend
-    yarn install
-    nvim config/config.tsx # Change server URL variables
-    nvim package.json #append HTTPS=true to startclient script
-    cd ..
-    touch .env && nvim .env # add info
-    yarn start
+    yarn startdev
 ```
 
 ## License
