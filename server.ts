@@ -64,6 +64,7 @@ const startServer = async () => {
 	const app = express();
 	app.use(cors(corsOptions));
 	app.disable("x-powered-by");
+	app.set("port", 3000);
 
 	// Handle React Deploy Routing
 	app.use(express.static(path.join(__dirname, "frontend/build")));
@@ -76,6 +77,8 @@ const startServer = async () => {
 	server.installSubscriptionHandlers(httpServer);
 
 	await connectDB();
+
+	log(`Attemping to bind:${domain}:${PORT}`);
 
 	httpServer.listen(PORT, () => {
 		log(
