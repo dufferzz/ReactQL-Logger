@@ -1,6 +1,6 @@
 const config = {
-	apolloHttpUrl: "http://localhost:3001/graphql",
-	apolloWSUrl: "ws://localhost:3001/graphql",
+	apolloHttpUrl: "https://dfzstore.herokuapp.com/graphql",
+	apolloWSUrl: "ws://dfzstore.herokuapp.com/graphql",
 };
 
 export default config;

@@ -6,7 +6,8 @@
 	"scripts": {
 		"start": "npx concurrently \"yarn startserver\" \"yarn startclient\"",
 		"startclient": "cd frontend; HOST=0.0.0.0 yarn start",
-		"startserver": "nodemon server.ts",
+		"startserver": "node server.ts",
+		"startdevserver": "nodemon server.ts",
 		"heroku-postbuild": "cd frontend && yarn && yarn run build",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
