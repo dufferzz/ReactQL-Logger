@@ -5,7 +5,7 @@ import CenterDiv from "../../components/StyledComponents/CenteredDiv";
 import FlexDiv from "../../components/StyledComponents/FlexDiv";
 import Section from "../../components/StyledComponents/Section";
 import SectionHeader from "../../components/StyledComponents/SectionHeader";
-import PageHeading from "../../components/StyledComponents/PageHeading";
+// import PageHeading from "../../components/StyledComponents/PageHeading";
 import Button from "../../components/StyledComponents/Button";
 import Loading from "../../components/Loading/Loading";
 import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
@@ -16,7 +16,6 @@ import GET_ALL_JOBS_QUERY from "../../querys/jobs/GetAllJobsQuery";
 import JOBS_SUBSCRIPTION from "../../querys/jobs/JobsSubscription";
 
 const JobsPage = () => {
-	const { user } = useAuth0();
 	const { data, error, loading, subscribeToMore, ...result } = useQuery(
 		GET_ALL_JOBS_QUERY,
 		{
@@ -26,9 +25,7 @@ const JobsPage = () => {
 
 	return (
 		<>
-			<CenterDiv>
-				<PageHeading>{user.email}</PageHeading>
-			</CenterDiv>
+			<CenterDiv></CenterDiv>
 			<FlexDiv>
 				<Link to="/newjob">
 					<Button>Create Job</Button>

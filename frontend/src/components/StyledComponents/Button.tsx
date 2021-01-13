@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Button = styled.button`
 	padding: 0.5rem 1rem;
@@ -24,6 +24,13 @@ const Button = styled.button`
 			rgba(250, 166, 52, 1) 100%
 		);
 	}
+
+	${(props: any) =>
+		props.primary &&
+		css`
+			background: white;
+			color: black;
+		`}
 `;
 
 export const DangerButton = styled(Button)`

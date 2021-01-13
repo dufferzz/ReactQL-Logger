@@ -1,23 +1,29 @@
-import express from "express";
 import { mergeSchemas } from "graphql-tools";
-import cors from "cors";
-import { ApolloServer } from "apollo-server-express";
 
+import { ApolloServer } from "apollo-server-express";
 import { connectDB } from "./src/db";
 import { log } from "./src/utils/logger";
 import isTokenValid from "./src/utils/validate";
+
+import express from "express";
 import http from "http";
+import helmet from "helmet";
+import cors from "cors";
+
+import path from "path";
+import fs from "fs";
 
 import resolvers from "./src/resolvers";
 import schemas from "./src/schemas";
-import fs from "fs";
 import https from "https";
 
 require("dotenv").config();
+
 const schema = mergeSchemas({
 	schemas,
 	resolvers,
 });
+
 const server = new ApolloServer({
 	schema,
 	context: async ({ req, connection }: any) => {
@@ -66,6 +72,18 @@ const startServer = async () => {
 
 	const app = express();
 	app.use(cors(corsOptions));
+	// app.use(helmet());
+	app.disable("x-powered-by");
+
+	// Handle React Deploy Routing
+	app.use(express.static(path.join(__dirname, "frontend/build")));
+
+	// The "catchall" handler: for any request that doesn't
+	// match one above, send back React's index.html file.
+	app.get("*", (req, res) => {
+		res.sendFile(path.join(__dirname + "/frontend/build/index.html"));
+	});
+
 	server.applyMiddleware({ app });
 
 	if (HTTPS === "true") {
