@@ -97,22 +97,22 @@ const startServer = async () => {
 		server.installSubscriptionHandlers(https_server);
 		await connectDB();
 
-		https_server.listen(port, () => {
-			log(
-				`🚀 HTTPS Server ready at https://${domain}:${port}${server.graphqlPath}`
-			);
-		});
+		// https_server.listen(port, () => {
+		// 	log(
+		// 		`🚀 HTTPS Server ready at https://${domain}:${port}${server.graphqlPath}`
+		// 	);
+		// });
 	} else {
 		const httpServer = http.createServer(app);
 
 		server.installSubscriptionHandlers(httpServer);
 		await connectDB();
 
-		httpServer.listen(port, () => {
-			log(
-				`🚀 HTTP Server ready at http://${domain}:${port}${server.graphqlPath}`
-			);
-		});
+		// httpServer.listen(port, () => {
+		// 	log(
+		// 		`🚀 HTTP Server ready at http://${domain}:${port}${server.graphqlPath}`
+		// 	);
+		// });
 	}
 };
 startServer();
