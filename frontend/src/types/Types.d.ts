@@ -77,3 +77,18 @@ interface JobPartsProp {
 	parts?: JobPart[];
 	setParts?: any;
 }
+
+type DBPart = {
+	_id: string;
+	partName: string;
+	price: string;
+	partNumber: string;
+	Location: string;
+	thumbnail: string;
+	supplier: string;
+};
+
+interface PartRowPropType {
+	part: DBPart;
+	key: string;
+}

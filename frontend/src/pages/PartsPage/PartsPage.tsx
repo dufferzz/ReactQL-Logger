@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useQuery, useLazyQuery } from "@apollo/client";
+import React, { useState, useEffect } from "react";
+import { useLazyQuery } from "@apollo/client";
 import styled from "styled-components";
 
 import PartsTable from "../../components/PartsTable/PartsTable";
@@ -18,6 +18,7 @@ const SearchBar = styled.form`
 	display: grid;
 	grid-template-columns: 1fr 0.1fr 0.1fr;
 	margin-bottom: 0.7rem;
+	align-items: end;
 `;
 
 const SearchParts = ({
@@ -35,7 +36,7 @@ const SearchParts = ({
 						style={{ padding: "0.5rem 0.21rem" }}
 						name="searchQuery"
 						type="text"
-						placeholder="Search Query.."
+						placeholder="Part Name / Number"
 						onChange={(e) => {
 							setSearchValue(e.target.value);
 						}}
@@ -59,8 +60,10 @@ const SearchParts = ({
 					</select>
 				</label>
 			</SectionElement>
-			<SectionElement style={{ textAlign: "right" }}>
-				<Button onClick={doSearch}>Search</Button>
+			<SectionElement style={{ alignItems: "end" }}>
+				<Button style={{ height: "2.5rem" }} onClick={doSearch}>
+					Search
+				</Button>
 			</SectionElement>
 		</SearchBar>
 	);
@@ -68,7 +71,7 @@ const SearchParts = ({
 
 const PartsPage = () => {
 	const [searchValue, setSearchValue] = useState("");
-	const [searchLimit, setSearchLimit] = useState(50);
+	const [searchLimit, setSearchLimit] = useState(25);
 
 	const [doSearch, { called, loading, data, error }] = useLazyQuery(
 		GET_ALL_PARTS_QUERY,
@@ -79,7 +82,9 @@ const PartsPage = () => {
 			},
 		}
 	);
-
+	useEffect(() => {
+		doSearch();
+	}, [doSearch]);
 	console.log(data, error);
 
 	return (

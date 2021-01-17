@@ -3,11 +3,12 @@ const partController = {
 	parts: async (args) => {
 		console.log(args);
 		let limit = args.limit || 25;
+		const query = new RegExp(args.query, "i");
 		if (limit > 100) limit = 100;
-		if (args.query)
-			return await Part.find({ partName: new RegExp(args.query, "i") }).limit(
-				limit
-			);
+		if (query)
+			return await Part.find({
+				$and: [{ $or: [{ partName: query }, { partNumber: query }] }],
+			}).limit(limit);
 
 		return await Part.find().limit(50);
 	},
