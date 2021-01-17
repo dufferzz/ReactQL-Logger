@@ -2,7 +2,7 @@ import { gql } from "apollo-server-express";
 
 const partQuery = gql`
 	type Query {
-		parts: [Part!]
+		parts(query: String, limit: Int): [Part]!
 		getPart(_id: String!): Part!
 	}
 `;

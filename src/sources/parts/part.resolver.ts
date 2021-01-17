@@ -25,7 +25,7 @@ const partResolver = {
 		parts(root, args, context) {
 			if (!context.isAuthenticated) return [];
 
-			return partController.parts();
+			return partController.parts(args);
 		},
 		getPart(root, args, context) {
 			const { permissions } = context.decoded;
