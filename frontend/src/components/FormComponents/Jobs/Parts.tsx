@@ -9,6 +9,7 @@ import { ErrorMessage } from "formik";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import SectionElement from "../../StyledComponents/SectionElement";
+import iconError from "../../../assets/icons/error.svg";
 
 const MySwal = withReactContent(Swal);
 
@@ -18,10 +19,32 @@ const AddItemDiv = styled.div`
 	align-items: flex-end;
 `;
 
+const RemovePartIcon = (props: any) => {
+	return (
+		<img
+			onClick={() => {
+				handleRemovePart(props.part);
+			}}
+			style={{
+				cursor: "pointer",
+				filter: "drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3))",
+			}}
+			alt="Remove Part"
+			src={iconError}
+		/>
+	);
+};
+const handleRemovePart = (part: any) => {
+	console.log(part);
+	console.log("Remove part:", part.partNumber, part.partQty);
+};
+
 const PartsItem = ({ part }: SinglePartProp) => {
 	return (
 		<tr>
-			<td> X </td>
+			<td>
+				<RemovePartIcon part={part} />
+			</td>
 			<td>{part.partName}</td>
 			<td>{part.partNumber}</td>
 			<td>{part.partQty}</td>
@@ -70,7 +93,7 @@ const PartsTable = ({ parts }: JobPartsProp) => {
 
 const PartsView = ({ parts, setParts }: JobPartsProp) => {
 	const [partName, setPartName] = useState("");
-	const [partNumber, setpartNumber] = useState("");
+	const [partNumber] = useState("");
 	const [partQty, setPartQty] = useState("");
 	const [partPrice, setPartPrice] = useState("");
 

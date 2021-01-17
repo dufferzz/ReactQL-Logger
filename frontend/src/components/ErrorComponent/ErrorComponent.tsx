@@ -10,8 +10,6 @@ const ErrorComponent = ({ error }: ErrorProp) => {
 		<>
 			<div style={{ width: "100%", fontSize: "2rem", textAlign: "center" }}>
 				🥺 Error!
-				<br />
-				Unauthorized!
 			</div>
 		</>
 	);

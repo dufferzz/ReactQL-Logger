@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+
 import { configureStore } from "@reduxjs/toolkit";
 import combinedReducers from "./features";
 import { Provider, useDispatch } from "react-redux";
@@ -30,6 +32,7 @@ ReactDOM.render(
 	</React.StrictMode>,
 	document.getElementById("root")
 );
+serviceWorkerRegistration.unregister();
 
 export type RootState = ReturnType<typeof store.getState>;
 

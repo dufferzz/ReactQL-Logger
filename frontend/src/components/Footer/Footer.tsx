@@ -3,11 +3,13 @@ import styled from "styled-components";
 
 const Foot = styled.div`
 	display: grid;
+	grid-area: footer;
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: 1fr 1fr;
 	border-top: 3px solid darkorange;
 	background-color: #222;
 	height: 10rem;
+	line-height: 1.7;
 	text-align: center;
 	grid-template-areas: "left right" "bottom bottom";
 	color: white;

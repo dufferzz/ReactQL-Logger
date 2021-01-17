@@ -25,9 +25,6 @@ tbody tr:nth-child(odd) {
 table {
 	border-collapse: collapse;
 	border-collapse: collapse;
-	border-radius: 10px;
-	border-style: hidden; /* hide standard table (collapsed) border */
-	box-shadow: 0 0 0 1px #aaa; /* this draws the table border  */
 }
 
 input {
@@ -44,4 +41,56 @@ thead {
 thead td {
 	padding: 10px 0;
 	font-weight: bold;
+}
+@media only screen and (max-width: 580px) {
+	.hide-sm {
+		display: none;
+	}
+}
+
+@media only screen and (min-width: 580px) {
+	.show-sm {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.hide-md {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 1000px) {
+	.hide-lg {
+		display: none;
+	}
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+textarea {
+	line-height: 1.2rem;
+	font-family: inherit;
+	font-size: 0.9rem;
+}
+.fade {
+	transition: display ease-in;
+}
+
+.selected {
+	color: orange;
+}
+
+hr {
+	border: 0;
+	height: 1px;
+	background-image: linear-gradient(
+		to right,
+		rgba(0, 0, 0, 0.1),
+		rgba(0, 0, 0, 0.25),
+		rgba(0, 0, 0, 0.1)
+	);
 }

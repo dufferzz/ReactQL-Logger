@@ -56,6 +56,7 @@ const UPDATE_JOB_MUTATION = gql`
 			}
 			status
 			created
+			modified
 			make
 			model
 			year

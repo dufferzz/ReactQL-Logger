@@ -4,7 +4,9 @@ const jobSubscription = gql`
 	type Subscription {
 		jobAdded: Job
 		jobUpdated: Job
+		jobIDUpdated(_id: String!): Job
 		jobDeleted: Job
+		jobIDDeleted(_id: String!): Job
 	}
 `;
 

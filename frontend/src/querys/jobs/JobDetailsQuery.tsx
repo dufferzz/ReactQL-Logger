@@ -19,6 +19,7 @@ const GET_JOB_QUERY = gql`
 			}
 			status
 			created
+			modified
 			make
 			model
 			year

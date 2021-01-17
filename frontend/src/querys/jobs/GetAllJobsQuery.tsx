@@ -6,6 +6,9 @@ const GET_ALL_JOBS_QUERY = gql`
 			_id
 			firstname
 			lastname
+			todo
+			make
+			model
 			created
 			modified
 			status

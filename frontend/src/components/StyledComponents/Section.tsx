@@ -8,7 +8,9 @@ const Section = styled.div`
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 	grid-gap: 0.25rem;
 	margin: 0 0 1.5rem 0;
-	line-break: anywhere;
 	background-color: #eee;
+	@media (max-width: 580px) {
+		padding: 0.5rem;
+	}
 `;
 export default Section;

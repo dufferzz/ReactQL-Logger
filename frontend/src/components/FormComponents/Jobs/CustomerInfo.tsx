@@ -14,11 +14,12 @@ const CustomerInfoSection = styled(Section)`
 	grid-template-areas:
 		"header header header"
 		"content content content";
-	@media (max-width: 500px) {
+	@media (max-width: 580px) {
 		grid-template-columns: 1fr 1fr;
 		grid-template-areas:
 			"header header "
 			"content content";
+		padding: 0.5rem;
 	}
 `;
 

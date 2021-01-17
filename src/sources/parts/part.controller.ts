@@ -2,7 +2,9 @@ import Part from "./part.model";
 
 const partController = {
 	parts: async () => await Part.find().limit(100),
-	getPart: async (args) => await Part.findById(args._id),
+	getPart: async (args) => {
+		return await Part.findById(args._id);
+	},
 	updatePart: async (args) =>
 		await Part.findOneAndUpdate(
 			{
