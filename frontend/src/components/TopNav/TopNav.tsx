@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -15,22 +15,29 @@ const Nav = styled.div`
 	grid-area: topnav;
 	background-color: #222;
 	color: white;
-	display: flex;
-	height: 100%;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-rows: 3fr auto;
+
+	grid-template-areas: "logo buttons" "user buttons";
+
+	/* height: 100%; */
 	position: relative;
-	padding: 0.2rem;
+	padding: 0.5rem;
 	align-items: center;
 	border-bottom: 3px solid darkorange;
 	z-index: 11100;
 `;
 
 const NavLogo = styled.img`
+	grid-area: logo;
 	height: 4rem;
-	margin-left: 0.5rem;
+	/* margin-left: 0.5rem; */
 `;
 
 const NavBarButtons = styled.div`
-	width: 100%;
+	grid-area: buttons;
+	/* width: 100%; */
 	text-align: right;
 	margin-right: 0.5rem;
 `;
@@ -62,8 +69,21 @@ const BurgerMenu = ({ setBurgerMenuOpen, menuState }: any) => {
 	);
 };
 
+const ShowUser = () => {
+	const { user, isAuthenticated } = useAuth0();
+
+	return (
+		<div>
+			{isAuthenticated && user && (
+				<div style={{ gridArea: "user" }}>{user.email}</div>
+			)}
+		</div>
+	);
+};
+
 const TopNav = ({ setBurgerMenuOpen, burgerMenuOpen }: any) => {
 	const { width } = useWindowSize();
+
 	return (
 		<Nav>
 			<Link style={{ textDecoration: "none", color: "inherit" }} to="/">
@@ -77,6 +97,7 @@ const TopNav = ({ setBurgerMenuOpen, burgerMenuOpen }: any) => {
 					setBurgerMenuOpen={setBurgerMenuOpen}
 				/>
 			)}
+			<ShowUser />
 		</Nav>
 	);
 };

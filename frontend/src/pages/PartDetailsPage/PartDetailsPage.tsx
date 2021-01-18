@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
-import { useQuery, useSubscription } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import GET_PART_DETAILS_QUERY from "../../querys/parts/PartDetailsQuery";
 import CenterDiv from "../../components/StyledComponents/CenteredDiv";
 import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
@@ -65,11 +65,19 @@ const PartDetailsPage = () => {
 			<SectionHeader>Part ID: {id}</SectionHeader>
 			<PartsPageGrid>
 				<div style={{ textAlign: "center" }}>
-					<img
-						style={{ width: "250px", borderRadius: "10px" }}
-						src={part.thumbnail}
-						alt={part.partName}
-					/>
+					{part.thumbnail !== "Hello World" ? (
+						<img
+							style={{ width: "250px", borderRadius: "10px" }}
+							src={part.thumbnail}
+							alt={part.partName}
+						/>
+					) : (
+						<img
+							style={{ width: "250px", borderRadius: "10px" }}
+							src={Placeholder}
+							alt={part.partName}
+						/>
+					)}
 					<div style={{ textAlign: "center", padding: "0.25rem" }}>
 						Click to Enlarge
 					</div>
