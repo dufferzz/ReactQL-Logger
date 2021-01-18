@@ -1,4 +1,4 @@
-import { withAuthenticationRequired } from "@auth0/auth0-react";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { useQuery, useSubscription } from "@apollo/client";
 import { Link } from "react-router-dom";
 import FlexDiv from "../../components/StyledComponents/FlexDiv";
@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import { useHistory } from "react-router-dom";
 
 import GET_ALL_JOBS_QUERY from "../../querys/jobs/GetAllJobsQuery";
+import GET_ASSIGNED_JOBS_QUERY from "../../querys/jobs/GetAssignedJobsQuery";
 
 import JOB_ADDED_SUBSCRIPTION from "../../querys/jobs/JobAddedSubscription";
 import ANY_JOB_UPDATED_SUBSCRIPTION from "../../querys/jobs/AnyJobUpdatedSubscription";
@@ -24,7 +25,7 @@ const columns = [
 	{
 		name: "",
 		selector: "status",
-		width: "75px",
+		width: "50px",
 		cell: (row: any) => (
 			<div style={{ width: "50px" }} data-tag="allowRowEvents">
 				<StatusImage status={row.status} />
@@ -73,7 +74,7 @@ const columns = [
 				{row.todo &&
 					row.todo.length >= 100 &&
 					row.todo.substring(0, 100) + "..."}
-				{row.todo && row.todo.length < 100 && row.todo}{" "}
+				{row.todo && row.todo.length < 100 && row.todo}
 			</div>
 		),
 	},
@@ -126,7 +127,60 @@ const columns = [
 	},
 ];
 
+const AssignedJobs = ({ user }: any) => {
+	const { data, error, loading, subscribeToMore, ...result } = useQuery(
+		GET_ASSIGNED_JOBS_QUERY,
+		{
+			variables: { user: user.nickname },
+			fetchPolicy: "cache-and-network",
+		}
+	);
+
+	const history = useHistory();
+	const handleRowClick = (id: string) => {
+		history.push(`/job/${id}`);
+	};
+	const time: any = Date.now();
+
+	console.log(data);
+	return (
+		<Section style={{ padding: "1rem 0 0.7rem 0" }}>
+			<SectionHeader>{user.nickname}'s Jobs</SectionHeader>
+			<FlexDiv style={{ margin: 0, padding: 0 }}>
+				{!loading && <span>Last Update: {dayjs(time).format("HH:mm:ss")}</span>}
+			</FlexDiv>
+			{loading && <Loading />}
+			{error && <ErrorComponent error={error} />}
+			{!loading && data && (
+				<Table
+					columns={columns}
+					data={data.getAssignedJobs}
+					onRowClicked={(e: any) => {
+						handleRowClick(e._id);
+					}}
+					{...result}
+					subscribeToNew={() =>
+						subscribeToMore({
+							document: JOB_ADDED_SUBSCRIPTION,
+							updateQuery: (currentData, { subscriptionData }) => {
+								if (!subscriptionData.data) {
+									return currentData;
+								}
+								const newJobItem = subscriptionData.data.jobAdded;
+								return Object.assign({}, currentData, {
+									jobs: [newJobItem, ...currentData.jobs],
+								});
+							},
+						})
+					}
+				/>
+			)}
+		</Section>
+	);
+};
+
 const JobsPage = () => {
+	const { user } = useAuth0();
 	const { data, error, loading, subscribeToMore, ...result } = useQuery(
 		GET_ALL_JOBS_QUERY,
 		{
@@ -150,7 +204,10 @@ const JobsPage = () => {
 					<Button>Create Job</Button>
 				</Link>
 			</FlexDiv>
-			<Section style={{ padding: "1rem 0 0 0" }}>
+
+			<AssignedJobs user={user} />
+
+			<Section style={{ padding: "1rem 0 0.7rem 0" }}>
 				<SectionHeader>All Jobs</SectionHeader>
 				<FlexDiv style={{ margin: 0, padding: 0 }}>
 					{!loading && (
@@ -184,11 +241,6 @@ const JobsPage = () => {
 								})
 							}
 						/>
-						{/* <JobsTable
-							jobs={data}
-							{...result}
-							
-						/> */}
 					</ErrorBoundary>
 				)}
 			</Section>

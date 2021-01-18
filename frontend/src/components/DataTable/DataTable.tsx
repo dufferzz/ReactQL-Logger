@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DataTable, { createTheme } from "react-data-table-component";
 
 createTheme("inherit", {
@@ -31,10 +31,13 @@ const TableStyle = {
 };
 
 const Table = ({ data, columns, onRowClicked, subscribeToNew }: any) => {
+	useEffect(() => {
+		if (subscribeToNew !== undefined) subscribeToNew();
+	}, [subscribeToNew]);
+
 	return (
 		<DataTable
 			pointerOnHover
-			style={{ maxWidth: "98%" }}
 			noHeader
 			striped
 			columns={columns}
