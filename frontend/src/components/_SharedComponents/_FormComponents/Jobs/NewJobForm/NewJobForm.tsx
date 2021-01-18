@@ -7,9 +7,9 @@ import JobDetails from "../JobDetails";
 import InternalUse from "../InternalUse";
 import PartsView from "../Parts";
 
-import SubmitFormButton from "../../../SharedComponents/SubmitFormButton";
+import SubmitFormButton from "../../../SubmitFormButton";
 import FormError from "../../FormError/FormError";
-import NEWJOB_MUTATION from "../../../../querys/jobs/NewJobMutation";
+import NEWJOB_MUTATION from "../../../../../querys/jobs/NewJobMutation";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
-import Loading from "../../components/Loading/Loading";
+import Loading from "../../components/_SharedComponents/_Loading/Loading";
 
-import { NewJobForm } from "../../components/FormComponents/Jobs/NewJobForm/NewJobForm";
+import { NewJobForm } from "../../components/_SharedComponents/_FormComponents/Jobs/NewJobForm/NewJobForm";
 
 const NewJob = () => {
 	return (

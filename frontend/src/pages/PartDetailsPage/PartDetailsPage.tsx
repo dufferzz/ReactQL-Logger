@@ -1,19 +1,21 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Loading from "../../components/Loading/Loading";
+import Loading from "../../components/_SharedComponents/_Loading/Loading";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useQuery } from "@apollo/client";
 import GET_PART_DETAILS_QUERY from "../../querys/parts/PartDetailsQuery";
-import CenterDiv from "../../components/StyledComponents/CenteredDiv";
-import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
-import Section from "../../components/StyledComponents/Section";
-import SectionHeader from "../../components/StyledComponents/SectionHeader";
-import FlexDiv from "../../components/StyledComponents/FlexDiv";
-import Button, { DangerButton } from "../../components/StyledComponents/Button";
+import CenterDiv from "../../components/_StyledComponents/CenteredDiv";
+import ErrorComponent from "../../components/_SharedComponents/_ErrorComponent/ErrorComponent";
+import Section from "../../components/_StyledComponents/Section";
+import SectionHeader from "../../components/_StyledComponents/SectionHeader";
+import FlexDiv from "../../components/_StyledComponents/FlexDiv";
+import Button, {
+	DangerButton,
+} from "../../components/_StyledComponents/Button";
 import styled from "styled-components";
 
 import Placeholder from "../../assets/images/placeholder.png";
-import FlexDivCenter from "../../components/StyledComponents/FlexDiv";
+import FlexDivCenter from "../../components/_StyledComponents/FlexDiv";
 
 const PartsPageGrid = styled.div`
 	display: grid;

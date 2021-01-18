@@ -9,10 +9,10 @@ import CustomerInfo from "../CustomerInfo";
 import JobDetails from "../JobDetails";
 import InternalUse from "../InternalUse";
 import PartsView from "../Parts";
-import SubmitFormButton from "../../../SharedComponents/SubmitFormButton";
+import SubmitFormButton from "../../../SubmitFormButton";
 import FormError from "../../FormError/FormError";
 
-import UPDATE_JOB_MUTATION from "../../../../querys/jobs/UpdateJobMutation";
+import UPDATE_JOB_MUTATION from "../../../../../querys/jobs/UpdateJobMutation";
 
 const MySwal = withReactContent(Swal);
 

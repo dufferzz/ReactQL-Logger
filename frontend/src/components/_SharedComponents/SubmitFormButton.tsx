@@ -1,5 +1,5 @@
 import React from "react";
-import { SuccessButton } from "../StyledComponents/Button";
+import { SuccessButton } from "../_StyledComponents/Button";
 
 interface SubmitFormProps {
 	isSubmitting: boolean;

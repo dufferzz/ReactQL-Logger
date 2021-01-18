@@ -5,13 +5,13 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import dayjs from "dayjs";
-import PageHeading from "../../components/StyledComponents/PageHeading";
+import PageHeading from "../../components/_StyledComponents/PageHeading";
 
-import CenterDiv from "../../components/StyledComponents/CenteredDiv";
-import Loading from "../../components/Loading/Loading";
-import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
-import JobDetailsForm from "../../components/FormComponents/Jobs/JobDetailsForm/JobDetailsForm";
-import FlexDivCenter from "../../components/StyledComponents/FlexDiv";
+import CenterDiv from "../../components/_StyledComponents/CenteredDiv";
+import Loading from "../../components/_SharedComponents/_Loading/Loading";
+import ErrorComponent from "../../components/_SharedComponents/_ErrorComponent/ErrorComponent";
+import JobDetailsForm from "../../components/_SharedComponents/_FormComponents/Jobs/JobDetailsForm/JobDetailsForm";
+import FlexDivCenter from "../../components/_StyledComponents/FlexDiv";
 
 import JOB_ID_UPDATED_SUBSCRIPTION from "../../querys/jobs/JobIDUpdatedSubscription";
 import JOB_ID_DELETED_SUBSCRIPTION from "../../querys/jobs/JobIDDeletedSubscription";

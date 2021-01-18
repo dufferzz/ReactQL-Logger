@@ -10,7 +10,7 @@ describe("JobsTable Component Tests", () => {
 				<JobsList />
 			</MockedProvider>
 		);
-		const statusText = screen.getByText(/Client/i);
+		const statusText = screen.getByText(/There are no records to display/i);
 		expect(statusText).toBeInTheDocument();
 	});
 });

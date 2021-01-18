@@ -1,11 +1,11 @@
 import React from "react";
-import Loading from "../../components/Loading/Loading";
+import Loading from "../../components/_SharedComponents/_Loading/Loading";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
-import Section from "../../components/StyledComponents/Section";
-import SectionHeader from "../../components/StyledComponents/SectionHeader";
+import Section from "../../components/_StyledComponents/Section";
+import SectionHeader from "../../components/_StyledComponents/SectionHeader";
 import styled from "styled-components";
 import Avatar from "../../assets/images/avatar.jpg";
-import Button from "../../components/StyledComponents/Button";
+import Button from "../../components/_StyledComponents/Button";
 
 const MessagesView = styled.div`
 	display: grid;

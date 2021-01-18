@@ -3,13 +3,13 @@ import { useLazyQuery } from "@apollo/client";
 import styled from "styled-components";
 
 import PartsTable from "../../components/PartsTable/PartsTable";
-import Section from "../../components/StyledComponents/Section";
-import Button from "../../components/StyledComponents/Button";
-import SectionHeader from "../../components/StyledComponents/SectionHeader";
-import FlexDivCenter from "../../components/StyledComponents/FlexDiv";
-import SectionElement from "../../components/StyledComponents/SectionElement";
-import Loading from "../../components/Loading/Loading";
-import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
+import Section from "../../components/_StyledComponents/Section";
+import Button from "../../components/_StyledComponents/Button";
+import SectionHeader from "../../components/_StyledComponents/SectionHeader";
+import FlexDivCenter from "../../components/_StyledComponents/FlexDiv";
+import SectionElement from "../../components/_StyledComponents/SectionElement";
+import Loading from "../../components/_SharedComponents/_Loading/Loading";
+import ErrorComponent from "../../components/_SharedComponents/_ErrorComponent/ErrorComponent";
 
 import GET_ALL_PARTS_QUERY from "../../querys/parts/GetAllPartsQuery";
 

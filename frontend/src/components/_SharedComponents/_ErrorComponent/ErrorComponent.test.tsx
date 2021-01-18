@@ -13,7 +13,7 @@ describe("Error Component Tests", () => {
 			name: "",
 		};
 		render(<ErrorComponent error={ErrorMessage} />);
-		const errorText = screen.getByText(/You gone did fuked up/i);
+		const errorText = screen.getByText(/🥺 Error!/i);
 		expect(errorText).toBeInTheDocument();
 	});
 });

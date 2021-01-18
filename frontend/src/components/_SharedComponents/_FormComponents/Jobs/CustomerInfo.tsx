@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { Field } from "formik";
 
-import Section from "../../StyledComponents/Section";
-import SectionHeader from "../../StyledComponents/SectionHeader";
-import SectionElement from "../../StyledComponents/SectionElement";
-import ErrorField from "../../StyledComponents/ErrorField";
+import Section from "../../../_StyledComponents/Section";
+import SectionHeader from "../../../_StyledComponents/SectionHeader";
+import SectionElement from "../../../_StyledComponents/SectionElement";
+import ErrorField from "../../../_StyledComponents/ErrorField";
 
 const CustomerInfoSection = styled(Section)`
 	display: grid;

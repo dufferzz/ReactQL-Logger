@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Button from "../../components/StyledComponents/Button";
+import Button from "../../components/_StyledComponents/Button";
 const NotFound = () => {
 	return (
 		<div style={{ width: "100%", textAlign: "center" }}>

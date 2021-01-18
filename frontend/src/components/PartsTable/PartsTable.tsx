@@ -1,6 +1,6 @@
 import React from "react";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
-import Loading from "../../components/Loading/Loading";
+import Loading from "../_SharedComponents/_Loading/Loading";
 import { useHistory } from "react-router-dom";
 
 import Table from "../DataTable/DataTable";

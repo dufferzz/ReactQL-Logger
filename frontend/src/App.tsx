@@ -17,8 +17,8 @@ import JobDetails from "./pages/JobDetailsPage/JobDetailsPage";
 import Jobs from "./pages/JobsPage/JobsPage";
 import MessagesPage from "./pages/MessagesPage/MessagesPage";
 import NotFound from "./pages/NotFoundPage/NotFoundPage";
-import Loading from "./components/Loading/Loading";
-import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+import Loading from "./components/_SharedComponents/_Loading/Loading";
+import ErrorBoundary from "./components/_SharedComponents/_ErrorBoundary/ErrorBoundary";
 import ScrollToTop from "./utils/ScrollToTop";
 import "./App.css";
 

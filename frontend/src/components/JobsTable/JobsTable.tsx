@@ -1,31 +1,43 @@
-import React, { useEffect } from "react";
+import React from "react";
+
 import dayjs from "dayjs";
+import StatusImage from "../_StyledComponents/StatusImage";
+import Table from "../DataTable/DataTable";
 import { useHistory } from "react-router-dom";
-import StatusImage from "../StyledComponents/StatusImage";
 
-interface JobPropType {
-	job: Job;
-}
+const columns = [
+	{
+		name: "",
+		selector: "status",
+		width: "50px",
+		cell: (row: any) => (
+			<div style={{ width: "50px" }} data-tag="allowRowEvents">
+				<StatusImage status={row.status} />
+			</div>
+		),
+	},
+	{
+		name: "ID",
+		selector: "_id",
+		maxWidth: "250px",
+		hide: 768,
+		sortable: true,
+		cell: (row: any) => (
+			<div style={{ lineBreak: "anywhere" }} data-tag="allowRowEvents">
+				{row._id}
+			</div>
+		),
+	},
+	{
+		name: "Description",
 
-const JobsTableRow = ({ job }: JobPropType) => {
-	const history = useHistory();
-
-	const handleRowClick = (id: string) => {
-		history.push(`/job/${id}`);
-	};
-
-	return (
-		<tr
-			style={{ cursor: "pointer", padding: "0 0.25rem" }}
-			onClick={() => handleRowClick(job._id)}
-			title={`To Do: \n ${job.todo}`}
-		>
-			<td width="55px">
-				<StatusImage status={job.status} />
-			</td>
-			<td className="hide-sm">{job._id}</td>
-			<td className="hide-md" style={{ padding: "0.2rem 1rem" }}>
-				{job.make === "" && job.model === "" && (
+		selector: "todo",
+		cell: (row: any) => (
+			<div
+				style={{ textAlign: "center", width: "100%" }}
+				data-tag="allowRowEvents"
+			>
+				{row.make === "" && row.model === "" && (
 					<span
 						style={{ fontSize: "1rem", fontWeight: "bold", lineHeight: "2" }}
 					>
@@ -33,66 +45,99 @@ const JobsTableRow = ({ job }: JobPropType) => {
 						<br />
 					</span>
 				)}
-				{(job.make !== "" || job.model !== "") && (
+				{(row.make !== "" || row.model !== "") && (
 					<>
 						<span
 							style={{ fontSize: "1rem", fontWeight: "bold", lineHeight: "2" }}
 						>
-							{job.make} {job.model}
+							{row.make} {row.model}
 						</span>
 						<br />
 					</>
 				)}
-				{job.todo &&
-					job.todo.length >= 100 &&
-					job.todo.substring(0, 100) + " [...]"}
-				{job.todo && job.todo.length < 100 && job.todo}
-			</td>
-			<td>
-				{job.firstname} {job.lastname}
-			</td>
+				{row.todo &&
+					row.todo.length >= 100 &&
+					row.todo.substring(0, 100) + "..."}
+				{row.todo && row.todo.length < 100 && row.todo}
+			</div>
+		),
+	},
+	{
+		name: "Client",
+		selector: "firstname",
+		maxWidth: "150px",
+		sortable: true,
+		hide: 580,
 
-			<td>
-				{dayjs(job.created).format("DD-MM-YY")}
+		cell: (row: any) => (
+			<div data-tag="allowRowEvents">
+				{row.firstname} {row.lastname}
+			</div>
+		),
+	},
+	{
+		name: "Make",
+		selector: "make",
+		maxWidth: "100px",
+		sortable: true,
+		hide: 1200,
+
+		cell: (row: any) => <div data-tag="allowRowEvents">{row.make}</div>,
+	},
+	{
+		name: "Model",
+		selector: "model",
+		maxWidth: "100px",
+		hide: 1300,
+		sortable: true,
+
+		cell: (row: any) => <div data-tag="allowRowEvents">{row.model}</div>,
+	},
+	{
+		name: "Date",
+		sortable: true,
+
+		width: "110px",
+		selector: "created",
+		cell: (row: any) => (
+			<div style={{ textAlign: "center" }} data-tag="allowRowEvents">
+				<span style={{ fontSize: "1.1rem" }}>
+					{dayjs(row.created).format("DD MMM YY")}
+				</span>
 				<br />
-				{dayjs(job.created).format("HH:mm")}
-			</td>
-		</tr>
-	);
-};
+				{dayjs(row.created).format("HH:mm")}
+			</div>
+		),
+	},
+];
 
-const JobsTable = ({ jobs, subscribeToNewJobs, playAlert }: any) => {
-	useEffect(() => {
-		if (subscribeToNewJobs !== undefined) subscribeToNewJobs();
-	}, [subscribeToNewJobs]);
+const JobsTable = ({ data, subscribeToMore, subQuery, result }: any) => {
+	const history = useHistory();
 
 	return (
-		<>
-			<table
-				style={{
-					width: "100%",
-					textAlign: "center",
-				}}
-			>
-				<thead>
-					<tr style={{ fontSize: "1.1rem" }}>
-						<td width="50px">
-							<span className="hide-sm">Status</span>
-						</td>
-						<td className="hide-sm">Job ID</td>
-						<td className="hide-md">Description</td>
-						<td>Client</td>
-						<td width="90px">Created</td>
-					</tr>
-				</thead>
-				<tbody>
-					{jobs &&
-						jobs.jobs.map((job: Job) => (
-							<JobsTableRow key={job._id} job={job} />
-						))}
-				</tbody>
-			</table>
-		</>
+		<Table
+			columns={columns}
+			data={data}
+			onRowClicked={(e: any) => {
+				history.push(`/job/${e._id}`);
+			}}
+			{...result}
+			subscribeToNew={() => {
+				if (subscribeToMore !== undefined)
+					subscribeToMore({
+						document: subQuery,
+						updateQuery: (currentData: any, { subscriptionData }: any) => {
+							if (!subscriptionData.data) {
+								return currentData;
+							}
+							const newJobItem = subscriptionData.data.jobAdded;
+							return Object.assign({}, currentData, {
+								jobs: [newJobItem, ...currentData.jobs],
+							});
+						},
+					});
+			}}
+		/>
 	);
 };
 

@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import FlexDiv from "../StyledComponents/FlexDiv";
+import FlexDiv from "../_StyledComponents/FlexDiv";
 
 import {
 	faClipboardList,

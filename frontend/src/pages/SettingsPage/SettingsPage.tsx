@@ -1,7 +1,7 @@
 import React from "react";
-import FlexDivCenter from "../../components/StyledComponents/FlexDiv";
-import Section from "../../components/StyledComponents/Section";
-import SectionHeader from "../../components/StyledComponents/SectionHeader";
+import FlexDivCenter from "../../components/_StyledComponents/FlexDiv";
+import Section from "../../components/_StyledComponents/Section";
+import SectionHeader from "../../components/_StyledComponents/SectionHeader";
 const SettingsPage = () => {
 	return (
 		<Section>
