@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styled from "styled-components";
 import { Field } from "formik";
@@ -7,11 +7,11 @@ import Section from "../_StyledComponents/Section";
 import SectionHeader from "../_StyledComponents/SectionHeader";
 import SectionElement from "../_StyledComponents/SectionElement";
 import ErrorField from "../_StyledComponents/ErrorField";
+import ToggleHideButton from "../ToggleHideButton/ToggleHideButton";
 
 const JobDetailsSection = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	gridarea: "machineDetails";
 	@media (max-width: 500px) {
 		grid-template-columns: 1fr 1fr;
 	}
@@ -34,83 +34,78 @@ const YearSelection = () => {
 	);
 };
 
-const JobDetails = ({ values, handleChange }: JobDetailsFormProps) => (
-	<Section
-		style={{
-			display: "grid",
-			gridTemplateColumns: "1fr",
-			gridTemplateAreas: `
-			'header '
-			'machineDetails'
-         	'contentt '
-        `,
-		}}
-	>
-		<JobDetailsSection>
-			<SectionElement>
-				<label htmlFor="make">Make</label>
-				<Field type="make" name="make" />
-				<ErrorField name="make" component="div" />
-			</SectionElement>
+const JobDetails = () => {
+	const [isOpen, setIsOpen] = useState<boolean>(true);
 
-			<SectionElement>
-				<label htmlFor="model">Model</label>
-				<Field type="model" name="model" />
-				<ErrorField name="model" component="div" />
-			</SectionElement>
-
-			<SectionElement>
-				<label htmlFor="year">Year</label>
-
-				<YearSelection />
-
-				<ErrorField name="year" component="div" />
-			</SectionElement>
-
-			<SectionElement>
-				<label htmlFor="serial">Serial</label>
-				<Field type="serial" name="serial" />
-				<ErrorField name="serial" component="div" />
-			</SectionElement>
-		</JobDetailsSection>
-		<SectionHeader>Job Details</SectionHeader>
-
-		<div
+	return (
+		<Section
 			style={{
 				display: "grid",
 				gridTemplateColumns: "1fr",
-				gridArea: "contentt",
+				gridTemplateAreas: `
+				'header '
+				'machineDetails'
+				 'contentt '
+			`,
 			}}
 		>
-			<label htmlFor="todo">Todo</label>
-			{values ? (
-				<textarea
-					onChange={handleChange}
-					name="todo"
-					value={values.todo}
-					rows={7}
-				></textarea>
-			) : (
-				<textarea onChange={handleChange} name="todo" rows={7}></textarea>
-			)}
+			<SectionHeader
+				onClick={() => {
+					setIsOpen(!isOpen);
+				}}
+			>
+				Job Details
+				<ToggleHideButton isOpen={isOpen} />
+			</SectionHeader>
+			{isOpen && (
+				<>
+					<JobDetailsSection>
+						<SectionElement>
+							<label htmlFor="make">Make</label>
+							<Field type="make" name="make" />
+							<ErrorField name="make" component="div" />
+						</SectionElement>
 
-			<ErrorField name="todo" component="div" />
+						<SectionElement>
+							<label htmlFor="model">Model</label>
+							<Field type="model" name="model" />
+							<ErrorField name="model" component="div" />
+						</SectionElement>
 
-			<label htmlFor="done">Done</label>
-			{values ? (
-				<textarea
-					rows={7}
-					onChange={handleChange}
-					name="done"
-					value={values.done}
-				></textarea>
-			) : (
-				<textarea rows={7} onChange={handleChange} name="done"></textarea>
+						<SectionElement>
+							<label htmlFor="year">Year</label>
+
+							<YearSelection />
+
+							<ErrorField name="year" component="div" />
+						</SectionElement>
+
+						<SectionElement>
+							<label htmlFor="serial">Serial</label>
+							<Field type="serial" name="serial" />
+							<ErrorField name="serial" component="div" />
+						</SectionElement>
+					</JobDetailsSection>
+					<div
+						style={{
+							display: "grid",
+							gridTemplateColumns: "1fr",
+							gridArea: "contentt",
+						}}
+					>
+						<label htmlFor="todo">Todo</label>
+						<Field component="textarea" name="todo" rows={7}></Field>
+						<ErrorField name="todo" component="div" />
+
+						<label htmlFor="done">Done</label>
+						<Field component="textarea" rows={7} name="done"></Field>
+						<ErrorField name="done" component="div" />
+					</div>
+				</>
 			)}
-			<ErrorField name="done" component="div" />
-		</div>
-	</Section>
-);
+		</Section>
+	);
+};
 
 export default JobDetails;
 export {};

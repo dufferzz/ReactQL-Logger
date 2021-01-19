@@ -93,10 +93,10 @@ export const NewJobForm = () => {
 					});
 			}}
 		>
-			{({ isSubmitting, values, errors, handleSubmit, handleChange }) => (
+			{({ isSubmitting, errors, handleSubmit }) => (
 				<Form onSubmit={handleSubmit}>
 					<CustomerInfo />
-					<JobDetails values={values} handleChange={handleChange} />
+					<JobDetails />
 
 					<PartsView parts={parts} setParts={setParts} />
 					<InternalUse />

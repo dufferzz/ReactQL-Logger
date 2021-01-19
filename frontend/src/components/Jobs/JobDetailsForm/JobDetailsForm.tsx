@@ -103,7 +103,7 @@ const JobDetailsForm = ({ job }: JobPropType) => {
 				return (
 					<Form onSubmit={handleSubmit}>
 						<CustomerInfo />
-						<JobDetails values={values} handleChange={handleChange} />
+						<JobDetails />
 
 						<PartsView parts={job.parts} />
 						<InternalUse id={job._id} />

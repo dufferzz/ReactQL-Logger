@@ -83,6 +83,9 @@ const IconTitle = styled.div`
 
 const MenuEntry = (props: any) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+	if (isOpen) {
+		// tsignore l0l
+	}
 	return (
 		<>
 			<FlexDiv

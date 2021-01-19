@@ -17,7 +17,7 @@ import JOB_ADDED_SUBSCRIPTION from "../../querys/jobs/JobAddedSubscription";
 import ANY_JOB_UPDATED_SUBSCRIPTION from "../../querys/jobs/AnyJobUpdatedSubscription";
 import ANY_JOB_DELETED_SUBSCRIPTION from "../../querys/jobs/AnyJobDeletedSubscription";
 
-import JobsTable from "../../components/JobsTable/JobsTable";
+import JobsTable from "../../components/Jobs/JobsTable/JobsTable";
 
 const AssignedJobs = ({ user }: any) => {
 	const { data, error, loading, subscribeToMore, ...result } = useQuery(

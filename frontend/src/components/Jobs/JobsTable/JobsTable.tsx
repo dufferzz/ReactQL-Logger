@@ -1,8 +1,8 @@
 import React from "react";
 
 import dayjs from "dayjs";
-import StatusImage from "../_StyledComponents/StatusImage";
-import Table from "../DataTable/DataTable";
+import StatusImage from "../../_StyledComponents/StatusImage";
+import Table from "../../DataTable/DataTable";
 import { useHistory } from "react-router-dom";
 
 const columns = [

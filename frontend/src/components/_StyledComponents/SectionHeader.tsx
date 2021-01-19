@@ -7,5 +7,6 @@ const SectionHeader = styled.div`
 	width: 100%;
 	margin-bottom: 0.5rem;
 	font-weight: bold;
+	cursor: pointer;
 `;
 export default SectionHeader;
