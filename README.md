@@ -2,9 +2,7 @@
 
 ## Screenshots
 
-![StonkShot](screenshot_lg.png?raw=true "Desktop Screenshot")
-
-![StonkShot](screenshot_sm.png?raw=true "Mobile Screenshot")
+![Screenshot](screenshot_combo.png?raw=true "Desktop Screenshots")
 
 ## Description
 
