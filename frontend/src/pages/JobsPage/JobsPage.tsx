@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { useQuery, useSubscription } from "@apollo/client";
 import { Link } from "react-router-dom";
@@ -19,7 +20,10 @@ import ANY_JOB_DELETED_SUBSCRIPTION from "../../querys/jobs/AnyJobDeletedSubscri
 
 import JobsTable from "../../components/Jobs/JobsTable/JobsTable";
 
+import ToggleHideButton from "../../components/ToggleHideButton/ToggleHideButton";
+
 const AssignedJobs = ({ user }: any) => {
+	const [isOpen, setIsOpen] = useState<boolean>(true);
 	const { data, error, loading, subscribeToMore, ...result } = useQuery(
 		GET_ASSIGNED_JOBS_QUERY,
 		{
@@ -32,25 +36,38 @@ const AssignedJobs = ({ user }: any) => {
 
 	return (
 		<Section style={{ padding: "1rem 0 0.7rem 0" }}>
-			<SectionHeader>{user.nickname}'s Jobs</SectionHeader>
-			<FlexDiv style={{ margin: 0, padding: 0 }}>
-				{!loading && <span>Last Update: {time}</span>}
-			</FlexDiv>
-			{loading && <Loading />}
-			{error && <ErrorComponent error={error} />}
-			{!loading && data && (
-				<JobsTable
-					data={data.getAssignedJobs}
-					subQuery={JOB_ADDED_SUBSCRIPTION}
-					subscribeToMore={subscribeToMore}
-					result={result}
-				/>
+			<SectionHeader
+				onClick={() => {
+					setIsOpen(!isOpen);
+				}}
+			>
+				{user.nickname}'s Jobs
+				<ToggleHideButton isOpen={isOpen} />
+			</SectionHeader>
+			{isOpen && (
+				<>
+					<FlexDiv style={{ margin: 0, padding: 0 }}>
+						{!loading && <span>Last Update: {time}</span>}
+					</FlexDiv>
+					{loading && <Loading />}
+					{error && <ErrorComponent error={error} />}
+					{!loading && data && subscribeToMore && (
+						<JobsTable
+							data={data.getAssignedJobs}
+							subQuery={JOB_ADDED_SUBSCRIPTION}
+							subscribeToMore={subscribeToMore}
+							result={result}
+						/>
+					)}
+				</>
 			)}
 		</Section>
 	);
 };
 
 const AllJobs = () => {
+	const [isOpen, setIsOpen] = useState<boolean>(true);
+
 	const time: string = dayjs(Date.now()).format("HH:mm:ss");
 
 	const { data, error, loading, subscribeToMore, ...result } = useQuery(
@@ -62,22 +79,31 @@ const AllJobs = () => {
 	console.log(data);
 	return (
 		<Section style={{ padding: "1rem 0 0.7rem 0" }}>
-			<SectionHeader>All Jobs</SectionHeader>
-			<FlexDiv style={{ margin: 0, padding: 0 }}>
-				{!loading && <span>Last Update: {time}</span>}
-			</FlexDiv>
-
-			{loading && <Loading />}
-			{error && <ErrorComponent error={error} />}
-			{!loading && data && subscribeToMore && (
-				<ErrorBoundary>
-					<JobsTable
-						data={data.jobs}
-						subQuery={JOB_ADDED_SUBSCRIPTION}
-						subscribeToMore={subscribeToMore}
-						result={result}
-					/>
-				</ErrorBoundary>
+			<SectionHeader
+				onClick={() => {
+					setIsOpen(!isOpen);
+				}}
+			>
+				All Jobs <ToggleHideButton isOpen={isOpen} />
+			</SectionHeader>
+			{isOpen && (
+				<>
+					<FlexDiv style={{ margin: 0, padding: 0 }}>
+						{!loading && <span>Last Update: {time}</span>}
+					</FlexDiv>
+					{loading && <Loading />}
+					{error && <ErrorComponent error={error} />}
+					{!loading && data && subscribeToMore && (
+						<ErrorBoundary>
+							<JobsTable
+								data={data.jobs}
+								subQuery={JOB_ADDED_SUBSCRIPTION}
+								subscribeToMore={subscribeToMore}
+								result={result}
+							/>
+						</ErrorBoundary>
+					)}
+				</>
 			)}
 		</Section>
 	);

@@ -193,7 +193,7 @@ const PartsView = ({ parts, setParts }: JobPartsProp) => {
 								</Button>
 							</SectionElement>
 						</AddItemDiv>
-					</CenterDiv>{" "}
+					</CenterDiv>
 				</>
 			)}
 		</Section>
