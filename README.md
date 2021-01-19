@@ -1,5 +1,11 @@
 # WorkshopLogger GQL React
 
+## Screenshots
+
+![StonkShot](screenshot_lg.png?raw=true "Desktop Screenshot")
+
+![StonkShot](screenshot_sm.png?raw=true "Mobile Screenshot")
+
 ## Description
 
 Built mostly as experimentation with GraphQL. Not Deployment ready yet ;)
@@ -8,10 +14,19 @@ The idea is to have a stack to control the entire infrastructure of my (currentl
 
 ## Features
 
-- GraphQL (With RBAC)
+- GraphQL (With RBAC using Auth0)
+- Workshop Job Management
+- Parts Management
 - Auth0 Authentication
 - Basically nothing useful yet
-- Live updating data with GQL Subscriptions
+- Live updates with GQL Subscriptions
+
+## Currently in development
+
+- Messaging system
+- Attachment uploads system (PDF & Images with generated thumbnails)
+- Better handling on GQL Error responses
+- Migration to Postgres
 
 ## Todos (Not in any particular order)
 
@@ -22,12 +37,9 @@ The idea is to have a stack to control the entire infrastructure of my (currentl
 - GQL Rate Limiting
 - Per-Employee Calendars
 - Clock In/Out System
-- PWA & Push Notifications
-- Custom Theming
-- Customisable Shop layouts
-- Image Upload & thumbnails
+- Push Notifications
+- Customisable Shop layouts & Theming
 - Generate Printable cards with QR codes to identify machines in storage
-- PDF Upload & thumbnails
 - Dockerization
 - User Activity Logging
 - Initial/Deployment Config. Create users, config logo, footer, sitename, etc
@@ -65,11 +77,7 @@ I haven't created a user management section hooked to the Auth0 Management API y
 
 IMPORANT NOTES:
 
-HOST=0.0.0.0 - Change package.json start script if not wanted
-
-You may run into problems with Auth0's security. Use <https://lvh.me:3000> instead of localhost:3000 for HTTPS.
-
-It is possible to use an SSH tunnel with HTTP Dev Server to negate having start a HTTPS server for access from other local devices.. this is far easier...
+It is possible to use an SSH tunnel for access from different devices (Auth0 moans a lot)
 
 ```bash
     ssh -N -L 3000:127.0.0.1:3000 user@yourserversip
