@@ -35,7 +35,7 @@ const AssignedJobs = ({ user }: any) => {
 	const time: string = dayjs(Date.now()).format("HH:mm:ss");
 
 	return (
-		<Section style={{ padding: "1rem 0 0.7rem 0" }}>
+		<Section>
 			<SectionHeader
 				onClick={() => {
 					setIsOpen(!isOpen);
@@ -78,7 +78,7 @@ const AllJobs = () => {
 	);
 	console.log(data);
 	return (
-		<Section style={{ padding: "1rem 0 0.7rem 0" }}>
+		<Section>
 			<SectionHeader
 				onClick={() => {
 					setIsOpen(!isOpen);
