@@ -8,8 +8,8 @@ import Button from "../../components/_StyledComponents/Button";
 import SectionHeader from "../../components/_StyledComponents/SectionHeader";
 import FlexDivCenter from "../../components/_StyledComponents/FlexDiv";
 import SectionElement from "../../components/_StyledComponents/SectionElement";
-import Loading from "../../components/_SharedComponents/_Loading/Loading";
-import ErrorComponent from "../../components/_SharedComponents/_ErrorComponent/ErrorComponent";
+import Loading from "../../components/_SharedComponents/Loading/Loading";
+import ErrorComponent from "../../components/_SharedComponents/ErrorComponent/ErrorComponent";
 
 import GET_ALL_PARTS_QUERY from "../../querys/parts/GetAllPartsQuery";
 

@@ -3,13 +3,13 @@ import { Field } from "formik";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
-import Section from "../../../_StyledComponents/Section";
-import SectionHeader from "../../../_StyledComponents/SectionHeader";
-import Button, { DangerButton } from "../../../_StyledComponents/Button";
-import SectionElement from "../../../_StyledComponents/SectionElement";
-import ErrorField from "../../../_StyledComponents/ErrorField";
+import Section from "../_StyledComponents/Section";
+import SectionHeader from "../_StyledComponents/SectionHeader";
+import Button, { DangerButton } from "../_StyledComponents/Button";
+import SectionElement from "../_StyledComponents/SectionElement";
+import ErrorField from "../_StyledComponents/ErrorField";
 
-import DELETE_JOB_MUTATION from "../../../../querys/jobs/DeleteJobMutation";
+import DELETE_JOB_MUTATION from "../../querys/jobs/DeleteJobMutation";
 const deleteJob = async (id: String, sendDeleteJob: any, history: any) => {
 	console.log(`deleting job ${id}!`);
 	await sendDeleteJob(id)

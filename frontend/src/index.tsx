@@ -5,12 +5,12 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 import { configureStore } from "@reduxjs/toolkit";
-import combinedReducers from "./features";
 import { Provider, useDispatch } from "react-redux";
 import { Auth0Provider } from "@auth0/auth0-react";
 import AuthorizedApolloProvider from "./providers/AuthorizedApolloProvider";
-import LogRocket from "logrocket";
-LogRocket.init("nao4j2/dfz-store");
+import combinedReducers from "./features";
+
+import config from "./config/config";
 
 const store = configureStore({
 	reducer: combinedReducers,
@@ -20,8 +20,8 @@ ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<Auth0Provider
-				domain="dfz.eu.auth0.com"
-				clientId="xmd2O7HE8yuZUhh50XLG7rluouHDtWVM"
+				domain={config.auth0Domain}
+				clientId={config.auth0ClientID}
 				redirectUri={window.location.origin}
 			>
 				<AuthorizedApolloProvider>

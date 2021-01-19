@@ -3,10 +3,10 @@ import React from "react";
 import styled from "styled-components";
 import { Field } from "formik";
 
-import Section from "../../../_StyledComponents/Section";
-import SectionHeader from "../../../_StyledComponents/SectionHeader";
-import SectionElement from "../../../_StyledComponents/SectionElement";
-import ErrorField from "../../../_StyledComponents/ErrorField";
+import Section from "../_StyledComponents/Section";
+import SectionHeader from "../_StyledComponents/SectionHeader";
+import SectionElement from "../_StyledComponents/SectionElement";
+import ErrorField from "../_StyledComponents/ErrorField";
 
 const JobDetailsSection = styled.div`
 	display: grid;

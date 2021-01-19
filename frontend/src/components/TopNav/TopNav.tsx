@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import LoginButton from "../_SharedComponents/LoginButton";
-import LogoutButton from "../_SharedComponents/LogoutButton";
-import AdminButton from "../_SharedComponents/AdminButton";
+import LoginButton from "../_SharedComponents/Buttons/LoginButton";
+import LogoutButton from "../_SharedComponents/Buttons/LogoutButton";
+import AdminButton from "../_SharedComponents/Buttons/AdminButton";
 
 import Logo from "../../assets/images/logoo.webp";
 

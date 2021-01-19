@@ -1,6 +1,8 @@
 const config = {
 	apolloHttpUrl: "",
 	apolloWSUrl: "",
+	auth0Domain: "dfz.eu.auth0.com",
+	auth0ClientID: "xmd2O7HE8yuZUhh50XLG7rluouHDtWVM",
 };
 
 if (process.env.NODE_ENV === "development") {

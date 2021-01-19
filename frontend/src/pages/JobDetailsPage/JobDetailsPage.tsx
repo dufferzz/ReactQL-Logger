@@ -8,9 +8,9 @@ import dayjs from "dayjs";
 import PageHeading from "../../components/_StyledComponents/PageHeading";
 
 import CenterDiv from "../../components/_StyledComponents/CenteredDiv";
-import Loading from "../../components/_SharedComponents/_Loading/Loading";
-import ErrorComponent from "../../components/_SharedComponents/_ErrorComponent/ErrorComponent";
-import JobDetailsForm from "../../components/_SharedComponents/_FormComponents/Jobs/JobDetailsForm/JobDetailsForm";
+import Loading from "../../components/_SharedComponents/Loading/Loading";
+import ErrorComponent from "../../components/_SharedComponents/ErrorComponent/ErrorComponent";
+import JobDetailsForm from "../../components/Jobs/JobDetailsForm/JobDetailsForm";
 import FlexDivCenter from "../../components/_StyledComponents/FlexDiv";
 
 import JOB_ID_UPDATED_SUBSCRIPTION from "../../querys/jobs/JobIDUpdatedSubscription";

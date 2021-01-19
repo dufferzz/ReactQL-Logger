@@ -5,9 +5,9 @@ import FlexDiv from "../../components/_StyledComponents/FlexDiv";
 import Section from "../../components/_StyledComponents/Section";
 import SectionHeader from "../../components/_StyledComponents/SectionHeader";
 import Button from "../../components/_StyledComponents/Button";
-import Loading from "../../components/_SharedComponents/_Loading/Loading";
-import ErrorComponent from "../../components/_SharedComponents/_ErrorComponent/ErrorComponent";
-import ErrorBoundary from "../../components/_SharedComponents/_ErrorBoundary/ErrorBoundary";
+import Loading from "../../components/_SharedComponents/Loading/Loading";
+import ErrorComponent from "../../components/_SharedComponents/ErrorComponent/ErrorComponent";
+import ErrorBoundary from "../../components/_SharedComponents/ErrorBoundary/ErrorBoundary";
 import dayjs from "dayjs";
 
 import GET_ALL_JOBS_QUERY from "../../querys/jobs/GetAllJobsQuery";

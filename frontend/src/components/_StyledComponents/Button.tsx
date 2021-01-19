@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 
+// TODO: Merge these buttons using props: danger, success etc or default button style
+
 const Button = styled.button`
 	padding: 0.5rem 1rem;
 	font-size: 1rem;

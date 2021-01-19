@@ -1,11 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Loading from "../../components/_SharedComponents/_Loading/Loading";
+import Loading from "../../components/_SharedComponents/Loading/Loading";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useQuery } from "@apollo/client";
 import GET_PART_DETAILS_QUERY from "../../querys/parts/PartDetailsQuery";
 import CenterDiv from "../../components/_StyledComponents/CenteredDiv";
-import ErrorComponent from "../../components/_SharedComponents/_ErrorComponent/ErrorComponent";
+import ErrorComponent from "../../components/_SharedComponents/ErrorComponent/ErrorComponent";
 import Section from "../../components/_StyledComponents/Section";
 import SectionHeader from "../../components/_StyledComponents/SectionHeader";
 import FlexDiv from "../../components/_StyledComponents/FlexDiv";

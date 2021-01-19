@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import Section from "../../../_StyledComponents/Section";
-import SectionHeader from "../../../_StyledComponents/SectionHeader";
-import Button from "../../../_StyledComponents/Button";
-import CenterDiv from "../../../_StyledComponents/CenteredDiv";
+import Section from "../_StyledComponents/Section";
+import SectionHeader from "../_StyledComponents/SectionHeader";
+import Button from "../_StyledComponents/Button";
+import CenterDiv from "../_StyledComponents/CenteredDiv";
 import styled from "styled-components";
 import { ErrorMessage } from "formik";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import SectionElement from "../../../_StyledComponents/SectionElement";
-import iconError from "../../../../assets/icons/error.svg";
+import SectionElement from "../_StyledComponents/SectionElement";
+import iconError from "../../assets/icons/error.svg";
 
 const MySwal = withReactContent(Swal);
 
