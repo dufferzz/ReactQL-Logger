@@ -2,7 +2,7 @@
 
 ## Screenshots
 
-![Screenshot](screenshot_combo.png?raw=true "Desktop Screenshots")
+![Screenshot](screenshot_animated.gif?raw=true "Desktop Screenshots")
 
 ## Description
 
