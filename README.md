@@ -1,4 +1,4 @@
-# WorkshopLogger GQL React
+# DFZ Service - WebStack
 
 ## Screenshots
 
@@ -8,7 +8,13 @@
 
 Built mostly as experimentation with GraphQL. Not Deployment ready yet ;)
 
-The idea is to have a stack to control the entire infrastructure of my (currently) hypothetical Workshop & Store.
+Designed for use in workshops, for management of webstore, workshop jobs, parts, communication between employees.
+
+Will be building a Gatsby/Next.js Webstore to go within this stack (Recreation of DFZStoreAngular).
+
+Possibly will add invoicing, POS system app (WebUSB/WebSerial barcode scanning &receipt printing!)
+
+Internal Management App, Webstore App, React Native App (Todo) powered by GraphQL
 
 ## Features
 
