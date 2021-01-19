@@ -70,8 +70,8 @@ const SearchParts = ({
 };
 
 const PartsPage = () => {
-	const [searchValue, setSearchValue] = useState("");
-	const [searchLimit, setSearchLimit] = useState(25);
+	const [searchValue, setSearchValue] = useState<string>("");
+	const [searchLimit, setSearchLimit] = useState<number>(25);
 
 	const [doSearch, { called, loading, data, error }] = useLazyQuery(
 		GET_ALL_PARTS_QUERY,

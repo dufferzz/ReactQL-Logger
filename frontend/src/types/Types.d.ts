@@ -44,3 +44,8 @@ type DBPart = {
 	thumbnail: string;
 	supplier: string;
 };
+
+type WidthHeight = {
+	width: number;
+	height: number;
+};

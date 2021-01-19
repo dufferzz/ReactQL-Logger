@@ -92,10 +92,10 @@ const PartsTable = ({ parts }: JobPartsProp) => {
 };
 
 const PartsView = ({ parts, setParts }: JobPartsProp) => {
-	const [partName, setPartName] = useState("");
-	const [partNumber] = useState("");
-	const [partQty, setPartQty] = useState("");
-	const [partPrice, setPartPrice] = useState("");
+	const [partName, setPartName] = useState<string>("");
+	const [partNumber] = useState<string>("");
+	const [partQty, setPartQty] = useState<string>("");
+	const [partPrice, setPartPrice] = useState<string>("");
 
 	const addPart = () => {
 		if (

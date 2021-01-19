@@ -42,7 +42,7 @@ const routes = [
 
 const App = () => {
 	const { isLoading, isAuthenticated } = useAuth0();
-	const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
+	const [burgerMenuOpen, setBurgerMenuOpen] = useState<boolean>(false);
 
 	if (isLoading) {
 		return (

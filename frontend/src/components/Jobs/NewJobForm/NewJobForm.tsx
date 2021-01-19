@@ -46,7 +46,7 @@ const JobSchema = Yup.object().shape({
 // },
 export const NewJobForm = () => {
 	const [addJob] = useMutation(NEWJOB_MUTATION, {});
-	const [parts, setParts] = useState([]);
+	const [parts, setParts] = useState<Array<JobPart>>([]);
 
 	return (
 		<Formik
