@@ -42,6 +42,7 @@ const Table = ({ data, columns, onRowClicked, subscribeToNew }: any) => {
 			striped
 			columns={columns}
 			responsive={false}
+			style={{ width: "100%" }}
 			theme="inherit"
 			customStyles={TableStyle}
 			data={data}
