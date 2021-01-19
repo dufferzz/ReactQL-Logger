@@ -62,16 +62,24 @@ const jobResolver = {
 		},
 		updateJob(root, args, context) {
 			if (!context.isAuthenticated) return "";
+			const { permissions } = context.decoded;
+			if (permissions.includes("update:jobs"))
+				return jobController.updateJob(args);
+
 			pubsub.publish(JOB_UPDATED, { jobUpdated: args });
 			pubsub.publish(JOB_ID_UPDATED, { jobIDUpdated: args });
 
 			return jobController.updateJob(args);
 		},
 		deleteJob(root, args, context) {
-			if (!context.isAuthenticated) return "";
+			if (!context.isAuthenticated) return {};
+			const { permissions } = context.decoded;
+			if (permissions.includes("delete:jobs"))
+				return jobController.deleteJob(args);
+
 			pubsub.publish(JOB_DELETED, { jobDeleted: args });
 			pubsub.publish(JOB_ID_DELETED, { jobIDDeleted: args });
-			return jobController.deleteJob(args);
+			return;
 		},
 	},
 };

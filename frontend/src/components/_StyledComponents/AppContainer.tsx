@@ -6,7 +6,8 @@ const AppContainer = styled.main`
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 	margin: 0 auto;
-	min-height: 75vh;
+	min-height: 100vh;
+
 	width: 95%;
 	@media (max-width: 580px) {
 		width: 98%;
