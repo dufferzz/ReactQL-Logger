@@ -62,17 +62,17 @@ Test user: testuser@testuser.dev
 
 Password: sGgNEw+FK%2GxpCG
 
-Test user has scopes applied. Newly created users will not!
+Test user has scopes asides from delete applied. Newly created users will not have any roles and can't do much.
 
 I haven't created a user management section hooked to the Auth0 Management API yet so this is all for now. I'm not going to add roles to everyone manually.
 
 ## .env
 
 ```bash
-    SERVER_PORT=3001
-    CLIENT_PORT=3000
-    DOMAIN=localhost
-    DB_URL=mongodb://
+    PORT=3001
+    CLIENT_URL=
+    HTTPS=false
+    DB_URL=
     AUTH0_DOMAIN=
     API_IDENTIFIER=
 ```
@@ -90,9 +90,9 @@ It is possible to use an SSH tunnel for access from different devices (Auth0 moa
 ### Running Development server
 
 ```bash
-    yarn install && cd frontend && yarn install && cd ..
-    nvim frontend/config/config.tsx # Change server URL variables
-    touch .env && nvim .env # add info
+    yarn && cd frontend && yarn && cd ..
+    nvim frontend/config/config.tsx # Change variables as required
+    touch .env && nvim .env # Change variables as required
     yarn startdev
 ```
 
