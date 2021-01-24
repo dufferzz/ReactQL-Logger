@@ -37,29 +37,33 @@ const NEWJOB_MUTATION = gql`
 			parts: $parts
 			labourHours: $labourHours
 		) {
-			_id
-			firstname
-			lastname
-			email
-			city
-			district
-			postcode
-			todo
-			done
-			parts {
-				partName
-				partNumber
-				partQty
-				partPrice
+			success
+			error
+			data {
+				_id
+				firstname
+				lastname
+				email
+				city
+				district
+				postcode
+				todo
+				done
+				parts {
+					partName
+					partNumber
+					partQty
+					partPrice
+				}
+				status
+				created
+				make
+				model
+				year
+				serial
+				assigned
+				labourHours
 			}
-			status
-			created
-			make
-			model
-			year
-			serial
-			assigned
-			labourHours
 		}
 	}
 `;

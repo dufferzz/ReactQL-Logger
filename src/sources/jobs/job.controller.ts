@@ -1,12 +1,24 @@
 import Job from "./job.model";
 
 const jobController = {
-	jobs: () => Job.find({}).sort({ created: -1 }),
-	getJob: (args) => Job.findById(args._id),
-	getAssignedJobs: (args) => Job.find({ assigned: args.user }),
-	updateJob: async (args) => {
-		console.log(args);
-		return await Job.findOneAndUpdate(
+	jobs: () =>
+		Job.find()
+			.sort({ created: -1 })
+			.then((data) => sendResponse(data))
+			.catch((error) => sendError(error)),
+
+	getJob: (args) =>
+		Job.findById(args._id)
+			.then((data) => sendResponse(data))
+			.catch((error) => sendError(error)),
+
+	getAssignedJobs: (args) =>
+		Job.find({ assigned: args.user })
+			.then((data) => sendResponse(data))
+			.catch((error) => sendError(error)),
+
+	updateJob: async (args) =>
+		Job.findOneAndUpdate(
 			{
 				_id: args._id,
 			},
@@ -32,10 +44,14 @@ const jobController = {
 					modified: new Date(),
 				},
 			}
-		);
-	},
+		)
+			.then((data) => sendResponse(data))
+			.catch((error) => sendError(error)),
 
-	deleteJob: (args) => Job.deleteOne({ _id: args._id }),
+	deleteJob: (args) =>
+		Job.deleteOne({ _id: args._id })
+			.then((data) => sendResponse(data))
+			.catch((error) => sendError(error)),
 
 	addJob: (args) => {
 		console.log(args);
@@ -62,8 +78,27 @@ const jobController = {
 			labourHours: parseInt(args.labourHours),
 			// jobNumber: args.jobNumber,
 		});
-		return newjob.save();
+		newjob
+			.save()
+			.then((data) => sendResponse(data))
+			.catch((error) => sendError(error));
 	},
+};
+
+const sendError = (error) => {
+	return {
+		success: false,
+		data: null,
+		error: error,
+	};
+};
+
+const sendResponse = (data) => {
+	return {
+		success: true,
+		data: data,
+		error: "",
+	};
 };
 
 export default jobController;

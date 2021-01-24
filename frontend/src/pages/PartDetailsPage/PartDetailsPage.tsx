@@ -7,7 +7,6 @@ import GET_PART_DETAILS_QUERY from "../../querys/parts/PartDetailsQuery";
 import CenterDiv from "../../components/_StyledComponents/CenteredDiv";
 import ErrorComponent from "../../components/_SharedComponents/ErrorComponent/ErrorComponent";
 import Section from "../../components/_StyledComponents/Section";
-import SectionHeader from "../../components/_StyledComponents/SectionHeader";
 import FlexDiv from "../../components/_StyledComponents/FlexDiv";
 import Button, {
 	DangerButton,
@@ -63,8 +62,7 @@ const PartDetailsPage = () => {
 	const part = data.getPart;
 
 	return (
-		<Section>
-			<SectionHeader>Part ID: {id}</SectionHeader>
+		<Section title={`Part ID: ${id}`}>
 			<PartsPageGrid>
 				<div style={{ textAlign: "center" }}>
 					{part.thumbnail !== "Hello World" ? (

@@ -2,9 +2,9 @@ import { gql } from "apollo-server-express";
 
 const jobQuery = gql`
 	type Query {
-		jobs: [Job!]
-		getAssignedJobs(user: String!): [Job!]
-		getJob(_id: String!): Job!
+		jobs: JobArrayResponse
+		getAssignedJobs(user: String!): JobArrayResponse
+		getJob(_id: String!): JobResponse
 	}
 `;
 

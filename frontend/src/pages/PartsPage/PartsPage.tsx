@@ -5,7 +5,6 @@ import styled from "styled-components";
 import PartsTable from "../../components/PartsTable/PartsTable";
 import Section from "../../components/_StyledComponents/Section";
 import Button from "../../components/_StyledComponents/Button";
-import SectionHeader from "../../components/_StyledComponents/SectionHeader";
 import FlexDivCenter from "../../components/_StyledComponents/FlexDiv";
 import SectionElement from "../../components/_StyledComponents/SectionElement";
 import Loading from "../../components/_SharedComponents/Loading/Loading";
@@ -85,11 +84,10 @@ const PartsPage = () => {
 	useEffect(() => {
 		doSearch();
 	}, [doSearch]);
-	console.log(data, error);
+	console.log(data);
 
 	return (
-		<Section style={{ padding: "1rem 0 0 0" }}>
-			<SectionHeader>Search All Parts</SectionHeader>
+		<Section title="Search All Parts" style={{ padding: "1rem 0 0 0" }}>
 			{error && <ErrorComponent error={error} />}
 			<SearchParts
 				limit={searchLimit}
@@ -100,7 +98,9 @@ const PartsPage = () => {
 			{loading && <Loading />}
 			{/* {!loading && !error && data && <PartsTable data={data} />} */}
 			{!called && <FlexDivCenter>Enter a search term and submit</FlexDivCenter>}
-			{!loading && !error && data && <PartsTable data={data} />}
+			{!loading && !error && data && data.parts.success && (
+				<PartsTable data={data.parts.data} />
+			)}
 		</Section>
 	);
 };

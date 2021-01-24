@@ -4,7 +4,6 @@ import Loading from "../../components/_SharedComponents/Loading/Loading";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import FlexDivCenter from "../../components/_StyledComponents/FlexDiv";
 import Section from "../../components/_StyledComponents/Section";
-import SectionHeader from "../../components/_StyledComponents/SectionHeader";
 
 import NEW_UPLOAD_MUTATION from "../../querys/uploads/NewUploadMutation";
 import GET_ALL_UPLOADS_QUERY from "../../querys/uploads/GetAllUploadsQuery";
@@ -42,8 +41,7 @@ const AdminPage = () => {
 	};
 
 	return (
-		<Section>
-			<SectionHeader>Administration</SectionHeader>
+		<Section title="Administration">
 			<FlexDivCenter>There is nothing here!?</FlexDivCenter>
 			<Dropzone onDrop={(acceptedFiles: any) => handleSubmit(acceptedFiles)}>
 				{({ getRootProps, getInputProps }: any) => (

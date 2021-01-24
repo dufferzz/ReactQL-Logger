@@ -2,11 +2,11 @@ import { gql } from "apollo-server-express";
 
 const jobSubscription = gql`
 	type Subscription {
-		jobAdded: Job
-		jobUpdated: Job
-		jobIDUpdated(_id: String!): Job
-		jobDeleted: Job
-		jobIDDeleted(_id: String!): Job
+		jobAdded: JobResponse
+		jobUpdated: JobResponse
+		jobIDUpdated(_id: String!): JobResponse
+		jobDeleted: JobResponse
+		jobIDDeleted(_id: String!): JobResponse
 	}
 `;
 

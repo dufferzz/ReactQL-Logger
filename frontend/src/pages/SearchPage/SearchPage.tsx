@@ -3,11 +3,9 @@ import Loading from "../../components/_SharedComponents/Loading/Loading";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import FlexDivCenter from "../../components/_StyledComponents/FlexDiv";
 import Section from "../../components/_StyledComponents/Section";
-import SectionHeader from "../../components/_StyledComponents/SectionHeader";
 const SearchPage = () => {
 	return (
-		<Section>
-			<SectionHeader>Search</SectionHeader>
+		<Section title="Search">
 			<FlexDivCenter>Gimme data</FlexDivCenter>
 		</Section>
 	);

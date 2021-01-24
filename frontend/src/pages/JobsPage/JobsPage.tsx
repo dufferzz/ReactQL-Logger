@@ -1,10 +1,11 @@
-import { useState } from "react";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { useQuery, useSubscription } from "@apollo/client";
 import { Link } from "react-router-dom";
 import FlexDiv from "../../components/_StyledComponents/FlexDiv";
+
+import CenterDiv from "../../components/_StyledComponents/CenteredDiv";
+
 import Section from "../../components/_StyledComponents/Section";
-import SectionHeader from "../../components/_StyledComponents/SectionHeader";
 import Button from "../../components/_StyledComponents/Button";
 import Loading from "../../components/_SharedComponents/Loading/Loading";
 import ErrorComponent from "../../components/_SharedComponents/ErrorComponent/ErrorComponent";
@@ -20,10 +21,7 @@ import ANY_JOB_DELETED_SUBSCRIPTION from "../../querys/jobs/AnyJobDeletedSubscri
 
 import JobsTable from "../../components/Jobs/JobsTable/JobsTable";
 
-import ToggleHideButton from "../../components/ToggleHideButton/ToggleHideButton";
-
 const AssignedJobs = ({ user }: any) => {
-	const [isOpen, setIsOpen] = useState<boolean>(true);
 	const { data, error, loading, subscribeToMore, ...result } = useQuery(
 		GET_ASSIGNED_JOBS_QUERY,
 		{
@@ -35,39 +33,30 @@ const AssignedJobs = ({ user }: any) => {
 	const time: string = dayjs(Date.now()).format("HH:mm:ss");
 
 	return (
-		<Section>
-			<SectionHeader
-				onClick={() => {
-					setIsOpen(!isOpen);
-				}}
-			>
-				{user.nickname}'s Jobs
-				<ToggleHideButton isOpen={isOpen} />
-			</SectionHeader>
-			{isOpen && (
-				<>
-					<FlexDiv style={{ margin: 0, padding: 0 }}>
-						{!loading && <span>Last Update: {time}</span>}
-					</FlexDiv>
-					{loading && <Loading />}
-					{error && <ErrorComponent error={error} />}
-					{!loading && data && subscribeToMore && (
-						<JobsTable
-							data={data.getAssignedJobs}
-							subQuery={JOB_ADDED_SUBSCRIPTION}
-							subscribeToMore={subscribeToMore}
-							result={result}
-						/>
-					)}
-				</>
+		<Section title={`${user.nickname}'s Jobs`} style={{ padding: "0" }}>
+			{loading && <Loading />}
+			{error && <ErrorComponent error={error} />}
+			{!loading && data && data.getAssignedJobs.success && (
+				<ErrorBoundary>
+					<JobsTable
+						data={data.getAssignedJobs.data}
+						subQuery={JOB_ADDED_SUBSCRIPTION}
+						subscribeToMore={subscribeToMore}
+						result={result}
+					/>
+					<CenterDiv style={{ margin: "0.5rem", paddingTop: "0.25rem" }}>
+						Last Update: {time}
+					</CenterDiv>
+				</ErrorBoundary>
+			)}
+			{data && !data.getAssignedJobs.success && (
+				<ErrorComponent error={data.getAssignedJobs.error} />
 			)}
 		</Section>
 	);
 };
 
 const AllJobs = () => {
-	const [isOpen, setIsOpen] = useState<boolean>(true);
-
 	const time: string = dayjs(Date.now()).format("HH:mm:ss");
 
 	const { data, error, loading, subscribeToMore, ...result } = useQuery(
@@ -78,33 +67,23 @@ const AllJobs = () => {
 	);
 	console.log(data);
 	return (
-		<Section>
-			<SectionHeader
-				onClick={() => {
-					setIsOpen(!isOpen);
-				}}
-			>
-				All Jobs <ToggleHideButton isOpen={isOpen} />
-			</SectionHeader>
-			{isOpen && (
-				<>
-					<FlexDiv style={{ margin: 0, padding: 0 }}>
-						{!loading && <span>Last Update: {time}</span>}
-					</FlexDiv>
-					{loading && <Loading />}
-					{error && <ErrorComponent error={error} />}
-					{!loading && data && subscribeToMore && (
-						<ErrorBoundary>
-							<JobsTable
-								data={data.jobs}
-								subQuery={JOB_ADDED_SUBSCRIPTION}
-								subscribeToMore={subscribeToMore}
-								result={result}
-							/>
-						</ErrorBoundary>
-					)}
-				</>
+		<Section title="All Jobs" style={{ padding: "0" }}>
+			{loading && <Loading />}
+			{error && <ErrorComponent error={error} />}
+			{!loading && data && data.jobs.success && (
+				<ErrorBoundary>
+					<JobsTable
+						data={data.jobs.data}
+						subQuery={JOB_ADDED_SUBSCRIPTION}
+						subscribeToMore={subscribeToMore}
+						result={result}
+					/>
+					<CenterDiv style={{ margin: "0.5rem", paddingTop: "0.25rem" }}>
+						Last Update: {time}
+					</CenterDiv>
+				</ErrorBoundary>
 			)}
+			{data && !data.jobs.success && <ErrorComponent error={data.jobs.error} />}
 		</Section>
 	);
 };

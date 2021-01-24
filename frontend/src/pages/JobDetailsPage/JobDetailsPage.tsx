@@ -65,17 +65,22 @@ const JobDetails = () => {
 			</CenterDiv>
 		);
 
-	console.log(data.getJob);
+	console.log(data);
 	return (
 		<CenterDiv>
 			<PageHeading>Job Details: {id}</PageHeading>
 			<UpdateModal id={id} />
 			<DeleteModal id={id} />
-			<JobDetailsForm job={data.getJob} />
-			<FlexDivCenter>
-				Last Modified:
-				{dayjs(data.getJob.modified).format("DD/MM/YYYY - HH:mm:ss")}
-			</FlexDivCenter>
+			{data.getJob.success && (
+				<>
+					<JobDetailsForm job={data.getJob.data} />
+					<FlexDivCenter>
+						Last Modified:
+						{dayjs(data.getJob.modified).format("DD/MM/YYYY - HH:mm:ss")}
+					</FlexDivCenter>
+				</>
+			)}
+			{data.getJob.success === false && <div>{data.getJob.error}</div>}
 		</CenterDiv>
 	);
 };

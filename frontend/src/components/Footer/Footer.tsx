@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Foot = styled.div`
 	display: grid;
@@ -31,13 +32,18 @@ const Footer = () => {
 	return (
 		<Foot>
 			<FootLeft>
-				<div>Request Account</div>
-				<div>Site Map</div>
+				<div>
+					<a href="mailto:dufferz@dufferz.net?subject='Account%20Request%20-%20DFZ%20Admin'">
+						Request Account
+					</a>
+				</div>
+				<div>
+					<a href="mailto:dufferz@dufferz.net">Contact an Admin</a>
+				</div>
 			</FootLeft>
 			<FootRight>
-				<div>Contact Us</div>
-				<div>About Us</div>
-				<div>View on Google Maps</div>
+				<div title="Incomplete Section">Site Map</div>
+				<div title="Incomplete Section">About this App</div>
 			</FootRight>
 			<FootBottom>
 				<div>Created By Sam Duff for DFZ Service and Repair</div>

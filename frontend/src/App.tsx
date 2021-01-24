@@ -84,8 +84,8 @@ const App = () => {
 					burgerMenuOpen={burgerMenuOpen}
 				/>{" "}
 				<SideBar />
-				<ErrorBoundary>
-					<AppContainer>
+				<AppContainer>
+					<ErrorBoundary>
 						<Switch>
 							{routes.map((route: any) => (
 								<Route
@@ -99,8 +99,8 @@ const App = () => {
 
 							<Route component={NotFoundPage} />
 						</Switch>
-					</AppContainer>
-				</ErrorBoundary>
+					</ErrorBoundary>
+				</AppContainer>
 				<Footer />
 			</Router>
 		</Layout>

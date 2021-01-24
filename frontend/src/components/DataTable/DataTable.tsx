@@ -23,7 +23,9 @@ const TableStyle = {
 		style: {
 			fontSize: "1rem",
 			lineHeight: "2",
+			transition: "all 0.2s",
 			"&:hover": {
+				transition: "all 0.2s",
 				backgroundColor: "rgba(0,0,0,0.1)",
 			},
 		},

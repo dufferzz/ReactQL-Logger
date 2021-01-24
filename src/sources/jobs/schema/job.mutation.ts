@@ -19,7 +19,7 @@ const jobMutation = gql`
 			assigned: String!
 			parts: [PartInput]
 			labourHours: String!
-		): Job!
+		): JobResponse!
 
 		updateJob(
 			_id: String!
@@ -39,9 +39,9 @@ const jobMutation = gql`
 			assigned: String!
 			parts: [PartInput]
 			labourHours: String!
-		): Job!
+		): JobResponse!
 
-		deleteJob(_id: String): Job
+		deleteJob(_id: String): JobResponse!
 	}
 `;
 export default jobMutation;

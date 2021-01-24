@@ -1,13 +1,17 @@
 import { GraphQLDateTime } from "graphql-iso-date";
 
+import {
+	handleNoPermission,
+	handleUnauthenticated,
+} from "../../utils/authHandlers";
+import { checkRoles, checkPermissions } from "../../utils/authChecks";
+
 import pubsub from "../../../pubsub";
 import jobController from "./job.controller";
 
 const JOB_ADDED = "JOB_ADDED";
-
 const JOB_UPDATED = "JOB_UPDATED";
 const JOB_ID_UPDATED = "JOB_ID_UPDATED";
-
 const JOB_DELETED = "JOB_DELETED";
 const JOB_ID_DELETED = "JOB_ID_DELETED";
 
@@ -16,71 +20,81 @@ const jobResolver = {
 
 	Subscription: {
 		jobAdded: {
-			subscribe: (_, __, context) => pubsub.asyncIterator([JOB_ADDED]),
+			subscribe: (_, __, ctx) => pubsub.asyncIterator([JOB_ADDED]),
 		},
 		jobUpdated: {
-			subscribe: (_, __, context) =>
+			subscribe: (_, __, ctx) =>
 				pubsub.asyncIterator([JOB_ID_UPDATED, JOB_UPDATED]),
 		},
 		jobIDUpdated: {
-			subscribe: (_, __, context) => pubsub.asyncIterator([JOB_ID_UPDATED]),
+			subscribe: (_, __, ctx) => pubsub.asyncIterator([JOB_ID_UPDATED]),
 		},
 		jobDeleted: {
-			subscribe: (_, __, context) =>
+			subscribe: (_, __, ctx) =>
 				pubsub.asyncIterator([JOB_DELETED, JOB_ID_DELETED]),
 		},
 		jobIDDeleted: {
-			subscribe: (_, __, context) => pubsub.asyncIterator([JOB_ID_DELETED]),
+			subscribe: (_, __, ctx) => pubsub.asyncIterator([JOB_ID_DELETED]),
 		},
 	},
 	Query: {
-		jobs(root, args, context) {
-			if (!context.isAuthenticated) return [];
-
-			return jobController.jobs();
-		},
-		getJob(root, args, context) {
-			const { permissions } = context.decoded;
-			if (!context.isAuthenticated) return {};
-			if (
-				permissions.includes("readAssigned: jobs") ||
-				permissions.includes("readAll:jobs")
-			) {
-				return jobController.getJob(args);
+		jobs(_, args, ctx) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (checkPermissions(ctx, "readAll:jobs")) {
+				return jobController.jobs();
+			} else {
+				return handleNoPermission();
 			}
-			return;
 		},
-		getAssignedJobs(root, args, context) {
-			return jobController.getAssignedJobs(args);
+		getJob(_, args, ctx) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (checkPermissions(ctx, "readAll:jobs")) {
+				return jobController.getJob(args);
+			} else {
+				return handleNoPermission();
+			}
+		},
+		getAssignedJobs(_, args, ctx) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (checkPermissions(ctx, "readAssigned: jobs")) {
+				return jobController.getAssignedJobs(args);
+			} else {
+				return handleNoPermission();
+			}
 		},
 	},
 	Mutation: {
-		addJob(root, args, context) {
-			if (!context.isAuthenticated) return "";
-			pubsub.publish(JOB_ADDED, { jobAdded: args });
-			return jobController.addJob(args);
+		addJob(_, args, ctx) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (checkPermissions(ctx, "create:jobs")) {
+				pubsub.publish(JOB_ADDED, { jobAdded: args });
+				return jobController.addJob(args);
+			} else {
+				return handleNoPermission();
+			}
 		},
-		updateJob(root, args, context) {
-			if (!context.isAuthenticated) return "";
-			const { permissions } = context.decoded;
-			if (permissions.includes("update:jobs"))
+		updateJob(_, args, ctx) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (checkPermissions(ctx, "update:jobs")) {
+				pubsub.publish(JOB_ID_UPDATED, { jobIDUpdated: args });
+				pubsub.publish(JOB_UPDATED, { jobUpdated: args });
 				return jobController.updateJob(args);
-
-			pubsub.publish(JOB_UPDATED, { jobUpdated: args });
-			pubsub.publish(JOB_ID_UPDATED, { jobIDUpdated: args });
-
-			return jobController.updateJob(args);
+			} else {
+				return handleNoPermission();
+			}
 		},
-		deleteJob(root, args, context) {
-			if (!context.isAuthenticated) return {};
-			const { permissions } = context.decoded;
-			if (permissions.includes("delete:jobs"))
+		deleteJob(_, args, ctx) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			const { permissions } = ctx.decoded;
+			if (permissions.includes("delete:jobs")) {
+				pubsub.publish(JOB_DELETED, { jobDeleted: args });
+				pubsub.publish(JOB_ID_DELETED, { jobIDDeleted: args });
 				return jobController.deleteJob(args);
-
-			pubsub.publish(JOB_DELETED, { jobDeleted: args });
-			pubsub.publish(JOB_ID_DELETED, { jobIDDeleted: args });
-			return;
+			} else {
+				return handleNoPermission();
+			}
 		},
 	},
 };
+
 export default jobResolver;

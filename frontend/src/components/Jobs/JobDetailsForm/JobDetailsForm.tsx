@@ -80,13 +80,22 @@ const JobDetailsForm = ({ job }: JobPropType) => {
 				}));
 				console.log(newvalues);
 				await updateJob({ variables: newvalues })
-					.then((daa: any) => {
-						console.log(daa);
-						MySwal.fire({
-							title: <p>Success!</p>,
-							icon: "success",
-							text: `Job Saved successfully. ${daa.data.updateJob._id}`,
-						});
+					.then(({ data }: any) => {
+						const resp = data.updateJob;
+						console.log(resp);
+						if (resp.success) {
+							MySwal.fire({
+								title: <p>Success!</p>,
+								icon: "success",
+								text: `Job Saved successfully. ${resp.data._id}`,
+							});
+						} else {
+							MySwal.fire({
+								title: <p>Error!</p>,
+								icon: "error",
+								text: `${resp.error}`,
+							});
+						}
 						setSubmitting(false);
 					})
 					.catch((err: any) => {

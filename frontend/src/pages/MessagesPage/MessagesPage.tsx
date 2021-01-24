@@ -2,7 +2,6 @@ import React from "react";
 import Loading from "../../components/_SharedComponents/Loading/Loading";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import Section from "../../components/_StyledComponents/Section";
-import SectionHeader from "../../components/_StyledComponents/SectionHeader";
 import styled from "styled-components";
 import Avatar from "../../assets/images/avatar.jpg";
 import Button from "../../components/_StyledComponents/Button";
@@ -194,8 +193,7 @@ const InputBox = () => {
 
 const MessagesPage = () => {
 	return (
-		<Section>
-			<SectionHeader>Messaging</SectionHeader>
+		<Section title="Messaging">
 			<MessagesView>
 				<Conversations>
 					{activeConversations.map((convo: any, i: any) => (

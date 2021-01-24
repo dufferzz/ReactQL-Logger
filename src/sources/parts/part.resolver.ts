@@ -3,6 +3,12 @@ import { GraphQLDateTime } from "graphql-iso-date";
 import pubsub from "../../../pubsub";
 import partController from "./part.controller";
 
+import {
+	handleNoPermission,
+	handleUnauthenticated,
+} from "../../utils/authHandlers";
+import { checkRoles, checkPermissions } from "../../utils/authChecks";
+
 const PART_ADDED = "PART_ADDED";
 const PART_UPDATED = "PART_UPDATED";
 const PART_DELETED = "PART_DELETED";
@@ -12,44 +18,60 @@ const partResolver = {
 
 	Subscription: {
 		partAdded: {
-			subscribe: (_, __, context) => pubsub.asyncIterator([PART_ADDED]),
+			subscribe: (_, __, ctx) => pubsub.asyncIterator([PART_ADDED]),
 		},
 		partUpdated: {
-			subscribe: (_, __, context) => pubsub.asyncIterator([PART_UPDATED]),
+			subscribe: (_, __, ctx) => pubsub.asyncIterator([PART_UPDATED]),
 		},
 		partDeleted: {
-			subscribe: (_, __, context) => pubsub.asyncIterator([PART_DELETED]),
+			subscribe: (_, __, ctx) => pubsub.asyncIterator([PART_DELETED]),
 		},
 	},
 	Query: {
-		parts(root, args, context) {
-			if (!context.isAuthenticated) return [];
-
-			return partController.parts(args);
+		parts(_, args, ctx) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (checkPermissions(ctx, "readAll:parts")) {
+				return partController.parts(args);
+			} else {
+				return handleNoPermission();
+			}
 		},
-		getPart(root, args, context) {
-			const { permissions } = context.decoded;
-			if (!context.isAuthenticated) return {};
-			if (permissions.includes("readAll:parts")) {
+		getPart(_, args, ctx) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (checkPermissions(ctx, "readAll:parts")) {
 				return partController.getPart(args);
+			} else {
+				return handleNoPermission();
 			}
 		},
 	},
 	Mutation: {
-		addPart(root, args, context) {
-			if (!context.isAuthenticated) return "";
-			pubsub.publish(PART_ADDED, { partAdded: args });
-			return partController.addPart(args);
+		addPart(_, args, ctx) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (checkPermissions(ctx, "create:parts")) {
+				pubsub.publish(PART_ADDED, { partAdded: args });
+				return partController.addPart(args);
+			} else {
+				return handleNoPermission();
+			}
 		},
-		updatePart(root, args, context) {
-			if (!context.isAuthenticated) return "";
-			pubsub.publish(PART_UPDATED, { partUpdated: args });
-			return partController.updatePart(args);
+		updatePart(_, args, ctx) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (checkPermissions(ctx, "update:parts")) {
+				pubsub.publish(PART_UPDATED, { partUpdated: args });
+				return partController.updatePart(args);
+			} else {
+				return handleNoPermission();
+			}
 		},
-		deletePart(root, args, context) {
-			if (!context.isAuthenticated) return "";
-			pubsub.publish(PART_DELETED, { partDeleted: args });
-			return partController.deletePart(args);
+		deletePart(_, args, ctx) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (checkPermissions(ctx, "delete:parts")) {
+				pubsub.publish(PART_DELETED, { partDeleted: args });
+				return partController.deletePart(args);
+			} else {
+				return handleNoPermission();
+			}
 		},
 	},
 };

@@ -13,8 +13,6 @@ import NEWJOB_MUTATION from "../../../querys/jobs/NewJobMutation";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-// import GET_ALL_JOBS_QUERY from "../../../../querys/JobsQuery";
-
 import * as Yup from "yup";
 
 const MySwal = withReactContent(Swal);
@@ -74,13 +72,22 @@ export const NewJobForm = () => {
 				const newvalues: any = values;
 				newvalues.parts = parts;
 				await addJob({ variables: newvalues })
-					.then((daa: any) => {
-						console.log(daa);
-						MySwal.fire({
-							title: <p>Success!</p>,
-							icon: "success",
-							text: `Job Added successfully. ${daa.data.addJob._id}`,
-						});
+					.then(({ data }: any) => {
+						const res = data.addJob;
+						console.log(res);
+						if (res.success) {
+							MySwal.fire({
+								title: <p>Success!</p>,
+								icon: "success",
+								text: `Job Added successfully. ${res.data.addJob._id}`,
+							});
+						} else {
+							MySwal.fire({
+								title: <p>Error!</p>,
+								icon: "error",
+								text: `${res.error}`,
+							});
+						}
 						setSubmitting(false);
 					})
 					.catch((err: any) => {

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Section from "../_StyledComponents/Section";
-import SectionHeader from "../_StyledComponents/SectionHeader";
 import Button from "../_StyledComponents/Button";
 import CenterDiv from "../_StyledComponents/CenteredDiv";
 import styled from "styled-components";
@@ -10,7 +9,6 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import SectionElement from "../_StyledComponents/SectionElement";
 import iconError from "../../assets/icons/error.svg";
-import ToggleHideButton from "../ToggleHideButton/ToggleHideButton";
 
 const MySwal = withReactContent(Swal);
 
@@ -97,7 +95,6 @@ const PartsView = ({ parts, setParts }: JobPartsProp) => {
 	const [partNumber] = useState<string>("");
 	const [partQty, setPartQty] = useState<string>("");
 	const [partPrice, setPartPrice] = useState<string>("");
-	const [isOpen, setIsOpen] = useState<boolean>(true);
 
 	const addPart = () => {
 		if (
@@ -128,6 +125,7 @@ const PartsView = ({ parts, setParts }: JobPartsProp) => {
 
 	return (
 		<Section
+			title="Parts"
 			style={{
 				display: "grid",
 				gridTemplateColumns: "1fr",
@@ -137,65 +135,53 @@ const PartsView = ({ parts, setParts }: JobPartsProp) => {
 				`,
 			}}
 		>
-			<SectionHeader
-				onClick={() => {
-					setIsOpen(!isOpen);
-				}}
-			>
-				Parts <ToggleHideButton isOpen={isOpen} />
-			</SectionHeader>
-			{isOpen && (
-				<>
-					{" "}
-					<PartsTable parts={parts} setParts={setParts} />
-					<CenterDiv>
-						<AddItemDiv>
-							<SectionElement>
-								<label htmlFor="partName">Name</label>
-								<input
-									onChange={(e) => {
-										setPartName(e.target.value);
-									}}
-									type="text"
-									name="partName"
-								/>
-								<ErrorMessage name="partName" component="div" />
-							</SectionElement>
-							<SectionElement>
-								<label htmlFor="partQty">Qty</label>
-								<input
-									onChange={(e) => {
-										setPartQty(e.target.value);
-									}}
-									type="number"
-									name="partQty"
-								/>
-								<ErrorMessage name="partQty" component="div" />
-							</SectionElement>
-							<SectionElement>
-								<label htmlFor="partPrice">Price</label>
-								<input
-									onChange={(e) => {
-										setPartPrice(e.target.value);
-									}}
-									type="number"
-									name="partPrice"
-								/>
-								<ErrorMessage name="partPrice" component="div" />
-							</SectionElement>
-							<SectionElement style={{ alignItems: "flex-end" }}>
-								<Button
-									type="button"
-									onClick={addPart}
-									style={{ width: "100%", height: "2.5rem" }}
-								>
-									Add
-								</Button>
-							</SectionElement>
-						</AddItemDiv>
-					</CenterDiv>
-				</>
-			)}
+			<PartsTable parts={parts} setParts={setParts} />
+			<CenterDiv>
+				<AddItemDiv>
+					<SectionElement>
+						<label htmlFor="partName">Name</label>
+						<input
+							onChange={(e) => {
+								setPartName(e.target.value);
+							}}
+							type="text"
+							name="partName"
+						/>
+						<ErrorMessage name="partName" component="div" />
+					</SectionElement>
+					<SectionElement>
+						<label htmlFor="partQty">Qty</label>
+						<input
+							onChange={(e) => {
+								setPartQty(e.target.value);
+							}}
+							type="number"
+							name="partQty"
+						/>
+						<ErrorMessage name="partQty" component="div" />
+					</SectionElement>
+					<SectionElement>
+						<label htmlFor="partPrice">Price</label>
+						<input
+							onChange={(e) => {
+								setPartPrice(e.target.value);
+							}}
+							type="number"
+							name="partPrice"
+						/>
+						<ErrorMessage name="partPrice" component="div" />
+					</SectionElement>
+					<SectionElement style={{ alignItems: "flex-end" }}>
+						<Button
+							type="button"
+							onClick={addPart}
+							style={{ width: "100%", height: "2.5rem" }}
+						>
+							Add
+						</Button>
+					</SectionElement>
+				</AddItemDiv>
+			</CenterDiv>
 		</Section>
 	);
 };

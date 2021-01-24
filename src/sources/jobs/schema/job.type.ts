@@ -38,6 +38,18 @@ const jobType = gql`
 		partQty: String
 		partPrice: String
 	}
+
+	type JobArrayResponse {
+		success: Boolean!
+		error: String
+		data: [Job]
+	}
+
+	type JobResponse {
+		success: Boolean!
+		error: String
+		data: Job
+	}
 `;
 
 export default jobType;

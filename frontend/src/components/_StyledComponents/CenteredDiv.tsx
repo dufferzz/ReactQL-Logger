@@ -5,6 +5,7 @@ const CenterDiv = styled.div`
 	width: 100%;
 	justify-content: center;
 	align-items: center;
+	text-align: center;
 `;
 
 export default CenterDiv;

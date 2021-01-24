@@ -84,7 +84,7 @@ const PartsTable = ({ data }: any) => {
 			{data && (
 				<Table
 					columns={columns}
-					data={data.parts}
+					data={data}
 					onRowClicked={(e: any) => {
 						handleRowClick(e._id);
 					}}

@@ -8,8 +8,8 @@ interface ErrorProp {
 const ErrorComponent = ({ error }: ErrorProp) => {
 	return (
 		<>
-			<div style={{ width: "100%", fontSize: "2rem", textAlign: "center" }}>
-				🥺 Error!
+			<div style={{ width: "100%", fontSize: "1.5rem", textAlign: "center" }}>
+				🥺 {error}
 			</div>
 		</>
 	);

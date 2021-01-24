@@ -27,6 +27,18 @@ const partType = gql`
 		Location: String
 		supplier: String
 	}
+
+	type PartResponse {
+		success: Boolean!
+		data: Part
+		error: String
+	}
+
+	type PartArrayResponse {
+		success: Boolean!
+		data: [Part]
+		error: String
+	}
 `;
 
 export default partType;
