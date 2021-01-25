@@ -23,14 +23,6 @@ const Loading = () => {
 					timeout={10000} // 10 secs
 				/>
 			</div>
-			<div
-				style={{
-					width: "100%",
-					textAlign: "center",
-				}}
-			>
-				Loading...
-			</div>
 		</>
 	);
 };

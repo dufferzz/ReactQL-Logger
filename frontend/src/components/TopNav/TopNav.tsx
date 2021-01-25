@@ -55,16 +55,19 @@ const NavButtons = () => {
 };
 
 const BurgerMenu = ({ setBurgerMenuOpen, menuState }: any) => {
+	const { isAuthenticated } = useAuth0();
 	return (
 		<NavBarButtons>
-			<Button
-				style={{ fontSize: "1.5rem" }}
-				onClick={() => {
-					setBurgerMenuOpen(!menuState);
-				}}
-			>
-				≡
-			</Button>
+			{isAuthenticated && (
+				<Button
+					style={{ fontSize: "1.5rem" }}
+					onClick={() => {
+						setBurgerMenuOpen(!menuState);
+					}}
+				>
+					≡
+				</Button>
+			)}
 		</NavBarButtons>
 	);
 };

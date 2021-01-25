@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Section from "../_StyledComponents/Section";
 import Button from "../_StyledComponents/Button";
 import CenterDiv from "../_StyledComponents/CenteredDiv";
@@ -8,7 +8,8 @@ import { ErrorMessage } from "formik";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import SectionElement from "../_StyledComponents/SectionElement";
-import iconError from "../../assets/icons/error.svg";
+
+import JobPartsTable from "./JobPartsTable/JobPartsTable";
 
 const MySwal = withReactContent(Swal);
 
@@ -18,79 +19,13 @@ const AddItemDiv = styled.div`
 	align-items: flex-end;
 `;
 
-const RemovePartIcon = (props: any) => {
-	return (
-		<img
-			onClick={() => {
-				handleRemovePart(props.part);
-			}}
-			style={{
-				cursor: "pointer",
-				filter: "drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3))",
-			}}
-			alt="Remove Part"
-			src={iconError}
-		/>
-	);
-};
-const handleRemovePart = (part: any) => {
-	console.log(part);
-	console.log("Remove part:", part.partNumber, part.partQty);
-};
-
-const PartsItem = ({ part }: SinglePartProp) => {
-	return (
-		<tr>
-			<td>
-				<RemovePartIcon part={part} />
-			</td>
-			<td>{part.partName}</td>
-			<td>{part.partNumber}</td>
-			<td>{part.partQty}</td>
-			<td>{part.partPrice} kr</td>
-		</tr>
-	);
-};
-
-const PartsTable = ({ parts }: JobPartsProp) => {
-	return (
-		<table
-			style={{
-				width: "100%",
-				textAlign: "center",
-			}}
-		>
-			<thead>
-				<tr style={{ fontSize: "1.1rem" }}>
-					<td width="30px"></td>
-					<td>Name</td>
-					<td>#</td>
-					<td>Qty</td>
-					<td>Price</td>
-				</tr>
-			</thead>
-			<tbody>
-				{parts &&
-					parts.length > 0 &&
-					parts.map((part) => {
-						return <PartsItem key={part.partNumber} part={part} />;
-					})}
-				{parts && parts.length === 0 && (
-					<tr>
-						<td colSpan={5}>No Items</td>
-					</tr>
-				)}
-				{!parts && (
-					<tr>
-						<td colSpan={5}>No Items</td>
-					</tr>
-				)}
-			</tbody>
-		</table>
-	);
-};
-
 const PartsView = ({ parts, setParts }: JobPartsProp) => {
+	const [jobParts, setJobParts] = useState<Array<JobPart>>([]);
+
+	useEffect(() => {
+		if (parts) setJobParts([...parts]);
+	}, [parts]);
+
 	const [partName, setPartName] = useState<string>("");
 	const [partNumber] = useState<string>("");
 	const [partQty, setPartQty] = useState<string>("");
@@ -115,12 +50,9 @@ const PartsView = ({ parts, setParts }: JobPartsProp) => {
 			partQty,
 			partNumber,
 		};
-		if (parts && setParts) {
-			setParts([...parts, newPart]);
-			console.log(parts);
-		} else if (parts && !setParts) {
-			parts.push(newPart);
-		}
+
+		setJobParts([...jobParts, newPart]);
+		console.log(parts);
 	};
 
 	return (
@@ -135,7 +67,7 @@ const PartsView = ({ parts, setParts }: JobPartsProp) => {
 				`,
 			}}
 		>
-			<PartsTable parts={parts} setParts={setParts} />
+			<JobPartsTable data={jobParts} />
 			<CenterDiv>
 				<AddItemDiv>
 					<SectionElement>

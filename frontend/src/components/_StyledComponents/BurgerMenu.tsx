@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import { useAuth0 } from "@auth0/auth0-react";
+
 const BurgerDropDownView = styled.div`
 	position: absolute;
 	width: 100%;
@@ -33,6 +35,7 @@ const BurgerMenuItem = ({ to, text }: any) => (
 );
 
 const BurgerDropDown = ({ burgerMenuOpen, setBurgerMenuOpen }: any) => {
+	const { logout } = useAuth0();
 	return (
 		<>
 			{burgerMenuOpen && (
@@ -48,7 +51,13 @@ const BurgerDropDown = ({ burgerMenuOpen, setBurgerMenuOpen }: any) => {
 						<BurgerMenuItem to="/messages" text="Messages" />
 						<BurgerMenuItem to="/admin" text="Admin" />
 						<BurgerMenuItem to="/settings" text="Settings" />
-						<BurgerMenuItem to="/logout" text="Logout" />
+						<BurgerDropDownItemView
+							onClick={() => {
+								logout({ returnTo: window.location.origin });
+							}}
+						>
+							Logout
+						</BurgerDropDownItemView>
 					</div>
 				</BurgerDropDownView>
 			)}

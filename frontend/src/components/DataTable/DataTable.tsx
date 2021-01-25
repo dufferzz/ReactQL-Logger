@@ -50,7 +50,6 @@ const Table = ({ data, columns, onRowClicked, subscribeToNew }: any) => {
 			data={data}
 			dense
 			onRowClicked={onRowClicked}
-			// subscribeToNew={subscribeToNew}
 		/>
 	);
 };

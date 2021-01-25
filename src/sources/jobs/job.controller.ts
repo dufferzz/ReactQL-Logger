@@ -1,5 +1,7 @@
 import Job from "./job.model";
 
+import { sendError, sendResponse } from "../../utils/responseHandlers";
+
 const jobController = {
 	jobs: () =>
 		Job.find()
@@ -78,27 +80,11 @@ const jobController = {
 			labourHours: parseInt(args.labourHours),
 			// jobNumber: args.jobNumber,
 		});
-		newjob
+		return newjob
 			.save()
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error));
 	},
-};
-
-const sendError = (error) => {
-	return {
-		success: false,
-		data: null,
-		error: error,
-	};
-};
-
-const sendResponse = (data) => {
-	return {
-		success: true,
-		data: data,
-		error: "",
-	};
 };
 
 export default jobController;

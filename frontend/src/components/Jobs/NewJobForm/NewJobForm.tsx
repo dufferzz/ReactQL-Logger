@@ -12,6 +12,7 @@ import FormError from "../../FormError";
 import NEWJOB_MUTATION from "../../../querys/jobs/NewJobMutation";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { useHistory } from "react-router-dom";
 
 import * as Yup from "yup";
 
@@ -43,6 +44,8 @@ const JobSchema = Yup.object().shape({
 // 	partPrice: "342",
 // },
 export const NewJobForm = () => {
+	const history = useHistory();
+
 	const [addJob] = useMutation(NEWJOB_MUTATION, {});
 	const [parts, setParts] = useState<Array<JobPart>>([]);
 
@@ -79,7 +82,14 @@ export const NewJobForm = () => {
 							MySwal.fire({
 								title: <p>Success!</p>,
 								icon: "success",
-								text: `Job Added successfully. ${res.data.addJob._id}`,
+								showDenyButton: true,
+								submitButtonText: "Clear Form",
+								denybuttonText: "View Now",
+								text: `Job Added successfully. ${res.data._id}`,
+							}).then((data) => {
+								if (data.isDenied) {
+									history.push(`/job/${res.data._id}`);
+								}
 							});
 						} else {
 							MySwal.fire({

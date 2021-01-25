@@ -6,7 +6,7 @@ import Loading from "./components/_SharedComponents/Loading/Loading";
 import ErrorBoundary from "./components/_SharedComponents/ErrorBoundary/ErrorBoundary";
 import ScrollToTop from "./utils/ScrollToTop";
 
-import SideBar from "./components/SideBar/SideBar";
+import SideBar from "./components/_StyledComponents/SideBar/SideBar";
 import TopNav from "./components/TopNav/TopNav";
 import AppContainer from "./components/_StyledComponents/AppContainer";
 import Layout from "./components/_StyledComponents/Layout";
@@ -18,6 +18,8 @@ import PartsPage from "./pages/PartsPage/PartsPage";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import AdminPage from "./pages/AdminPage/AdminPage";
+
+import UserDetails from "./pages/AdminPage/Users/UserDetails";
 import PartDetailsPage from "./pages/PartDetailsPage/PartDetailsPage";
 import NewJob from "./pages/NewJobPage/NewJobPage";
 import JobDetails from "./pages/JobDetailsPage/JobDetailsPage";
@@ -37,6 +39,8 @@ const routes = [
 	{ path: "/messages", name: "Messages", Component: MessagesPage },
 	{ path: "/settings", name: "Settings", Component: SettingsPage },
 	{ path: "/admin", name: "Administration", Component: AdminPage },
+	{ path: "/admin/users/:id", name: "User Management", Component: UserDetails },
+
 	{ path: "/search", name: "Search", Component: SearchPage },
 ];
 
@@ -62,7 +66,11 @@ const App = () => {
 	if (!isLoading && !isAuthenticated) {
 		return (
 			<Router>
-				<TopNav />
+				<TopNav
+					burgerMenuOpen={burgerMenuOpen}
+					setBurgerMenuOpen={setBurgerMenuOpen}
+				/>
+
 				<main style={{ height: "75vh" }}>
 					<HomePage />
 				</main>

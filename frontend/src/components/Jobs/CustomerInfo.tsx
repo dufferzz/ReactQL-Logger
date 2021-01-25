@@ -75,7 +75,15 @@ const CustomerInfo = () => {
 					<ErrorField name="postcode" component="div" />
 				</SectionElement>
 			</AddressInfoSection>
-			<SubHeading>Contact Information</SubHeading>
+			<SubHeading
+				style={{
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "space-between",
+				}}
+			>
+				Contact Information
+			</SubHeading>
 			<div style={{ display: "grid" }}>
 				<SectionElement>
 					<label htmlFor="phonenumber">Contact Phone*</label>

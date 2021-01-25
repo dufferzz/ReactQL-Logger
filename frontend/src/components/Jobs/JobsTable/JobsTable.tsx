@@ -34,7 +34,7 @@ const columns = [
 		selector: "todo",
 		cell: (row: any) => (
 			<div
-				style={{ textAlign: "center", width: "100%" }}
+				style={{ textAlign: "center", width: "100%", padding: " 0 0 0.5rem 0" }}
 				data-tag="allowRowEvents"
 			>
 				{row.make === "" && row.model === "" && (

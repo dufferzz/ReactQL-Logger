@@ -10,7 +10,7 @@ const AppContainer = styled.main`
 
 	width: 95%;
 	@media (max-width: 580px) {
-		width: 98%;
+		width: 97%;
 	}
 `;
 

@@ -38,25 +38,25 @@ const jobResolver = {
 		},
 	},
 	Query: {
-		jobs(_, args, ctx) {
+		async jobs(_, args, ctx) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
-			if (checkPermissions(ctx, "readAll:jobs")) {
+			if (await checkPermissions(ctx, "readAll:jobs")) {
 				return jobController.jobs();
 			} else {
 				return handleNoPermission();
 			}
 		},
-		getJob(_, args, ctx) {
+		async getJob(_, args, ctx) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
-			if (checkPermissions(ctx, "readAll:jobs")) {
+			if (await checkPermissions(ctx, "readAll:jobs")) {
 				return jobController.getJob(args);
 			} else {
 				return handleNoPermission();
 			}
 		},
-		getAssignedJobs(_, args, ctx) {
+		async getAssignedJobs(_, args, ctx) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
-			if (checkPermissions(ctx, "readAssigned: jobs")) {
+			if (await checkPermissions(ctx, "readAssigned: jobs")) {
 				return jobController.getAssignedJobs(args);
 			} else {
 				return handleNoPermission();
@@ -64,18 +64,18 @@ const jobResolver = {
 		},
 	},
 	Mutation: {
-		addJob(_, args, ctx) {
+		async addJob(_, args, ctx) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
-			if (checkPermissions(ctx, "create:jobs")) {
+			if (await checkPermissions(ctx, "create:jobs")) {
 				pubsub.publish(JOB_ADDED, { jobAdded: args });
 				return jobController.addJob(args);
 			} else {
 				return handleNoPermission();
 			}
 		},
-		updateJob(_, args, ctx) {
+		async updateJob(_, args, ctx) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
-			if (checkPermissions(ctx, "update:jobs")) {
+			if (await checkPermissions(ctx, "update:jobs")) {
 				pubsub.publish(JOB_ID_UPDATED, { jobIDUpdated: args });
 				pubsub.publish(JOB_UPDATED, { jobUpdated: args });
 				return jobController.updateJob(args);
@@ -83,12 +83,11 @@ const jobResolver = {
 				return handleNoPermission();
 			}
 		},
-		deleteJob(_, args, ctx) {
+		async deleteJob(_, args, ctx) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
-			const { permissions } = ctx.decoded;
-			if (permissions.includes("delete:jobs")) {
-				pubsub.publish(JOB_DELETED, { jobDeleted: args });
-				pubsub.publish(JOB_ID_DELETED, { jobIDDeleted: args });
+			if (await checkPermissions(ctx, "delete:jobs")) {
+				pubsub.publish(JOB_ID_UPDATED, { jobIDUpdated: args });
+				pubsub.publish(JOB_UPDATED, { jobUpdated: args });
 				return jobController.deleteJob(args);
 			} else {
 				return handleNoPermission();

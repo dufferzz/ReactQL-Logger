@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import FlexDiv from "../_StyledComponents/FlexDiv";
+import FlexDiv from "../FlexDiv";
 
 import {
 	faClipboardList,
@@ -161,7 +161,14 @@ const menuEntries = [
 ];
 
 const SideBar = () => {
-	const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+	const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
+	let userRole;
+	if (user) {
+		if (user["https://dfzservice.no/roles"]) {
+			userRole = user["https://dfzservice.no/roles"][0];
+		}
+	}
 	return (
 		<>
 			{isAuthenticated && (
@@ -177,18 +184,21 @@ const SideBar = () => {
 							secondaryBadge={item.secondaryBadge}
 						></MenuEntry>
 					))}
-					<FlexDiv style={{ paddingTop: "0.7rem" }}>
-						<NavLink to="/admin">
-							<StyledIcon
-								style={{ color: "red" }}
-								title="Admin"
-								icon={faUserCog}
-							/>
-							<IconTitle>Admin</IconTitle>
-						</NavLink>
-					</FlexDiv>
-
-					<hr />
+					{userRole === "admin" && (
+						<>
+							<FlexDiv style={{ paddingTop: "0.7rem" }}>
+								<NavLink to="/admin">
+									<StyledIcon
+										style={{ color: "red" }}
+										title="Admin"
+										icon={faUserCog}
+									/>
+									<IconTitle>Admin</IconTitle>
+								</NavLink>
+							</FlexDiv>
+							<hr />
+						</>
+					)}
 					<FlexDiv
 						style={{
 							paddingTop: "0.7rem",
