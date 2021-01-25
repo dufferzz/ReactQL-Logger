@@ -33,3 +33,5 @@ keytmp.pem
 
 # production
 frontend/build
+
+BuildNDeploy.sh
