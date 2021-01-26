@@ -6,8 +6,8 @@ const config = {
 };
 
 if (process.env.NODE_ENV === "development") {
-	config.apolloHttpUrl = "http://localhost:3001/graphql";
-	config.apolloWSUrl = "ws://localhost:3001/graphql";
+	config.apolloHttpUrl = "http://192.168.1.47:3001/graphql";
+	config.apolloWSUrl = "ws://192.168.1.47:3001/graphql";
 } else {
 	config.apolloHttpUrl = "https://gql.dufferz.net/graphql";
 	config.apolloWSUrl = "wss://gql.dufferz.net/graphql";

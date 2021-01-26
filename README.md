@@ -27,18 +27,15 @@ Internal Management App, Webstore App, React Native App (Todo) powered by GraphQ
 
 ## Currently in development
 
+- User Administtation
 - Messaging system
 - Attachment uploads system (PDF & Images with generated thumbnails)
-- Better handling on GQL Error responses
-- Migration to Postgres
+- Handle MaxListenersExceededWarning: Possible EventEmitter memory leak detected.
 
 ## Todos (Not in any particular order)
 
-- Use Yup schma validation on server CRUD requests - stop returning DB errors to client. only validation errors.
-- Better handling of Success/Errors from GQL
 - Redis Caching - Client cache (apollo) & server cache. Prevent un-necessary response times & DB requests
 - Connection status snackbar/toasts - Prevent form submits when no connection
-- GQL Rate Limiting
 - Per-Employee Calendars
 - Clock In/Out System
 - Push Notifications
@@ -47,41 +44,21 @@ Internal Management App, Webstore App, React Native App (Todo) powered by GraphQ
 - Dockerization
 - User Activity Logging
 - Initial/Deployment Config. Create users, config logo, footer, sitename, etc
-- A whole lot of design, tidying, refactoring, optimisation, structure, etc
-- Swagger Docs for API routes
 - Make a Wiki / GitHub Page
-- Integration with Bring API for calculating deliverys
-- Klarna Integration (?)- Flexible Payments
-- Stripe/other (?) - for generating billable invoices
 
 ## Live Demo
 
 [https://jobs.dufferz.net](https://jobs.dufferz.net)
 
-Test user: testuser@testuser.dev
+Test user: `testuser@testuser.dev`
 
-Password: sGgNEw+FK%2GxpCG
+Password: `sGgNEw+FK%2GxpCG`
 
-Test user has scopes asides from delete applied. Newly created users will not have any roles and can't do much.
-
-I haven't created a user management section hooked to the Auth0 Management API yet so this is all for now. I'm not going to add roles to everyone manually.
-
-## .env
-
-```bash
-    PORT=3001
-    CLIENT_URL=
-    HTTPS=false
-    DB_URL=
-    AUTH0_DOMAIN=
-    API_IDENTIFIER=
-```
+Test user has scopes asides from delete applied. User Signup is disabled.
 
 ## Starting
 
-IMPORANT NOTES:
-
-It is possible to use an SSH tunnel for access from different devices (Auth0 moans a lot)
+It is possible to use an SSH tunnel for access from different devices (Otherwise Auth0 moans a lot)
 
 ```bash
     ssh -N -L 3000:127.0.0.1:3000 user@yourserversip
@@ -92,7 +69,7 @@ It is possible to use an SSH tunnel for access from different devices (Auth0 moa
 ```bash
     yarn && cd frontend && yarn && cd ..
     nvim frontend/config/config.tsx # Change variables as required
-    touch .env && nvim .env # Change variables as required
+    mv .env.example .env && nvim .env # Change variables as required
     yarn startdev
 ```
 
