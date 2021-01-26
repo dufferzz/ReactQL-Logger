@@ -19,46 +19,66 @@ const MySwal = withReactContent(Swal);
 
 const deleteJob = async (id: String, sendDeleteJob: any, history: any) => {
 	console.log(`deleting job ${id}!`);
-	await sendDeleteJob(id)
-		.then(({ data }: any) => {
-			const res = data.deleteJob;
-			console.log(res);
-			if (res.success) {
-				MySwal.fire({
-					title: <p>Job Deleted!</p>,
-					icon: "success",
-					text: `Job ${res.data._id} has been deleted`,
-				}).then(() => {
-					history.push(`/`);
+	MySwal.fire({
+		title: <p>Delete?</p>,
+		icon: "warning",
+		showDenyButton: true,
+		denyButtonText: "Cancel",
+		html: `Delete Job? \n This <strong>CAN NOT</strong> be undone!`,
+	}).then((data) => {
+		if (data.isConfirmed) {
+			sendDeleteJob(id)
+				.then(({ data }: any) => {
+					const res = data.deleteJob;
+					console.log(res);
+					if (res.success) {
+						MySwal.fire({
+							title: <p>Job Deleted!</p>,
+							icon: "success",
+							text: `Job ${res.data._id} has been deleted`,
+						}).then(() => {
+							history.push(`/`);
+						});
+					} else {
+						MySwal.fire({
+							title: <p>Error!</p>,
+							icon: "error",
+							text: `${res.error}`,
+						});
+					}
+				})
+				.catch((err: any) => {
+					MySwal.fire({
+						title: <p>Error!</p>,
+						icon: "error",
+						text: `${err.message}`,
+					});
 				});
-			} else {
-				MySwal.fire({
-					title: <p>Error!</p>,
-					icon: "error",
-					text: `${res.error}`,
-				});
-			}
-		})
-		.catch((err: any) => {
+		}
+		if (data.isDenied) {
 			MySwal.fire({
-				title: <p>Error!</p>,
-				icon: "error",
-				text: `${err.message}`,
+				title: <p>Operation Cancelled</p>,
+				icon: "info",
 			});
-		});
+		}
+	});
 };
 interface IDProp {
 	id?: string;
+	assigned?: any;
 }
 
-const UserList = () => {
+const UserList = ({ assigned }: any) => {
 	const { data } = useQuery(GET_SAFE_USERS_QUERY);
 	console.log(data);
 	return (
-		<select style={{ height: "2.5rem" }}>
+		<select value={assigned} style={{ height: "2.5rem" }}>
+			<option value="not-assigned">Not Assigned</option>
 			{data &&
-				data.getSafeUserList.data.map((user: any) => (
-					<option value={user.nickname}>{user.nickname}</option>
+				data.getSafeUserList.data.map((user: any, i: number) => (
+					<option key={`${user.nickname}-${i}`} value={user.nickname}>
+						{user.nickname}
+					</option>
 				))}
 		</select>
 	);
@@ -91,7 +111,7 @@ const ManagementButtons = ({ id }: IDProp) => {
 	);
 };
 
-const InternalUse = ({ id }: IDProp) => {
+const InternalUse = ({ id, assigned }: IDProp) => {
 	return (
 		<Section
 			title="Internal Use"
@@ -115,7 +135,7 @@ const InternalUse = ({ id }: IDProp) => {
 				<SectionElement>
 					<label htmlFor="assigned">Assigned To*</label>
 					{/* <Field type="assigned" name="assigned" /> */}
-					<UserList />
+					<UserList assigned={assigned} />
 					<ErrorField name="assigned" component="div" />
 				</SectionElement>
 

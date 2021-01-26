@@ -137,7 +137,7 @@ const JobDetailsForm = ({ job }: JobPropType) => {
 						<JobDetails />
 
 						<PartsView parts={parts} setParts={setParts} />
-						<InternalUse id={job._id} />
+						<InternalUse assigned={job.assigned} id={job._id} />
 						{errors && (
 							<FormError isSubmitting={isSubmitting} errors={errors} />
 						)}
