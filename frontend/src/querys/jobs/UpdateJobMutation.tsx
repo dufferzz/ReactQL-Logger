@@ -55,7 +55,7 @@ const UPDATE_JOB_MUTATION = gql`
 					partName
 					partNumber
 					partQty
-					partPrice
+					price
 				}
 				status
 				created

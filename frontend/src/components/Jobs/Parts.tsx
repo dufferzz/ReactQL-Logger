@@ -11,6 +11,8 @@ import SectionElement from "../_StyledComponents/SectionElement";
 
 import JobPartsTable from "./JobPartsTable/JobPartsTable";
 
+import PackageIcon from "../../assets/icons/package.svg";
+
 const MySwal = withReactContent(Swal);
 
 const AddItemDiv = styled.div`
@@ -20,24 +22,15 @@ const AddItemDiv = styled.div`
 `;
 
 const PartsView = ({ parts, setParts }: JobPartsProp) => {
-	const [jobParts, setJobParts] = useState<Array<JobPart>>([]);
-
-	useEffect(() => {
-		if (parts) setJobParts([...parts]);
-	}, [parts]);
+	// const [jobParts, setJobParts] = useState<Array<JobPart>>([]);
 
 	const [partName, setPartName] = useState<string>("");
 	const [partNumber] = useState<string>("");
 	const [partQty, setPartQty] = useState<string>("");
-	const [partPrice, setPartPrice] = useState<string>("");
+	const [price, setPartPrice] = useState<string>("");
 
 	const addPart = () => {
-		if (
-			partName === "" ||
-			partQty === "" ||
-			partQty === "0" ||
-			partPrice === ""
-		) {
+		if (partName === "" || partQty === "" || partQty === "0" || price === "") {
 			MySwal.fire({
 				title: <p>Invalid Part</p>,
 				icon: "error",
@@ -46,28 +39,30 @@ const PartsView = ({ parts, setParts }: JobPartsProp) => {
 		}
 		const newPart = {
 			partName,
-			partPrice,
+			price,
 			partQty,
 			partNumber,
 		};
 
-		setJobParts([...jobParts, newPart]);
+		setParts([...parts, newPart]);
 		console.log(parts);
 	};
 
 	return (
 		<Section
 			title="Parts"
+			icon={PackageIcon}
 			style={{
 				display: "grid",
 				gridTemplateColumns: "1fr",
+				padding: 0,
 				gridTemplateAreas: `
 					'header '
 					'content '
 				`,
 			}}
 		>
-			<JobPartsTable data={jobParts} />
+			<JobPartsTable data={parts} />
 			<CenterDiv>
 				<AddItemDiv>
 					<SectionElement>
@@ -96,7 +91,7 @@ const PartsView = ({ parts, setParts }: JobPartsProp) => {
 						<label htmlFor="partPrice">Price</label>
 						<input
 							onChange={(e) => {
-								setPartPrice(e.target.value);
+								setPartPrice(e.target.value.toString());
 							}}
 							type="number"
 							name="partPrice"

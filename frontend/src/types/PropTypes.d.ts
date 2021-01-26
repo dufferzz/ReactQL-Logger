@@ -32,8 +32,8 @@ interface SinglePartProp {
 	part: JobPart;
 }
 interface JobPartsProp {
-	parts?: JobPart[];
-	setParts?: any;
+	parts: JobPart[];
+	setParts: any;
 }
 
 type StatusImageProp = {

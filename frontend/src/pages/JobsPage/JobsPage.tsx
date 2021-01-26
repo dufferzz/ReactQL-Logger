@@ -26,6 +26,9 @@ import Table from "../../components/DataTable/DataTable";
 
 import { columns } from "../../components/Jobs/JobsTable/JobsTable";
 
+import UserIcon from "../../assets/icons/user.svg";
+import ClipboardIcon from "../../assets/icons/clipboard.svg";
+
 const AssignedJobs = ({ user }: any) => {
 	const history = useHistory();
 
@@ -40,7 +43,11 @@ const AssignedJobs = ({ user }: any) => {
 	const time: string = dayjs(Date.now()).format("HH:mm:ss");
 
 	return (
-		<Section title={`${user.nickname}'s Jobs`} style={{ padding: "0" }}>
+		<Section
+			icon={UserIcon}
+			title={`${user.nickname}'s Jobs`}
+			style={{ padding: "0" }}
+		>
 			{loading && <Loading />}
 			{error && <ErrorComponent error={error} />}
 			{!loading && data && data.getAssignedJobs.success && subscribeToMore && (
@@ -102,7 +109,7 @@ const AllJobs = () => {
 	);
 	// console.log(data);
 	return (
-		<Section title="All Jobs" style={{ padding: "0" }}>
+		<Section icon={ClipboardIcon} title="All Jobs" style={{ padding: "0" }}>
 			{loading && <Loading />}
 			{error && <ErrorComponent error={error} />}
 			{!loading && data && data.jobs.success && subscribeToMore && (

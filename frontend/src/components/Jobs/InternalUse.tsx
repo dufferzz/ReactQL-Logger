@@ -1,6 +1,6 @@
 import React from "react";
 import { Field } from "formik";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import Section from "../_StyledComponents/Section";
@@ -12,6 +12,8 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 import DELETE_JOB_MUTATION from "../../querys/jobs/DeleteJobMutation";
+
+import GET_SAFE_USERS_QUERY from "../../querys/users/GetSafeUserList";
 
 const MySwal = withReactContent(Swal);
 
@@ -48,6 +50,19 @@ const deleteJob = async (id: String, sendDeleteJob: any, history: any) => {
 interface IDProp {
 	id?: string;
 }
+
+const UserList = () => {
+	const { data } = useQuery(GET_SAFE_USERS_QUERY);
+	console.log(data);
+	return (
+		<select style={{ height: "2.5rem" }}>
+			{data &&
+				data.getSafeUserList.data.map((user: any) => (
+					<option value={user.nickname}>{user.nickname}</option>
+				))}
+		</select>
+	);
+};
 
 const ManagementButtons = ({ id }: IDProp) => {
 	const [sendDeleteJob] = useMutation(DELETE_JOB_MUTATION, {
@@ -99,7 +114,8 @@ const InternalUse = ({ id }: IDProp) => {
 			>
 				<SectionElement>
 					<label htmlFor="assigned">Assigned To*</label>
-					<Field type="assigned" name="assigned" />
+					{/* <Field type="assigned" name="assigned" /> */}
+					<UserList />
 					<ErrorField name="assigned" component="div" />
 				</SectionElement>
 

@@ -18,7 +18,7 @@ const GET_JOB_QUERY = gql`
 					partName
 					partNumber
 					partQty
-					partPrice
+					price
 				}
 				status
 				created

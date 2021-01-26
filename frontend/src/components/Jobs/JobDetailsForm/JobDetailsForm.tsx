@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
 import { useMutation } from "@apollo/client";
 import * as Yup from "yup";
@@ -48,9 +48,45 @@ type Part = {
 	partPrice: string;
 };
 
+const handleResponse = (data: any, history: any) => {
+	const resp = data.updateJob;
+	console.log(resp);
+	if (resp.success) {
+		window.scrollTo({ top: 0, behavior: "smooth" });
+
+		MySwal.fire({
+			title: <p>Success!</p>,
+			icon: "success",
+			text: `Job Saved successfully. ${resp.data._id}`,
+			showDenyButton: true,
+			denyButtonText: "Home",
+		}).then((data) => {
+			if (data.isDenied) {
+				history.push("/");
+			}
+		});
+	} else {
+		MySwal.fire({
+			title: <p>Error!</p>,
+			icon: "error",
+			text: `${resp.error}`,
+		});
+	}
+};
+
 const JobDetailsForm = ({ job }: JobPropType) => {
 	const history = useHistory();
 	const [updateJob] = useMutation(UPDATE_JOB_MUTATION);
+	const newParts = job.parts.map((item) => {
+		return {
+			partName: item.partName,
+			partNumber: item.partNumber,
+			partQty: item.partQty,
+			price: item.price,
+		};
+	});
+	const [parts, setParts] = useState<JobPart[]>([...newParts]);
+
 	return (
 		<Formik
 			initialValues={{
@@ -74,39 +110,12 @@ const JobDetailsForm = ({ job }: JobPropType) => {
 			validationSchema={JobSchema}
 			onSubmit={async (values, { setSubmitting }) => {
 				const newvalues: JobFormValuesProp = values;
-				console.log(job.parts);
-				newvalues.parts = job.parts.map((part: Part) => ({
-					partName: part.partName,
-					partNumber: part.partNumber,
-					partQty: part.partQty,
-					partPrice: part.partPrice,
-				}));
+				console.log(parts);
+				newvalues.parts = parts;
 				console.log(newvalues);
 				await updateJob({ variables: newvalues })
 					.then(({ data }: any) => {
-						const resp = data.updateJob;
-						console.log(resp);
-						if (resp.success) {
-							window.scrollTo({ top: 0, behavior: "smooth" });
-
-							MySwal.fire({
-								title: <p>Success!</p>,
-								icon: "success",
-								text: `Job Saved successfully. ${resp.data._id}`,
-								showDenyButton: true,
-								denyButtonText: "Home",
-							}).then((data) => {
-								if (data.isDenied) {
-									history.push("/");
-								}
-							});
-						} else {
-							MySwal.fire({
-								title: <p>Error!</p>,
-								icon: "error",
-								text: `${resp.error}`,
-							});
-						}
+						handleResponse(data, history);
 						setSubmitting(false);
 					})
 					.catch((err: any) => {
@@ -115,17 +124,19 @@ const JobDetailsForm = ({ job }: JobPropType) => {
 							icon: "error",
 							text: err.message,
 						});
+						setSubmitting(false);
+
 						console.error(err);
 					});
 			}}
 		>
-			{({ isSubmitting, values, errors, handleSubmit, handleChange }) => {
+			{({ isSubmitting, errors, handleSubmit }) => {
 				return (
 					<Form onSubmit={handleSubmit}>
 						<CustomerInfo />
 						<JobDetails />
 
-						<PartsView parts={job.parts} />
+						<PartsView parts={parts} setParts={setParts} />
 						<InternalUse id={job._id} />
 						{errors && (
 							<FormError isSubmitting={isSubmitting} errors={errors} />

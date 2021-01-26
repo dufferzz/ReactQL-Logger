@@ -29,7 +29,7 @@ const jobType = gql`
 		partName: String!
 		partNumber: String!
 		partQty: String!
-		partPrice: String!
+		price: String!
 	}
 
 	input PartInput {

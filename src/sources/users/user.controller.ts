@@ -24,6 +24,19 @@ const userController = {
 			})
 			.then((data) => sendResponse(data))
 			.catch((err) => sendError(err)),
+	getSafeUserList: async (args) =>
+		await management
+			.getUsers()
+			.then((users) => {
+				return users.filter((user) => {
+					return {
+						nickname: user.nickname,
+						picture: user.picture,
+					};
+				});
+			})
+			.then((data) => sendResponse(data))
+			.catch((err) => sendError(err)),
 
 	roles: async (args) =>
 		await management.roles

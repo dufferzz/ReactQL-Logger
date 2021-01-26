@@ -8,6 +8,8 @@ import Section from "../_StyledComponents/Section";
 import SectionElement from "../_StyledComponents/SectionElement";
 import ErrorField from "../_StyledComponents/ErrorField";
 
+import ClipboardIcon from "../../assets/icons/clipboard.svg";
+
 const JobDetailsSection = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
@@ -37,6 +39,7 @@ const JobDetails = () => {
 	return (
 		<Section
 			title="Job Details"
+			icon={ClipboardIcon}
 			style={{
 				display: "grid",
 				gridTemplateColumns: "1fr",

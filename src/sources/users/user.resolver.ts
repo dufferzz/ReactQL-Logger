@@ -15,6 +15,14 @@ const userResolver = {
 
 	Subscription: {},
 	Query: {
+		async getSafeUserList(_, args, ctx) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (await checkRoles(ctx, "Employee")) {
+				return userController.getSafeUserList(args);
+			} else {
+				return handleNoPermission();
+			}
+		},
 		async users(_, args, ctx) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkRoles(ctx, "Admin")) {

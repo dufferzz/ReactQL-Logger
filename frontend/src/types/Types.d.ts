@@ -32,7 +32,7 @@ type JobPart = {
 	partName: string;
 	partNumber: string;
 	partQty: string;
-	partPrice: string;
+	price: string;
 };
 
 type DBPart = {

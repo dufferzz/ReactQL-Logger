@@ -66,6 +66,17 @@ const userType = gql`
 		name: String
 		description: String
 	}
+
+	type SafeUsers {
+		nickname: String!
+		picture: String!
+	}
+
+	type SafeUserArrayResponse {
+		success: Boolean!
+		error: String
+		data: [SafeUsers]
+	}
 `;
 
 export default userType;

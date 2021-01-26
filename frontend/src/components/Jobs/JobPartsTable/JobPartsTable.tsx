@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import iconError from "../../../assets/icons/error.svg";
 
 const RemovePartIcon = (props: any) => {
-	console.log(props);
 	return (
 		<img
 			onClick={() => {
@@ -14,6 +13,8 @@ const RemovePartIcon = (props: any) => {
 			style={{
 				cursor: "pointer",
 				filter: "drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3))",
+				zIndex: 100000,
+				width: "30px",
 			}}
 			alt="Remove Part"
 			src={iconError}
@@ -21,7 +22,6 @@ const RemovePartIcon = (props: any) => {
 	);
 };
 const handleRemovePart = (part: any) => {
-	console.log(part);
 	console.log("Remove part:", part.partNumber, part.partQty);
 };
 
@@ -29,9 +29,10 @@ const columns = [
 	{
 		name: "",
 		selector: "",
-		width: "50px",
+
+		width: "30px",
 		cell: (row: any) => (
-			<div style={{ width: "50px" }} data-tag="allowRowEvents">
+			<div style={{ padding: "0.5rem 0" }} data-tag="allowRowEvents">
 				<RemovePartIcon part={row} />
 			</div>
 		),
@@ -40,15 +41,13 @@ const columns = [
 		name: "Part Name",
 		selector: "partName",
 
-		cell: (row: any) => (
-			<div style={{ width: "50px" }} data-tag="allowRowEvents">
-				{row.partName}
-			</div>
-		),
+		cell: (row: any) => <div data-tag="allowRowEvents">{row.partName}</div>,
 	},
 	{
 		name: "Part Number",
 		selector: "partNumber",
+		maxWidth: "200px",
+
 		sortable: true,
 		hide: 580,
 
@@ -65,7 +64,7 @@ const columns = [
 
 	{
 		name: "Price",
-		selector: "partPrice",
+		selector: "price",
 		maxWidth: "100px",
 		sortable: true,
 

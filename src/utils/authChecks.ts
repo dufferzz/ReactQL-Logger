@@ -15,12 +15,10 @@ const checkPermissions = async (
 	const userPermissions = await management.getUserPermissions({
 		id: ctx.decoded.sub,
 	});
-	// console.log(userPermissions);
 
 	const obj = userPermissions.find(
 		(role) => role.permission_name === reqPermission
 	);
-	// console.log(obj);
 	if (obj && obj.permission_name === reqPermission) {
 		log(`[AUTH] - ${ctx.decoded.sub} Requested ${reqPermission}`);
 		return true;
