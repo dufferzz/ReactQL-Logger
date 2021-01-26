@@ -1,7 +1,5 @@
 import React from "react";
-
 import Table from "../../DataTable/DataTable";
-import { useHistory } from "react-router-dom";
 import iconError from "../../../assets/icons/error.svg";
 
 const RemovePartIcon = (props: any) => {

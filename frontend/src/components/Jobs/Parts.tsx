@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Section from "../_StyledComponents/Section";
 import Button from "../_StyledComponents/Button";
 import CenterDiv from "../_StyledComponents/CenteredDiv";

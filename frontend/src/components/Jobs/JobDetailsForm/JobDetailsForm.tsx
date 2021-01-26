@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import { useMutation } from "@apollo/client";
 import * as Yup from "yup";
@@ -40,13 +40,6 @@ const JobSchema = Yup.object().shape({
 interface JobPropType {
 	job: Job;
 }
-
-type Part = {
-	partName: string;
-	partNumber: string;
-	partQty: string;
-	partPrice: string;
-};
 
 const handleResponse = (data: any, history: any) => {
 	const resp = data.updateJob;
