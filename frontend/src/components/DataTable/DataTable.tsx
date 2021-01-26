@@ -54,4 +54,4 @@ const Table = ({ data, columns, onRowClicked, subscribeToNew }: any) => {
 	);
 };
 
-export default React.memo(Table);
+export default Table;

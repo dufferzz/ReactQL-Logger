@@ -10,6 +10,8 @@ import pubsub from "../../../pubsub";
 import jobController from "./job.controller";
 
 const JOB_ADDED = "JOB_ADDED";
+const ASSIGNED_JOB_ADDED = "ASSIGNED_JOB_ADDED";
+
 const JOB_UPDATED = "JOB_UPDATED";
 const JOB_ID_UPDATED = "JOB_ID_UPDATED";
 const JOB_DELETED = "JOB_DELETED";
@@ -19,6 +21,9 @@ const jobResolver = {
 	DateTime: GraphQLDateTime,
 
 	Subscription: {
+		assignedjobAdded: {
+			subscribe: (_, __, ctx) => pubsub.asyncIterator([ASSIGNED_JOB_ADDED]),
+		},
 		jobAdded: {
 			subscribe: (_, __, ctx) => pubsub.asyncIterator([JOB_ADDED]),
 		},
@@ -67,7 +72,7 @@ const jobResolver = {
 		async addJob(_, args, ctx) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "create:jobs")) {
-				pubsub.publish(JOB_ADDED, { jobAdded: args });
+				pubsub.publish(JOB_ADDED, { jobAdded: { data: args } });
 				return jobController.addJob(args);
 			} else {
 				return handleNoPermission();
@@ -76,8 +81,8 @@ const jobResolver = {
 		async updateJob(_, args, ctx) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "update:jobs")) {
-				pubsub.publish(JOB_ID_UPDATED, { jobIDUpdated: args });
-				pubsub.publish(JOB_UPDATED, { jobUpdated: args });
+				pubsub.publish(JOB_ID_UPDATED, { jobIDUpdated: { data: args } });
+				pubsub.publish(JOB_UPDATED, { jobUpdated: { data: args } });
 				return jobController.updateJob(args);
 			} else {
 				return handleNoPermission();
@@ -86,8 +91,8 @@ const jobResolver = {
 		async deleteJob(_, args, ctx) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "delete:jobs")) {
-				pubsub.publish(JOB_ID_UPDATED, { jobIDUpdated: args });
-				pubsub.publish(JOB_UPDATED, { jobUpdated: args });
+				pubsub.publish(JOB_ID_UPDATED, { jobIDUpdated: { data: args } });
+				pubsub.publish(JOB_UPDATED, { jobUpdated: { data: args } });
 				return jobController.deleteJob(args);
 			} else {
 				return handleNoPermission();

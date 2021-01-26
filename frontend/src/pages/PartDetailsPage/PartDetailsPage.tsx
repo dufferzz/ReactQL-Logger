@@ -59,7 +59,7 @@ const PartDetailsPage = () => {
 		);
 	console.log(data);
 
-	const part = data.getPart;
+	const part = data.getPart.data;
 
 	return (
 		<Section title={`Part ID: ${id}`}>

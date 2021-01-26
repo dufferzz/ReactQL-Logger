@@ -22,7 +22,9 @@ const partController = {
 		}
 	},
 	getPart: async (args) => {
-		return await Part.findById(args._id);
+		return await Part.findById(args._id)
+			.then((data) => sendResponse(data))
+			.catch((err) => sendError(err));
 	},
 	updatePart: async (args) =>
 		await Part.findOneAndUpdate(
@@ -36,9 +38,14 @@ const partController = {
 					price: args.partPrice,
 				},
 			}
-		),
+		)
+			.then((data) => sendResponse(data))
+			.catch((err) => sendError(err)),
 
-	deletePart: async (args) => await Part.deleteOne({ _id: args._id }),
+	deletePart: async (args) =>
+		await Part.deleteOne({ _id: args._id })
+			.then((data) => sendResponse(data))
+			.catch((err) => sendError(err)),
 
 	addPart: async (args) => {
 		console.log(args);
@@ -47,7 +54,10 @@ const partController = {
 			partNumber: args.partNumber,
 			price: args.partPrice,
 		});
-		return await newjob.save();
+		return await newjob
+			.save()
+			.then((data) => sendResponse(data))
+			.catch((err) => sendError(err));
 	},
 };
 

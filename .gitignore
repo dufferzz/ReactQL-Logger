@@ -30,6 +30,8 @@ cert.pem
 key.pem
 keytmp.pem
 
+dist/
+build/
 
 # production
 frontend/build

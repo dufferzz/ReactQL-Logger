@@ -1,3 +1,5 @@
+import React from "react";
+
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { useQuery, useSubscription } from "@apollo/client";
 import { Link } from "react-router-dom";
@@ -11,6 +13,7 @@ import Loading from "../../components/_SharedComponents/Loading/Loading";
 import ErrorComponent from "../../components/_SharedComponents/ErrorComponent/ErrorComponent";
 import ErrorBoundary from "../../components/_SharedComponents/ErrorBoundary/ErrorBoundary";
 import dayjs from "dayjs";
+import { useHistory } from "react-router-dom";
 
 import GET_ALL_JOBS_QUERY from "../../querys/jobs/GetAllJobsQuery";
 import GET_ASSIGNED_JOBS_QUERY from "../../querys/jobs/GetAssignedJobsQuery";
@@ -19,9 +22,13 @@ import JOB_ADDED_SUBSCRIPTION from "../../querys/jobs/JobAddedSubscription";
 import ANY_JOB_UPDATED_SUBSCRIPTION from "../../querys/jobs/AnyJobUpdatedSubscription";
 import ANY_JOB_DELETED_SUBSCRIPTION from "../../querys/jobs/AnyJobDeletedSubscription";
 
-import JobsTable from "../../components/Jobs/JobsTable/JobsTable";
+import Table from "../../components/DataTable/DataTable";
+
+import { columns } from "../../components/Jobs/JobsTable/JobsTable";
 
 const AssignedJobs = ({ user }: any) => {
+	const history = useHistory();
+
 	const { data, error, loading, subscribeToMore, ...result } = useQuery(
 		GET_ASSIGNED_JOBS_QUERY,
 		{
@@ -36,14 +43,41 @@ const AssignedJobs = ({ user }: any) => {
 		<Section title={`${user.nickname}'s Jobs`} style={{ padding: "0" }}>
 			{loading && <Loading />}
 			{error && <ErrorComponent error={error} />}
-			{!loading && data && data.getAssignedJobs.success && (
+			{!loading && data && data.getAssignedJobs.success && subscribeToMore && (
 				<ErrorBoundary>
-					<JobsTable
+					<Table
+						columns={columns}
 						data={data.getAssignedJobs.data}
-						subQuery={JOB_ADDED_SUBSCRIPTION}
-						subscribeToMore={subscribeToMore}
-						result={result}
+						onRowClicked={(e: any) => {
+							history.push(`/job/${e._id}`);
+						}}
+						{...result}
+						subscribeToNew={() => {
+							if (subscribeToMore)
+								subscribeToMore({
+									document: JOB_ADDED_SUBSCRIPTION,
+									updateQuery: (
+										currentData: any,
+										{ subscriptionData }: any
+									) => {
+										if (!subscriptionData.data) {
+											return currentData.getAssignedJobs.data;
+										}
+										const newJobItem = subscriptionData.data.jobAdded.data;
+
+										if (currentData.getAssignedJobs.data) {
+											return Object.assign({}, currentData, {
+												getAssignedJobs: [
+													newJobItem,
+													...currentData.getAssignedJobs.data,
+												],
+											});
+										}
+									},
+								});
+						}}
 					/>
+
 					<CenterDiv style={{ margin: "0.5rem", paddingTop: "0.25rem" }}>
 						Last Update: {time}
 					</CenterDiv>
@@ -58,6 +92,7 @@ const AssignedJobs = ({ user }: any) => {
 
 const AllJobs = () => {
 	const time: string = dayjs(Date.now()).format("HH:mm:ss");
+	const history = useHistory();
 
 	const { data, error, loading, subscribeToMore, ...result } = useQuery(
 		GET_ALL_JOBS_QUERY,
@@ -65,19 +100,44 @@ const AllJobs = () => {
 			fetchPolicy: "cache-and-network",
 		}
 	);
-	console.log(data);
+	// console.log(data);
 	return (
 		<Section title="All Jobs" style={{ padding: "0" }}>
 			{loading && <Loading />}
 			{error && <ErrorComponent error={error} />}
-			{!loading && data && data.jobs.success && (
+			{!loading && data && data.jobs.success && subscribeToMore && (
 				<ErrorBoundary>
-					<JobsTable
+					<Table
+						columns={columns}
 						data={data.jobs.data}
-						subQuery={JOB_ADDED_SUBSCRIPTION}
-						subscribeToMore={subscribeToMore}
-						result={result}
+						onRowClicked={(e: any) => {
+							history.push(`/job/${e._id}`);
+						}}
+						{...result}
+						subscribeToNew={() => {
+							if (subscribeToMore)
+								subscribeToMore({
+									document: JOB_ADDED_SUBSCRIPTION,
+									updateQuery: (
+										currentData: any,
+										{ subscriptionData }: any
+									) => {
+										if (!subscriptionData.data) {
+											return currentData.jobs.data;
+										}
+										const newJobItem = subscriptionData.data.jobAdded.data;
+										console.log(currentData);
+
+										if (currentData.jobs.data) {
+											return Object.assign({}, currentData, {
+												jobs: [newJobItem, ...currentData.jobs.data],
+											});
+										}
+									},
+								});
+						}}
 					/>
+
 					<CenterDiv style={{ margin: "0.5rem", paddingTop: "0.25rem" }}>
 						Last Update: {time}
 					</CenterDiv>
@@ -91,8 +151,13 @@ const AllJobs = () => {
 const JobsPage = () => {
 	const { user } = useAuth0();
 
-	useSubscription(ANY_JOB_DELETED_SUBSCRIPTION);
-	useSubscription(ANY_JOB_UPDATED_SUBSCRIPTION);
+	useSubscription(ANY_JOB_DELETED_SUBSCRIPTION, {
+		shouldResubscribe: true,
+	});
+
+	useSubscription(ANY_JOB_UPDATED_SUBSCRIPTION, {
+		shouldResubscribe: true,
+	});
 
 	return (
 		<>

@@ -111,9 +111,8 @@ const columns = [
 	},
 ];
 
-const JobsTable = ({ data, subscribeToMore, subQuery, result }: any) => {
+const JobsTable = ({ data, subscribeToMore, subQuery, result, type }: any) => {
 	const history = useHistory();
-
 	return (
 		<Table
 			columns={columns}
@@ -123,16 +122,22 @@ const JobsTable = ({ data, subscribeToMore, subQuery, result }: any) => {
 			}}
 			{...result}
 			subscribeToNew={() => {
-				if (subscribeToMore !== undefined)
+				if (subscribeToMore)
 					subscribeToMore({
 						document: subQuery,
 						updateQuery: (currentData: any, { subscriptionData }: any) => {
+							// console.log(subscriptionData);
+							// console.log(currentData);
 							if (!subscriptionData.data) {
-								return currentData;
+								return currentData[`${type}`].data;
 							}
-							const newJobItem = subscriptionData.data.jobAdded;
+							const newJobItem = subscriptionData.data.jobAdded.data;
+							// console.log(newJobItem);
+							console.log(currentData[`${type}`]);
+							// console.log(currentdata)
+							const l = currentData[`${type}`];
 							return Object.assign({}, currentData, {
-								jobs: [newJobItem, ...currentData.jobs],
+								jobs: [newJobItem, ...l.data],
 							});
 						},
 					});
@@ -141,4 +146,4 @@ const JobsTable = ({ data, subscribeToMore, subQuery, result }: any) => {
 	);
 };
 
-export default JobsTable;
+export { JobsTable, columns };

@@ -70,22 +70,22 @@ export const NewJobForm = () => {
 				labourHours: "0",
 			}}
 			validationSchema={JobSchema}
-			onSubmit={async (values, { setSubmitting }) => {
+			onSubmit={async (values, { setSubmitting, resetForm }) => {
+				window.scrollTo({ top: 0, behavior: "smooth" });
 				console.log(values);
 				const newvalues: any = values;
 				newvalues.parts = parts;
 				await addJob({ variables: newvalues })
 					.then(({ data }: any) => {
 						const res = data.addJob;
-						console.log(res);
 						if (res.success) {
+							resetForm();
 							MySwal.fire({
 								title: <p>Success!</p>,
 								icon: "success",
+								text: `Job ${res.data._id} Created`,
 								showDenyButton: true,
-								submitButtonText: "Clear Form",
-								denybuttonText: "View Now",
-								text: `Job Added successfully. ${res.data._id}`,
+								denyButtonText: "View Job",
 							}).then((data) => {
 								if (data.isDenied) {
 									history.push(`/job/${res.data._id}`);

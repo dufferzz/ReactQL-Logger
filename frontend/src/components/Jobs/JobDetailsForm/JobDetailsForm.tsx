@@ -14,6 +14,8 @@ import FormError from "../../FormError";
 
 import UPDATE_JOB_MUTATION from "../../../querys/jobs/UpdateJobMutation";
 
+import { useHistory } from "react-router-dom";
+
 const MySwal = withReactContent(Swal);
 
 const JobSchema = Yup.object().shape({
@@ -47,6 +49,7 @@ type Part = {
 };
 
 const JobDetailsForm = ({ job }: JobPropType) => {
+	const history = useHistory();
 	const [updateJob] = useMutation(UPDATE_JOB_MUTATION);
 	return (
 		<Formik
@@ -84,10 +87,18 @@ const JobDetailsForm = ({ job }: JobPropType) => {
 						const resp = data.updateJob;
 						console.log(resp);
 						if (resp.success) {
+							window.scrollTo({ top: 0, behavior: "smooth" });
+
 							MySwal.fire({
 								title: <p>Success!</p>,
 								icon: "success",
 								text: `Job Saved successfully. ${resp.data._id}`,
+								showDenyButton: true,
+								denyButtonText: "Home",
+							}).then((data) => {
+								if (data.isDenied) {
+									history.push("/");
+								}
 							});
 						} else {
 							MySwal.fire({
