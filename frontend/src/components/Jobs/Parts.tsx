@@ -18,6 +18,7 @@ const MySwal = withReactContent(Swal);
 const AddItemDiv = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-gap: 0.1rem;
 	align-items: flex-end;
 `;
 
@@ -56,6 +57,7 @@ const PartsView = ({ parts, setParts }: JobPartsProp) => {
 				display: "grid",
 				gridTemplateColumns: "1fr",
 				padding: 0,
+				gridGap: "0.1rem",
 				gridTemplateAreas: `
 					'header '
 					'content '

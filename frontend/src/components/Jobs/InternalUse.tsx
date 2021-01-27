@@ -20,11 +20,11 @@ const MySwal = withReactContent(Swal);
 const deleteJob = async (id: String, sendDeleteJob: any, history: any) => {
 	console.log(`deleting job ${id}!`);
 	MySwal.fire({
-		title: <p>Delete?</p>,
+		title: <p>Delete Job?</p>,
 		icon: "warning",
 		showDenyButton: true,
 		denyButtonText: "Cancel",
-		html: `Delete Job? \n This <strong>CAN NOT</strong> be undone!`,
+		html: `This action <strong>CAN NOT</strong> be undone!`,
 	}).then((data) => {
 		if (data.isConfirmed) {
 			sendDeleteJob(id)
@@ -94,7 +94,13 @@ const ManagementButtons = ({ id }: IDProp) => {
 
 	return (
 		<div
-			style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+			style={{
+				display: "grid",
+				gridTemplateColumns: "1fr",
+				alignItems: "center",
+				textAlign: "center",
+				justifyContent: "center",
+			}}
 		>
 			<DangerButton
 				type="button"
@@ -105,8 +111,6 @@ const ManagementButtons = ({ id }: IDProp) => {
 			>
 				Delete
 			</DangerButton>
-			<Button type="button">Generate Invoice</Button>
-			<Button type="button">Contact</Button>
 		</div>
 	);
 };
@@ -130,6 +134,7 @@ const InternalUse = ({ id, assigned }: IDProp) => {
 				style={{
 					display: "grid",
 					gridTemplateColumns: "1fr 1fr 1fr",
+					gridGap: "0.25rem",
 				}}
 			>
 				<SectionElement>
@@ -164,7 +169,6 @@ const InternalUse = ({ id, assigned }: IDProp) => {
 						name="labourHours"
 					>
 						<option value={0}>0</option>
-
 						<option value={1}>1</option>
 						<option value={2}>2</option>
 						<option value={3}>3</option>

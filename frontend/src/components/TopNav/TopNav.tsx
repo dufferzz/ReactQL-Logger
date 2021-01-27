@@ -92,7 +92,7 @@ const TopNav = ({ setBurgerMenuOpen, burgerMenuOpen }: any) => {
 			<Link style={{ textDecoration: "none", color: "inherit" }} to="/">
 				<NavLogo alt="Logo" src={Logo} />
 			</Link>
-			{width >= 580 ? (
+			{width >= 850 ? (
 				<NavButtons />
 			) : (
 				<BurgerMenu

@@ -48,13 +48,19 @@ const server = new ApolloServer({
 });
 
 const startServer = async () => {
-	const PORT = process.env.PORT || 3001;
-	const CLIENT_URL = process.env.CLIENT_URL;
+	let PORT: any, CLIENT_URL, corsOptions;
 
-	const corsOptions = {
-		origin: CLIENT_URL,
-		credentials: true,
-	};
+	if (process.env.PORT && process.env.CLIENT_URL) {
+		PORT = process.env.PORT || 3001;
+		CLIENT_URL = process.env.CLIENT_URL;
+
+		corsOptions = {
+			origin: CLIENT_URL,
+			credentials: true,
+		};
+	} else {
+		throw new Error("Missing ENV Variables - Check PORT, CLIENT_URL");
+	}
 
 	const app = express();
 

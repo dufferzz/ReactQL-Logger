@@ -22,28 +22,32 @@ const jobResolver = {
 
 	Subscription: {
 		assignedjobAdded: {
-			subscribe: (_, __, ctx) => pubsub.asyncIterator([ASSIGNED_JOB_ADDED]),
+			subscribe: (_: any, __: any, ctx: any) =>
+				pubsub.asyncIterator([ASSIGNED_JOB_ADDED]),
 		},
 		jobAdded: {
-			subscribe: (_, __, ctx) => pubsub.asyncIterator([JOB_ADDED]),
+			subscribe: (_: any, __: any, ctx: any) =>
+				pubsub.asyncIterator([JOB_ADDED]),
 		},
 		jobUpdated: {
-			subscribe: (_, __, ctx) =>
+			subscribe: (_: any, __: any, ctx: any) =>
 				pubsub.asyncIterator([JOB_ID_UPDATED, JOB_UPDATED]),
 		},
 		jobIDUpdated: {
-			subscribe: (_, __, ctx) => pubsub.asyncIterator([JOB_ID_UPDATED]),
+			subscribe: (_: any, __: any, ctx: any) =>
+				pubsub.asyncIterator([JOB_ID_UPDATED]),
 		},
 		jobDeleted: {
-			subscribe: (_, __, ctx) =>
+			subscribe: (_: any, __: any, ctx: any) =>
 				pubsub.asyncIterator([JOB_DELETED, JOB_ID_DELETED]),
 		},
 		jobIDDeleted: {
-			subscribe: (_, __, ctx) => pubsub.asyncIterator([JOB_ID_DELETED]),
+			subscribe: (_: any, __: any, ctx: any) =>
+				pubsub.asyncIterator([JOB_ID_DELETED]),
 		},
 	},
 	Query: {
-		async jobs(_, args, ctx) {
+		async jobs(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "readAll:jobs")) {
 				return jobController.jobs();
@@ -51,7 +55,7 @@ const jobResolver = {
 				return handleNoPermission();
 			}
 		},
-		async getJob(_, args, ctx) {
+		async getJob(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "readAll:jobs")) {
 				return jobController.getJob(args);
@@ -59,7 +63,7 @@ const jobResolver = {
 				return handleNoPermission();
 			}
 		},
-		async getAssignedJobs(_, args, ctx) {
+		async getAssignedJobs(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "readAssigned: jobs")) {
 				return jobController.getAssignedJobs(args);
@@ -69,7 +73,7 @@ const jobResolver = {
 		},
 	},
 	Mutation: {
-		async addJob(_, args, ctx) {
+		async addJob(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "create:jobs")) {
 				pubsub.publish(JOB_ADDED, { jobAdded: { data: args } });
@@ -78,7 +82,7 @@ const jobResolver = {
 				return handleNoPermission();
 			}
 		},
-		async updateJob(_, args, ctx) {
+		async updateJob(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "update:jobs")) {
 				pubsub.publish(JOB_ID_UPDATED, { jobIDUpdated: { data: args } });
@@ -88,7 +92,7 @@ const jobResolver = {
 				return handleNoPermission();
 			}
 		},
-		async deleteJob(_, args, ctx) {
+		async deleteJob(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "delete:jobs")) {
 				pubsub.publish(JOB_ID_UPDATED, { jobIDUpdated: { data: args } });

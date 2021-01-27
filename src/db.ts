@@ -11,7 +11,7 @@ const connectDB = async () => {
 	let attempts = 0;
 	try {
 		trace("⏲  Connecting to MongoDB...");
-		await mongoose.connect(process.env.DB_URL);
+		if (process.env.DB_URL) await mongoose.connect(process.env.DB_URL);
 	} catch (error) {
 		attempts++;
 		console.log(error);

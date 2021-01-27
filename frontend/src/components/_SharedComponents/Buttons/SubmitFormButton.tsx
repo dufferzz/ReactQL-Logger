@@ -12,7 +12,7 @@ const SubmitFormButton = ({ isSubmitting }: SubmitFormProps) => (
 			type="submit"
 			disabled={isSubmitting}
 		>
-			Save Job
+			Submit
 		</SuccessButton>
 	</div>
 );

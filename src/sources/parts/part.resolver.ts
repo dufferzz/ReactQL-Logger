@@ -18,17 +18,20 @@ const partResolver = {
 
 	Subscription: {
 		partAdded: {
-			subscribe: (_, __, ctx) => pubsub.asyncIterator([PART_ADDED]),
+			subscribe: (_: any, __: any, ctx: any) =>
+				pubsub.asyncIterator([PART_ADDED]),
 		},
 		partUpdated: {
-			subscribe: (_, __, ctx) => pubsub.asyncIterator([PART_UPDATED]),
+			subscribe: (_: any, __: any, ctx: any) =>
+				pubsub.asyncIterator([PART_UPDATED]),
 		},
 		partDeleted: {
-			subscribe: (_, __, ctx) => pubsub.asyncIterator([PART_DELETED]),
+			subscribe: (_: any, __: any, ctx: any) =>
+				pubsub.asyncIterator([PART_DELETED]),
 		},
 	},
 	Query: {
-		async parts(_, args, ctx) {
+		async parts(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "readAll:parts")) {
 				return partController.parts(args);
@@ -36,7 +39,7 @@ const partResolver = {
 				return handleNoPermission();
 			}
 		},
-		async getPart(_, args, ctx) {
+		async getPart(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "readAll:parts")) {
 				return partController.getPart(args);
@@ -46,16 +49,16 @@ const partResolver = {
 		},
 	},
 	Mutation: {
-		async addPart(_, args, ctx) {
+		async addPart(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "create:parts")) {
 				pubsub.publish(PART_ADDED, { partAdded: args });
-				return partController.addPart(args);
+				return partController.addPart(args, ctx);
 			} else {
 				return handleNoPermission();
 			}
 		},
-		async updatePart(_, args, ctx) {
+		async updatePart(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (checkPermissions(ctx, "update:parts")) {
 				pubsub.publish(PART_UPDATED, { partUpdated: args });
@@ -64,7 +67,7 @@ const partResolver = {
 				return handleNoPermission();
 			}
 		},
-		async deletePart(_, args, ctx) {
+		async deletePart(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "delete:parts")) {
 				pubsub.publish(PART_DELETED, { partDeleted: args });

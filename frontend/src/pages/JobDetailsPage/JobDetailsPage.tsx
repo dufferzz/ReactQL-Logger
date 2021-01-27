@@ -67,7 +67,7 @@ const JobDetails = () => {
 
 	console.log(data);
 	return (
-		<CenterDiv>
+		<>
 			<PageHeading>Job Details: {id}</PageHeading>
 			<UpdateModal id={id} />
 			<DeleteModal id={id} />
@@ -81,7 +81,7 @@ const JobDetails = () => {
 				</>
 			)}
 			{data.getJob.success === false && <div>{data.getJob.error}</div>}
-		</CenterDiv>
+		</>
 	);
 };
 

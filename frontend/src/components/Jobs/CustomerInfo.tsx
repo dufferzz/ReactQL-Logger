@@ -11,6 +11,7 @@ const AddressInfoSection = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	align-items: flex-start;
+	grid-gap: 0.25rem;
 	grid-template-areas:
 		"subheading subheading subheading"
 		"content content content";
@@ -55,9 +56,9 @@ const CustomerInfo = () => {
 					<ErrorField name="lastname" component="div" />
 				</SectionElement>
 				<SectionElement>
-					<label htmlFor="email">E-Mail*</label>
-					<Field type="email" name="email" />
-					<ErrorField name="email" component="div" />
+					<label htmlFor="address1">Address 1</label>
+					<Field type="address1" name="address1" />
+					<ErrorField name="address1" component="div" />
 				</SectionElement>
 				<SectionElement>
 					<label htmlFor="city">City*</label>
@@ -84,7 +85,13 @@ const CustomerInfo = () => {
 			>
 				Contact Information
 			</SubHeading>
-			<div style={{ display: "grid" }}>
+			<div
+				style={{
+					display: "grid",
+					gridGap: "0.25rem",
+					gridTemplateColumns: "1fr 1fr",
+				}}
+			>
 				<SectionElement>
 					<label htmlFor="phonenumber">Contact Phone*</label>
 					<Field type="phonenumber" name="phonenumber" />

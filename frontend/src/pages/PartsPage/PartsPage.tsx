@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import PartsTable from "../../components/PartsTable/PartsTable";
 import Section from "../../components/_StyledComponents/Section";
@@ -68,6 +69,14 @@ const SearchParts = ({
 	);
 };
 
+const AddPartButton = () => {
+	return (
+		<Link to="/newpart">
+			<Button>Add Part</Button>
+		</Link>
+	);
+};
+
 const PartsPage = () => {
 	const [searchValue, setSearchValue] = useState<string>("");
 	const [searchLimit, setSearchLimit] = useState<number>(25);
@@ -87,21 +96,28 @@ const PartsPage = () => {
 	console.log(data);
 
 	return (
-		<Section title="Search All Parts" style={{ padding: "1rem 0 0 0" }}>
-			{error && <ErrorComponent error={error} />}
-			<SearchParts
-				limit={searchLimit}
-				doSearch={doSearch}
-				setSearchLimit={setSearchLimit}
-				setSearchValue={setSearchValue}
-			/>
-			{loading && <Loading />}
-			{/* {!loading && !error && data && <PartsTable data={data} />} */}
-			{!called && <FlexDivCenter>Enter a search term and submit</FlexDivCenter>}
-			{!loading && !error && data && data.parts.success && (
-				<PartsTable data={data.parts.data} />
-			)}
-		</Section>
+		<>
+			<FlexDivCenter>
+				<AddPartButton />
+			</FlexDivCenter>
+
+			<Section title="Search All Parts" style={{ padding: "1rem 0 0 0" }}>
+				{error && <ErrorComponent error={error} />}
+				<SearchParts
+					limit={searchLimit}
+					doSearch={doSearch}
+					setSearchLimit={setSearchLimit}
+					setSearchValue={setSearchValue}
+				/>
+				{loading && <Loading />}
+				{!called && (
+					<FlexDivCenter>Enter a search term and submit</FlexDivCenter>
+				)}
+				{!loading && !error && data && data.parts.success && (
+					<PartsTable data={data.parts.data} />
+				)}
+			</Section>
+		</>
 	);
 };
 

@@ -3,7 +3,7 @@ const handleNoPermission = () => {
 	return {
 		success: false,
 		error: "User does not have permission for this action",
-		data: [],
+		data: <never>[],
 	};
 };
 
@@ -12,7 +12,7 @@ const handleUnauthenticated = () => {
 	return {
 		success: false,
 		error: "User is not authenticated",
-		data: [],
+		data: <never>[],
 	};
 };
 

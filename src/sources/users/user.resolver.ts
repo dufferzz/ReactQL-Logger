@@ -15,7 +15,7 @@ const userResolver = {
 
 	Subscription: {},
 	Query: {
-		async getSafeUserList(_, args, ctx) {
+		async getSafeUserList(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkRoles(ctx, "Employee")) {
 				return userController.getSafeUserList(args);
@@ -23,7 +23,7 @@ const userResolver = {
 				return handleNoPermission();
 			}
 		},
-		async users(_, args, ctx) {
+		async users(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkRoles(ctx, "Admin")) {
 				return userController.users(args, ctx.decoded);
@@ -31,7 +31,7 @@ const userResolver = {
 				return handleNoPermission();
 			}
 		},
-		async roles(_, args, ctx) {
+		async roles(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkRoles(ctx, "Admin")) {
 				return userController.roles(args);
@@ -40,7 +40,7 @@ const userResolver = {
 			}
 		},
 
-		async getUser(_, args, ctx) {
+		async getUser(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 
 			if (await checkRoles(ctx, "Admin")) {
@@ -51,7 +51,7 @@ const userResolver = {
 		},
 	},
 	Mutation: {
-		async addUser(_, args, ctx) {
+		async addUser(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkRoles(ctx, "Admin")) {
 				pubsub.publish(USER_ADDED, { userAdded: args });
@@ -61,7 +61,7 @@ const userResolver = {
 			}
 		},
 
-		async addRoleToUser(_, args, ctx) {
+		async addRoleToUser(_: any, args: any, ctx: any) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkRoles(ctx, "Admin")) {
 				return userController.addRoleToUser(args);

@@ -9,17 +9,17 @@ const jobController = {
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error)),
 
-	getJob: (args) =>
+	getJob: (args: any) =>
 		Job.findById(args._id)
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error)),
 
-	getAssignedJobs: (args) =>
+	getAssignedJobs: (args: any) =>
 		Job.find({ assigned: args.user })
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error)),
 
-	updateJob: async (args) =>
+	updateJob: async (args: any) =>
 		Job.findOneAndUpdate(
 			{
 				_id: args._id,
@@ -50,12 +50,12 @@ const jobController = {
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error)),
 
-	deleteJob: (args) =>
+	deleteJob: (args: any) =>
 		Job.deleteOne({ _id: args._id })
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error)),
 
-	addJob: (args) => {
+	addJob: (args: any) => {
 		console.log(args);
 		const newjob = new Job({
 			firstname: args.firstname,

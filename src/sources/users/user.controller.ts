@@ -3,13 +3,21 @@ import { ManagementClient } from "auth0";
 // import User from "./user.model";
 import { sendError, sendResponse } from "../../utils/responseHandlers";
 
-const management = new ManagementClient({
-	token: process.env.AUTH0_MANAGEMENT_TOKEN_TMP,
-	domain: process.env.AUTH0_DOMAIN,
-});
+let management: ManagementClient;
+
+if (process.env.AUTH0_MANAGEMENT_TOKEN_TMP && process.env.AUTH0_DOMAIN) {
+	management = new ManagementClient({
+		token: process.env.AUTH0_MANAGEMENT_TOKEN_TMP,
+		domain: process.env.AUTH0_DOMAIN,
+	});
+} else {
+	throw new Error(
+		"Missing ENV Variables, Check AUTH0_MANAGEMENT_TOKEN_TMP and AUTH0_DOMAIN"
+	);
+}
 
 const userController = {
-	users: async (args, decoded) =>
+	users: async (args: any, decoded: any) =>
 		await management
 			.getUsers()
 			.then((users) => {
@@ -24,7 +32,7 @@ const userController = {
 			})
 			.then((data) => sendResponse(data))
 			.catch((err) => sendError(err)),
-	getSafeUserList: async (args) =>
+	getSafeUserList: async (args: any) =>
 		await management
 			.getUsers()
 			.then((users) => {
@@ -38,16 +46,16 @@ const userController = {
 			.then((data) => sendResponse(data))
 			.catch((err) => sendError(err)),
 
-	roles: async (args) =>
-		await management.roles
-			.getAll()
+	roles: async (args: any) =>
+		await management
+			.getRoles()
 			.then((data) => sendResponse(data))
 			.catch((err) => sendError(err)),
 
-	addRoleToUser: async (args) => {
+	addRoleToUser: async (args: any) => {
 		console.log(args);
-		return await management.users
-			.assignRoles({ id: args.userid }, { users: [args.roleid] }) //TODO: Change frontend to do user array
+		return await management
+			.assignRolestoUser({ id: args.userid }, { roles: [args.roleid] }) //TODO: Change frontend to do user array
 			.then((data) => {
 				console.log(data);
 				return sendResponse(data);
@@ -57,10 +65,10 @@ const userController = {
 				return sendError(err);
 			});
 	},
-	removeRolesFromUser: async (args) => {
+	removeRolesFromUser: async (args: any) => {
 		console.log(args);
-		return await management.users
-			.removeRoles({ id: args.userid }, { roles: [args.roles] }) //TODO: Change frontend to do user array
+		return await management
+			.removeRolesFromUser({ id: args.userid }, { roles: [args.roles] }) //TODO: Change frontend to do user array
 			.then((data) => {
 				console.log(data);
 				return sendResponse(data);
@@ -71,47 +79,49 @@ const userController = {
 			});
 	},
 
-	getUser: async (args) =>
-		await management.users
-			.get({ id: args.userid })
+	getUser: async (args: any) =>
+		await management
+			.getUser({ id: args.userid })
 			.then((data) => sendResponse(data))
 			.catch((err) => sendError(err)),
 
-	addUser: async (args) => {
+	addUser: async (args: any) => {
 		console.log(args);
-		const newuser = {};
-		return await management.users
-			.create(newuser)
+		const newuser = {
+			connection: "",
+		};
+		return await management
+			.createUser(newuser)
 			.then((data) => sendResponse(data))
 			.catch((err) => sendError(err));
 	},
 
-	updateUser: async (args) => {
+	updateUser: async (args: any) => {
 		console.log(args);
 		const userDetails = {
 			email: args.email,
 			//.......
 		};
-		return await management.users
-			.update({ id: args.userid }, userDetails)
+		return await management
+			.updateUser({ id: args.userid }, userDetails)
 			.then((data) => sendResponse(data))
 			.catch((err) => sendError(err));
 	},
 
-	deleteUser: async (args) => {
+	deleteUser: async (args: any) => {
 		console.log(args);
 
-		return await management.users
-			.delete({ id: args.userid })
+		return await management
+			.deleteUser({ id: args.userid })
 			.then((data) => sendResponse(data))
 			.catch((err) => sendError(err));
 	},
 
-	getUserPermissions: async (args) => {
+	getUserPermissions: async (args: any) => {
 		console.log(args);
 
-		return await management.users
-			.getPermisions({ id: args.userid })
+		return await management
+			.getUserPermissions({ id: args.userid })
 			.then((data) => sendResponse(data))
 			.catch((err) => sendError(err));
 	},

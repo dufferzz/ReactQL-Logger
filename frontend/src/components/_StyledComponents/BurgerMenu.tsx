@@ -36,6 +36,15 @@ const BurgerMenuItem = ({ to, text }: any) => (
 
 const BurgerDropDown = ({ burgerMenuOpen, setBurgerMenuOpen }: any) => {
 	const { logout } = useAuth0();
+	const { user } = useAuth0();
+
+	let userRole;
+	if (user) {
+		if (user["https://dfzservice.no/roles"]) {
+			userRole = user["https://dfzservice.no/roles"][0];
+		}
+	}
+
 	return (
 		<>
 			{burgerMenuOpen && (
@@ -49,7 +58,9 @@ const BurgerDropDown = ({ burgerMenuOpen, setBurgerMenuOpen }: any) => {
 						<BurgerMenuItem to="/search" text="Search" />
 						<BurgerMenuItem to="/parts" text="Parts" />
 						<BurgerMenuItem to="/messages" text="Messages" />
-						<BurgerMenuItem to="/admin" text="Admin" />
+						{userRole === "admin" && (
+							<BurgerMenuItem to="/admin" text="Admin" />
+						)}
 						<BurgerMenuItem to="/settings" text="Settings" />
 						<BurgerDropDownItemView
 							onClick={() => {

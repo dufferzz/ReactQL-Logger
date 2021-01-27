@@ -1,6 +1,6 @@
 import Upload from "./upload.model";
 const uploadController = {
-	uploads: async (args) => {
+	uploads: async (args: any) => {
 		return await Upload.find()
 			.limit(50)
 			.then((data) => {
@@ -19,10 +19,10 @@ const uploadController = {
 				};
 			});
 	},
-	getUpload: async (args) => {
+	getUpload: async (args: any) => {
 		return await Upload.findById(args._id);
 	},
-	updateUpload: async (args) =>
+	updateUpload: async (args: any) =>
 		await Upload.findOneAndUpdate(
 			{
 				_id: args._id,
@@ -36,9 +36,9 @@ const uploadController = {
 			}
 		),
 
-	deleteUpload: async (args) => await Upload.deleteOne({ _id: args._id }),
+	deleteUpload: async (args: any) => await Upload.deleteOne({ _id: args._id }),
 
-	addUpload: async (args) => {
+	addUpload: async (args: any) => {
 		console.log(args);
 
 		const newUpload = new Upload({

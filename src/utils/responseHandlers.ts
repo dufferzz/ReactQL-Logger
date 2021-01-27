@@ -1,12 +1,12 @@
-const sendError = (error) => {
+const sendError = (error: any) => {
 	return {
 		success: false,
-		data: null,
+		data: <never>[],
 		error: error,
 	};
 };
 
-const sendResponse = (data) => {
+const sendResponse = (data: any) => {
 	return {
 		success: true,
 		data: data,

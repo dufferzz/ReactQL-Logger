@@ -12,43 +12,46 @@ const uploadResolver = {
 
 	Subscription: {
 		uploadAdded: {
-			subscribe: (_, __, context) => pubsub.asyncIterator([UPLOAD_ADDED]),
+			subscribe: (_: any, __: any, ctx: any) =>
+				pubsub.asyncIterator([UPLOAD_ADDED]),
 		},
 		partUpdated: {
-			subscribe: (_, __, context) => pubsub.asyncIterator([UPLOAD_UPDATED]),
+			subscribe: (_: any, __: any, ctx: any) =>
+				pubsub.asyncIterator([UPLOAD_UPDATED]),
 		},
 		partDeleted: {
-			subscribe: (_, __, context) => pubsub.asyncIterator([UPLOAD_DELETED]),
+			subscribe: (_: any, __: any, ctx: any) =>
+				pubsub.asyncIterator([UPLOAD_DELETED]),
 		},
 	},
 	Query: {
-		uploads(root, args, context) {
-			if (!context.isAuthenticated) return [];
+		uploads(_: any, args: any, ctx: any) {
+			if (!ctx.isAuthenticated) return { succss: false };
 
 			return uploadController.uploads(args);
 		},
-		getUpload(root, args, context) {
-			const { permissions } = context.decoded;
-			if (!context.isAuthenticated) return {};
+		getUpload(_: any, args: any, ctx: any) {
+			const { permissions } = ctx.decoded;
+			if (!ctx.isAuthenticated) return {};
 			if (permissions.includes("readAll:parts")) {
 				return uploadController.getUpload(args);
 			}
 		},
 	},
 	Mutation: {
-		async addUpload(root, args, context) {
-			console.log(root, args, context);
-			if (!context.isAuthenticated) return { success: false };
+		async addUpload(_: any, args: any, ctx: any) {
+			console.log(_, args, ctx);
+			if (!ctx.isAuthenticated) return { success: false };
 			pubsub.publish(UPLOAD_ADDED, { uploadAdded: args });
 			return await uploadController.addUpload(args);
 		},
-		updateUpload(root, args, context) {
-			if (!context.isAuthenticated) return "";
+		updateUpload(_: any, args: any, ctx: any) {
+			if (!ctx.isAuthenticated) return "";
 			pubsub.publish(UPLOAD_UPDATED, { uploadUpdated: args });
 			return uploadController.updateUpload(args);
 		},
-		deleteUpload(root, args, context) {
-			if (!context.isAuthenticated) return "";
+		deleteUpload(_: any, args: any, ctx: any) {
+			if (!ctx.isAuthenticated) return "";
 			pubsub.publish(UPLOAD_DELETED, { uploadDeleted: args });
 			return uploadController.deleteUpload(args);
 		},

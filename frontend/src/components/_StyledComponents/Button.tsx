@@ -5,7 +5,7 @@ import styled, { css } from "styled-components";
 const Button = styled.button`
 	padding: 0.5rem 1rem;
 	font-size: 1rem;
-	margin: 2px;
+	/* margin: 2px; */
 	width: max-content;
 	background: rgb(255, 136, 0);
 	background: linear-gradient(

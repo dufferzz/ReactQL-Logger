@@ -26,6 +26,7 @@ import JobDetails from "./pages/JobDetailsPage/JobDetailsPage";
 import JobsPage from "./pages/JobsPage/JobsPage";
 import MessagesPage from "./pages/MessagesPage/MessagesPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+import AddPartPage from "./pages/AddPartPage/AddPartPage";
 
 import "./App.css";
 
@@ -35,6 +36,8 @@ const routes = [
 	{ path: "/newjob", name: "New Job", Component: NewJob },
 	{ path: "/job/:id", name: "Job Details", Component: JobDetails },
 	{ path: "/parts", name: "Parts", Component: PartsPage },
+	{ path: "/newpart", name: "Add Part", Component: AddPartPage },
+
 	{ path: "/part/:id", name: "Part Details", Component: PartDetailsPage },
 	{ path: "/messages", name: "Messages", Component: MessagesPage },
 	{ path: "/settings", name: "Settings", Component: SettingsPage },
@@ -71,7 +74,7 @@ const App = () => {
 					setBurgerMenuOpen={setBurgerMenuOpen}
 				/>
 
-				<main style={{ height: "75vh" }}>
+				<main style={{ height: "85vh" }}>
 					<HomePage />
 				</main>
 				<Footer />
