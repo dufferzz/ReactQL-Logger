@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 const Foot = styled.div`
 	display: grid;
@@ -46,9 +45,8 @@ const Footer = () => {
 				<div title="Incomplete Section">About this App</div>
 			</FootRight>
 			<FootBottom>
-				<div>Created By Sam Duff for DFZ Service and Repair</div>
 				<div>
-					View <a href="https://dufferz.net">Dufferz.net</a>
+					Created By Sam Duff @ <a href="https://dufferz.net">Dufferz.net</a>
 				</div>
 			</FootBottom>
 		</Foot>
