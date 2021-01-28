@@ -1,26 +1,10 @@
 import React, { useState } from "react";
 import QrReader from "react-qr-reader";
-
-import Section from "../../components/_StyledComponents/Section";
-
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useHistory } from "react-router-dom";
-import FlexDivCenter from "../../components/_StyledComponents/FlexDiv";
-import Button from "../../components/_StyledComponents/Button";
+import Button from "../../_StyledComponents/Button";
 const MySwal = withReactContent(Swal);
-
-const ScanCodePage = () => {
-	return (
-		<Section style={{ maxWidth: "600px", padding: 0 }} title="Barcode Scanner">
-			<FlexDivCenter>
-				I will make this into a pop-over modal eventually..
-			</FlexDivCenter>
-
-			<ScannerButton />
-		</Section>
-	);
-};
 
 const ScannerButton = () => {
 	const history = useHistory();
@@ -44,7 +28,7 @@ const ScannerButton = () => {
 				confirmButtonText: "Search",
 				html: `
                     <p>Type: ${type}</p>
-                    <p>Content: ${input}</p>
+                    <p>Data:<br> ${input}</p>
                 `,
 				showCancelButton: true,
 			}).then((data) => {
@@ -78,4 +62,4 @@ const ScannerButton = () => {
 	return <Button onClick={openModal}>Open Scanner</Button>;
 };
 
-export { ScanCodePage, ScannerButton };
+export default ScannerButton;

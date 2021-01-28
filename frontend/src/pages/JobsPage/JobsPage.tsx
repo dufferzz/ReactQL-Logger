@@ -29,7 +29,7 @@ import { columns } from "../../components/Jobs/JobsTable/JobsTable";
 import UserIcon from "../../assets/icons/user.svg";
 import ClipboardIcon from "../../assets/icons/clipboard.svg";
 
-import { ScannerButton } from "../../pages/ScanCodePage/ScanCodePage";
+import ScannerButton from "../../components/_SharedComponents/Buttons/ScannerButton";
 
 const AssignedJobs = ({ user }: any) => {
 	const history = useHistory();

@@ -12,7 +12,7 @@ import Loading from "../../components/_SharedComponents/Loading/Loading";
 import ErrorComponent from "../../components/_SharedComponents/ErrorComponent/ErrorComponent";
 
 import GET_ALL_PARTS_QUERY from "../../querys/parts/GetAllPartsQuery";
-import { ScannerButton } from "../../pages/ScanCodePage/ScanCodePage";
+import ScannerButton from "../../components/_SharedComponents/Buttons/ScannerButton";
 
 const SearchBar = styled.form`
 	width: 100%;
