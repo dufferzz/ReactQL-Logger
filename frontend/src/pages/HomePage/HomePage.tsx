@@ -63,7 +63,7 @@ const HomePage = () => {
 				height: "100%",
 				backgroundImage: `url(${loaded || BackgroundImageLow})`,
 				backgroundPosition: "center center",
-				backgroundSize: "100%",
+				backgroundSize: "100% 100%",
 				color: "white",
 				display: "flex",
 				alignItems: "center",
