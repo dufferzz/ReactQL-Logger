@@ -7,8 +7,7 @@ const GET_ASSIGNED_JOBS_QUERY = gql`
 			error
 			data {
 				_id
-				firstname
-				lastname
+				customername
 				todo
 				make
 				model

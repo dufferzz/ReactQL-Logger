@@ -5,9 +5,10 @@ const jobType = gql`
 
 	type Job {
 		_id: ID!
-		firstname: String!
-		lastname: String!
+		customername: String!
 		email: String!
+		address1: String!
+		address2: String!
 		city: String!
 		district: String!
 		postcode: String!

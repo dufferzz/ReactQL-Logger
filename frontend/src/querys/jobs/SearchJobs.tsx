@@ -6,8 +6,7 @@ const SEARCH_JOBS_QUERY = gql`
 			success
 			data {
 				_id
-				firstname
-				lastname
+				customername
 				todo
 				make
 				model

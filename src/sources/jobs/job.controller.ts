@@ -27,11 +27,7 @@ const jobController = {
 			return await Job.find({
 				$and: [
 					{
-						$or: [
-							{ firstname: query },
-							{ lastname: query },
-							{ customername: query },
-						],
+						$or: [{ customername: query }],
 					},
 				],
 			})
@@ -57,9 +53,10 @@ const jobController = {
 			},
 			{
 				$set: {
-					firstname: args.firstname,
-					lastname: args.lastname,
+					customername: args.customername,
 					email: args.email,
+					address1: args.address1,
+					address2: args.address2,
 					city: args.city,
 					district: args.district,
 					parts: args.parts,
@@ -89,9 +86,10 @@ const jobController = {
 	addJob: (args: any) => {
 		console.log(args);
 		const newjob = new Job({
-			firstname: args.firstname,
-			lastname: args.lastname,
+			customername: args.customername,
 			email: args.email,
+			address1: args.address1,
+			address2: args.address2,
 			city: args.city,
 			district: args.district,
 			postcode: args.postcode,
@@ -107,9 +105,8 @@ const jobController = {
 			serial: args.serial,
 			assigned: args.assigned,
 			parts: args.parts,
-			// images: args.images,
 			labourHours: parseInt(args.labourHours),
-			// jobNumber: args.jobNumber,
+			// images: args.images,
 		});
 		return newjob
 			.save()

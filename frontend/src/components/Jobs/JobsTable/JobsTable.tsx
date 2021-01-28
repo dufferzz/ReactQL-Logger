@@ -69,11 +69,7 @@ const columns = [
 		sortable: true,
 		hide: 580,
 
-		cell: (row: any) => (
-			<div data-tag="allowRowEvents">
-				{row.firstname} {row.lastname}
-			</div>
-		),
+		cell: (row: any) => <div data-tag="allowRowEvents">{row.customername}</div>,
 	},
 	{
 		name: "Make",

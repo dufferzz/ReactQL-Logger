@@ -1,14 +1,16 @@
 type Job = {
 	_id: string;
 	firstname: string;
-	parts: JobPart[];
 	lastname: string;
+	customername: string;
+	parts: JobPart[];
 	email: string;
 	city: string;
 	district: string;
 	postcode: string;
 	created: Date;
 	address1?: string;
+	address2?: string;
 	modified: Date;
 	todo: string;
 	done: string;

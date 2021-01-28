@@ -3,9 +3,10 @@ import { gql } from "apollo-server-express";
 const jobMutation = gql`
 	type Mutation {
 		addJob(
-			firstname: String!
-			lastname: String!
+			customername: String!
 			email: String!
+			address1: String!
+			address2: String!
 			city: String!
 			district: String!
 			postcode: String!
@@ -23,9 +24,10 @@ const jobMutation = gql`
 
 		updateJob(
 			_id: String!
-			firstname: String!
-			lastname: String!
+			customername: String!
 			email: String!
+			address1: String!
+			address2: String!
 			city: String!
 			district: String!
 			postcode: String!

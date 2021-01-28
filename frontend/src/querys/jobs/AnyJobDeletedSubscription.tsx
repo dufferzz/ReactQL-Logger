@@ -5,8 +5,7 @@ const ANY_JOB_DELETED_SUBSCRIPTION = gql`
 		jobDeleted {
 			data {
 				_id
-				firstname
-				lastname
+				customername
 				status
 				created
 				modified

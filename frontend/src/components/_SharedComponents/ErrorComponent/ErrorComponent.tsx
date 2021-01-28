@@ -9,7 +9,7 @@ const ErrorComponent = ({ error }: ErrorProp) => {
 	return (
 		<>
 			<div style={{ width: "100%", fontSize: "1.5rem", textAlign: "center" }}>
-				🥺 {error}
+				🥺 {JSON.stringify(error)}
 			</div>
 		</>
 	);

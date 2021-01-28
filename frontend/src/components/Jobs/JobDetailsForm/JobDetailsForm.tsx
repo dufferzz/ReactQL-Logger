@@ -19,18 +19,14 @@ import { useHistory } from "react-router-dom";
 const MySwal = withReactContent(Swal);
 
 const JobSchema = Yup.object().shape({
-	firstname: Yup.string()
-		.min(2, "Too Short!")
-		.max(70, "Too Long!")
-		.required("Required"),
-
-	lastname: Yup.string()
+	customername: Yup.string()
 		.min(2, "Too Short!")
 		.max(70, "Too Long!")
 		.required("Required"),
 
 	email: Yup.string().email("Invalid email").required("Required"),
 	city: Yup.string().required("Required"),
+	address1: Yup.string().required("Required"),
 	district: Yup.string().required("Required"),
 	postcode: Yup.string().required("Required"),
 	assigned: Yup.string().required("Required"),
@@ -84,13 +80,13 @@ const JobDetailsForm = ({ job }: JobPropType) => {
 		<Formik
 			initialValues={{
 				_id: `${job._id}`,
-				firstname: `${job.firstname}`,
-				lastname: `${job.lastname}`,
+				customername: `${job.customername}`,
 				email: `${job.email}`,
+				address1: `${job.address1}`,
+				address2: `${job.address2}`,
 				city: `${job.city}`,
 				district: `${job.district}`,
 				postcode: `${job.postcode}`,
-				address1: `${job.address1}`,
 				todo: `${job.todo}`,
 				done: `${job.done}`,
 				status: `${job.status}`,

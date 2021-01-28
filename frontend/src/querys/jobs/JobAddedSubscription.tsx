@@ -5,8 +5,7 @@ const JOB_ADDED_SUBSCRIPTION = gql`
 		jobAdded {
 			data {
 				_id
-				firstname
-				lastname
+				customername
 				status
 				created
 				modified

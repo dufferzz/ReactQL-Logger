@@ -3,8 +3,9 @@ interface SingleJobProp {
 }
 type JobFormValuesProp = {
 	_id?: string;
-	firstname: string;
-	lastname: string;
+	customername: string;
+	address1: string;
+	address2: string;
 	email: string;
 	city: string;
 	district: string;

@@ -46,19 +46,19 @@ const CustomerInfo = () => {
 					<Button>Existing Customer</Button>
 				</SubHeading>
 				<SectionElement>
-					<label htmlFor="firstname">First Name*</label>
-					<Field type="firstname" name="firstname" />
-					<ErrorField name="firstname" component="div" />
+					<label htmlFor="customername">Customer Name*</label>
+					<Field type="customername" name="customername" />
+					<ErrorField name="customername" component="div" />
 				</SectionElement>
 				<SectionElement>
-					<label htmlFor="lastname">Last Name*</label>
-					<Field type="lastname" name="lastname" />
-					<ErrorField name="lastname" component="div" />
-				</SectionElement>
-				<SectionElement>
-					<label htmlFor="address1">Address 1</label>
+					<label htmlFor="address1">Address 1*</label>
 					<Field type="address1" name="address1" />
 					<ErrorField name="address1" component="div" />
+				</SectionElement>
+				<SectionElement>
+					<label htmlFor="address2">Address 2</label>
+					<Field type="address2" name="address2" />
+					<ErrorField name="address2" component="div" />
 				</SectionElement>
 				<SectionElement>
 					<label htmlFor="city">City*</label>

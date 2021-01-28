@@ -4,11 +4,15 @@ const dbb = mongoose.connection.useDb("jobs");
 
 const Schema = mongoose.Schema;
 const JobSchema = new Schema({
-	firstname: {
+	customername: {
 		type: String,
 		required: true,
 	},
-	lastname: {
+	address1: {
+		type: String,
+		required: true,
+	},
+	address2: {
 		type: String,
 		required: true,
 	},
@@ -32,7 +36,6 @@ const JobSchema = new Schema({
 		type: String,
 		required: false,
 	},
-
 	done: {
 		type: String,
 		required: false,

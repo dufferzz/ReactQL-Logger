@@ -3,9 +3,10 @@ import { gql } from "@apollo/client";
 const UPDATE_JOB_MUTATION = gql`
 	mutation UpdateJob(
 		$_id: String!
-		$firstname: String!
-		$lastname: String!
+		$customername: String!
 		$email: String!
+		$address1: String!
+		$address2: String!
 		$city: String!
 		$district: String!
 		$postcode: String!
@@ -22,8 +23,9 @@ const UPDATE_JOB_MUTATION = gql`
 	) {
 		updateJob(
 			_id: $_id
-			firstname: $firstname
-			lastname: $lastname
+			customername: $customername
+			address1: $address1
+			address2: $address2
 			email: $email
 			city: $city
 			district: $district
@@ -43,9 +45,10 @@ const UPDATE_JOB_MUTATION = gql`
 			error
 			data {
 				_id
-				firstname
-				lastname
+				customername
 				email
+				address1
+				address2
 				city
 				district
 				postcode

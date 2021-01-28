@@ -6,9 +6,10 @@ const GET_JOB_QUERY = gql`
 			error
 			data {
 				_id
-				firstname
-				lastname
+				customername
 				email
+				address1
+				address2
 				city
 				district
 				postcode

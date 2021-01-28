@@ -2,9 +2,10 @@ import { gql } from "@apollo/client";
 
 const NEWJOB_MUTATION = gql`
 	mutation AddJob(
-		$firstname: String!
-		$lastname: String!
+		$customername: String!
 		$email: String!
+		$address1: String!
+		$address2: String!
 		$city: String!
 		$district: String!
 		$postcode: String!
@@ -20,9 +21,10 @@ const NEWJOB_MUTATION = gql`
 		$parts: [PartInput]
 	) {
 		addJob(
-			firstname: $firstname
-			lastname: $lastname
+			customername: $customername
 			email: $email
+			address1: $address1
+			address2: $address2
 			city: $city
 			district: $district
 			postcode: $postcode
@@ -41,8 +43,7 @@ const NEWJOB_MUTATION = gql`
 			error
 			data {
 				_id
-				firstname
-				lastname
+				customername
 				email
 				city
 				district
