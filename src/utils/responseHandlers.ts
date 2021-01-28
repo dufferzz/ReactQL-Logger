@@ -1,4 +1,5 @@
 const sendError = (error: any) => {
+	console.error(error);
 	return {
 		success: false,
 		data: <never>[],

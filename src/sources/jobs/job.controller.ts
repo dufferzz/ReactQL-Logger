@@ -1,6 +1,7 @@
 import Job from "./job.model";
 
 import { sendError, sendResponse } from "../../utils/responseHandlers";
+import { ObjectId } from "mongodb";
 
 const jobController = {
 	jobs: () =>
@@ -9,6 +10,36 @@ const jobController = {
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error)),
 
+	searchJobs: async (args: any) => {
+		console.log(args);
+		let limit = args.limit || 25;
+		const query = args.query;
+		if (limit > 100) limit = 100;
+
+		if (ObjectId.isValid(query)) {
+			return await Job.find({ _id: new ObjectId(query) })
+				.limit(limit)
+				.then((data) => sendResponse(data))
+				.catch((err) => sendError(err));
+		} else {
+			const query = new RegExp(args.query, "i");
+
+			return await Job.find({
+				$and: [
+					{
+						$or: [
+							{ firstname: query },
+							{ lastname: query },
+							{ customername: query },
+						],
+					},
+				],
+			})
+				.limit(limit)
+				.then((data) => sendResponse(data))
+				.catch((err) => sendError(err));
+		}
+	},
 	getJob: (args: any) =>
 		Job.findById(args._id)
 			.then((data) => sendResponse(data))

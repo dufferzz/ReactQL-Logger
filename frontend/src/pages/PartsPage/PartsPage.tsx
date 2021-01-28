@@ -12,6 +12,7 @@ import Loading from "../../components/_SharedComponents/Loading/Loading";
 import ErrorComponent from "../../components/_SharedComponents/ErrorComponent/ErrorComponent";
 
 import GET_ALL_PARTS_QUERY from "../../querys/parts/GetAllPartsQuery";
+import { ScannerButton } from "../../pages/ScanCodePage/ScanCodePage";
 
 const SearchBar = styled.form`
 	width: 100%;
@@ -99,9 +100,10 @@ const PartsPage = () => {
 		<>
 			<FlexDivCenter>
 				<AddPartButton />
+				<ScannerButton />
 			</FlexDivCenter>
 
-			<Section title="Search All Parts" style={{ padding: "1rem 0 0 0" }}>
+			<Section title="Search All Parts">
 				{error && <ErrorComponent error={error} />}
 				<SearchParts
 					limit={searchLimit}

@@ -28,9 +28,9 @@ const columns = [
 		name: "",
 		selector: "",
 
-		width: "30px",
+		width: "40px",
 		cell: (row: any) => (
-			<div style={{ padding: "0.5rem 0" }} data-tag="allowRowEvents">
+			<div style={{}} data-tag="allowRowEvents">
 				<RemovePartIcon part={row} />
 			</div>
 		),

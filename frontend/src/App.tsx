@@ -27,6 +27,7 @@ import JobsPage from "./pages/JobsPage/JobsPage";
 import MessagesPage from "./pages/MessagesPage/MessagesPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import AddPartPage from "./pages/AddPartPage/AddPartPage";
+import { ScanCodePage } from "./pages/ScanCodePage/ScanCodePage";
 
 import "./App.css";
 
@@ -43,8 +44,10 @@ const routes = [
 	{ path: "/settings", name: "Settings", Component: SettingsPage },
 	{ path: "/admin", name: "Administration", Component: AdminPage },
 	{ path: "/admin/users/:id", name: "User Management", Component: UserDetails },
+	{ path: "/scanner", name: "Code Scanner", Component: ScanCodePage },
 
 	{ path: "/search", name: "Search", Component: SearchPage },
+	{ path: "/search/:id", name: "Search", Component: SearchPage },
 ];
 
 const App = () => {

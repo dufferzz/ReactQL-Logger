@@ -17,7 +17,7 @@ const partController = {
 				.catch((err) => sendError(err));
 		} else {
 			return Part.find()
-				.limit(50)
+				.limit(limit)
 				.then((data) => sendResponse(data));
 		}
 	},

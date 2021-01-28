@@ -29,6 +29,8 @@ import { columns } from "../../components/Jobs/JobsTable/JobsTable";
 import UserIcon from "../../assets/icons/user.svg";
 import ClipboardIcon from "../../assets/icons/clipboard.svg";
 
+import { ScannerButton } from "../../pages/ScanCodePage/ScanCodePage";
+
 const AssignedJobs = ({ user }: any) => {
 	const history = useHistory();
 
@@ -172,6 +174,7 @@ const JobsPage = () => {
 				<Link to="/newjob">
 					<Button>Create Job</Button>
 				</Link>
+				<ScannerButton />
 			</FlexDiv>
 
 			<AssignedJobs user={user} />

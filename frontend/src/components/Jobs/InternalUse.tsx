@@ -4,7 +4,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import Section from "../_StyledComponents/Section";
-import Button, { DangerButton } from "../_StyledComponents/Button";
+import { DangerButton } from "../_StyledComponents/Button";
 import SectionElement from "../_StyledComponents/SectionElement";
 import ErrorField from "../_StyledComponents/ErrorField";
 import ClipboardIcon from "../../assets/icons/clipboard.svg";

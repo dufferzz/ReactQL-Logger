@@ -8,7 +8,7 @@ const Foot = styled.div`
 	grid-template-rows: 1fr 1fr;
 	border-top: 3px solid darkorange;
 	background-color: #222;
-	height: 10rem;
+	height: 5rem;
 	line-height: 1.7;
 	text-align: center;
 	grid-template-areas: "left right" "bottom bottom";

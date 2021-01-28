@@ -55,6 +55,15 @@ const jobResolver = {
 				return handleNoPermission();
 			}
 		},
+		async searchJobs(_: any, args: any, ctx: AppContext) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (await checkPermissions(ctx, "readAll:jobs")) {
+				return jobController.searchJobs(args);
+			} else {
+				return handleNoPermission();
+			}
+		},
+
 		async getJob(_: any, args: any, ctx: AppContext) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "readAll:jobs")) {

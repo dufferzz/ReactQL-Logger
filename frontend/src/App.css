@@ -103,3 +103,12 @@ hr {
 		opacity: 1;
 	}
 }
+
+.swal2-content {
+	padding: 0 !important;
+}
+
+.swal2-popup {
+	padding: 0 !important;
+	padding-bottom: 1rem !important;
+}
