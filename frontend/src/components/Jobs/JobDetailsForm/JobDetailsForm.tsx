@@ -90,6 +90,7 @@ const JobDetailsForm = ({ job }: JobPropType) => {
 				city: `${job.city}`,
 				district: `${job.district}`,
 				postcode: `${job.postcode}`,
+				address1: `${job.address1}`,
 				todo: `${job.todo}`,
 				done: `${job.done}`,
 				status: `${job.status}`,

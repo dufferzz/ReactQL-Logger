@@ -28,7 +28,7 @@ const StyledSideBar = styled.div`
 		rgba(218, 218, 218, 1) 100%
 	);
 	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
-	@media (max-width: 850px) {
+	@media (max-width: 1024px) {
 		display: none;
 	}
 	transition: width 0.2s;

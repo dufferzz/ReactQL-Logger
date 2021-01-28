@@ -8,6 +8,7 @@ type Job = {
 	district: string;
 	postcode: string;
 	created: Date;
+	address1?: string;
 	modified: Date;
 	todo: string;
 	done: string;

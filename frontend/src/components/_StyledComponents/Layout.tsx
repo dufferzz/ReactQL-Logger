@@ -14,7 +14,7 @@ const Layout = styled.div`
 		"sidebar app "
 		"footer footer ";
 
-	@media (max-width: 850px) {
+	@media (max-width: 1024px) {
 		grid-template-rows: 1fr auto;
 		grid-template-columns: 1fr;
 

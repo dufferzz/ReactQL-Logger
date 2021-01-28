@@ -55,6 +55,7 @@ export const NewJobForm = () => {
 				firstname: "",
 				lastname: "",
 				email: "",
+				address1: "",
 				city: "",
 				district: "",
 				postcode: "",

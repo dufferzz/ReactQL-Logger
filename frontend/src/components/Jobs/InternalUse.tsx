@@ -72,7 +72,13 @@ const UserList = ({ assigned }: any) => {
 	const { data } = useQuery(GET_SAFE_USERS_QUERY);
 	console.log(data);
 	return (
-		<select value={assigned} style={{ height: "2.5rem" }}>
+		<Field
+			as="select"
+			type="assigned"
+			name="assigned"
+			value={assigned}
+			style={{ height: "2.5rem" }}
+		>
 			<option value="not-assigned">Not Assigned</option>
 			{data &&
 				data.getSafeUserList.data.map((user: any, i: number) => (
@@ -80,7 +86,7 @@ const UserList = ({ assigned }: any) => {
 						{user.nickname}
 					</option>
 				))}
-		</select>
+		</Field>
 	);
 };
 

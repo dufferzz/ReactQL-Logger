@@ -19,7 +19,7 @@ const columns = [
 	{
 		name: "ID",
 		selector: "_id",
-		maxWidth: "250px",
+		maxWidth: "9rem",
 		hide: 768,
 		sortable: true,
 		cell: (row: any) => (
@@ -80,15 +80,15 @@ const columns = [
 		selector: "make",
 		maxWidth: "100px",
 		sortable: true,
-		hide: 1200,
+		hide: 950,
 
 		cell: (row: any) => <div data-tag="allowRowEvents">{row.make}</div>,
 	},
 	{
 		name: "Model",
 		selector: "model",
-		maxWidth: "100px",
-		hide: 1300,
+		maxWidth: "120px",
+		hide: 1100,
 		sortable: true,
 
 		cell: (row: any) => <div data-tag="allowRowEvents">{row.model}</div>,
