@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 
 import query from "../../../querys/users/GetUserDetails";
@@ -48,8 +48,9 @@ const RoleList = () => {
 
 const UserDetails = () => {
 	const [editUser, setEditUser] = useState<boolean>(false);
-
+	// eslint-disable-next-line
 	const [name, setName] = useState<string>("");
+	// eslint-disable-next-line
 	const [email, setEmail] = useState<string>("");
 
 	const { id } = useParams<ID>();

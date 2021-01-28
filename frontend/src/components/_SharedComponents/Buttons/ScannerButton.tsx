@@ -8,6 +8,7 @@ const MySwal = withReactContent(Swal);
 
 const ScannerButton = () => {
 	const history = useHistory();
+	// eslint-disable-next-line
 	const [scanData, setScanData] = useState<string>();
 
 	const handleScan = (input: any) => {
