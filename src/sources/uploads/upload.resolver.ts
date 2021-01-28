@@ -1,7 +1,13 @@
 import { GraphQLDateTime } from "graphql-iso-date";
 
-import pubsub from "../../../pubsub";
+import pubsub from "../../pubsub";
 import uploadController from "./upload.controller";
+import {
+	handleNoPermission,
+	handleUnauthenticated,
+} from "../../utils/authHandlers";
+
+import { checkRoles } from "../../utils/authChecks";
 
 const UPLOAD_ADDED = "UPLOAD_ADDED";
 const UPLOAD_UPDATED = "UPLOAD_UPDATED";
@@ -12,48 +18,64 @@ const uploadResolver = {
 
 	Subscription: {
 		uploadAdded: {
-			subscribe: (_: any, __: any, ctx: any) =>
+			subscribe: (_: never, __: any, ctx: AppContext) =>
 				pubsub.asyncIterator([UPLOAD_ADDED]),
 		},
 		partUpdated: {
-			subscribe: (_: any, __: any, ctx: any) =>
+			subscribe: (_: never, __: any, ctx: AppContext) =>
 				pubsub.asyncIterator([UPLOAD_UPDATED]),
 		},
 		partDeleted: {
-			subscribe: (_: any, __: any, ctx: any) =>
+			subscribe: (_: never, __: any, ctx: AppContext) =>
 				pubsub.asyncIterator([UPLOAD_DELETED]),
 		},
 	},
 	Query: {
-		uploads(_: any, args: any, ctx: any) {
-			if (!ctx.isAuthenticated) return { succss: false };
-
-			return uploadController.uploads(args);
+		async uploads(_: never, args: any, ctx: AppContext) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (await checkRoles(ctx, "Employee")) {
+				return uploadController.uploads(args);
+			} else {
+				return handleNoPermission();
+			}
 		},
-		getUpload(_: any, args: any, ctx: any) {
-			const { permissions } = ctx.decoded;
-			if (!ctx.isAuthenticated) return {};
-			if (permissions.includes("readAll:parts")) {
+		async getUpload(_: never, args: any, ctx: AppContext) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (await checkRoles(ctx, "Employee")) {
 				return uploadController.getUpload(args);
+			} else {
+				return handleNoPermission();
 			}
 		},
 	},
 	Mutation: {
-		async addUpload(_: any, args: any, ctx: any) {
+		async addUpload(_: never, args: any, ctx: AppContext) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			console.log(_, args, ctx);
-			if (!ctx.isAuthenticated) return { success: false };
-			pubsub.publish(UPLOAD_ADDED, { uploadAdded: args });
-			return await uploadController.addUpload(args);
+			if (await checkRoles(ctx, "Employee")) {
+				pubsub.publish(UPLOAD_ADDED, { uploadAdded: args });
+				return uploadController.addUpload(args);
+			} else {
+				return handleNoPermission();
+			}
 		},
-		updateUpload(_: any, args: any, ctx: any) {
-			if (!ctx.isAuthenticated) return "";
-			pubsub.publish(UPLOAD_UPDATED, { uploadUpdated: args });
-			return uploadController.updateUpload(args);
+		async updateUpload(_: never, args: any, ctx: AppContext) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (await checkRoles(ctx, "Employee")) {
+				pubsub.publish(UPLOAD_UPDATED, { uploadUpdated: args });
+				return uploadController.updateUpload(args);
+			} else {
+				return handleNoPermission();
+			}
 		},
-		deleteUpload(_: any, args: any, ctx: any) {
-			if (!ctx.isAuthenticated) return "";
-			pubsub.publish(UPLOAD_DELETED, { uploadDeleted: args });
-			return uploadController.deleteUpload(args);
+		async deleteUpload(_: never, args: any, ctx: AppContext) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (await checkRoles(ctx, "Employee")) {
+				pubsub.publish(UPLOAD_DELETED, { uploadDeleted: args });
+				return uploadController.deleteUpload(args);
+			} else {
+				return handleNoPermission();
+			}
 		},
 	},
 };

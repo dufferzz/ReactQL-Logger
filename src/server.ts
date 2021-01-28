@@ -1,18 +1,16 @@
 import { mergeSchemas } from "graphql-tools";
 
 import { ApolloServer } from "apollo-server-express";
-import { connectDB } from "./src/db";
-import { log } from "./src/utils/logger";
-import isTokenValid from "./src/utils/validate";
+import { connectDB } from "./db";
+import { log } from "./utils/logger";
+import isTokenValid from "./utils/validate";
 
 import express from "express";
 import http from "http";
 import cors from "cors";
 
-import path from "path";
-
-import resolvers from "./src/resolvers";
-import schemas from "./src/schemas";
+import resolvers from "./resolvers";
+import schemas from "./schemas";
 require("dotenv").config();
 
 const schema = mergeSchemas({

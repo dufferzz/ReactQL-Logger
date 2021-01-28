@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import mongoosePaginate from "mongoose-paginate-v2";
-// const AutoIncrement = require("mongoose-sequence")(mongoose);
 
 const dbb = mongoose.connection.useDb("jobs");
 
@@ -88,8 +86,6 @@ const JobSchema = new Schema({
 		required: false,
 	},
 });
-
-JobSchema.plugin(mongoosePaginate);
 
 const Job = dbb.model("Job", JobSchema);
 

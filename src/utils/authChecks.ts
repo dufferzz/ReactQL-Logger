@@ -1,32 +1,17 @@
 import { log, logError } from "./logger";
-import { ManagementClient } from "auth0";
+import { Management } from "./managementClient";
 
-let management: ManagementClient;
-
-if (process.env.AUTH0_MANAGEMENT_TOKEN_TMP && process.env.AUTH0_DOMAIN) {
-	management = new ManagementClient({
-		token: process.env.AUTH0_MANAGEMENT_TOKEN_TMP,
-		domain: process.env.AUTH0_DOMAIN,
-	});
-} else {
-	throw new Error(
-		"Missing ENV Variables, Check AUTH0_MANAGEMENT_TOKEN_TMP and AUTH0_DOMAIN"
-	);
-}
-
-const checkPermissions = async (
-	ctx: any,
-	reqPermission: string | Array<string>
-) => {
+const checkPermissions = async (ctx: AppContext, reqPermission: string) => {
 	if (!ctx.isAuthenticated || !ctx.decoded) return false;
 
-	const userPermissions = await management.getUserPermissions({
+	const userPermissions = await Management.getUserPermissions({
 		id: ctx.decoded.sub,
 	});
 
 	const obj = userPermissions.find(
 		(role) => role.permission_name === reqPermission
 	);
+
 	if (obj && obj.permission_name === reqPermission) {
 		log(`[AUTH] - ${ctx.decoded.sub} Requested ${reqPermission}`);
 		return true;
@@ -38,10 +23,10 @@ const checkPermissions = async (
 	}
 };
 
-const checkRoles = async (ctx: any, reqRole: string | Array<string>) => {
+const checkRoles = async (ctx: AppContext, reqRole: string) => {
 	if (!ctx.isAuthenticated || !ctx.decoded) return false;
 
-	const userRoles = await management.getUserRoles({ id: ctx.decoded.sub });
+	const userRoles = await Management.getUserRoles({ id: ctx.decoded.sub });
 
 	const obj = userRoles.find((role: any) => role.name === reqRole); //TODO
 

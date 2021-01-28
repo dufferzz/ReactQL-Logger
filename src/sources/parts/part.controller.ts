@@ -47,7 +47,7 @@ const partController = {
 			.then((data) => sendResponse(data))
 			.catch((err) => sendError(err)),
 
-	addPart: async (args: any, ctx: any) => {
+	addPart: async (args: any, ctx: AppContext) => {
 		console.log(args);
 		const newjob = new Part({
 			partName: args.partName,

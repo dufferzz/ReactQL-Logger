@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import mongoosePaginate from "mongoose-paginate-v2";
 const Schema = mongoose.Schema;
 
 const partsSchema = new Schema({
@@ -66,8 +65,6 @@ const partsSchema = new Schema({
 		required: false,
 	},
 });
-
-partsSchema.plugin(mongoosePaginate);
 
 const parts = mongoose.connection.useDb("jobs");
 

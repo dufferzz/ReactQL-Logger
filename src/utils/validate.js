@@ -1,7 +1,5 @@
-// Need to rebase this to TS
-
-const jwt = require("jsonwebtoken");
-const jwksClient = require("jwks-rsa");
+import jwt from "jsonwebtoken";
+import jwksClient from "jwks-rsa";
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -10,9 +8,9 @@ const client = jwksClient({
 });
 
 const getKey = (header, callback) => {
-	client.getSigningKey(header.kid, function (error, key) {
-		const signingKey = key.publicKey || key.rsaPublicKey;
-		callback(null, signingKey);
+	client.getSigningKey(header.kid, (error, key) => {
+		const signingKey = key.getPublicKey();
+		return callback(null, signingKey);
 	});
 };
 
@@ -26,7 +24,6 @@ const isTokenValid = (token) => {
 				{
 					audience: process.env.API_IDENTIFIER,
 					issuer: `https://${process.env.AUTH0_DOMAIN}/`,
-					scope: "openid profile email",
 					algorithms: ["RS256"],
 				},
 				(error, decoded) => {
@@ -45,4 +42,4 @@ const isTokenValid = (token) => {
 	return { error: "No token provided" };
 };
 
-module.exports = isTokenValid;
+export default isTokenValid;
