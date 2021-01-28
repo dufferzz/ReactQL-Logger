@@ -54,7 +54,7 @@ const JobDetails = () => {
 	const { id } = useParams<ID>();
 	const { loading, error, data } = useQuery(GET_JOB_QUERY, {
 		variables: { _id: id },
-		errorPolicy: "all",
+		fetchPolicy: "network-only",
 	});
 
 	if (loading) return <Loading />;
