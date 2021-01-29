@@ -122,7 +122,7 @@ const JobDetailsForm = ({ job }: JobPropType) => {
 		>
 			{({ isSubmitting, errors, handleSubmit }) => {
 				return (
-					<Form onSubmit={handleSubmit}>
+					<>
 						<CustomerInfo />
 						<JobDetails />
 
@@ -132,8 +132,11 @@ const JobDetailsForm = ({ job }: JobPropType) => {
 							<FormError isSubmitting={isSubmitting} errors={errors} />
 						)}
 
-						<SubmitFormButton isSubmitting={isSubmitting} />
-					</Form>
+						<SubmitFormButton
+							handleSubmit={handleSubmit}
+							isSubmitting={isSubmitting}
+						/>
+					</>
 				);
 			}}
 		</Formik>

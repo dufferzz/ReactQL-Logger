@@ -64,53 +64,62 @@ const PartsView = ({ parts, setParts }: JobPartsProp) => {
 				`,
 			}}
 		>
-			<JobPartsTable data={parts} />
-			<CenterDiv>
-				<AddItemDiv>
-					<SectionElement>
-						<label htmlFor="partName">Name</label>
-						<input
-							onChange={(e) => {
-								setPartName(e.target.value);
-							}}
-							type="text"
-							name="partName"
-						/>
-						<ErrorMessage name="partName" component="div" />
-					</SectionElement>
-					<SectionElement>
-						<label htmlFor="partQty">Qty</label>
-						<input
-							onChange={(e) => {
-								setPartQty(e.target.value);
-							}}
-							type="number"
-							name="partQty"
-						/>
-						<ErrorMessage name="partQty" component="div" />
-					</SectionElement>
-					<SectionElement>
-						<label htmlFor="partPrice">Price</label>
-						<input
-							onChange={(e) => {
-								setPartPrice(e.target.value.toString());
-							}}
-							type="number"
-							name="partPrice"
-						/>
-						<ErrorMessage name="partPrice" component="div" />
-					</SectionElement>
-					<SectionElement style={{ alignItems: "flex-end" }}>
-						<Button
-							type="button"
-							onClick={addPart}
-							style={{ width: "100%", height: "2.5rem" }}
-						>
-							Add
-						</Button>
-					</SectionElement>
-				</AddItemDiv>
-			</CenterDiv>
+			<form
+				onSubmit={(e) => {
+					e.preventDefault();
+					addPart();
+					setPartName("");
+					setPartPrice("");
+					setPartQty("");
+				}}
+			>
+				<JobPartsTable data={parts} />
+				<CenterDiv>
+					<AddItemDiv>
+						<SectionElement>
+							<label htmlFor="partName">Name</label>
+							<input
+								value={partName}
+								onChange={(e) => {
+									setPartName(e.target.value);
+								}}
+								type="text"
+								name="partName"
+							/>
+							<ErrorMessage name="partName" component="div" />
+						</SectionElement>
+						<SectionElement>
+							<label htmlFor="partQty">Qty</label>
+							<input
+								onChange={(e) => {
+									setPartQty(e.target.value);
+								}}
+								value={partQty}
+								type="number"
+								name="partQty"
+							/>
+							<ErrorMessage name="partQty" component="div" />
+						</SectionElement>
+						<SectionElement>
+							<label htmlFor="partPrice">Price</label>
+							<input
+								onChange={(e) => {
+									setPartPrice(e.target.value.toString());
+								}}
+								value={price}
+								type="number"
+								name="partPrice"
+							/>
+							<ErrorMessage name="partPrice" component="div" />
+						</SectionElement>
+						<SectionElement style={{ alignItems: "flex-end" }}>
+							<Button type="submit" style={{ width: "100%", height: "2.5rem" }}>
+								Add
+							</Button>
+						</SectionElement>
+					</AddItemDiv>
+				</CenterDiv>
+			</form>
 		</Section>
 	);
 };

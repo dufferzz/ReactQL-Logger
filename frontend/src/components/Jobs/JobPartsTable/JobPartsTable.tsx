@@ -66,7 +66,7 @@ const columns = [
 		maxWidth: "100px",
 		sortable: true,
 
-		cell: (row: any) => <div data-tag="allowRowEvents">{row.price}</div>,
+		cell: (row: any) => <div data-tag="allowRowEvents">{row.price},-</div>,
 	},
 ];
 

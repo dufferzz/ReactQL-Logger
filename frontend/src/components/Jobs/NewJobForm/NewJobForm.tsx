@@ -109,15 +109,18 @@ export const NewJobForm = () => {
 			}}
 		>
 			{({ isSubmitting, errors, handleSubmit }) => (
-				<Form onSubmit={handleSubmit}>
+				<>
 					<CustomerInfo />
 					<JobDetails />
 
 					<PartsView parts={parts} setParts={setParts} />
 					<InternalUse />
-					<SubmitFormButton isSubmitting={isSubmitting} />
+					<SubmitFormButton
+						handleSubmit={handleSubmit}
+						isSubmitting={isSubmitting}
+					/>
 					{errors && <FormError isSubmitting={isSubmitting} errors={errors} />}
-				</Form>
+				</>
 			)}
 		</Formik>
 	);
