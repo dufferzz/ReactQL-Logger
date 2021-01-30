@@ -6,7 +6,7 @@ import Loading from "./components/_SharedComponents/Loading/Loading";
 import ErrorBoundary from "./components/_SharedComponents/ErrorBoundary/ErrorBoundary";
 import ScrollToTop from "./utils/ScrollToTop";
 
-import SideBar from "./components/_StyledComponents/SideBar/SideBar";
+import SideBar from "./components/_StyledComponents/SideBar";
 import TopNav from "./components/TopNav/TopNav";
 import AppContainer from "./components/_StyledComponents/AppContainer";
 import Layout from "./components/_StyledComponents/Layout";
@@ -110,8 +110,7 @@ const App = () => {
 								animation: "fadeIn 0.2s",
 								position: "absolute",
 								top: "5.45rem",
-								minHeight: "80vh",
-								left: 0,
+								right: 0,
 								zIndex: 10000000,
 							}}
 						>

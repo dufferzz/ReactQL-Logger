@@ -22,10 +22,15 @@ const BurgerDropDownView = styled.div`
 	display: block;
 	color: black;
 	/* background-color: #222; */
-	background-color: rgba(200, 200, 200, 1);
+	background: rgba(195, 195, 195, 1);
+	background: linear-gradient(
+		90deg,
+		rgba(195, 195, 195, 1) 0%,
+		rgba(218, 218, 218, 1) 100%
+	);
 	z-index: 1000000000;
-	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
-	border-radius: 0 0 10px 0;
+	box-shadow: -5px -5px 5px rgba(0, 0, 0, 0.2);
+	border-radius: 0 0 10px 10px;
 `;
 
 const BurgerDropDownItemView = styled.div`

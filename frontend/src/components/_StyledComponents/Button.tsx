@@ -33,6 +33,9 @@ const Button = styled.button`
 			background: white;
 			color: black;
 		`}
+	&:active {
+		outline: 1px solid black;
+	}
 `;
 
 export const DangerButton = styled(Button)`
@@ -45,6 +48,9 @@ export const DangerButton = styled(Button)`
 			rgb(255, 0, 0) 0%,
 			rgb(250, 52, 52) 100%
 		);
+	}
+	&:active {
+		outline: 1px solid black;
 	}
 `;
 
@@ -63,6 +69,9 @@ export const SuccessButton = styled(Button)`
 			rgba(84, 199, 0, 1) 0%,
 			rgba(120, 232, 48, 1) 100%
 		);
+	}
+	&:active {
+		outline: 1px solid black;
 	}
 `;
 
