@@ -74,11 +74,13 @@ const BurgerMenu = ({ setBurgerMenuOpen, menuState }: any) => {
 };
 
 const ShowUser = () => {
+	const { width } = useWindowSize();
+
 	const { user, isAuthenticated } = useAuth0();
 
 	return (
 		<div>
-			{isAuthenticated && user && (
+			{isAuthenticated && user && width < config.mobileBreakpoint && (
 				<div style={{ gridArea: "user" }}>{user.email}</div>
 			)}
 		</div>
