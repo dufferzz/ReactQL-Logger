@@ -3,6 +3,7 @@ const config = {
 	apolloWSUrl: "",
 	auth0Domain: "dfz.eu.auth0.com",
 	auth0ClientID: "xmd2O7HE8yuZUhh50XLG7rluouHDtWVM",
+	mobileBreakpoint: 1024,
 };
 
 if (process.env.NODE_ENV === "development") {

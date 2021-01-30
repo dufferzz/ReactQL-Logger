@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, useSubscription } from "@apollo/client";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import dayjs from "dayjs";
@@ -85,6 +84,4 @@ const JobDetails = () => {
 	);
 };
 
-export default withAuthenticationRequired(JobDetails, {
-	onRedirecting: () => <Loading />,
-});
+export default JobDetails;

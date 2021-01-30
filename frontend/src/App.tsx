@@ -10,7 +10,10 @@ import SideBar from "./components/_StyledComponents/SideBar/SideBar";
 import TopNav from "./components/TopNav/TopNav";
 import AppContainer from "./components/_StyledComponents/AppContainer";
 import Layout from "./components/_StyledComponents/Layout";
-import BurgerDropDown from "./components/_StyledComponents/BurgerMenu";
+import {
+	BurgerDropDown,
+	Shadow,
+} from "./components/_StyledComponents/BurgerMenu";
 import Footer from "./components/Footer/Footer";
 
 import HomePage from "./pages/HomePage/HomePage";
@@ -27,6 +30,8 @@ import JobsPage from "./pages/JobsPage/JobsPage";
 import MessagesPage from "./pages/MessagesPage/MessagesPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import AddPartPage from "./pages/AddPartPage/AddPartPage";
+
+import useWindowSize from "./utils/useWindowSize";
 
 import "./App.css";
 
@@ -49,6 +54,8 @@ const routes = [
 ];
 
 const App = () => {
+	const { width } = useWindowSize();
+
 	const { isLoading, isAuthenticated } = useAuth0();
 	const [burgerMenuOpen, setBurgerMenuOpen] = useState<boolean>(false);
 
@@ -91,10 +98,28 @@ const App = () => {
 					burgerMenuOpen={burgerMenuOpen}
 					setBurgerMenuOpen={setBurgerMenuOpen}
 				/>
-				<BurgerDropDown
-					setBurgerMenuOpen={setBurgerMenuOpen}
-					burgerMenuOpen={burgerMenuOpen}
-				/>{" "}
+				{burgerMenuOpen && width < 1024 && (
+					<>
+						<div
+							onClick={() => {
+								setBurgerMenuOpen(false);
+							}}
+							style={{
+								animation: "fadeIn",
+								position: "absolute",
+								top: "6.5rem",
+								left: 0,
+								zIndex: 10000,
+							}}
+						>
+							<BurgerDropDown
+								style={{ width: "250px", minHeight: "100%" }}
+								setBurgerMenuOpen={setBurgerMenuOpen}
+								burgerMenuOpen={burgerMenuOpen}
+							/>
+						</div>
+					</>
+				)}
 				<SideBar />
 				<AppContainer>
 					<ErrorBoundary>
@@ -111,6 +136,7 @@ const App = () => {
 
 							<Route component={NotFoundPage} />
 						</Switch>
+						{burgerMenuOpen && <Shadow />}
 					</ErrorBoundary>
 				</AppContainer>
 				<Footer />

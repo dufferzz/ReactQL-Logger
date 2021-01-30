@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import config from "../../config/config";
 
 const Layout = styled.div`
 	display: grid;
@@ -14,7 +15,7 @@ const Layout = styled.div`
 		"sidebar app "
 		"footer footer ";
 
-	@media (max-width: 1024px) {
+	@media (max-width: ${config.mobileBreakpoint}px) {
 		grid-template-rows: 1fr auto;
 		grid-template-columns: 1fr;
 

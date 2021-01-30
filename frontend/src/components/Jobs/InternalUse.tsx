@@ -187,4 +187,4 @@ const InternalUse = ({ id, assigned }: IDProp) => {
 		</Section>
 	);
 };
-export default InternalUse;
+export default React.memo(InternalUse);

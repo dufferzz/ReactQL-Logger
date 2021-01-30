@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/_SharedComponents/Loading/Loading";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useQuery } from "@apollo/client";
 import GET_PART_DETAILS_QUERY from "../../querys/parts/PartDetailsQuery";
 import CenterDiv from "../../components/_StyledComponents/CenteredDiv";
@@ -189,6 +188,4 @@ const PartDetailsPage = () => {
 	);
 };
 
-export default withAuthenticationRequired(PartDetailsPage, {
-	onRedirecting: () => <Loading />,
-});
+export default PartDetailsPage;

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { useQuery, useSubscription } from "@apollo/client";
 import { Link } from "react-router-dom";
 import FlexDiv from "../../components/_StyledComponents/FlexDiv";
@@ -183,6 +183,4 @@ const JobsPage = () => {
 	);
 };
 
-export default withAuthenticationRequired(JobsPage, {
-	onRedirecting: () => <Loading />,
-});
+export default JobsPage;

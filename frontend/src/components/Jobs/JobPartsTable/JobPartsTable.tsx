@@ -84,4 +84,4 @@ const JobPartsTable = ({ data }: any) => {
 	);
 };
 
-export default JobPartsTable;
+export default React.memo(JobPartsTable);

@@ -1,7 +1,4 @@
 import React from "react";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
-import Loading from "../../components/_SharedComponents/Loading/Loading";
-
 import { NewJobForm } from "../../components/Jobs/NewJobForm/NewJobForm";
 
 const NewJob = () => {
@@ -15,6 +12,4 @@ const NewJob = () => {
 	);
 };
 
-export default withAuthenticationRequired(NewJob, {
-	onRedirecting: () => <Loading />,
-});
+export default NewJob;

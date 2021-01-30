@@ -1,6 +1,4 @@
 import React from "react";
-import Loading from "../../components/_SharedComponents/Loading/Loading";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import Section from "../../components/_StyledComponents/Section";
 import styled from "styled-components";
 import Avatar from "../../assets/images/avatar.jpg";
@@ -228,6 +226,4 @@ const MessagesPage = () => {
 	);
 };
 
-export default withAuthenticationRequired(MessagesPage, {
-	onRedirecting: () => <Loading />,
-});
+export default MessagesPage;

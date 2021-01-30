@@ -5,6 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "../_SharedComponents/Buttons/LoginButton";
 import LogoutButton from "../_SharedComponents/Buttons/LogoutButton";
 import AdminButton from "../_SharedComponents/Buttons/AdminButton";
+import config from "../../config/config";
 
 import Logo from "../../assets/images/logoo.webp";
 
@@ -92,7 +93,7 @@ const TopNav = ({ setBurgerMenuOpen, burgerMenuOpen }: any) => {
 			<Link style={{ textDecoration: "none", color: "inherit" }} to="/">
 				<NavLogo alt="Logo" src={Logo} />
 			</Link>
-			{width > 1024 ? (
+			{width > config.mobileBreakpoint ? (
 				<NavButtons />
 			) : (
 				<BurgerMenu

@@ -97,4 +97,4 @@ const JobDetails = () => {
 	);
 };
 
-export default JobDetails;
+export default React.memo(JobDetails);
