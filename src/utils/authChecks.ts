@@ -3,16 +3,9 @@ import { Management } from "./managementClient";
 
 const checkPermissions = async (ctx: AppContext, reqPermission: string) => {
 	if (!ctx.isAuthenticated || !ctx.decoded) return false;
+	const currentPermissions = ctx.decoded.permissions;
 
-	const userPermissions = await Management.getUserPermissions({
-		id: ctx.decoded.sub,
-	});
-
-	const obj = userPermissions.find(
-		(role) => role.permission_name === reqPermission
-	);
-
-	if (obj && obj.permission_name === reqPermission) {
+	if (currentPermissions.includes(reqPermission)) {
 		log(`[AUTH] - ${ctx.decoded.sub} Requested ${reqPermission}`);
 		return true;
 	} else {
@@ -22,6 +15,8 @@ const checkPermissions = async (ctx: AppContext, reqPermission: string) => {
 		return false;
 	}
 };
+
+// Unable to check a user's roles without calling out, prefer to use checkPermissions. fast fast
 
 const checkRoles = async (ctx: AppContext, reqRole: string) => {
 	if (!ctx.isAuthenticated || !ctx.decoded) return false;
