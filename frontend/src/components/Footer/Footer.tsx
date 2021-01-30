@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
+import theme from "../../config/theme";
+
 const Foot = styled.div`
 	display: grid;
 	grid-area: footer;
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: 1fr 1fr;
-	border-top: 3px solid darkorange;
-	background-color: #222;
+	border-top: 3px solid ${theme.accentColor};
+	background: ${theme.headerFooter};
 	height: 5rem;
 	line-height: 1.7;
 	text-align: center;

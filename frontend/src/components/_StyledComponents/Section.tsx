@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 
+import theme from "../../config/theme";
+
 const Icon = styled.img`
 	width: 30px;
 	margin-right: 0.25rem;
@@ -24,7 +26,7 @@ const SectionHeader = styled.div`
 
 	&:hover {
 		transition: all 0.15s;
-		color: darkorange;
+		color: ${theme.accentColor};
 	}
 `;
 
@@ -33,11 +35,11 @@ const StyledSection = styled.section`
 	border: 1px solid #aaa;
 	padding: 1rem;
 	padding: ${(props: any) => props.padding || `0.5rem`};
-	border-radius: 10px;
+	border-radius: ${theme.tightBorderRadius};
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 	grid-gap: 0.25rem;
 	margin: 0 0 1.5rem 0;
-	background-color: #eee;
+	background-color: ${theme.sectionBackground};
 	animation: fadeIn 0.5s;
 	@media (max-width: 580px) {
 		padding: 0.5rem;
@@ -50,7 +52,7 @@ const StyledIcon = styled(FontAwesomeIcon)`
 	transition: scale 0.2s ease-in-out;
 	&:hover {
 		transition: color 0.2s;
-		color: orange;
+		color: ${theme.accentColor};
 		transform: scale(1.1);
 	}
 `;

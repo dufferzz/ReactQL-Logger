@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik, Form } from "formik";
+import { Formik } from "formik";
 import { useMutation } from "@apollo/client";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
@@ -7,8 +7,8 @@ import withReactContent from "sweetalert2-react-content";
 
 import CustomerInfo from "../CustomerInfo";
 import JobDetails from "../JobDetails";
-import InternalUse from "../InternalUse";
-import PartsView from "../Parts";
+import InternalUse from "../InternalUse/InternalUse";
+import PartsView from "../JobParts";
 import SubmitFormButton from "../../_SharedComponents/Buttons/SubmitFormButton";
 import FormError from "../../FormError";
 

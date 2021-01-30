@@ -3,17 +3,17 @@ import { Field } from "formik";
 import { useMutation, useQuery } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
-import Section from "../_StyledComponents/Section";
-import { DangerButton } from "../_StyledComponents/Button";
-import SectionElement from "../_StyledComponents/SectionElement";
-import ErrorField from "../_StyledComponents/ErrorField";
-import ClipboardIcon from "../../assets/icons/clipboard.svg";
+import Section from "../../_StyledComponents/Section";
+import { DangerButton } from "../../_StyledComponents/Button";
+import SectionElement from "../../_StyledComponents/SectionElement";
+import ErrorField from "../../_StyledComponents/ErrorField";
+import ClipboardIcon from "../../../assets/icons/clipboard.svg";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import DELETE_JOB_MUTATION from "../../querys/jobs/DeleteJobMutation";
+import DELETE_JOB_MUTATION from "../../../querys/jobs/DeleteJobMutation";
 
-import GET_SAFE_USERS_QUERY from "../../querys/users/GetSafeUserList";
+import GET_SAFE_USERS_QUERY from "../../../querys/users/GetSafeUserList";
 
 const MySwal = withReactContent(Swal);
 
@@ -110,7 +110,6 @@ const ManagementButtons = ({ id }: IDProp) => {
 		>
 			<DangerButton
 				type="button"
-				style={{ color: "white" }}
 				onClick={() => {
 					deleteJob(id, sendDeleteJob, history);
 				}}

@@ -3,12 +3,12 @@ import React from "react";
 import styled from "styled-components";
 import { Field } from "formik";
 
-import Section from "../_StyledComponents/Section";
+import Section from "../../_StyledComponents/Section";
 
-import SectionElement from "../_StyledComponents/SectionElement";
-import ErrorField from "../_StyledComponents/ErrorField";
+import SectionElement from "../../_StyledComponents/SectionElement";
+import ErrorField from "../../_StyledComponents/ErrorField";
 
-import ClipboardIcon from "../../assets/icons/clipboard.svg";
+import ClipboardIcon from "../../../assets/icons/clipboard.svg";
 
 const JobDetailsSection = styled.div`
 	display: grid;

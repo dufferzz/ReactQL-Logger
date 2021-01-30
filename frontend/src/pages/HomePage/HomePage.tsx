@@ -6,6 +6,7 @@ import withReactContent from "sweetalert2-react-content";
 import BackgroundImage from "../../assets/images/forest.webp";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
+import theme from "../../config/theme";
 const MySwal = withReactContent(Swal);
 
 const useURLQuery = () => new URLSearchParams(useLocation().search);
@@ -14,7 +15,7 @@ const Card = styled.div`
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: 3fr 2fr;
-	border-radius: 10px;
+	border-radius: ${theme.defaultBorderRadius};
 	background-color: rgba(0, 0, 0, 0.7);
 	width: fit-content;
 	padding: 1rem;

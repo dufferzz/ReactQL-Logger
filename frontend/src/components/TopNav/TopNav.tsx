@@ -6,6 +6,7 @@ import LoginButton from "../_SharedComponents/Buttons/LoginButton";
 import LogoutButton from "../_SharedComponents/Buttons/LogoutButton";
 import AdminButton from "../_SharedComponents/Buttons/AdminButton";
 import config from "../../config/config";
+import theme from "../../config/theme";
 
 import Logo from "../../assets/images/logoo.webp";
 
@@ -14,7 +15,7 @@ import Button from "../_StyledComponents/Button";
 
 const Nav = styled.div`
 	grid-area: topnav;
-	background-color: #222;
+	background-color: ${theme.headerFooter};
 	color: white;
 	display: grid;
 	grid-template-columns: auto 1fr;
@@ -26,21 +27,18 @@ const Nav = styled.div`
 	position: relative;
 	padding: 0.5rem;
 	align-items: center;
-	border-bottom: 3px solid darkorange;
+	border-bottom: 3px solid ${theme.accentColor};
 	z-index: 11100;
 `;
 
 const NavLogo = styled.img`
 	grid-area: logo;
 	height: 4rem;
-	/* margin-left: 0.5rem; */
 `;
 
 const NavBarButtons = styled.div`
 	grid-area: buttons;
-	/* width: 100%; */
 	text-align: right;
-	margin-right: 0.5rem;
 `;
 
 const NavButtons = () => {
@@ -73,20 +71,6 @@ const BurgerMenu = ({ setBurgerMenuOpen, menuState }: any) => {
 	);
 };
 
-const ShowUser = () => {
-	const { width } = useWindowSize();
-
-	const { user, isAuthenticated } = useAuth0();
-
-	return (
-		<div>
-			{isAuthenticated && user && width < config.mobileBreakpoint && (
-				<div style={{ gridArea: "user" }}>{user.email}</div>
-			)}
-		</div>
-	);
-};
-
 const TopNav = ({ setBurgerMenuOpen, burgerMenuOpen }: any) => {
 	const { width } = useWindowSize();
 
@@ -103,7 +87,6 @@ const TopNav = ({ setBurgerMenuOpen, burgerMenuOpen }: any) => {
 					setBurgerMenuOpen={setBurgerMenuOpen}
 				/>
 			)}
-			{/* <ShowUser /> */}
 		</Nav>
 	);
 };

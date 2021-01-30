@@ -1,29 +1,29 @@
 import styled, { css } from "styled-components";
 
-// TODO: Merge these buttons using props: danger, success etc or default button style
+import theme from "../../config/theme";
 
 const Button = styled.button`
 	padding: 0.5rem 1rem;
 	font-size: 1rem;
 	/* margin: 2px; */
 	width: max-content;
-	background: rgb(255, 136, 0);
+	background: ${theme.primary};
 	background: linear-gradient(
 		0deg,
-		rgba(255, 136, 0, 1) 0%,
-		rgba(250, 166, 52, 1) 100%
+		${theme.primaryGradientStart} 0%,
+		${theme.primaryGradientEnd} 100%
 	);
 	color: #000;
-	border-radius: 7px;
+	border-radius: ${theme.tightBorderRadius};
 	border: 1px solid rgba(0, 0, 0, 0.7);
 	outline: none;
 	cursor: pointer;
 	&:hover {
-		background: rgb(255, 168, 62);
+		background: ${theme.primaryGradientEnd};
 		background: linear-gradient(
 			180deg,
-			rgba(255, 136, 0, 1) 0%,
-			rgba(250, 166, 52, 1) 100%
+			${theme.primaryGradientStart} 0%,
+			${theme.primaryGradientEnd} 100%
 		);
 	}
 
@@ -39,14 +39,18 @@ const Button = styled.button`
 `;
 
 export const DangerButton = styled(Button)`
-	background: rgb(255, 8, 0);
-	background: linear-gradient(0deg, rgb(255, 0, 0) 0%, rgb(250, 52, 52) 100%);
+	background: ${theme.secondaryGradientStart};
+	background: linear-gradient(
+		0deg,
+		${theme.secondaryGradientStart} 0%,
+		${theme.secondaryGradientEnd} 100%
+	);
 	&:hover {
-		background: rgb(250, 52, 52);
+		background: ${theme.secondaryGradientEnd};
 		background: linear-gradient(
 			180deg,
-			rgb(255, 0, 0) 0%,
-			rgb(250, 52, 52) 100%
+			${theme.secondaryGradientStart} 0%,
+			${theme.secondaryGradientEnd} 100%
 		);
 	}
 	&:active {
@@ -55,19 +59,19 @@ export const DangerButton = styled(Button)`
 `;
 
 export const SuccessButton = styled(Button)`
-	background: rgb(84, 199, 0);
+	background: ${theme.successGradientStart};
 	background: linear-gradient(
 		0deg,
-		rgba(84, 199, 0, 1) 0%,
-		rgba(120, 232, 48, 1) 100%
+		${theme.successGradientStart} 0%,
+		${theme.successGradientEnd} 100%
 	);
 
 	&:hover {
-		background: rgb(84, 199, 0);
+		background: ${theme.successGradientEnd};
 		background: linear-gradient(
 			180deg,
-			rgba(84, 199, 0, 1) 0%,
-			rgba(120, 232, 48, 1) 100%
+			${theme.successGradientStart} 0%,
+			${theme.successGradientEnd} 100%
 		);
 	}
 	&:active {

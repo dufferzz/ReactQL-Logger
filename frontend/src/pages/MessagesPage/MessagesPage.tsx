@@ -4,6 +4,8 @@ import styled from "styled-components";
 import Avatar from "../../assets/images/avatar.jpg";
 import Button from "../../components/_StyledComponents/Button";
 
+import theme from "../../config/theme";
+
 const MessagesView = styled.div`
 	display: grid;
 	grid-template-columns: auto 3fr;
@@ -20,7 +22,7 @@ const Conversations = styled.div`
 const ConversationView = styled.div`
 	display: grid;
 	align-items: center;
-	border-radius: 10px;
+	border-radius: ${theme.defaultBorderRadius};
 	grid-template-columns: auto auto;
 	grid-template-rows: none;
 	padding-right: 0.3rem;

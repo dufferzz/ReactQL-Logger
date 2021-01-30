@@ -64,7 +64,7 @@ const columns = [
 	},
 	{
 		name: "Client",
-		selector: "firstname",
+		selector: "clientname",
 		maxWidth: "150px",
 		sortable: true,
 		hide: 580,

@@ -6,6 +6,8 @@ import Placeholder from "../../assets/images/placeholder.png";
 import Button from "../../components/_StyledComponents/Button";
 import Dropzone from "react-dropzone";
 
+import theme from "../../config/theme";
+
 const AddPartPage = () => {
 	const handleSubmit = (files: any) => {
 		console.log(files);
@@ -24,7 +26,7 @@ const AddPartPage = () => {
 					alignItems: "center",
 					justifyContent: "center",
 					border: "1px dashed black",
-					borderRadius: "10px",
+					borderRadius: theme.defaultBorderRadius,
 					height: "200px",
 					textAlign: "center",
 					gridGap: "0.25rem",

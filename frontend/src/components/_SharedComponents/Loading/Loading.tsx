@@ -2,6 +2,8 @@ import React from "react";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 
+import theme from "../../../config/theme";
+
 const Loading = () => {
 	return (
 		<>
@@ -17,7 +19,7 @@ const Loading = () => {
 			>
 				<Loader
 					type="TailSpin"
-					color="darkorange"
+					color={theme.accentColor}
 					height={50}
 					width={50}
 					timeout={10000} // 10 secs

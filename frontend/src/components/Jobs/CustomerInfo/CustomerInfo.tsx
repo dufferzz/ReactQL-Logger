@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { Field } from "formik";
 
-import Section from "../_StyledComponents/Section";
-import SectionElement from "../_StyledComponents/SectionElement";
-import ErrorField from "../_StyledComponents/ErrorField";
-import Button from "../_StyledComponents/Button";
-import UserIcon from "../../assets/icons/user.svg";
+import Section from "../../_StyledComponents/Section";
+import SectionElement from "../../_StyledComponents/SectionElement";
+import ErrorField from "../../_StyledComponents/ErrorField";
+import Button from "../../_StyledComponents/Button";
+import UserIcon from "../../../assets/icons/user.svg";
 const AddressInfoSection = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;

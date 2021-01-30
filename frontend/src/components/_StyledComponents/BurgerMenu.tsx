@@ -13,6 +13,8 @@ import {
 	faUserCog,
 } from "@fortawesome/free-solid-svg-icons";
 
+import theme from "../../config/theme";
+
 const BurgerDropDownView = styled.div`
 	width: 100%;
 
@@ -21,20 +23,18 @@ const BurgerDropDownView = styled.div`
 	height: 100%;
 	display: block;
 	color: black;
-	/* background-color: #222; */
-	background: rgba(195, 195, 195, 1);
+	background: ${theme.navGradientStart};
 	background: linear-gradient(
 		90deg,
-		rgba(195, 195, 195, 1) 0%,
-		rgba(218, 218, 218, 1) 100%
+		${theme.navGradientStart} 0%,
+		${theme.navGradientEnd} 100%
 	);
 	z-index: 1000000000;
 	box-shadow: -5px -5px 5px rgba(0, 0, 0, 0.2);
-	border-radius: 0 0 10px 10px;
+	border-radius: 0 0 ${theme.tightBorderRadius} ${theme.tightBorderRadius};
 `;
 
 const BurgerDropDownItemView = styled.div`
-	/* color: black; */
 	text-align: left;
 	margin: 0.25rem;
 	display: flex;
@@ -46,17 +46,16 @@ const BurgerDropDownItemView = styled.div`
 	&:hover {
 		background-color: rgba(0, 0, 0, 0.1);
 		border-radius: 5px;
-		color: darkorange;
+		color: ${theme.accentColor};
 		transition: color 0.1s;
 		text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
 	}
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`
-	/* color: black; */
 	filter: drop-shadow(1px 1px 0 rgba(0, 0, 0, 0.5));
 	cursor: pointer;
-	color: darkorange;
+	color: ${theme.accentColor};
 	font-size: 1.75rem;
 	transition: color 0.2s;
 	transition: scale 0.2s ease-in-out;
@@ -112,7 +111,7 @@ const BurgerDropDown = ({ style }: any) => {
 							style={{
 								width: "125px",
 								height: "125px",
-								borderRadius: "10px",
+								borderRadius: theme.defaultBorderRadius,
 							}}
 							src={user.picture}
 							alt="avatar"

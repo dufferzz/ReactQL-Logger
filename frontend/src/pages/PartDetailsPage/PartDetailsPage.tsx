@@ -15,6 +15,8 @@ import styled from "styled-components";
 import Placeholder from "../../assets/images/placeholder.png";
 import FlexDivCenter from "../../components/_StyledComponents/FlexDiv";
 
+import theme from "../../config/theme";
+
 const PartsPageGrid = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 5fr;
@@ -66,13 +68,19 @@ const PartDetailsPage = () => {
 				<div style={{ textAlign: "center" }}>
 					{part.thumbnail !== "Hello World" ? (
 						<img
-							style={{ width: "250px", borderRadius: "10px" }}
+							style={{
+								width: "250px",
+								borderRadius: theme.defaultBorderRadius,
+							}}
 							src={part.thumbnail}
 							alt={part.partName}
 						/>
 					) : (
 						<img
-							style={{ width: "250px", borderRadius: "10px" }}
+							style={{
+								width: "250px",
+								borderRadius: theme.defaultBorderRadius,
+							}}
 							src={Placeholder}
 							alt={part.partName}
 						/>
@@ -120,7 +128,7 @@ const PartDetailsPage = () => {
 								width: "80px",
 								height: "55px",
 								margin: "0.25rem",
-								borderRadius: "7px",
+								borderRadius: theme.tightBorderRadius,
 							}}
 							src={Placeholder}
 							alt=""
@@ -130,7 +138,7 @@ const PartDetailsPage = () => {
 								width: "80px",
 								height: "55px",
 								margin: "0.25rem",
-								borderRadius: "7px",
+								borderRadius: theme.tightBorderRadius,
 							}}
 							src={Placeholder}
 							alt=""
@@ -140,7 +148,7 @@ const PartDetailsPage = () => {
 								width: "80px",
 								height: "55px",
 								margin: "0.25rem",
-								borderRadius: "7px",
+								borderRadius: theme.tightBorderRadius,
 							}}
 							src={Placeholder}
 							alt=""
