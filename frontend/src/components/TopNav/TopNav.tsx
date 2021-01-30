@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "../_SharedComponents/Buttons/LoginButton";
 import LogoutButton from "../_SharedComponents/Buttons/LogoutButton";
@@ -92,9 +92,9 @@ const TopNav = ({ setBurgerMenuOpen, burgerMenuOpen }: any) => {
 
 	return (
 		<Nav>
-			<Link style={{ textDecoration: "none", color: "inherit" }} to="/">
+			<NavLink style={{ textDecoration: "none", color: "inherit" }} to="/">
 				<NavLogo alt="Logo" src={Logo} />
-			</Link>
+			</NavLink>
 			{width > config.mobileBreakpoint ? (
 				<NavButtons />
 			) : (

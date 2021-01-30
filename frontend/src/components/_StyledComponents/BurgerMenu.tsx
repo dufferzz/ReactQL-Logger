@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +11,6 @@ import {
 	faCogs,
 	faEnvelope,
 	faUserCog,
-	faHome,
 } from "@fortawesome/free-solid-svg-icons";
 
 const BurgerDropDownView = styled.div`
@@ -60,8 +59,17 @@ const StyledIcon = styled(FontAwesomeIcon)`
 	padding-left: 1rem;
 `;
 
+const CustomLink = styled(NavLink)`
+	&.active {
+		color: black;
+		text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+		font-size: 1.1rem;
+		font-weight: bold;
+	}
+`;
+
 const BurgerMenuItem = ({ to, text, icon }: any) => (
-	<Link to={to}>
+	<CustomLink to={to}>
 		<BurgerDropDownItemView>
 			<div style={{}}>
 				<StyledIcon icon={icon} />
@@ -76,7 +84,7 @@ const BurgerMenuItem = ({ to, text, icon }: any) => (
 				{text}
 			</div>
 		</BurgerDropDownItemView>
-	</Link>
+	</CustomLink>
 );
 
 const BurgerDropDown = ({ style }: any) => {
@@ -107,7 +115,6 @@ const BurgerDropDown = ({ style }: any) => {
 						<div>{user.email}</div>
 					</div>
 					<hr />
-					<BurgerMenuItem to="/" icon={faHome} text="Home" />
 					<BurgerMenuItem to="/search" icon={faSearch} text="Search" />
 					<BurgerMenuItem to="/jobs" icon={faClipboardList} text="Jobs" />
 					<BurgerMenuItem to="/parts" icon={faCarBattery} text="Parts" />
