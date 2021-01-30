@@ -136,7 +136,13 @@ const App = () => {
 
 							<Route component={NotFoundPage} />
 						</Switch>
-						{burgerMenuOpen && <Shadow />}
+						{burgerMenuOpen && (
+							<Shadow
+								onClick={() => {
+									setBurgerMenuOpen(false);
+								}}
+							/>
+						)}
 					</ErrorBoundary>
 				</AppContainer>
 				<Footer />
