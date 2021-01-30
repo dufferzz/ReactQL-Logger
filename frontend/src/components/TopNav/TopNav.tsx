@@ -103,7 +103,7 @@ const TopNav = ({ setBurgerMenuOpen, burgerMenuOpen }: any) => {
 					setBurgerMenuOpen={setBurgerMenuOpen}
 				/>
 			)}
-			<ShowUser />
+			{/* <ShowUser /> */}
 		</Nav>
 	);
 };

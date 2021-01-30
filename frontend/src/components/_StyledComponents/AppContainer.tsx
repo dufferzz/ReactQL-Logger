@@ -7,10 +7,11 @@ const AppContainer = styled.main`
 	padding-bottom: 1rem;
 	margin: 0 auto;
 	min-height: 100vh;
+	position: relative;
 
 	width: 95%;
 	@media (max-width: 580px) {
-		width: 97%;
+		width: 96%;
 	}
 `;
 

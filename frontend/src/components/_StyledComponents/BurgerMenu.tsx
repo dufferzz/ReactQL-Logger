@@ -25,7 +25,7 @@ const BurgerDropDownView = styled.div`
 	background-color: rgba(200, 200, 200, 1);
 	z-index: 1000000000;
 	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
-	border-radius: 0 0 10px 10px;
+	border-radius: 0 0 10px 0;
 `;
 
 const BurgerDropDownItemView = styled.div`
@@ -127,7 +127,9 @@ const BurgerDropDown = ({ style }: any) => {
 					)}
 					<BurgerMenuItem to="/settings" icon={faCogs} text="App Settings" />
 
-					<LogoutButton style={{ padding: "0.5rem", width: "100%" }} />
+					<LogoutButton
+						style={{ marginTop: "1rem", paddingTop: "0.5rem", width: "100%" }}
+					/>
 				</div>
 			</BurgerDropDownView>
 		</>
@@ -137,11 +139,11 @@ const BurgerDropDown = ({ style }: any) => {
 const Shadow = styled.div`
 	position: absolute;
 	background-color: rgba(0, 0, 0, 0.5);
-	width: 100%;
-	top: -6px;
-	left: 0;
-	min-height: 100%;
+	width: 100vw;
+	top: 0;
+	height: 100%;
 	z-index: 1;
+	animation: "fadeIn 0.2s";
 `;
 
 export { BurgerDropDown, Shadow };

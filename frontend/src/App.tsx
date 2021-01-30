@@ -98,18 +98,21 @@ const App = () => {
 					burgerMenuOpen={burgerMenuOpen}
 					setBurgerMenuOpen={setBurgerMenuOpen}
 				/>
-				{burgerMenuOpen && width < 1024 && (
+
+				<SideBar />
+				{burgerMenuOpen && width <= 1024 && (
 					<>
 						<div
 							onClick={() => {
 								setBurgerMenuOpen(false);
 							}}
 							style={{
-								animation: "fadeIn",
+								animation: "fadeIn 0.2s",
 								position: "absolute",
-								top: "6.5rem",
+								top: "5.45rem",
+								minHeight: "80vh",
 								left: 0,
-								zIndex: 10000,
+								zIndex: 10000000,
 							}}
 						>
 							<BurgerDropDown
@@ -120,7 +123,6 @@ const App = () => {
 						</div>
 					</>
 				)}
-				<SideBar />
 				<AppContainer>
 					<ErrorBoundary>
 						<Switch>
@@ -136,15 +138,15 @@ const App = () => {
 
 							<Route component={NotFoundPage} />
 						</Switch>
-						{burgerMenuOpen && (
-							<Shadow
-								onClick={() => {
-									setBurgerMenuOpen(false);
-								}}
-							/>
-						)}
 					</ErrorBoundary>
 				</AppContainer>
+				{burgerMenuOpen && (
+					<Shadow
+						onClick={() => {
+							setBurgerMenuOpen(false);
+						}}
+					/>
+				)}
 				<Footer />
 			</Router>
 		</Layout>
