@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -11,8 +11,23 @@ import SectionElement from "../../components/_StyledComponents/SectionElement";
 import Loading from "../../components/_SharedComponents/Loading/Loading";
 import ErrorComponent from "../../components/_SharedComponents/ErrorComponent/ErrorComponent";
 
-import GET_ALL_PARTS_QUERY from "../../querys/parts/GetAllPartsQuery";
 import ScannerButton from "../../components/_SharedComponents/Buttons/ScannerButton";
+import CenterDiv from "../../components/_StyledComponents/CenteredDiv";
+import GET_ALL_PARTS_QUERY from "../../querys/parts/GetAllPartsQuery";
+import COUNT_PARTS_QUERY from "../../querys/parts/GetPartCount";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import {
+	faStepBackward,
+	faStepForward,
+	faFastBackward,
+} from "@fortawesome/free-solid-svg-icons";
+
+const StyledIcon = styled(FontAwesomeIcon)`
+	cursor: pointer;
+	color: black;
+`;
 
 const SearchBar = styled.form`
 	width: 100%;
@@ -81,13 +96,15 @@ const AddPartButton = () => {
 const PartsPage = () => {
 	const [searchValue, setSearchValue] = useState<string>("");
 	const [searchLimit, setSearchLimit] = useState<number>(25);
+	const [page, setPage] = useState<number>(1);
 
-	const [doSearch, { called, loading, data, error }] = useLazyQuery(
+	const [doSearch, { called, loading, data, error, refetch }] = useLazyQuery(
 		GET_ALL_PARTS_QUERY,
 		{
 			variables: {
 				query: searchValue,
 				limit: searchLimit,
+				page: page,
 			},
 		}
 	);
@@ -95,6 +112,32 @@ const PartsPage = () => {
 		doSearch();
 	}, [doSearch]);
 	console.log(data);
+
+	const GoFirstPage = () => {
+		setPage(1);
+		if (refetch) refetch();
+	};
+
+	const GoUpPage = () => {
+		setPage(page + 1);
+		if (refetch) refetch();
+	};
+	const GoDownPage = () => {
+		if (page === 1) return;
+		setPage(page - 1);
+		if (refetch) refetch();
+	};
+
+	const Count = () => {
+		const { data } = useQuery(COUNT_PARTS_QUERY, {
+			fetchPolicy: "network-only",
+		});
+		return (
+			<FlexDivCenter>
+				Page {page} of {data && Math.ceil(data.countParts.data / searchLimit)}
+			</FlexDivCenter>
+		);
+	};
 
 	return (
 		<>
@@ -118,6 +161,39 @@ const PartsPage = () => {
 				{!loading && !error && data && data.parts.success && (
 					<PartsTable data={data.parts.data} />
 				)}
+				<CenterDiv
+					style={{
+						display: "flex",
+						justifyContent: "space-between",
+						// margin: "0.5rem",
+						paddingTop: "0.25rem",
+					}}
+				>
+					<div>
+						{page > 1 && (
+							<>
+								<Button onClick={GoFirstPage}>
+									<StyledIcon icon={faFastBackward} />
+								</Button>
+								<Button onClick={GoDownPage}>
+									<StyledIcon
+										style={{ paddingRight: "0.5rem" }}
+										icon={faStepBackward}
+									/>
+									Prev
+								</Button>
+							</>
+						)}
+					</div>
+					<Count />
+					<Button onClick={GoUpPage}>
+						Next
+						<StyledIcon
+							style={{ paddingLeft: "0.5rem" }}
+							icon={faStepForward}
+						/>
+					</Button>
+				</CenterDiv>
 			</Section>
 		</>
 	);

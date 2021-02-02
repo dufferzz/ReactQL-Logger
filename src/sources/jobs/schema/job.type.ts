@@ -51,6 +51,12 @@ const jobType = gql`
 		error: String
 		data: Job
 	}
+
+	type JobCountResponse {
+		success: Boolean!
+		error: String
+		data: String
+	}
 `;
 
 export default jobType;

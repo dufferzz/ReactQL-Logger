@@ -6,6 +6,9 @@ import iconSpanner from "../../assets/icons/spanner.svg";
 import iconPackage from "../../assets/icons/package.svg";
 import iconError from "../../assets/icons/error.svg";
 import iconSuccess from "../../assets/icons/success.svg";
+import iconLorry from "../../assets/icons/lorry.svg";
+
+import iconCash from "../../assets/icons/cash.svg";
 
 const StatusImage = ({ status }: StatusType) => {
 	let image = null;
@@ -16,14 +19,20 @@ const StatusImage = ({ status }: StatusType) => {
 		case "in-progress":
 			image = iconSpanner;
 			break;
-		case "await":
+		case "await-parts":
 			image = iconPackage;
+			break;
+		case "await-delivery":
+			image = iconLorry;
 			break;
 		case "completed":
 			image = iconSuccess;
 			break;
 		case "fuck":
 			image = iconError;
+			break;
+		case "payment-received":
+			image = iconCash;
 			break;
 		default:
 			break;

@@ -19,3 +19,11 @@ type Role = {
 	description?: string;
 	name?: string;
 };
+
+type CacheOptions = { key?: string };
+
+interface Query<T> {
+	cache(options?: CacheOptions): Query<T>;
+	useCache: boolean;
+	hashKey: string;
+}

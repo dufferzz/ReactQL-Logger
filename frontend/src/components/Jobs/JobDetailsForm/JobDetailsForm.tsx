@@ -16,22 +16,9 @@ import UPDATE_JOB_MUTATION from "../../../querys/jobs/UpdateJobMutation";
 
 import { useHistory } from "react-router-dom";
 
+import JobFormValidator from "../../../validators/JobFormValidator";
+
 const MySwal = withReactContent(Swal);
-
-const JobSchema = Yup.object().shape({
-	customername: Yup.string()
-		.min(2, "Too Short!")
-		.max(70, "Too Long!")
-		.required("Required"),
-
-	email: Yup.string().email("Invalid email").required("Required"),
-	city: Yup.string().required("Required"),
-	address1: Yup.string().required("Required"),
-	district: Yup.string().required("Required"),
-	postcode: Yup.string().required("Required"),
-	assigned: Yup.string().required("Required"),
-	status: Yup.string().required("Required"),
-});
 
 interface JobPropType {
 	job: Job;
@@ -97,7 +84,7 @@ const JobDetailsForm = ({ job }: JobPropType) => {
 				serial: `${job.serial}`,
 				labourHours: `${job.labourHours}`,
 			}}
-			validationSchema={JobSchema}
+			validationSchema={JobFormValidator}
 			onSubmit={async (values, { setSubmitting }) => {
 				const newvalues: JobFormValuesProp = values;
 				console.log(parts);

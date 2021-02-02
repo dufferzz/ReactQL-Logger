@@ -11,6 +11,9 @@ import cors from "cors";
 
 import resolvers from "./resolvers";
 import schemas from "./schemas";
+
+import morgan from "morgan";
+
 require("dotenv").config();
 
 const schema = mergeSchemas({
@@ -63,6 +66,11 @@ const startServer = async () => {
 	const app = express();
 
 	app.use(cors(corsOptions));
+	app.use(
+		morgan(
+			":date[web] :status :res[content-length] - :response-time ms :total-time[3]"
+		)
+	);
 	app.disable("x-powered-by");
 
 	server.applyMiddleware({ app });

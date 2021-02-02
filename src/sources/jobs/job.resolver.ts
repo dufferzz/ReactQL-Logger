@@ -50,7 +50,7 @@ const jobResolver = {
 		async jobs(_: any, args: any, ctx: AppContext) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "readAll:jobs")) {
-				return jobController.jobs();
+				return jobController.jobs(args);
 			} else {
 				return handleNoPermission();
 			}
@@ -68,6 +68,22 @@ const jobResolver = {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "readAll:jobs")) {
 				return jobController.getJob(args);
+			} else {
+				return handleNoPermission();
+			}
+		},
+		async countJobs(_: any, args: any, ctx: AppContext) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (await checkPermissions(ctx, "readAll:jobs")) {
+				return jobController.countJobs(args);
+			} else {
+				return handleNoPermission();
+			}
+		},
+		async countAssignedJobs(_: any, args: any, ctx: AppContext) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (await checkPermissions(ctx, "readAll:jobs")) {
+				return jobController.countAssignedJobs(args);
 			} else {
 				return handleNoPermission();
 			}

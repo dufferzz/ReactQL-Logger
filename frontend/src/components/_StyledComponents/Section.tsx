@@ -82,7 +82,7 @@ const Section = (props: any) => {
 				}}
 			>
 				{props.icon && <Icon alt="User Icon" src={props.icon} />}
-				{props.title}
+				{props.title} {props.subtitle && `- ${props.subtitle}`}
 				<ToggleHideButton isOpen={isOpen} />
 			</SectionHeader>
 			{isOpen && props.children}

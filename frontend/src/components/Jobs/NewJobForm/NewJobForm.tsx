@@ -14,24 +14,8 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useHistory } from "react-router-dom";
 
-import * as Yup from "yup";
-
+import JobFormValidator from "../../../validators/JobFormValidator";
 const MySwal = withReactContent(Swal);
-
-const JobSchema = Yup.object().shape({
-	customername: Yup.string()
-		.min(2, "Too Short!")
-		.max(70, "Too Long!")
-		.required("Required"),
-
-	email: Yup.string().email("Invalid email").required("Required"),
-	address1: Yup.string().required("Required"),
-	city: Yup.string().required("Required"),
-	district: Yup.string().required("Required"),
-	postcode: Yup.string().required("Required"),
-	assigned: Yup.string().required("Required"),
-	status: Yup.string().required("Required"),
-});
 
 // {
 // 	partName: "Fake Item",
@@ -67,7 +51,7 @@ export const NewJobForm = () => {
 				status: "not-started",
 				labourHours: "0",
 			}}
-			validationSchema={JobSchema}
+			validationSchema={JobFormValidator}
 			onSubmit={async (values, { setSubmitting, resetForm }) => {
 				window.scrollTo({ top: 0, behavior: "smooth" });
 				console.log(values);

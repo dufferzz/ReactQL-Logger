@@ -1,26 +1,34 @@
 import Part from "./part.model";
 import { sendError, sendResponse } from "../../utils/responseHandlers";
+import QueryLimiter from "../../utils/queryLimiter";
+import QueryPagination from "../../utils/queryPagination";
 
 const partController = {
 	parts: async (args: any) => {
 		console.log(args);
-		let limit = args.limit || 25;
 		const query = new RegExp(args.query, "i");
-		if (limit > 100) limit = 100;
 
 		if (query) {
 			return Part.find({
 				$and: [{ $or: [{ partName: query }, { partNumber: query }] }],
 			})
-				.limit(limit)
+				.skip(QueryPagination(args.limit, args.page))
+				.limit(QueryLimiter(args.limit))
+
 				.then((data) => sendResponse(data))
 				.catch((err) => sendError(err));
 		} else {
 			return Part.find()
-				.limit(limit)
+				.limit(QueryLimiter(args.limit))
+
 				.then((data) => sendResponse(data));
 		}
 	},
+	countParts: (args: any) =>
+		Part.count({})
+			.then((data) => sendResponse(data))
+			.catch((error) => sendError(error)),
+
 	getPart: async (args: any) => {
 		return await Part.findById(args._id)
 			.then((data) => sendResponse(data))

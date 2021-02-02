@@ -1,8 +1,10 @@
 import Upload from "./upload.model";
+import QueryLimiter from "../../utils/queryLimiter";
+
 const uploadController = {
 	uploads: async (args: any) => {
 		return await Upload.find()
-			.limit(50)
+			.limit(QueryLimiter(args.limit))
 			.then((data) => {
 				console.log(data);
 				return {

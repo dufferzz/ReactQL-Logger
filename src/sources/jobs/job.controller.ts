@@ -3,22 +3,26 @@ import Job from "./job.model";
 import { sendError, sendResponse } from "../../utils/responseHandlers";
 import { ObjectId } from "mongodb";
 
+import JobFormValidator from "./job.validator";
+
+import QueryLimiter from "../../utils/queryLimiter";
+import QueryPagination from "../../utils/queryPagination";
+
 const jobController = {
-	jobs: () =>
+	jobs: (args: any) =>
 		Job.find()
 			.sort({ created: -1 })
+			.skip(QueryPagination(args.limit, args.page))
+			.limit(QueryLimiter(args.limit))
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error)),
 
 	searchJobs: async (args: any) => {
-		console.log(args);
-		let limit = args.limit || 25;
-		const query = args.query;
-		if (limit > 100) limit = 100;
+		if (ObjectId.isValid(args.query)) {
+			return await Job.find({ _id: new ObjectId(args.query) })
+				.skip(QueryPagination(args.limit, args.page))
 
-		if (ObjectId.isValid(query)) {
-			return await Job.find({ _id: new ObjectId(query) })
-				.limit(limit)
+				.limit(QueryLimiter(args.limit))
 				.then((data) => sendResponse(data))
 				.catch((err) => sendError(err));
 		} else {
@@ -31,11 +35,27 @@ const jobController = {
 					},
 				],
 			})
-				.limit(limit)
+				.limit(QueryLimiter(args.limit))
 				.then((data) => sendResponse(data))
 				.catch((err) => sendError(err));
 		}
 	},
+	countJobs: (args: any) =>
+		Job.count({})
+			.then((data) => {
+				console.log("count:", data);
+				return sendResponse(data);
+			})
+			.catch((error) => sendError(error)),
+
+	countAssignedJobs: (args: any) =>
+		Job.count({ assigned: args.user })
+			.then((data) => {
+				console.log("count:", data);
+				return sendResponse(data);
+			})
+			.catch((error) => sendError(error)),
+
 	getJob: (args: any) =>
 		Job.findById(args._id)
 			.then((data) => sendResponse(data))
@@ -43,40 +63,58 @@ const jobController = {
 
 	getAssignedJobs: (args: any) =>
 		Job.find({ assigned: args.user })
+			.sort({ created: -1 })
+
+			.skip(QueryPagination(args.limit, args.page))
+
+			.limit(QueryLimiter(args.limit))
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error)),
 
-	updateJob: async (args: any) =>
-		Job.findOneAndUpdate(
-			{
-				_id: args._id,
-			},
-			{
-				$set: {
-					customername: args.customername,
-					email: args.email,
-					address1: args.address1,
-					address2: args.address2,
-					city: args.city,
-					district: args.district,
-					parts: args.parts,
-					postcode: args.postcode,
-					done: args.done,
-					todo: args.todo,
-					date: args.date,
-					status: args.status,
-					model: args.model,
-					make: args.make,
-					year: args.year,
-					serial: args.serial,
-					assigned: args.assigned,
-					labourHours: args.labourHours,
-					modified: new Date(),
-				},
-			}
-		)
-			.then((data) => sendResponse(data))
-			.catch((error) => sendError(error)),
+	updateJob: async (args: any) => {
+		const updatedJob = {
+			customername: args.customername,
+			email: args.email,
+			address1: args.address1,
+			address2: args.address2,
+			city: args.city,
+			district: args.district,
+			parts: args.parts,
+			postcode: args.postcode,
+			done: args.done,
+			todo: args.todo,
+			date: args.date,
+			status: args.status,
+			model: args.model,
+			make: args.make,
+			year: args.year,
+			serial: args.serial,
+			assigned: args.assigned,
+			labourHours: parseInt(args.labourHours),
+			modified: new Date(),
+		};
+
+		return JobFormValidator.isValid(updatedJob)
+			.then((isValid) => {
+				if (isValid) {
+					return Job.findOneAndUpdate(
+						{
+							_id: args._id,
+						},
+						{
+							$set: updatedJob,
+						}
+					)
+						.then((data) => sendResponse(data))
+						.catch((error) => sendError(error));
+				} else {
+					return sendError("Server: Form Validation Failed");
+				}
+			})
+			.catch((error) => {
+				return sendError(error);
+			});
+	},
 
 	deleteJob: (args: any) =>
 		Job.deleteOne({ _id: args._id })
@@ -85,6 +123,7 @@ const jobController = {
 
 	addJob: (args: any) => {
 		console.log(args);
+
 		const newjob = new Job({
 			customername: args.customername,
 			email: args.email,
@@ -108,10 +147,22 @@ const jobController = {
 			labourHours: parseInt(args.labourHours),
 			// images: args.images,
 		});
-		return newjob
-			.save()
-			.then((data) => sendResponse(data))
-			.catch((error) => sendError(error));
+
+		return JobFormValidator.isValid(newjob)
+			.then((isValid) => {
+				console.log(isValid);
+				if (isValid) {
+					return newjob
+						.save()
+						.then((data) => sendResponse(data))
+						.catch((error) => sendError(error));
+				} else {
+					return sendError("Server: Form Validation Failed");
+				}
+			})
+			.catch((error) => {
+				return sendError(error);
+			});
 	},
 };
 

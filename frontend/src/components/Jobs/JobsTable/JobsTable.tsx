@@ -7,9 +7,11 @@ import { useHistory } from "react-router-dom";
 
 const columns = [
 	{
-		name: "",
+		name: " ",
 		selector: "status",
 		width: "50px",
+		sortable: true,
+
 		cell: (row: any) => (
 			<div style={{ width: "50px" }} data-tag="allowRowEvents">
 				<StatusImage status={row.status} />
@@ -64,7 +66,7 @@ const columns = [
 	},
 	{
 		name: "Client",
-		selector: "clientname",
+		selector: "customername",
 		maxWidth: "150px",
 		sortable: true,
 		hide: 580,
@@ -74,7 +76,7 @@ const columns = [
 	{
 		name: "Make",
 		selector: "make",
-		maxWidth: "100px",
+		maxWidth: "110px",
 		sortable: true,
 		hide: 950,
 
@@ -93,7 +95,7 @@ const columns = [
 		name: "Date",
 		sortable: true,
 
-		width: "110px",
+		width: "115px",
 		selector: "created",
 		cell: (row: any) => (
 			<div style={{ textAlign: "center" }} data-tag="allowRowEvents">

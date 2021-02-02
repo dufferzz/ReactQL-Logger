@@ -39,6 +39,11 @@ const partType = gql`
 		data: [Part]
 		error: String
 	}
+	type PartCountResponse {
+		success: Boolean!
+		data: String
+		error: String
+	}
 `;
 
 export default partType;

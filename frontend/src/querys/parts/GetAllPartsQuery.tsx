@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 const GET_ALL_PARTS_QUERY = gql`
-	query GetParts($query: String, $limit: Int) {
-		parts(query: $query, limit: $limit) {
+	query GetParts($query: String, $limit: Int, $page: Int) {
+		parts(query: $query, limit: $limit, page: $page) {
 			success
 			error
 			data {

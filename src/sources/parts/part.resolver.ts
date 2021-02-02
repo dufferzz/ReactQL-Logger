@@ -39,6 +39,15 @@ const partResolver = {
 				return handleNoPermission();
 			}
 		},
+		async countParts(_: any, args: any, ctx: AppContext) {
+			if (!ctx.isAuthenticated) return handleUnauthenticated();
+			if (await checkPermissions(ctx, "readAll:parts")) {
+				return partController.countParts(args);
+			} else {
+				return handleNoPermission();
+			}
+		},
+
 		async getPart(_: any, args: any, ctx: AppContext) {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "readAll:parts")) {

@@ -19,10 +19,9 @@ Internal Management App, Webstore App, React Native App (Todo) powered by GraphQ
 ## Features
 
 - GraphQL (With RBAC using Auth0)
-- Workshop Job Management
+- Job Management
 - Parts Management
 - Auth0 Authentication
-- Basically nothing useful yet
 - Live updates with GQL Subscriptions
 
 ## Currently in development
@@ -30,7 +29,8 @@ Internal Management App, Webstore App, React Native App (Todo) powered by GraphQ
 - User Administtation
 - Messaging system
 - Attachment uploads system (PDF & Images with generated thumbnails)
-- Handle MaxListenersExceededWarning: Possible EventEmitter memory leak detected.
+- Re-Styling
+- Moving UI state into redux, make it user configurable
 
 ## Todos (Not in any particular order)
 
@@ -67,10 +67,9 @@ It is possible to use an SSH tunnel for access from different devices (Otherwise
 ### Running Development server
 
 ```bash
-    yarn && cd frontend && yarn && cd ..
-    nvim frontend/config/config.tsx # Change variables as required
-    mv .env.example .env && nvim .env # Change variables as required
-    yarn startdev
+    yarn && cd frontend && yarn && nvim src/config/config.tsx && \
+    cd ../.. && cd src && cp .env.example .env && nvim .env  && \
+    cd .. && yarn startdev
 ```
 
 ## License
