@@ -46,7 +46,7 @@ const PartsView = ({ parts, setParts }: JobPartsProp) => {
 		};
 
 		setParts([...parts, newPart]);
-		console.log(parts);
+		// console.log(parts);
 	};
 
 	return (

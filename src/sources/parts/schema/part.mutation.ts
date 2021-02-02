@@ -7,6 +7,7 @@ const partMutation = gql`
 			partNumber: String!
 			price: String!
 			Location: String!
+			description: String!
 			SKU: String!
 			supplier: String!
 			thumbnail: String!
@@ -18,6 +19,7 @@ const partMutation = gql`
 			partNumber: String!
 			price: String!
 			Location: String!
+			description: String!
 			SKU: String!
 			supplier: String!
 			thumbnail: String!

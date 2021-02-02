@@ -37,6 +37,26 @@ const Button = styled.button`
 		outline: 1px solid black;
 	}
 `;
+export const FormButton = styled.button`
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	/* margin: 2px; */
+	width: max-content;
+	color: #000;
+	border-radius: ${theme.tightBorderRadius};
+	border: 0px solid rgba(0, 0, 0, 0.7);
+	cursor: pointer;
+	&:hover {
+		background: rgba(0, 0, 0, 0.1);
+	}
+
+	${(props: any) =>
+		props.primary &&
+		css`
+			background: white;
+			color: black;
+		`}
+`;
 
 export const DangerButton = styled(Button)`
 	background: ${theme.secondaryGradientStart};

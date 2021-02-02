@@ -13,6 +13,7 @@ const GET_JOB_QUERY = gql`
 				city
 				district
 				postcode
+				contactphone
 				todo
 				done
 				parts {

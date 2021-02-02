@@ -12,6 +12,7 @@ const jobType = gql`
 		city: String!
 		district: String!
 		postcode: String!
+		contactphone: String!
 		todo: String!
 		done: String!
 		modified: DateTime!
@@ -21,12 +22,14 @@ const jobType = gql`
 		make: String!
 		year: String!
 		serial: String!
-		parts: [Part]!
+		parts: [JobPart]!
 		assigned: String!
 		labourHours: String!
+		lastModifiedBy: String
+		createdBy: String!
 	}
 
-	type Part {
+	type JobPart {
 		partName: String!
 		partNumber: String!
 		partQty: String!

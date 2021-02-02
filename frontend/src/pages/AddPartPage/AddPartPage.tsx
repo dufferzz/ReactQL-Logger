@@ -10,11 +10,12 @@ import theme from "../../config/theme";
 
 const AddPartPage = () => {
 	const handleSubmit = (files: any) => {
-		console.log(files);
+		// console.log(files);
 		// uploadFile({ variables: { file: files, title: "test" } }).then((res) => {
 		// console.log(res);
 		// });
 	};
+	const handleFileUpload = (acceptedFiles: any) => {};
 	return (
 		<Section title="Create New Part" icon={PackageIcon}>
 			<div style={{ textAlign: "center" }}>
@@ -32,7 +33,9 @@ const AddPartPage = () => {
 					gridGap: "0.25rem",
 				}}
 			>
-				<Dropzone onDrop={(acceptedFiles: any) => handleSubmit(acceptedFiles)}>
+				<Dropzone
+					onDrop={(acceptedFiles: any) => handleFileUpload(acceptedFiles)}
+				>
 					{({ getRootProps, getInputProps }: any) => (
 						<section>
 							<div {...getRootProps()}>
@@ -86,7 +89,10 @@ const AddPartPage = () => {
 					<input name="Location" type="text"></input>
 				</SectionElement>
 			</div>
-			<Button style={{ width: "100%", height: "3rem", marginTop: "0.5rem" }}>
+			<Button
+				onClick={handleSubmit}
+				style={{ width: "100%", height: "3rem", marginTop: "0.5rem" }}
+			>
 				Submit
 			</Button>
 		</Section>

@@ -4,17 +4,19 @@ type Job = {
 	lastname: string;
 	customername: string;
 	parts: JobPart[];
+	contactphone: string;
 	email: string;
 	city: string;
 	district: string;
 	postcode: string;
-	created: Date;
-	address1?: string;
-	address2?: string;
-	modified: Date;
+	created: string;
+	address1: string;
+	address2: string;
+	modified: string;
 	todo: string;
 	done: string;
 	status: string;
+
 	assigned: string;
 	make: string;
 	model: string;

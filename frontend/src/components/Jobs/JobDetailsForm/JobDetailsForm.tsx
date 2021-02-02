@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Formik } from "formik";
 import { useMutation } from "@apollo/client";
-import * as Yup from "yup";
+import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
@@ -14,8 +14,6 @@ import FormError from "../../FormError";
 
 import UPDATE_JOB_MUTATION from "../../../querys/jobs/UpdateJobMutation";
 
-import { useHistory } from "react-router-dom";
-
 import JobFormValidator from "../../../validators/JobFormValidator";
 
 const MySwal = withReactContent(Swal);
@@ -26,7 +24,7 @@ interface JobPropType {
 
 const handleResponse = (data: any, history: any) => {
 	const resp = data.updateJob;
-	console.log(resp);
+	// console.log(resp);
 	if (resp.success) {
 		window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -53,57 +51,28 @@ const handleResponse = (data: any, history: any) => {
 const JobDetailsForm = ({ job }: JobPropType) => {
 	const history = useHistory();
 	const [updateJob] = useMutation(UPDATE_JOB_MUTATION);
-	const newParts = job.parts.map((item) => {
-		return {
-			partName: item.partName,
-			partNumber: item.partNumber,
-			partQty: item.partQty,
-			price: item.price,
-		};
-	});
-	const [parts, setParts] = useState<JobPart[]>([...newParts]);
+	const [parts, setParts] = useState<JobPart[]>([...job.parts]);
 
 	return (
 		<Formik
-			initialValues={{
-				_id: `${job._id}`,
-				customername: `${job.customername}`,
-				email: `${job.email}`,
-				address1: `${job.address1}`,
-				address2: `${job.address2}`,
-				city: `${job.city}`,
-				district: `${job.district}`,
-				postcode: `${job.postcode}`,
-				todo: `${job.todo}`,
-				done: `${job.done}`,
-				status: `${job.status}`,
-				assigned: `${job.assigned}`,
-				make: `${job.make}`,
-				model: `${job.model}`,
-				year: `${job.year}`,
-				serial: `${job.serial}`,
-				labourHours: `${job.labourHours}`,
-			}}
+			initialValues={{ ...job }}
 			validationSchema={JobFormValidator}
 			onSubmit={async (values, { setSubmitting }) => {
 				const newvalues: JobFormValuesProp = values;
-				console.log(parts);
 				newvalues.parts = parts;
-				console.log(newvalues);
 				await updateJob({ variables: newvalues })
 					.then(({ data }: any) => {
 						handleResponse(data, history);
 						setSubmitting(false);
 					})
 					.catch((err: any) => {
+						console.error(err);
+						setSubmitting(false);
 						MySwal.fire({
 							title: <p>Error!</p>,
 							icon: "error",
 							text: err.message,
 						});
-						setSubmitting(false);
-
-						console.error(err);
 					});
 			}}
 		>

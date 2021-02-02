@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import LogoutButton from "../_SharedComponents/Buttons/LogoutButton";
 import {
 	faClipboardList,
 	faSearch,
@@ -11,6 +10,8 @@ import {
 	faCogs,
 	faEnvelope,
 	faUserCog,
+	faSignOutAlt,
+	faUserShield,
 } from "@fortawesome/free-solid-svg-icons";
 
 import theme from "../../config/theme";
@@ -42,7 +43,8 @@ const BurgerDropDownItemView = styled.div`
 	padding: 0.25rem;
 	line-height: 2;
 	transition: color 0.2s;
-
+	cursor: pointer;
+	font-size: 1rem;
 	&:hover {
 		background-color: rgba(0, 0, 0, 0.1);
 		border-radius: 5px;
@@ -72,12 +74,10 @@ const CustomLink = styled(NavLink)`
 	}
 `;
 
-const BurgerMenuItem = ({ to, text, icon }: any) => (
+const BurgerMenuItem = ({ to, text, icon, style }: any) => (
 	<CustomLink to={to}>
 		<BurgerDropDownItemView>
-			<div style={{}}>
-				<StyledIcon icon={icon} />
-			</div>
+			<StyledIcon style={style} icon={icon} />
 			<div
 				style={{
 					display: "flex",
@@ -92,7 +92,7 @@ const BurgerMenuItem = ({ to, text, icon }: any) => (
 );
 
 const BurgerDropDown = ({ style }: any) => {
-	const { user } = useAuth0();
+	const { user, logout } = useAuth0();
 
 	let userRole;
 	if (user) {
@@ -116,7 +116,11 @@ const BurgerDropDown = ({ style }: any) => {
 							src={user.picture}
 							alt="avatar"
 						/>
-						<div>{user.email}</div>
+						<div style={{ fontSize: "1.1rem" }}>
+							Signed in as:
+							<br />
+							{user.nickname}
+						</div>
 					</div>
 					<hr />
 					<BurgerMenuItem to="/search" icon={faSearch} text="Search" />
@@ -124,16 +128,35 @@ const BurgerDropDown = ({ style }: any) => {
 					<BurgerMenuItem to="/parts" icon={faCarBattery} text="Parts" />
 					<BurgerMenuItem to="/messages" icon={faEnvelope} text="Messages" />
 					<hr />
-					<BurgerMenuItem to="/profile" icon={faUserCog} text="My Profile" />
+					<BurgerMenuItem to="/profile" icon={faUserCog} text="Profile" />
 
 					{userRole === "admin" && (
-						<BurgerMenuItem to="/admin" icon={faCogs} text="Admin" />
+						<BurgerMenuItem
+							style={{ color: "red" }}
+							to="/admin"
+							icon={faUserShield}
+							text="Admin"
+						/>
 					)}
-					<BurgerMenuItem to="/settings" icon={faCogs} text="App Settings" />
+					<BurgerMenuItem to="/settings" icon={faCogs} text="Settings" />
+					<hr />
 
-					<LogoutButton
-						style={{ marginTop: "1rem", paddingTop: "0.5rem", width: "100%" }}
-					/>
+					<BurgerDropDownItemView
+						onClick={() => {
+							logout({ returnTo: window.location.origin });
+						}}
+					>
+						<StyledIcon style={{ color: "red" }} icon={faSignOutAlt} />
+						<div
+							style={{
+								display: "flex",
+								width: "100%",
+								justifyContent: "space-evenly",
+							}}
+						>
+							Logout
+						</div>
+					</BurgerDropDownItemView>
 				</div>
 			</BurgerDropDownView>
 		</>

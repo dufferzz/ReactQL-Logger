@@ -12,6 +12,7 @@ const GET_PART_DETAILS_QUERY = gql`
 				thumbnail
 				stock
 				location
+				description
 				SKU
 				Location
 				supplier

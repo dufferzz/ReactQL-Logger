@@ -6,6 +6,7 @@ const ADD_PART_MUTATION = gql`
 		$partNumber: String!
 		$price: String!
 		$Location: String!
+		$description: String!
 		$SKU: String!
 		$supplier: String!
 		$thumbnail: String!
@@ -15,6 +16,7 @@ const ADD_PART_MUTATION = gql`
 			partNumber: $partNumber
 			price: $price
 			Location: $Location
+			description: $description
 			SKU: $SKU
 			supplier: $supplier
 			thumbnail: $string
@@ -27,6 +29,7 @@ const ADD_PART_MUTATION = gql`
 				partNumber
 				price
 				Location
+				description
 				SKU
 				supplier
 				thumbnail

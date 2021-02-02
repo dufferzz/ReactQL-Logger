@@ -93,8 +93,8 @@ const CustomerInfo = () => {
 				}}
 			>
 				<SectionElement>
-					<label htmlFor="phonenumber">Contact Phone*</label>
-					<Field type="phonenumber" name="phonenumber" />
+					<label htmlFor="contactphone">Contact Phone*</label>
+					<Field type="contactphone" name="contactphone" />
 				</SectionElement>
 				<SectionElement>
 					<label htmlFor="email">Contact Email*</label>

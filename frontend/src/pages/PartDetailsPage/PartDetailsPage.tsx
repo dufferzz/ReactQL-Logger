@@ -58,7 +58,7 @@ const PartDetailsPage = () => {
 				<ErrorComponent error={error} />
 			</CenterDiv>
 		);
-	console.log(data);
+	// console.log(data);
 
 	const part = data.getPart.data;
 
@@ -156,28 +156,20 @@ const PartDetailsPage = () => {
 					</div>
 				</div>
 
-				<FlexDivCenter>
-					<h2>Description</h2>
+				<div
+					style={{
+						display: "grid",
+						gridTemplateColumns: "1fr",
+						justifyContent: "center",
+						alignItems: "center",
+						width: "100%",
+					}}
+				>
+					<h2 style={{ textAlign: "center" }}>Description</h2>
 					<div style={{ padding: "0 1rem", lineHeight: "1.5" }}>
-						I don't think anybody knows it was Russia that wrote Lorem Ipsum,
-						but I don't know, maybe it was. It could be Russia, but it could
-						also be China. It could also be lots of other people. It also could
-						be some wordsmith sitting on their bed that weights 400 pounds. Ok?
-						Some people have an ability to write placeholder text... It's an art
-						you're basically born with. You either have it or you don't. An
-						‘extremely credible source’ has called my office and told me that
-						Barack Obama’s placeholder text is a fraud. Lorem Ipsum better hope
-						that there are no "tapes" of our conversations before he starts
-						leaking to the press! You’re disgusting. Trump Ipsum is calling for
-						a total and complete shutdown of Muslim text entering your website.
-						If Trump Ipsum weren’t my own words, perhaps I’d be dating it. We
-						have so many things that we have to do better... and certainly ipsum
-						is one of them. Look at that text! Would anyone use that? Can you
-						imagine that, the text of your next webpage?! I'm speaking with
-						myself, number one, because I have a very good brain and I've said a
-						lot of things.
+						{part.description}
 					</div>
-				</FlexDivCenter>
+				</div>
 				<FlexDivCenter></FlexDivCenter>
 				<div style={{ marginTop: "1rem" }}>
 					<h2 style={{ textAlign: "center", margin: 0 }}>

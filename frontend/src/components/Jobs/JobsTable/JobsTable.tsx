@@ -41,6 +41,7 @@ const columns = [
 			>
 				{row.make === "" && row.model === "" && (
 					<span
+						data-tag="allowRowEvents"
 						style={{ fontSize: "1rem", fontWeight: "bold", lineHeight: "2" }}
 					>
 						Unknown
@@ -50,6 +51,7 @@ const columns = [
 				{(row.make !== "" || row.model !== "") && (
 					<>
 						<span
+							data-tag="allowRowEvents"
 							style={{ fontSize: "1rem", fontWeight: "bold", lineHeight: "2" }}
 						>
 							{row.make} {row.model}
@@ -131,7 +133,7 @@ const JobsTable = ({ data, subscribeToMore, subQuery, result, type }: any) => {
 							}
 							const newJobItem = subscriptionData.data.jobAdded.data;
 							// console.log(newJobItem);
-							console.log(currentData[`${type}`]);
+							// console.log(currentData[`${type}`]);
 							// console.log(currentdata)
 							const l = currentData[`${type}`];
 							return Object.assign({}, currentData, {

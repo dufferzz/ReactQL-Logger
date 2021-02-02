@@ -86,11 +86,11 @@ const JobDetails = () => {
 				}}
 			>
 				<label htmlFor="todo">Todo</label>
-				<Field component="textarea" name="todo" rows={7}></Field>
+				<Field component="textarea" name="todo" rows={10}></Field>
 				<ErrorField name="todo" component="div" />
 
 				<label htmlFor="done">Done</label>
-				<Field component="textarea" rows={7} name="done"></Field>
+				<Field component="textarea" rows={10} name="done"></Field>
 				<ErrorField name="done" component="div" />
 			</div>
 		</Section>

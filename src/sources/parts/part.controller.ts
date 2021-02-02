@@ -12,20 +12,23 @@ const partController = {
 			return Part.find({
 				$and: [{ $or: [{ partName: query }, { partNumber: query }] }],
 			})
-				.skip(QueryPagination(args.limit, args.page))
+				.sort({ _id: -1 })
+				.skip(QueryPagination(args.page, args.limit))
 				.limit(QueryLimiter(args.limit))
 
 				.then((data) => sendResponse(data))
 				.catch((err) => sendError(err));
 		} else {
 			return Part.find()
+				.sort({ _id: -1 })
+
 				.limit(QueryLimiter(args.limit))
 
 				.then((data) => sendResponse(data));
 		}
 	},
 	countParts: (args: any) =>
-		Part.count({})
+		Part.countDocuments({})
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error)),
 

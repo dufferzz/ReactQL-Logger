@@ -20,7 +20,7 @@ const RemovePartIcon = (props: any) => {
 	);
 };
 const handleRemovePart = (part: any) => {
-	console.log("Remove part:", part.partNumber, part.partQty);
+	// console.log("Remove part:", part.partNumber, part.partQty);
 };
 
 const columns = [
@@ -71,13 +71,13 @@ const columns = [
 ];
 
 const JobPartsTable = ({ data }: any) => {
-	console.log(data);
+	// console.log(data);
 	return (
 		<Table
 			columns={columns}
 			data={data}
 			onRowClicked={(e: any) => {
-				console.log(e);
+				// console.log(e);
 				// history.push(`/job/${e._id}`);
 			}}
 		/>

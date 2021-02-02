@@ -18,7 +18,7 @@ import GET_SAFE_USERS_QUERY from "../../../querys/users/GetSafeUserList";
 const MySwal = withReactContent(Swal);
 
 const deleteJob = async (id: String, sendDeleteJob: any, history: any) => {
-	console.log(`deleting job ${id}!`);
+	// console.log(`deleting job ${id}!`);
 	MySwal.fire({
 		title: <p>Delete Job?</p>,
 		icon: "warning",
@@ -30,7 +30,7 @@ const deleteJob = async (id: String, sendDeleteJob: any, history: any) => {
 			sendDeleteJob(id)
 				.then(({ data }: any) => {
 					const res = data.deleteJob;
-					console.log(res);
+					// console.log(res);
 					if (res.success) {
 						MySwal.fire({
 							title: <p>Job Deleted!</p>,
@@ -70,7 +70,7 @@ interface IDProp {
 
 const UserList = ({ assigned }: any) => {
 	const { data } = useQuery(GET_SAFE_USERS_QUERY);
-	console.log(data);
+	// console.log(data);
 	return (
 		<Field
 			as="select"
@@ -158,7 +158,7 @@ const InternalUse = ({ id, assigned }: IDProp) => {
 						name="status"
 					>
 						<option value="not-started">Not Started</option>
-						<option value="await">Awaiting Parts</option>
+						<option value="await-parts">Awaiting Parts</option>
 						<option value="fuck">FUCK!</option>
 						<option value="completed">Completed</option>
 					</Field>

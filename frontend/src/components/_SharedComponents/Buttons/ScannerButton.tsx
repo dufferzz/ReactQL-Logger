@@ -14,7 +14,7 @@ const ScannerButton = () => {
 	const handleScan = (input: any) => {
 		setScanData(input);
 		if (input) {
-			console.log(input);
+			// console.log(input);
 			MySwal.close();
 			const scanned = input.split(":");
 			let type: string;
@@ -60,7 +60,7 @@ const ScannerButton = () => {
 			),
 		});
 	};
-	return <Button onClick={openModal}>Open Scanner</Button>;
+	return <Button onClick={openModal}>Scanner</Button>;
 };
 
 export default ScannerButton;

@@ -9,6 +9,7 @@ const partType = gql`
 		partNumber: String
 		price: String!
 		thumbnail: String
+		description: String
 		stock: String
 		location: String
 		SKU: String
@@ -21,6 +22,7 @@ const partType = gql`
 		partNumber: String
 		price: String!
 		thumbnail: String
+		description: String
 		stock: String
 		location: String
 		SKU: String

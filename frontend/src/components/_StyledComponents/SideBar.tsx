@@ -9,7 +9,7 @@ import config from "../../config/config";
 const StyledSideBar = styled.div`
 	grid-area: sidebar;
 	text-align: center;
-	width: 200px;
+	width: 160px;
 
 	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
 	@media (max-width: ${config.mobileBreakpoint}px) {

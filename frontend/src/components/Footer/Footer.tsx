@@ -43,12 +43,18 @@ const Footer = () => {
 				</div>
 			</FootLeft>
 			<FootRight>
-				<div title="Incomplete Section">Site Map</div>
-				<div title="Incomplete Section">About this App</div>
+				<div title="Incomplete Section">
+					<a href="/sitemap">Site Map</a>
+				</div>
+				<div title="Incomplete Section">
+					<a href="https://github.com/dufferzz/DFZService-Stack">
+						About this App
+					</a>
+				</div>
 			</FootRight>
 			<FootBottom>
 				<div>
-					Created By Sam Duff @ <a href="https://dufferz.net">Dufferz.net</a>
+					<a href="https://dufferz.net">Created By Sam Duff @ Dufferz.net</a>
 				</div>
 			</FootBottom>
 		</Foot>

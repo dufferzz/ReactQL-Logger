@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import PartsTable from "../../components/PartsTable/PartsTable";
 import Section from "../../components/_StyledComponents/Section";
-import Button from "../../components/_StyledComponents/Button";
+import Button, { FormButton } from "../../components/_StyledComponents/Button";
 import FlexDivCenter from "../../components/_StyledComponents/FlexDiv";
 import SectionElement from "../../components/_StyledComponents/SectionElement";
 import Loading from "../../components/_SharedComponents/Loading/Loading";
@@ -77,7 +77,10 @@ const SearchParts = ({
 				</label>
 			</SectionElement>
 			<SectionElement style={{ alignItems: "end" }}>
-				<Button style={{ height: "2.5rem" }} onClick={doSearch}>
+				<Button
+					style={{ height: "2.5rem", marginBottom: "0.25rem", width: "100%" }}
+					onClick={doSearch}
+				>
 					Search
 				</Button>
 			</SectionElement>
@@ -93,6 +96,15 @@ const AddPartButton = () => {
 	);
 };
 
+const Count = ({ page, searchLimit }: any) => {
+	const { data } = useQuery(COUNT_PARTS_QUERY);
+	return (
+		<FlexDivCenter>
+			Page {page} of {data && Math.ceil(data.countParts.data / searchLimit)}
+		</FlexDivCenter>
+	);
+};
+
 const PartsPage = () => {
 	const [searchValue, setSearchValue] = useState<string>("");
 	const [searchLimit, setSearchLimit] = useState<number>(25);
@@ -101,6 +113,7 @@ const PartsPage = () => {
 	const [doSearch, { called, loading, data, error, refetch }] = useLazyQuery(
 		GET_ALL_PARTS_QUERY,
 		{
+			fetchPolicy: "cache-and-network",
 			variables: {
 				query: searchValue,
 				limit: searchLimit,
@@ -111,7 +124,7 @@ const PartsPage = () => {
 	useEffect(() => {
 		doSearch();
 	}, [doSearch]);
-	console.log(data);
+	// console.log(data);
 
 	const GoFirstPage = () => {
 		setPage(1);
@@ -128,17 +141,6 @@ const PartsPage = () => {
 		if (refetch) refetch();
 	};
 
-	const Count = () => {
-		const { data } = useQuery(COUNT_PARTS_QUERY, {
-			fetchPolicy: "network-only",
-		});
-		return (
-			<FlexDivCenter>
-				Page {page} of {data && Math.ceil(data.countParts.data / searchLimit)}
-			</FlexDivCenter>
-		);
-	};
-
 	return (
 		<>
 			<FlexDivCenter>
@@ -146,7 +148,7 @@ const PartsPage = () => {
 				<ScannerButton />
 			</FlexDivCenter>
 
-			<Section title="Search All Parts">
+			<Section style={{ padding: 0 }} title="Search All Parts">
 				{error && <ErrorComponent error={error} />}
 				<SearchParts
 					limit={searchLimit}
@@ -172,27 +174,27 @@ const PartsPage = () => {
 					<div>
 						{page > 1 && (
 							<>
-								<Button onClick={GoFirstPage}>
+								<FormButton onClick={GoFirstPage}>
 									<StyledIcon icon={faFastBackward} />
-								</Button>
-								<Button onClick={GoDownPage}>
+								</FormButton>
+								<FormButton onClick={GoDownPage}>
 									<StyledIcon
 										style={{ paddingRight: "0.5rem" }}
 										icon={faStepBackward}
 									/>
 									Prev
-								</Button>
+								</FormButton>
 							</>
 						)}
 					</div>
-					<Count />
-					<Button onClick={GoUpPage}>
+					<Count page={page} searchLimit={searchLimit} />
+					<FormButton onClick={GoUpPage}>
 						Next
 						<StyledIcon
 							style={{ paddingLeft: "0.5rem" }}
 							icon={faStepForward}
 						/>
-					</Button>
+					</FormButton>
 				</CenterDiv>
 			</Section>
 		</>

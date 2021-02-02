@@ -32,6 +32,10 @@ const JobSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	contactphone: {
+		type: String,
+		required: true,
+	},
 	todo: {
 		type: String,
 		required: false,
@@ -48,8 +52,17 @@ const JobSchema = new Schema({
 		type: Date,
 		required: true,
 	},
+	lastModifiedBy: {
+		type: String,
+		required: true,
+	},
+
 	created: {
 		type: Date,
+		required: true,
+	},
+	createdBy: {
+		type: String,
 		required: true,
 	},
 	status: {

@@ -49,7 +49,7 @@ const UploadsList = () => {
 const AllUsers = () => {
 	const { data, error, loading } = useQuery(GET_ALL_USERS_QUERY);
 
-	console.log(data);
+	// console.log(data);
 	return (
 		<Section style={{ gridArea: "users" }} title="All Users">
 			{loading && <Loading />}
@@ -92,9 +92,9 @@ const Uploads = () => {
 	);
 
 	const handleSubmit = (files: any) => {
-		console.log(files);
+		// console.log(files);
 		uploadFile({ variables: { file: files, title: "test" } }).then((res) => {
-			console.log(res);
+			// console.log(res);
 		});
 	};
 

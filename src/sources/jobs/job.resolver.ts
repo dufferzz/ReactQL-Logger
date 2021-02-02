@@ -102,7 +102,7 @@ const jobResolver = {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (await checkPermissions(ctx, "create:jobs")) {
 				pubsub.publish(JOB_ADDED, { jobAdded: { data: args } });
-				return jobController.addJob(args);
+				return jobController.addJob(args, ctx);
 			} else {
 				return handleNoPermission();
 			}
@@ -112,7 +112,7 @@ const jobResolver = {
 			if (await checkPermissions(ctx, "update:jobs")) {
 				pubsub.publish(JOB_ID_UPDATED, { jobIDUpdated: { data: args } });
 				pubsub.publish(JOB_UPDATED, { jobUpdated: { data: args } });
-				return jobController.updateJob(args);
+				return jobController.updateJob(args, ctx);
 			} else {
 				return handleNoPermission();
 			}

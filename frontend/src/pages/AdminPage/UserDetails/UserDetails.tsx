@@ -60,7 +60,7 @@ const UserDetails = () => {
 		},
 	});
 
-	console.log(data);
+	// console.log(data);
 	let d;
 	if (data && data.getUser.success) {
 		d = data.getUser.data;

@@ -8,7 +8,7 @@ import FlexDiv from "../../components/_StyledComponents/FlexDiv";
 import CenterDiv from "../../components/_StyledComponents/CenteredDiv";
 
 import Section from "../../components/_StyledComponents/Section";
-import Button from "../../components/_StyledComponents/Button";
+import Button, { FormButton } from "../../components/_StyledComponents/Button";
 import Loading from "../../components/_SharedComponents/Loading/Loading";
 import ErrorComponent from "../../components/_SharedComponents/ErrorComponent/ErrorComponent";
 import ErrorBoundary from "../../components/_SharedComponents/ErrorBoundary/ErrorBoundary";
@@ -41,24 +41,28 @@ import {
 	faStepForward,
 	faFastBackward,
 } from "@fortawesome/free-solid-svg-icons";
-import { couldStartTrivia } from "typescript";
 
 const StyledIcon = styled(FontAwesomeIcon)`
 	cursor: pointer;
 	color: black;
 `;
+const AssignedCount = ({ user, page, limit }: any) => {
+	const { data } = useQuery(ASSIGNED_JOB_COUNT_QUERY, {
+		fetchPolicy: "network-only",
+		variables: { user: user.nickname },
+	});
+	// console.log(data);
+	return (
+		<div>
+			Page {page} of {data && Math.ceil(data.countAssignedJobs.data / limit)}
+		</div>
+	);
+};
 
 const AssignedJobs = ({ user }: any) => {
 	const [page, setPage] = useState<number>(1);
+	//eslint-disable-next-line
 	const [limit, setLimit] = useState<number>(10);
-
-	useSubscription(ANY_JOB_DELETED_SUBSCRIPTION, {
-		shouldResubscribe: true,
-	});
-
-	useSubscription(ANY_JOB_UPDATED_SUBSCRIPTION, {
-		shouldResubscribe: true,
-	});
 
 	const history = useHistory();
 
@@ -76,19 +80,6 @@ const AssignedJobs = ({ user }: any) => {
 		if (page === 1) return;
 		setPage(page - 1);
 		refetch();
-	};
-
-	const Count = () => {
-		const { data } = useQuery(ASSIGNED_JOB_COUNT_QUERY, {
-			fetchPolicy: "network-only",
-			variables: { user: user.nickname },
-		});
-		console.log(data);
-		return (
-			<FlexDiv>
-				Page {page} of {data && Math.ceil(data.countAssignedJobs.data / limit)}
-			</FlexDiv>
-		);
 	};
 
 	const {
@@ -147,32 +138,33 @@ const AssignedJobs = ({ user }: any) => {
 							justifyContent: "space-between",
 							// margin: "0.5rem",
 							paddingTop: "0.25rem",
+							alignItems: "center",
 						}}
 					>
 						<div>
 							{page > 1 && (
 								<>
-									<Button onClick={GoFirstPage}>
+									<FormButton onClick={GoFirstPage}>
 										<StyledIcon icon={faFastBackward} />
-									</Button>
-									<Button onClick={GoDownPage}>
+									</FormButton>
+									<FormButton onClick={GoDownPage}>
 										<StyledIcon
 											style={{ paddingRight: "0.5rem" }}
 											icon={faStepBackward}
 										/>
 										Prev
-									</Button>
+									</FormButton>
 								</>
 							)}
 						</div>
-						<Count />
-						<Button onClick={GoUpPage}>
+						<AssignedCount user={user} page={page} limit={limit} />
+						<FormButton onClick={GoUpPage}>
 							Next
 							<StyledIcon
 								style={{ paddingLeft: "0.5rem" }}
 								icon={faStepForward}
 							/>
-						</Button>
+						</FormButton>
 					</CenterDiv>
 				</ErrorBoundary>
 			)}
@@ -183,17 +175,22 @@ const AssignedJobs = ({ user }: any) => {
 	);
 };
 
+const AllJobsCount = ({ page, limit }: any) => {
+	const { data } = useQuery(JOB_COUNT_QUERY, {
+		fetchPolicy: "network-only",
+	});
+
+	return (
+		<div>
+			Page {page} of {data && Math.ceil(data.countJobs.data / limit)}
+		</div>
+	);
+};
+
 const AllJobs = () => {
 	const [page, setPage] = useState<number>(1);
+	//eslint-disable-next-line
 	const [limit, setLimit] = useState<number>(10);
-
-	useSubscription(ANY_JOB_DELETED_SUBSCRIPTION, {
-		shouldResubscribe: true,
-	});
-
-	useSubscription(ANY_JOB_UPDATED_SUBSCRIPTION, {
-		shouldResubscribe: true,
-	});
 
 	const GoFirstPage = () => {
 		setPage(1);
@@ -208,18 +205,6 @@ const AllJobs = () => {
 		if (page === 1) return;
 		setPage(page - 1);
 		refetch();
-	};
-
-	const Count = () => {
-		const { data } = useQuery(JOB_COUNT_QUERY, {
-			fetchPolicy: "network-only",
-		});
-
-		return (
-			<FlexDiv>
-				Page {page} of {data && Math.ceil(data.countJobs.data / limit)}
-			</FlexDiv>
-		);
 	};
 
 	const history = useHistory();
@@ -257,7 +242,7 @@ const AllJobs = () => {
 										return currentData.jobs.data;
 									}
 									const newJobItem = subscriptionData.data.jobAdded.data;
-									console.log(currentData);
+									// console.log(currentData);
 
 									if (currentData.jobs.data) {
 										return Object.assign({}, currentData, {
@@ -293,7 +278,7 @@ const AllJobs = () => {
 								</>
 							)}
 						</div>
-						<Count />
+						<AllJobsCount page={page} limit={limit} />
 						<Button onClick={GoUpPage}>
 							Next
 							<StyledIcon
@@ -310,8 +295,15 @@ const AllJobs = () => {
 };
 
 const JobsPage = () => {
+	const [showAll, setShowAll] = useState<boolean>(false);
 	const { user } = useAuth0();
+	useSubscription(ANY_JOB_DELETED_SUBSCRIPTION, {
+		shouldResubscribe: true,
+	});
 
+	useSubscription(ANY_JOB_UPDATED_SUBSCRIPTION, {
+		shouldResubscribe: true,
+	});
 	return (
 		<>
 			<FlexDiv>
@@ -319,10 +311,16 @@ const JobsPage = () => {
 					<Button>Create Job</Button>
 				</Link>
 				<ScannerButton />
+				<Button
+					onClick={() => {
+						setShowAll(!showAll);
+					}}
+				>
+					{showAll ? `My Jobs` : `All Jobs`}
+				</Button>
 			</FlexDiv>
 
-			<AssignedJobs user={user} />
-			<AllJobs />
+			{showAll ? <AllJobs /> : <AssignedJobs user={user} />}
 		</>
 	);
 };

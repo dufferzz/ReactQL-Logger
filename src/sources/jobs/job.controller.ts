@@ -12,7 +12,7 @@ const jobController = {
 	jobs: (args: any) =>
 		Job.find()
 			.sort({ created: -1 })
-			.skip(QueryPagination(args.limit, args.page))
+			.skip(QueryPagination(args.page, args.limit))
 			.limit(QueryLimiter(args.limit))
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error)),
@@ -20,7 +20,7 @@ const jobController = {
 	searchJobs: async (args: any) => {
 		if (ObjectId.isValid(args.query)) {
 			return await Job.find({ _id: new ObjectId(args.query) })
-				.skip(QueryPagination(args.limit, args.page))
+				.skip(QueryPagination(args.page, args.limit))
 
 				.limit(QueryLimiter(args.limit))
 				.then((data) => sendResponse(data))
@@ -41,7 +41,7 @@ const jobController = {
 		}
 	},
 	countJobs: (args: any) =>
-		Job.count({})
+		Job.countDocuments({})
 			.then((data) => {
 				console.log("count:", data);
 				return sendResponse(data);
@@ -49,7 +49,7 @@ const jobController = {
 			.catch((error) => sendError(error)),
 
 	countAssignedJobs: (args: any) =>
-		Job.count({ assigned: args.user })
+		Job.countDocuments({ assigned: args.user })
 			.then((data) => {
 				console.log("count:", data);
 				return sendResponse(data);
@@ -65,33 +65,18 @@ const jobController = {
 		Job.find({ assigned: args.user })
 			.sort({ created: -1 })
 
-			.skip(QueryPagination(args.limit, args.page))
+			.skip(QueryPagination(args.page, args.limit))
 
 			.limit(QueryLimiter(args.limit))
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error)),
 
-	updateJob: async (args: any) => {
+	updateJob: async (args: any, ctx: AppContext) => {
 		const updatedJob = {
-			customername: args.customername,
-			email: args.email,
-			address1: args.address1,
-			address2: args.address2,
-			city: args.city,
-			district: args.district,
-			parts: args.parts,
-			postcode: args.postcode,
-			done: args.done,
-			todo: args.todo,
-			date: args.date,
-			status: args.status,
-			model: args.model,
-			make: args.make,
-			year: args.year,
-			serial: args.serial,
-			assigned: args.assigned,
 			labourHours: parseInt(args.labourHours),
 			modified: new Date(),
+			lastModifiedBy: ctx.decoded.sub,
+			...args,
 		};
 
 		return JobFormValidator.isValid(updatedJob)
@@ -121,31 +106,16 @@ const jobController = {
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error)),
 
-	addJob: (args: any) => {
+	addJob: (args: any, ctx: AppContext) => {
 		console.log(args);
 
 		const newjob = new Job({
-			customername: args.customername,
-			email: args.email,
-			address1: args.address1,
-			address2: args.address2,
-			city: args.city,
-			district: args.district,
-			postcode: args.postcode,
-			date: args.date,
-			todo: args.todo,
-			done: args.done,
+			labourHours: parseInt(args.labourHours),
 			modified: new Date(),
 			created: new Date(),
-			status: args.status,
-			model: args.model,
-			make: args.make,
-			year: args.year,
-			serial: args.serial,
-			assigned: args.assigned,
-			parts: args.parts,
-			labourHours: parseInt(args.labourHours),
-			// images: args.images,
+			createdBy: ctx.decoded.sub,
+			lastModifiedBy: ctx.decoded.sub,
+			...args,
 		});
 
 		return JobFormValidator.isValid(newjob)

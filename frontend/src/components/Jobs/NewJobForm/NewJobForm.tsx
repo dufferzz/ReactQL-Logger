@@ -54,7 +54,7 @@ export const NewJobForm = () => {
 			validationSchema={JobFormValidator}
 			onSubmit={async (values, { setSubmitting, resetForm }) => {
 				window.scrollTo({ top: 0, behavior: "smooth" });
-				console.log(values);
+				// console.log(values);
 				const newvalues: any = values;
 				newvalues.parts = parts;
 				await addJob({ variables: newvalues })

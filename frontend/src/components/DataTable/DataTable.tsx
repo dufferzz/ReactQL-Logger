@@ -35,6 +35,7 @@ const TableStyle = {
 const Table = ({ data, columns, onRowClicked, subscribeToNew }: any) => {
 	useEffect(() => {
 		if (subscribeToNew !== undefined) subscribeToNew();
+		return () => {};
 	}, [subscribeToNew]);
 
 	return (

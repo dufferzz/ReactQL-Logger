@@ -23,7 +23,7 @@ const DeleteModal = ({ id }: any) => {
 		variables: id,
 	});
 	if (data) {
-		console.log(data);
+		// console.log(data);
 		MySwal.fire({
 			title: <p>Job Deleted!</p>,
 			icon: "warning",
@@ -39,7 +39,7 @@ const UpdateModal = ({ id }: any) => {
 		variables: id,
 	});
 	if (data) {
-		console.log(data);
+		// console.log(data);
 		MySwal.fire({
 			title: <p>Job Updated!</p>,
 			icon: "info",
@@ -64,7 +64,7 @@ const JobDetails = () => {
 			</CenterDiv>
 		);
 
-	console.log(data);
+	// console.log(data);
 	return (
 		<>
 			<PageHeading>Job Details: {id}</PageHeading>
