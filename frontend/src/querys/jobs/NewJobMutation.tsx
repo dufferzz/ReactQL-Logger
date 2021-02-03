@@ -10,6 +10,7 @@ const NEWJOB_MUTATION = gql`
 		$district: String!
 		$postcode: String!
 		$assigned: String!
+		$contactphone: String!
 		$status: String!
 		$todo: String!
 		$done: String!
@@ -27,6 +28,7 @@ const NEWJOB_MUTATION = gql`
 			address2: $address2
 			city: $city
 			district: $district
+			contactphone: $contactphone
 			postcode: $postcode
 			assigned: $assigned
 			status: $status
@@ -48,6 +50,7 @@ const NEWJOB_MUTATION = gql`
 				city
 				district
 				postcode
+				contactphone
 				todo
 				done
 				parts {

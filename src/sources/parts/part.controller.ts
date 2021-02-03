@@ -21,9 +21,7 @@ const partController = {
 		} else {
 			return Part.find()
 				.sort({ _id: -1 })
-
 				.limit(QueryLimiter(args.limit))
-
 				.then((data) => sendResponse(data));
 		}
 	},
@@ -32,26 +30,31 @@ const partController = {
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error)),
 
-	getPart: async (args: any) => {
-		return await Part.findById(args._id)
+	getPart: async (args: any) =>
+		await Part.findById(args._id)
 			.then((data) => sendResponse(data))
-			.catch((err) => sendError(err));
-	},
-	updatePart: async (args: any) =>
-		await Part.findOneAndUpdate(
+			.catch((err) => sendError(err)),
+
+	updatePart: async (args: any, ctx: AppContext) => {
+		const updatedPart = {
+			created: new Date(),
+			modified: new Date(),
+			lastModifiedBy: ctx.decoded.sub,
+			...args,
+		};
+		return await Part.findOneAndUpdate(
 			{
 				_id: args._id,
 			},
 			{
 				$set: {
-					partName: args.partName,
-					partNumber: args.partNumber,
-					price: args.partPrice,
+					newPart: updatedPart,
 				},
 			}
 		)
 			.then((data) => sendResponse(data))
-			.catch((err) => sendError(err)),
+			.catch((err) => sendError(err));
+	},
 
 	deletePart: async (args: any) =>
 		await Part.deleteOne({ _id: args._id })
@@ -60,18 +63,16 @@ const partController = {
 
 	addPart: async (args: any, ctx: AppContext) => {
 		console.log(args);
-		const newjob = new Part({
-			partName: args.partName,
-			partNumber: args.partNumber,
-			price: args.price,
-			Location: args.location,
+		const newPart = new Part({
 			SKU: args.sku,
-			supplier: args.supplier,
-			modified: new Date(),
 			dateAdded: new Date(),
+			modified: new Date(),
+			supplier: args.supplier,
 			addedBy: ctx.decoded.sub,
+			Location: args.location,
+			...args,
 		});
-		return await newjob
+		return await newPart
 			.save()
 			.then((data) => sendResponse(data))
 			.catch((err) => sendError(err));

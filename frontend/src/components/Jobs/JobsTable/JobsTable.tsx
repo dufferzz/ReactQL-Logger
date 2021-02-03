@@ -5,7 +5,7 @@ import StatusImage from "../../_StyledComponents/StatusImage";
 import Table from "../../DataTable/DataTable";
 import { useHistory } from "react-router-dom";
 
-const columns = [
+const JobsTableColumns = [
 	{
 		name: " ",
 		selector: "status",
@@ -115,35 +115,13 @@ const JobsTable = ({ data, subscribeToMore, subQuery, result, type }: any) => {
 	const history = useHistory();
 	return (
 		<Table
-			columns={columns}
+			columns={JobsTableColumns}
 			data={data}
 			onRowClicked={(e: any) => {
 				history.push(`/job/${e._id}`);
-			}}
-			{...result}
-			subscribeToNew={() => {
-				if (subscribeToMore)
-					subscribeToMore({
-						document: subQuery,
-						updateQuery: (currentData: any, { subscriptionData }: any) => {
-							// console.log(subscriptionData);
-							// console.log(currentData);
-							if (!subscriptionData.data) {
-								return currentData[`${type}`].data;
-							}
-							const newJobItem = subscriptionData.data.jobAdded.data;
-							// console.log(newJobItem);
-							// console.log(currentData[`${type}`]);
-							// console.log(currentdata)
-							const l = currentData[`${type}`];
-							return Object.assign({}, currentData, {
-								jobs: [newJobItem, ...l.data],
-							});
-						},
-					});
 			}}
 		/>
 	);
 };
 
-export { JobsTable, columns };
+export default JobsTable;

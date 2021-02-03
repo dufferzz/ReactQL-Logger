@@ -21,7 +21,7 @@ const BurgerDropDownView = styled.div`
 
 	grid-area: burger;
 	padding-top: 1rem;
-	height: 100%;
+
 	display: block;
 	color: black;
 	background: ${theme.navGradientStart};

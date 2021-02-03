@@ -10,7 +10,7 @@ const Foot = styled.div`
 	grid-template-rows: 1fr 1fr;
 	border-top: 3px solid ${theme.accentColor};
 	background: ${theme.headerFooter};
-	height: 5rem;
+	height: 5.5rem;
 	line-height: 1.7;
 	text-align: center;
 	grid-template-areas: "left right" "bottom bottom";

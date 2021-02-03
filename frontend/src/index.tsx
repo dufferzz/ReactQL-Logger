@@ -10,31 +10,13 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import AuthorizedApolloProvider from "./providers/AuthorizedApolloProvider";
 import combinedReducers from "./features";
 
+import Swal from "sweetalert2";
+
 import config from "./config/config";
 
 const store = configureStore({
 	reducer: combinedReducers,
 });
-
-const SWConfig = {
-	onUpdate: (registration: ServiceWorkerRegistration) => {
-		console.log("update!");
-		// store.dispatch('')
-		const waitingServiceWorker = registration.waiting;
-
-		if (waitingServiceWorker) {
-			waitingServiceWorker.addEventListener("statechange", (event: any) => {
-				if (event.target && event.target.state === "activated") {
-					//   store.dispatch(updateReady())
-					console.log("ergregergerg");
-				}
-			});
-		}
-	},
-	onSuccess: (registration: ServiceWorkerRegistration) => {
-		console.log("success!");
-	},
-};
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -52,7 +34,35 @@ ReactDOM.render(
 	</React.StrictMode>,
 	document.getElementById("root")
 );
-serviceWorkerRegistration.register(SWConfig);
+// serviceWorkerRegistration.register(SWConfig);
+
+serviceWorkerRegistration.register({
+	onSuccess: () => {
+		store.dispatch({ type: "serviceWorker/init" });
+		console.log("init");
+	},
+	onUpdate: (registration) => {
+		Swal.fire({
+			title: "Update!",
+			icon: "info",
+			text: "New Update Available!",
+			showDenyButton: true,
+			showCancelButton: true,
+			showConfirmButton: false,
+			denyButtonText: "Ok",
+		}).then((data) => {
+			if (data.isDenied) {
+				if (registration && registration.waiting) {
+					registration.waiting.postMessage({ type: "SKIP_WAITING" });
+				}
+				window.location.reload();
+			}
+			if (data.isDismissed) {
+				return;
+			}
+		});
+	},
+});
 
 export type RootState = ReturnType<typeof store.getState>;
 

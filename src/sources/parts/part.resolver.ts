@@ -71,7 +71,7 @@ const partResolver = {
 			if (!ctx.isAuthenticated) return handleUnauthenticated();
 			if (checkPermissions(ctx, "update:parts")) {
 				pubsub.publish(PART_UPDATED, { partUpdated: args });
-				return partController.updatePart(args);
+				return partController.updatePart(args, ctx);
 			} else {
 				return handleNoPermission();
 			}

@@ -10,6 +10,7 @@ const jobMutation = gql`
 			city: String!
 			district: String!
 			postcode: String!
+			contactphone: String!
 			todo: String!
 			done: String!
 			status: String!
@@ -31,6 +32,7 @@ const jobMutation = gql`
 			city: String!
 			district: String!
 			postcode: String!
+			contactphone: String!
 			todo: String!
 			done: String!
 			status: String!

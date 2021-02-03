@@ -37,6 +37,7 @@ export const NewJobForm = () => {
 				phonenumber: "",
 				address1: "",
 				address2: "",
+				contactphone: "",
 				city: "",
 				district: "",
 				postcode: "",

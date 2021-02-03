@@ -83,7 +83,6 @@ const userController = {
 			.then((data) => sendResponse(data))
 			.catch((err) => sendError(err));
 	},
-
 	updateUser: async (args: any) => {
 		console.log(args);
 		const userDetails = {

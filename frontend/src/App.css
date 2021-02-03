@@ -7,7 +7,7 @@ textarea {
 	border-radius: 5px;
 	outline: none;
 	border: 1px solid #aaa;
-	font-size: 1rem;
+	font-size: 0.95rem;
 }
 
 input:focus {

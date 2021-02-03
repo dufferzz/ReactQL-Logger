@@ -16,13 +16,13 @@ Will be building a Gatsby/Next.js Webstore to go within this stack (Recreation o
 
 - GraphQL API
 - Job Management
+- Automatic Updates - Live Job overview
 - Parts Management
-- Auth0 Authentication
-- Live updates with GQL Subscriptions
+- Auth0 Authentication using RBAC
 
 ## Currently in development
 
-- User Administtation
+- User Administration
 - Messaging system
 - Attachment uploads system (PDF & Images with generated thumbnails)
 - Re-Styling
