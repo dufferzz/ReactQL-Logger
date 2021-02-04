@@ -16,18 +16,22 @@ import { useAuth0 } from "@auth0/auth0-react";
 const AuthorizedApolloProvider = ({ children }: any) => {
 	const { getAccessTokenSilently } = useAuth0();
 
-	// Get our Auth0 token and return valid header
+	// Get our Auth0 token and append to request headers
+	// Need to handle long-life clients. Wake up to invalid tokens after expiry. GQL Subs / polling is no happy
 	const authLink = setContext(async () => {
 		const token = await getAccessTokenSilently({
 			audience: `https://api.dufferz.net`,
 			scope: "openid email profile",
 		});
 		// console.log("token:", token);
-		return {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		};
+		if (token) {
+			return {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			};
+		}
+		return;
 	});
 
 	// Initialise our links

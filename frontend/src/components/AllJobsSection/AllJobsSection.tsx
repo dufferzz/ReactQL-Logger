@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import GET_ALL_JOBS_QUERY from "../../querys/jobs/GetAllJobsQuery";
 import JOB_COUNT_QUERY from "../../querys/jobs/GetJobCount";
-
+import JOB_ADDED_SUBSCRIPTION from "../../querys/jobs/JobAddedSubscription";
 import Section from "../_StyledComponents/Section";
 import Loading from "../_SharedComponents/Loading/Loading";
 import ErrorComponent from "../_SharedComponents/ErrorComponent/ErrorComponent";
@@ -19,13 +19,40 @@ const AllJobsSection = () => {
 	//eslint-disable-next-line
 	const [limit, setLimit] = useState<number>(11);
 
-	const { data, error, loading, refetch, startPolling, stopPolling } = useQuery(
-		GET_ALL_JOBS_QUERY,
-		{
-			fetchPolicy: "cache-and-network",
-			variables: { limit: limit, page: page },
-		}
-	);
+	const {
+		data,
+		error,
+		loading,
+		refetch,
+		subscribeToMore,
+		...result
+	} = useQuery(GET_ALL_JOBS_QUERY, {
+		fetchPolicy: "cache-and-network",
+		variables: { limit: limit, page: page },
+	});
+
+	useEffect(() => {
+		const unsub = subscribeToMore({
+			document: JOB_ADDED_SUBSCRIPTION,
+			updateQuery: (currentData: any, { subscriptionData }: any) => {
+				if (!subscriptionData.data) {
+					return currentData.jobs.data;
+				}
+				const newJobItem = subscriptionData.data.jobAdded.data;
+				console.log(currentData);
+
+				if (currentData.jobs.data) {
+					return Object.assign({}, currentData, {
+						jobs: [newJobItem, ...currentData.jobs.data],
+					});
+				}
+			},
+		});
+		return () => {
+			console.log("unsubbing");
+			unsub();
+		};
+	}, [subscribeToMore]);
 
 	const { data: countData } = useQuery(JOB_COUNT_QUERY, {
 		fetchPolicy: "cache-and-network",
@@ -33,13 +60,6 @@ const AllJobsSection = () => {
 
 	let count = null;
 	if (countData) count = countData.countJobs.data;
-
-	useEffect(() => {
-		startPolling(10000);
-		return () => {
-			stopPolling();
-		};
-	});
 
 	return (
 		<ErrorBoundary>
@@ -55,6 +75,7 @@ const AllJobsSection = () => {
 							limit={limit}
 							refetch={refetch}
 							data={count}
+							{...result}
 						/>
 					</>
 				)}

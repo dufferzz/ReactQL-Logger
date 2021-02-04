@@ -41,8 +41,10 @@ const server = new ApolloServer({
 				} catch (err) {
 					isAuthenticated = false;
 					console.log(err);
-					return "";
+					return { isAuthenticated: false };
 				}
+			} else {
+				return { isAuthenticated: false };
 			}
 		}
 	},

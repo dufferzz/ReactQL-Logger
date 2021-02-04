@@ -69,8 +69,7 @@ const PopOver = ({ setBurgerMenuOpen, burgerMenuOpen }: any) => {
 					<BurgerDropDown
 						style={{
 							width: "250px",
-							minHeight: "100%",
-							height: "100vh",
+							minHeight: "100vh",
 							backgroundColor: "#222",
 						}}
 						setBurgerMenuOpen={setBurgerMenuOpen}
