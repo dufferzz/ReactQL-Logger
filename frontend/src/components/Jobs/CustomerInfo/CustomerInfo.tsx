@@ -90,15 +90,19 @@ const CustomerInfo = () => {
 					display: "grid",
 					gridGap: "0.25rem",
 					gridTemplateColumns: "1fr 1fr",
+					alignItems: "baseline",
 				}}
 			>
 				<SectionElement>
 					<label htmlFor="contactphone">Contact Phone*</label>
 					<Field type="contactphone" name="contactphone" />
+					<ErrorField name="contactphone" component="div" />
 				</SectionElement>
 				<SectionElement>
 					<label htmlFor="email">Contact Email*</label>
 					<Field type="email" name="email" />
+
+					<ErrorField name="email" component="div" />
 				</SectionElement>
 			</div>
 		</Section>

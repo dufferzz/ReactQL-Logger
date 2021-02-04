@@ -58,7 +58,7 @@ const TableFooter = ({ data, page, limit, refetch, setPage }: any) => {
 			<div>
 				Page {page} of {data && Math.ceil(data / limit)}
 				<br />
-				{data && data} Results
+				{limit} of {data && data} Results
 			</div>
 			<FormButton onClick={GoUpPage}>
 				Next

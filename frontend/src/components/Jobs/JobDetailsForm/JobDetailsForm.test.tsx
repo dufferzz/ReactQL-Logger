@@ -8,13 +8,15 @@ const date = new Date();
 const modif = new Date();
 const FakeData = {
 	_id: "rgregnergneonogrie",
-	firstname: "sam",
-	lastname: "sam",
-	email: "sam",
-	city: "sam",
-	district: "sam",
-	postcode: "sam",
-	date: "sam",
+	customername: "Test User",
+	email: "dev@dev.dev",
+	address1: "address1",
+	address2: "address2",
+	city: "TestCity",
+	district: "TestDistrict",
+	postcode: "TestPostcode",
+	contactphone: "23424",
+	date: date,
 	todo: "sam",
 	done: "sam",
 	status: "sam",
@@ -24,10 +26,10 @@ const FakeData = {
 	year: "sam",
 	serial: "sam",
 	labourHours: "sam",
-	created: date,
-	modified: modif,
+	created: `${date}`,
+	modified: `${modif}`,
 	parts: [
-		{ partName: "fuck", partNumber: "fuck", partQty: "2", partPrice: "345435" },
+		{ partName: "fuck", partNumber: "fuck", partQty: "2", price: "345435" },
 	],
 };
 

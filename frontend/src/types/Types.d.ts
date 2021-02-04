@@ -1,7 +1,5 @@
 type Job = {
 	_id: string;
-	firstname: string;
-	lastname: string;
 	customername: string;
 	parts: JobPart[];
 	contactphone: string;

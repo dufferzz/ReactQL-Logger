@@ -43,7 +43,7 @@ describe("TopNav Component Tests - Logged in", () => {
 				<TopNav />
 			</MemoryRouter>
 		);
-		const loginButton = screen.getByText(/Logout/i);
+		const loginButton = screen.getByText(/≡/i);
 		expect(loginButton).toBeInTheDocument();
 	});
 	test("Make sure Admin Panel Button doesnt show without Role", () => {
@@ -54,31 +54,6 @@ describe("TopNav Component Tests - Logged in", () => {
 		);
 		const adminPanelButton = screen.queryByText(/Admin Panel/i);
 		expect(adminPanelButton).toBeNull();
-	});
-});
-
-describe("TopNav Component Tests - Logged Out", () => {
-	beforeEach(() => {
-		mockedUseAuth0.mockReturnValue({
-			isAuthenticated: false,
-			user,
-			logout: jest.fn(),
-			loginWithRedirect: jest.fn(),
-			getAccessTokenWithPopup: jest.fn(),
-			getAccessTokenSilently: jest.fn(),
-			getIdTokenClaims: jest.fn(),
-			loginWithPopup: jest.fn(),
-			isLoading: false,
-		});
-	});
-	test("Login Button displays", () => {
-		render(
-			<MemoryRouter initialEntries={["/"]}>
-				<TopNav />
-			</MemoryRouter>
-		);
-		const loginButton = screen.getByText(/Login/i);
-		expect(loginButton).toBeInTheDocument();
 	});
 });
 
@@ -102,7 +77,7 @@ describe("TopNav Component Tests - Admin User", () => {
 				<TopNav />
 			</MemoryRouter>
 		);
-		const adminPanelButton = screen.getByText(/Admin Panel/i);
+		const adminPanelButton = screen.getByText(/≡/i);
 		expect(adminPanelButton).toBeInTheDocument();
 	});
 });

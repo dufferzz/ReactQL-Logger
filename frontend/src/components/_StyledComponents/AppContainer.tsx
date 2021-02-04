@@ -10,9 +10,6 @@ const AppContainer = styled.main`
 	position: relative;
 
 	width: 95%;
-	@media (max-width: 580px) {
-		width: 96%;
-	}
 `;
 
 export default AppContainer;
