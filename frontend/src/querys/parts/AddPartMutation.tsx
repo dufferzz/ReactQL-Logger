@@ -1,11 +1,12 @@
 import { gql } from "@apollo/client";
 
 const ADD_PART_MUTATION = gql`
-	query AddPart(
+	mutation AddPart(
 		$partName: String!
 		$partNumber: String!
 		$price: String!
 		$Location: String!
+		$stock: String!
 		$description: String!
 		$SKU: String!
 		$supplier: String!
@@ -17,9 +18,10 @@ const ADD_PART_MUTATION = gql`
 			price: $price
 			Location: $Location
 			description: $description
+			stock: $stock
 			SKU: $SKU
 			supplier: $supplier
-			thumbnail: $string
+			thumbnail: $thumbnail
 		) {
 			success
 			error
@@ -28,6 +30,7 @@ const ADD_PART_MUTATION = gql`
 				partName
 				partNumber
 				price
+				stock
 				Location
 				description
 				SKU

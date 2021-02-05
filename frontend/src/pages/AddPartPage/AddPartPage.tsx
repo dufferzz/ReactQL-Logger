@@ -1,26 +1,33 @@
 import React from "react";
+import { useMutation } from "@apollo/client";
+import { Formik, Field } from "formik";
+import Dropzone from "react-dropzone";
+import ErrorField from "../../components/_StyledComponents/ErrorField";
+
 import Section from "../../components/_StyledComponents/Section";
 import SectionElement from "../../components/_StyledComponents/SectionElement";
 import PackageIcon from "../../assets/icons/package.svg";
-import Placeholder from "../../assets/images/placeholder.png";
-import Button from "../../components/_StyledComponents/Button";
-import Dropzone from "react-dropzone";
+
+import SubmitFormButton from "../../components/_SharedComponents/Buttons/SubmitFormButton";
+import PartFormValidator from "../../validators/PartFormValidator";
+
+import ADD_PART_MUTATION from "../../querys/parts/AddPartMutation";
+import FormError from "../../components/FormError";
+
+import Swal from "sweetalert2";
 
 import theme from "../../config/theme";
 
 const AddPartPage = () => {
-	const handleSubmit = (files: any) => {
-		// console.log(files);
-		// uploadFile({ variables: { file: files, title: "test" } }).then((res) => {
-		// console.log(res);
-		// });
+	const [addPart, { data, loading, error }] = useMutation(ADD_PART_MUTATION);
+
+	const handleResponse = (resp: any) => {
+		console.log(resp);
 	};
+
 	const handleFileUpload = (acceptedFiles: any) => {};
 	return (
 		<Section title="Create New Part" icon={PackageIcon}>
-			<div style={{ textAlign: "center" }}>
-				<img style={{ width: "200px" }} src={Placeholder} alt="placeholder" />
-			</div>
 			<div
 				style={{
 					display: "grid",
@@ -40,61 +47,121 @@ const AddPartPage = () => {
 						<section>
 							<div {...getRootProps()}>
 								<input {...getInputProps()} />
-								<p>Drag 'n' drop some files here, or click to select files</p>
+								<p>Drag 'n' drop some images here, or click here to select</p>
 							</div>
 						</section>
 					)}
 				</Dropzone>
 			</div>
-			<div
-				style={{
-					display: "grid",
-					gridTemplateColumns: "1fr 1fr",
-					gridGap: "0.25rem",
-					marginTop: "0.25rem",
+
+			<Formik
+				initialValues={{
+					thumbnail: "",
+					partName: "",
+					partNumber: "",
+					supplier: "",
+					price: "",
+					description: "",
+					Location: "",
+					SKU: "",
+					stock: "",
+				}}
+				validationSchema={PartFormValidator}
+				onSubmit={async (values, { setSubmitting }) => {
+					console.log("submitting");
+					await addPart({ variables: values })
+						.then(({ data }: any) => {
+							handleResponse(data);
+							setSubmitting(false);
+						})
+						.catch((err: any) => {
+							console.error(err);
+							setSubmitting(false);
+							Swal.fire({
+								title: <p>Error!</p>,
+								icon: "error",
+								text: err.message,
+							});
+						});
 				}}
 			>
-				<SectionElement>
-					<label>Part Name:</label>
-					<input name="partName" type="text"></input>
-				</SectionElement>
-				<SectionElement>
-					<label>Part Number:</label>
-					<input name="partNumber" type="text"></input>
-				</SectionElement>
-				<SectionElement>
-					<label>Location:</label>
-					<input name="location" type="text"></input>
-				</SectionElement>
+				{({ isSubmitting, errors, handleSubmit, submitForm }) => {
+					return (
+						<>
+							<div
+								style={{
+									display: "grid",
+									gridTemplateColumns: "1fr 1fr",
+									gridGap: "0.25rem",
+									marginTop: "0.25rem",
+									alignItems: "baseline",
+								}}
+							>
+								<SectionElement>
+									<label>Thumbnail:</label>
+									<Field type="thumbnail" name="thumbnail" />
+									<ErrorField name="thumbnail" component="div" />
+								</SectionElement>
+								<SectionElement>
+									<label>Part Name:</label>
+									<Field type="partName" name="partName" />
+									<ErrorField name="partName" component="div" />
+								</SectionElement>
+								<SectionElement>
+									<label>Part Number:</label>
+									<Field type="partNumber" name="partNumber" />
+									<ErrorField name="partNumber" component="div" />
+								</SectionElement>
+								<SectionElement>
+									<label>Supplier:</label>
+									<Field type="supplier" name="supplier" />
+									<ErrorField name="supplier" component="div" />
+								</SectionElement>
+								<SectionElement>
+									<label>Location:</label>
+									<Field type="Location" name="Location" />
+									<ErrorField name="Location" component="div" />
+								</SectionElement>
 
-				<SectionElement>
-					<label>Price:</label>
-					<input name="price" type="text"></input>
-				</SectionElement>
-				<SectionElement>
-					<label>SKU:</label>
-					<input name="sku" type="text"></input>
-				</SectionElement>
+								<SectionElement>
+									<label>Price:</label>
+									<Field type="price" name="price" />
+									<ErrorField name="price" component="div" />
+								</SectionElement>
+								<SectionElement>
+									<label>SKU:</label>
+									<Field type="SKU" name="SKU" />
+									<ErrorField name="SKU" component="div" />
+								</SectionElement>
 
-				<SectionElement>
-					<label>Stock:</label>
-					<input name="stock" type="text"></input>
-				</SectionElement>
-				<SectionElement>
-					<label>Location:</label>
-					<input name="Location" type="text"></input>
-				</SectionElement>
-				<SectionElement>
-					<label>Supplier:</label>
-					<input name="Location" type="text"></input>
-				</SectionElement>
-			</div>
-			<Button
-				onClick={handleSubmit}
-				style={{ width: "100%", height: "3rem", marginTop: "0.5rem" }}
-			>
-				Submit
-			</Button>
+								<SectionElement>
+									<label>Stock:</label>
+									<Field type="stock" name="stock" />
+									<ErrorField name="stock" component="div" />
+								</SectionElement>
+							</div>
+							<div style={{ width: "100%" }}>
+								<label>Description:</label>
+								<Field
+									style={{ width: "100%" }}
+									rows={7}
+									as="textarea"
+									type="description"
+									name="description"
+								/>
+								<ErrorField name="description" component="div" />
+							</div>
+							{errors && (
+								<FormError isSubmitting={isSubmitting} errors={errors} />
+							)}
+							<SubmitFormButton
+								handleSubmit={handleSubmit}
+								isSubmitting={isSubmitting}
+							/>
+						</>
+					);
+				}}
+			</Formik>
 		</Section>
 	);
 };

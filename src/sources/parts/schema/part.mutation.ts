@@ -8,10 +8,11 @@ const partMutation = gql`
 			price: String!
 			Location: String!
 			description: String!
+			stock: String!
 			SKU: String!
 			supplier: String!
 			thumbnail: String!
-		): Part!
+		): PartResponse!
 
 		updatePart(
 			_id: String!
@@ -23,9 +24,9 @@ const partMutation = gql`
 			SKU: String!
 			supplier: String!
 			thumbnail: String!
-		): Part!
+		): PartResponse!
 
-		deletePart(_id: String!): Part
+		deletePart(_id: String!): PartResponse
 	}
 `;
 export default partMutation;

@@ -9,8 +9,8 @@ import QueryLimiter from "../../utils/queryLimiter";
 import QueryPagination from "../../utils/queryPagination";
 
 const jobController = {
-	jobs: (args: any) =>
-		Job.find()
+	jobs: async (args: any) =>
+		await Job.find()
 			.sort({ created: -1 })
 			.skip(QueryPagination(args.page, args.limit))
 			.limit(QueryLimiter(args.limit))
@@ -40,29 +40,37 @@ const jobController = {
 				.catch((err) => sendError(err));
 		}
 	},
-	countJobs: (args: any) =>
-		Job.countDocuments({})
+	countJobs: async (args: any) =>
+		await Job.countDocuments({})
 			.then((data) => {
 				console.log("count:", data);
 				return sendResponse(data);
 			})
 			.catch((error) => sendError(error)),
 
-	countAssignedJobs: (args: any) =>
-		Job.countDocuments({ assigned: args.user })
+	countAssignedJobs: async (args: any) =>
+		await Job.countDocuments({ assigned: args.user })
 			.then((data) => {
 				console.log("count:", data);
 				return sendResponse(data);
 			})
 			.catch((error) => sendError(error)),
 
-	getJob: (args: any) =>
-		Job.findById(args._id)
-			.then((data) => sendResponse(data))
-			.catch((error) => sendError(error)),
+	getJob: async (args: any) => {
+		if (ObjectId.isValid(args._id)) {
+			const job = await Job.findById(args._id);
+			console.log(job);
+			if (job) return sendResponse(job);
+			return sendError("Job Not Found");
+		}
+		return sendError(`${args._id} is not a valid Job ID`);
+	},
 
-	getAssignedJobs: (args: any) =>
-		Job.find({ assigned: args.user })
+	getAssignedJobs: async (args: any) =>
+		await Job.find({
+			assigned: args.user,
+			status: { $nin: ["completed", "payment-received"] },
+		})
 			.sort({ created: -1 })
 
 			.skip(QueryPagination(args.page, args.limit))
@@ -101,12 +109,12 @@ const jobController = {
 			});
 	},
 
-	deleteJob: (args: any) =>
-		Job.deleteOne({ _id: args._id })
+	deleteJob: async (args: any) =>
+		await Job.deleteOne({ _id: args._id })
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error)),
 
-	addJob: (args: any, ctx: AppContext) => {
+	addJob: async (args: any, ctx: AppContext) => {
 		console.log(args);
 
 		const newjob = new Job({
@@ -119,10 +127,10 @@ const jobController = {
 		});
 
 		return JobFormValidator.isValid(newjob)
-			.then((isValid) => {
+			.then(async (isValid) => {
 				console.log(isValid);
 				if (isValid) {
-					return newjob
+					return await newjob
 						.save()
 						.then((data) => sendResponse(data))
 						.catch((error) => sendError(error));

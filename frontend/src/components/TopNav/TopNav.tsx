@@ -76,7 +76,7 @@ const TopNav = ({ setBurgerMenuOpen, burgerMenuOpen }: any) => {
 
 	return (
 		<Nav>
-			<NavLink style={{ textDecoration: "none", color: "inherit" }} to="/">
+			<NavLink to="/">
 				<NavLogo alt="Logo" src={Logo} />
 			</NavLink>
 			{width > config.mobileBreakpoint ? (

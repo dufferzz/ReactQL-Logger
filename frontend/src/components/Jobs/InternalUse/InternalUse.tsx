@@ -32,12 +32,11 @@ const deleteJob = async (id: String, sendDeleteJob: any, history: any) => {
 					const res = data.deleteJob;
 					// console.log(res);
 					if (res.success) {
+						history.push(`/`);
 						MySwal.fire({
 							title: <p>Job Deleted!</p>,
 							icon: "success",
 							text: `Job ${res.data._id} has been deleted`,
-						}).then(() => {
-							history.push(`/`);
 						});
 					} else {
 						MySwal.fire({

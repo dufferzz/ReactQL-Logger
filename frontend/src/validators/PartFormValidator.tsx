@@ -9,9 +9,8 @@ const PartFormValidator = Yup.object().shape({
 	partNumber: Yup.string().required("Required"),
 	stock: Yup.string().required("Required"),
 	supplier: Yup.string().required("Required"),
-	location: Yup.string().required("Required"),
+	Location: Yup.string().required("Required"),
 	SKU: Yup.string().required("Required"),
-	assigned: Yup.string().required("Required"),
 });
 
 export default PartFormValidator;

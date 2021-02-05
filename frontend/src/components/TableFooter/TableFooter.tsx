@@ -6,6 +6,7 @@ import {
 	faStepBackward,
 	faStepForward,
 	faFastBackward,
+	faFastForward,
 } from "@fortawesome/free-solid-svg-icons";
 
 const StyledIcon = styled(FontAwesomeIcon)`
@@ -14,8 +15,16 @@ const StyledIcon = styled(FontAwesomeIcon)`
 `;
 
 const TableFooter = ({ data, page, limit, refetch, setPage }: any) => {
+	let lastpage: number = 0;
+	if (data && limit) lastpage = Math.floor(data / limit);
+
 	const GoFirstPage = () => {
 		setPage(1);
+		refetch();
+	};
+
+	const GoLastPage = () => {
+		setPage(lastpage);
 		refetch();
 	};
 
@@ -56,14 +65,19 @@ const TableFooter = ({ data, page, limit, refetch, setPage }: any) => {
 				)}
 			</div>
 			<div>
-				Page {page} of {data && Math.ceil(data / limit)}
+				Page {page} of {lastpage}
 				<br />
 				{limit} of {data && data} Results
 			</div>
-			<FormButton onClick={GoUpPage}>
-				Next
-				<StyledIcon style={{ paddingLeft: "0.5rem" }} icon={faStepForward} />
-			</FormButton>
+			<div>
+				<FormButton onClick={GoUpPage}>
+					Next
+					<StyledIcon style={{ paddingLeft: "0.5rem" }} icon={faStepForward} />
+				</FormButton>
+				<FormButton onClick={GoLastPage}>
+					<StyledIcon icon={faFastForward} />
+				</FormButton>
+			</div>
 		</div>
 	);
 };

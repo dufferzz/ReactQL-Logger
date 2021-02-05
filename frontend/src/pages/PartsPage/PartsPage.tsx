@@ -3,31 +3,19 @@ import { useLazyQuery, useQuery } from "@apollo/client";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import PartsTable from "../../components/PartsTable/PartsTable";
+import PartsTable from "../../components/PartsTable";
 import Section from "../../components/_StyledComponents/Section";
-import Button, { FormButton } from "../../components/_StyledComponents/Button";
+import Button from "../../components/_StyledComponents/Button";
 import FlexDivCenter from "../../components/_StyledComponents/FlexDiv";
 import SectionElement from "../../components/_StyledComponents/SectionElement";
-import Loading from "../../components/_SharedComponents/Loading/Loading";
-import ErrorComponent from "../../components/_SharedComponents/ErrorComponent/ErrorComponent";
+import Loading from "../../components/_SharedComponents/Loading";
+import ErrorComponent from "../../components/_SharedComponents/ErrorComponent";
 
 import ScannerButton from "../../components/_SharedComponents/Buttons/ScannerButton";
-import CenterDiv from "../../components/_StyledComponents/CenteredDiv";
 import GET_ALL_PARTS_QUERY from "../../querys/parts/GetAllPartsQuery";
 import COUNT_PARTS_QUERY from "../../querys/parts/GetPartCount";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import {
-	faStepBackward,
-	faStepForward,
-	faFastBackward,
-} from "@fortawesome/free-solid-svg-icons";
-
-const StyledIcon = styled(FontAwesomeIcon)`
-	cursor: pointer;
-	color: black;
-`;
+import TableFooter from "../../components/TableFooter";
 
 const SearchBar = styled.form`
 	width: 100%;
@@ -96,50 +84,29 @@ const AddPartButton = () => {
 	);
 };
 
-const Count = ({ page, searchLimit }: any) => {
-	const { data } = useQuery(COUNT_PARTS_QUERY);
-	return (
-		<FlexDivCenter>
-			Page {page} of {data && Math.ceil(data.countParts.data / searchLimit)}
-		</FlexDivCenter>
-	);
-};
-
 const PartsPage = () => {
 	const [searchValue, setSearchValue] = useState<string>("");
 	const [searchLimit, setSearchLimit] = useState<number>(25);
 	const [page, setPage] = useState<number>(1);
 
-	const [doSearch, { called, loading, data, error, refetch }] = useLazyQuery(
-		GET_ALL_PARTS_QUERY,
-		{
-			fetchPolicy: "cache-and-network",
-			variables: {
-				query: searchValue,
-				limit: searchLimit,
-				page: page,
-			},
-		}
-	);
+	const [
+		doSearch,
+		{ called, loading, data, error, refetch, ...result },
+	] = useLazyQuery(GET_ALL_PARTS_QUERY, {
+		fetchPolicy: "cache-and-network",
+		variables: {
+			query: searchValue,
+			limit: searchLimit,
+			page: page,
+		},
+	});
+	const { data: countData } = useQuery(COUNT_PARTS_QUERY);
+	let count = null;
+	if (countData) count = countData.countParts.data;
+
 	useEffect(() => {
 		doSearch();
 	}, [doSearch]);
-	// console.log(data);
-
-	const GoFirstPage = () => {
-		setPage(1);
-		if (refetch) refetch();
-	};
-
-	const GoUpPage = () => {
-		setPage(page + 1);
-		if (refetch) refetch();
-	};
-	const GoDownPage = () => {
-		if (page === 1) return;
-		setPage(page - 1);
-		if (refetch) refetch();
-	};
 
 	return (
 		<>
@@ -160,42 +127,25 @@ const PartsPage = () => {
 				{!called && (
 					<FlexDivCenter>Enter a search term and submit</FlexDivCenter>
 				)}
-				{!loading && !error && data && data.parts.success && (
-					<PartsTable data={data.parts.data} />
-				)}
-				<CenterDiv
-					style={{
-						display: "flex",
-						justifyContent: "space-between",
-						// margin: "0.5rem",
-						paddingTop: "0.25rem",
-					}}
-				>
-					<div>
-						{page > 1 && (
-							<>
-								<FormButton onClick={GoFirstPage}>
-									<StyledIcon icon={faFastBackward} />
-								</FormButton>
-								<FormButton onClick={GoDownPage}>
-									<StyledIcon
-										style={{ paddingRight: "0.5rem" }}
-										icon={faStepBackward}
-									/>
-									Prev
-								</FormButton>
-							</>
-						)}
-					</div>
-					<Count page={page} searchLimit={searchLimit} />
-					<FormButton onClick={GoUpPage}>
-						Next
-						<StyledIcon
-							style={{ paddingLeft: "0.5rem" }}
-							icon={faStepForward}
-						/>
-					</FormButton>
-				</CenterDiv>
+				{!loading &&
+					!error &&
+					count &&
+					countData &&
+					data &&
+					data.parts.success && (
+						<>
+							<PartsTable data={data.parts.data} />
+
+							<TableFooter
+								data={count}
+								page={page}
+								limit={searchLimit}
+								refetch={refetch}
+								setPage={setPage}
+								{...result}
+							/>
+						</>
+					)}
 			</Section>
 		</>
 	);

@@ -12,6 +12,7 @@ const AddressInfoSection = styled.div`
 	grid-template-columns: 1fr 1fr 1fr;
 	align-items: flex-start;
 	grid-gap: 0.25rem;
+	row-gap: 0.75rem;
 	grid-template-areas:
 		"subheading subheading subheading"
 		"content content content";

@@ -32,6 +32,7 @@ const AllJobsSection = () => {
 	});
 
 	useEffect(() => {
+		setPage(1);
 		const unsub = subscribeToMore({
 			document: JOB_ADDED_SUBSCRIPTION,
 			updateQuery: (currentData: any, { subscriptionData }: any) => {
