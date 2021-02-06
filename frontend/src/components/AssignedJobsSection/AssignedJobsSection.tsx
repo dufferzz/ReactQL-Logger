@@ -13,20 +13,28 @@ import JOB_ADDED_SUBSCRIPTION from "../../querys/jobs/JobAddedSubscription";
 
 import JobsTable from "../Jobs/JobsTable/JobsTable";
 import TableFooter from "../TableFooter/TableFooter";
+import TableFilters, { statusFilters } from "../../components/TableFilters";
 import UserIcon from "../../assets/icons/user.svg";
 
 const AssignedJobsSection = () => {
 	const { user } = useAuth0();
-
 	const [page, setPage] = useState<number>(1);
-	//eslint-disable-next-line
 	const [limit, setLimit] = useState<number>(11);
+	const [filters, setFilters] = useState<string[]>([...statusFilters]);
+
+	const [showOptions, setShowOptions] = useState<boolean>(false);
+
 	const { data, error, loading, refetch, subscribeToMore } = useQuery(
 		GET_ASSIGNED_JOBS_QUERY,
 
 		{
 			fetchPolicy: "cache-and-network",
-			variables: { user: user.nickname, limit: limit, page: page },
+			variables: {
+				user: user.nickname,
+				limit: limit,
+				page: page,
+				filters: { statusFilters: filters },
+			},
 		}
 	);
 	const { data: countData } = useQuery(ASSIGNED_JOB_COUNT_QUERY, {
@@ -41,21 +49,17 @@ const AssignedJobsSection = () => {
 		const unsub = subscribeToMore({
 			document: JOB_ADDED_SUBSCRIPTION,
 			updateQuery: (currentData: any, { subscriptionData }: any) => {
-				if (!subscriptionData.data) {
-					return currentData.getAssignedJobs.data;
-				}
-				const newJobItem = subscriptionData.data.jobAdded.data;
-
-				if (currentData.getAssignedJobs.data) {
+				if (!subscriptionData.data) return currentData.getAssignedJobs.data;
+				if (currentData.getAssignedJobs.data)
 					return Object.assign({}, currentData, {
-						getAssignedJobs: [newJobItem, ...currentData.getAssignedJobs.data],
+						getAssignedJobs: [
+							subscriptionData.data.jobAdded.data,
+							...currentData.getAssignedJobs.data,
+						],
 					});
-				}
 			},
 		});
-		return () => {
-			unsub();
-		};
+		return unsub();
 	});
 
 	return (
@@ -67,20 +71,33 @@ const AssignedJobsSection = () => {
 			>
 				{loading && <Loading />}
 				{error && <ErrorComponent error={error} />}
-				{!loading && data && countData && data.getAssignedJobs.success && (
-					<>
-						<JobsTable data={data.getAssignedJobs.data} />
-						{count && (
-							<TableFooter
-								setPage={setPage}
-								page={page}
+				{!loading &&
+					data &&
+					countData &&
+					filters &&
+					data.getAssignedJobs.success && (
+						<>
+							<JobsTable data={data.getAssignedJobs.data} />
+							<TableFilters
+								setShowOptions={setShowOptions}
+								showOptions={showOptions}
+								setLimit={setLimit}
 								limit={limit}
 								refetch={refetch}
-								data={count}
+								filters={filters}
+								setFilters={setFilters}
 							/>
-						)}
-					</>
-				)}
+							{count && (
+								<TableFooter
+									setPage={setPage}
+									page={page}
+									limit={limit}
+									refetch={refetch}
+									data={count}
+								/>
+							)}
+						</>
+					)}
 				{data && !data.getAssignedJobs.success && (
 					<ErrorComponent error={data.getAssignedJobs.error} />
 				)}

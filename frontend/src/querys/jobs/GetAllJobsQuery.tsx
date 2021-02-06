@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 const GET_ALL_JOBS_QUERY = gql`
-	query GetJobs($limit: Int, $page: Int) {
-		jobs(limit: $limit, page: $page) {
+	query GetJobs($limit: Int, $page: Int, $filters: Filters) {
+		jobs(limit: $limit, page: $page, filters: $filters) {
 			success
 			data {
 				_id

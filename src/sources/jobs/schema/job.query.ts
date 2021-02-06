@@ -2,11 +2,16 @@ import { gql } from "apollo-server-express";
 
 const jobQuery = gql`
 	type Query {
-		jobs(limit: Int, page: Int): JobArrayResponse
-		countJobs: JobCountResponse
-		countAssignedJobs(user: String!): JobCountResponse
+		jobs(limit: Int, page: Int, filters: Filters): JobArrayResponse
 		searchJobs(limit: Int, page: Int, query: String!): JobArrayResponse
-		getAssignedJobs(limit: Int, page: Int, user: String!): JobArrayResponse
+		countJobs: JobCountResponse
+		countAssignedJobs(user: String!, filters: Filters): JobCountResponse
+		getAssignedJobs(
+			limit: Int
+			page: Int
+			user: String!
+			filters: Filters
+		): JobArrayResponse
 		getJob(_id: String!): JobResponse
 	}
 `;

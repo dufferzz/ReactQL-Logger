@@ -19,7 +19,7 @@ import Swal from "sweetalert2";
 import theme from "../../config/theme";
 
 const AddPartPage = () => {
-	const [addPart, { data, loading, error }] = useMutation(ADD_PART_MUTATION);
+	const [addPart] = useMutation(ADD_PART_MUTATION);
 
 	const handleResponse = (resp: any) => {
 		console.log(resp);

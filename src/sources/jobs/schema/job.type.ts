@@ -60,6 +60,10 @@ const jobType = gql`
 		error: String
 		data: String
 	}
+
+	input Filters {
+		statusFilters: [String]
+	}
 `;
 
 export default jobType;

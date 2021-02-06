@@ -10,8 +10,9 @@ import QueryPagination from "../../utils/queryPagination";
 
 const jobController = {
 	jobs: async (args: any) =>
-		await Job.find()
+		await Job.find({ status: { $in: args.filters.statusFilters } })
 			.sort({ created: -1 })
+
 			.skip(QueryPagination(args.page, args.limit))
 			.limit(QueryLimiter(args.limit))
 			.then((data) => sendResponse(data))
@@ -43,7 +44,6 @@ const jobController = {
 	countJobs: async (args: any) =>
 		await Job.countDocuments({})
 			.then((data) => {
-				console.log("count:", data);
 				return sendResponse(data);
 			})
 			.catch((error) => sendError(error)),
@@ -51,7 +51,6 @@ const jobController = {
 	countAssignedJobs: async (args: any) =>
 		await Job.countDocuments({ assigned: args.user })
 			.then((data) => {
-				console.log("count:", data);
 				return sendResponse(data);
 			})
 			.catch((error) => sendError(error)),
@@ -59,7 +58,6 @@ const jobController = {
 	getJob: async (args: any) => {
 		if (ObjectId.isValid(args._id)) {
 			const job = await Job.findById(args._id);
-			console.log(job);
 			if (job) return sendResponse(job);
 			return sendError("Job Not Found");
 		}
@@ -69,7 +67,7 @@ const jobController = {
 	getAssignedJobs: async (args: any) =>
 		await Job.find({
 			assigned: args.user,
-			status: { $nin: ["completed", "payment-received"] },
+			status: { $in: args.filters.statusFilters },
 		})
 			.sort({ created: -1 })
 

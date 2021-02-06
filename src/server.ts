@@ -28,10 +28,12 @@ const server = new ApolloServer({
 			return connection.context;
 		} else {
 			let isAuthenticated = false;
-			const token = req.headers.authorization || "";
-			if (token !== "") {
+			// const token = req.headers.authorization;
+			if (req.headers.authorization) {
 				try {
-					const { error, decoded } = await isTokenValid(token);
+					const { error, decoded } = await isTokenValid(
+						req.headers.authorization
+					);
 					if (error) throw new Error(error);
 					if (decoded) isAuthenticated = true;
 					return {

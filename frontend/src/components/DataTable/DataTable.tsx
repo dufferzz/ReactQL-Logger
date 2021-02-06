@@ -50,4 +50,4 @@ const Table = ({ data, columns, onRowClicked }: any) => {
 	);
 };
 
-export default Table;
+export default React.memo(Table);

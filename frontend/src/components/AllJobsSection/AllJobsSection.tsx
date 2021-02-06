@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useQuery } from "@apollo/client";
 import GET_ALL_JOBS_QUERY from "../../querys/jobs/GetAllJobsQuery";
@@ -13,74 +13,77 @@ import ClipboardIcon from "../../assets/icons/clipboard.svg";
 
 import JobsTable from "../Jobs/JobsTable/JobsTable";
 import TableFooter from "../TableFooter/TableFooter";
+import TableFilters, { statusFilters } from "../../components/TableFilters";
 
 const AllJobsSection = () => {
 	const [page, setPage] = useState<number>(1);
-	//eslint-disable-next-line
 	const [limit, setLimit] = useState<number>(11);
+	const [showOptions, setShowOptions] = useState<boolean>(false);
+	const [filters, setFilters] = useState<string[]>([...statusFilters]);
 
-	const {
-		data,
-		error,
-		loading,
-		refetch,
-		subscribeToMore,
-		...result
-	} = useQuery(GET_ALL_JOBS_QUERY, {
-		fetchPolicy: "cache-and-network",
-		variables: { limit: limit, page: page },
-	});
+	const { data, error, loading, refetch, subscribeToMore } = useQuery(
+		GET_ALL_JOBS_QUERY,
+		{
+			fetchPolicy: "cache-and-network",
+			variables: {
+				limit: limit,
+				page: page,
+				filters: { statusFilters: filters },
+			},
+		}
+	);
 
 	useEffect(() => {
-		setPage(1);
 		const unsub = subscribeToMore({
 			document: JOB_ADDED_SUBSCRIPTION,
 			updateQuery: (currentData: any, { subscriptionData }: any) => {
-				if (!subscriptionData.data) {
-					return currentData.jobs.data;
-				}
-				const newJobItem = subscriptionData.data.jobAdded.data;
-				console.log(currentData);
-
-				if (currentData.jobs.data) {
+				if (!subscriptionData.data) return currentData.jobs.data;
+				if (currentData.jobs.data)
 					return Object.assign({}, currentData, {
-						jobs: [newJobItem, ...currentData.jobs.data],
+						jobs: [
+							subscriptionData.data.jobAdded.data,
+							...currentData.jobs.data,
+						],
 					});
-				}
 			},
 		});
-		return () => {
-			console.log("unsubbing");
-			unsub();
-		};
-	}, [subscribeToMore]);
+		return unsub();
+	});
 
 	const { data: countData } = useQuery(JOB_COUNT_QUERY, {
 		fetchPolicy: "cache-and-network",
 	});
 
 	let count = null;
-	if (countData) count = countData.countJobs.data;
-
+	if (countData && countData.countJobs.success)
+		count = countData.countJobs.data;
 	return (
 		<ErrorBoundary>
 			<Section icon={ClipboardIcon} title={`All Jobs`} style={{ padding: "0" }}>
 				{loading && <Loading />}
 				{error && <ErrorComponent error={error} />}
-				{!loading && data && data.jobs.success && (
+				{!loading && data && data.jobs.success && filters && (
 					<>
 						<JobsTable data={data.jobs.data} />
+						<TableFilters
+							setShowOptions={setShowOptions}
+							showOptions={showOptions}
+							setLimit={setLimit}
+							limit={limit}
+							refetch={refetch}
+							filters={filters}
+							setFilters={setFilters}
+						/>
 						<TableFooter
 							setPage={setPage}
 							page={page}
 							limit={limit}
 							refetch={refetch}
 							data={count}
-							{...result}
 						/>
 					</>
 				)}
-				{data && !data.jobs.success && (
+				{data && !data.jobs.success && data.jobs.error && (
 					<ErrorComponent error={data.jobs.error} />
 				)}
 			</Section>
@@ -88,4 +91,4 @@ const AllJobsSection = () => {
 	);
 };
 
-export default AllJobsSection;
+export default React.memo(AllJobsSection);

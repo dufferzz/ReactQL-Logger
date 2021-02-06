@@ -111,7 +111,7 @@ const JobsTableColumns = [
 	},
 ];
 
-const JobsTable = ({ data, subscribeToMore, subQuery, result, type }: any) => {
+const JobsTable = ({ data }: any) => {
 	const history = useHistory();
 	return (
 		<Table
