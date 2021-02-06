@@ -17,7 +17,7 @@ import TableFilters, { statusFilters } from "../../components/TableFilters";
 
 const AllJobsSection = () => {
 	const [page, setPage] = useState<number>(1);
-	const [limit, setLimit] = useState<number>(11);
+	const [limit, setLimit] = useState<number>(10);
 	const [showOptions, setShowOptions] = useState<boolean>(false);
 	const [filters, setFilters] = useState<string[]>([...statusFilters]);
 

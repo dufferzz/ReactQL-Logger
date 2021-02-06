@@ -19,7 +19,7 @@ import UserIcon from "../../assets/icons/user.svg";
 const AssignedJobsSection = () => {
 	const { user } = useAuth0();
 	const [page, setPage] = useState<number>(1);
-	const [limit, setLimit] = useState<number>(11);
+	const [limit, setLimit] = useState<number>(10);
 	const [filters, setFilters] = useState<string[]>([...statusFilters]);
 
 	const [showOptions, setShowOptions] = useState<boolean>(false);

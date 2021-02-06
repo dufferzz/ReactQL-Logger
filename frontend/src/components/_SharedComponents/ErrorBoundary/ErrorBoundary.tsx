@@ -15,7 +15,11 @@ class ErrorBoundary extends React.Component<{}, any> {
 
 	render() {
 		if (this.state.hasError) {
-			return <h1 style={{ fontSize: "2rem" }}>🥺</h1>;
+			return (
+				<div style={{ fontSize: "2rem", width: "100%", textAlign: "center" }}>
+					🥺
+				</div>
+			);
 		}
 
 		return this.props.children;

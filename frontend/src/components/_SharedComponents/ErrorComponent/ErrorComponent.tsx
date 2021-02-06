@@ -7,11 +7,9 @@ interface ErrorProp {
 
 const ErrorComponent = ({ error }: ErrorProp) => {
 	return (
-		<>
-			<div style={{ width: "100%", fontSize: "1.5rem", textAlign: "center" }}>
-				🥺 {JSON.stringify(error)}
-			</div>
-		</>
+		<div style={{ width: "100%", fontSize: "1.5rem", textAlign: "center" }}>
+			{error.message ? `🥺 ${error.message.toString()}` : `🥺 Error`}
+		</div>
 	);
 };
 

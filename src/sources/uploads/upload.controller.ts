@@ -47,7 +47,7 @@ const uploadController = {
 			title: args.title,
 		});
 
-		return newUpload
+		return await newUpload
 			.save()
 			.then((data) => {
 				console.log(data);

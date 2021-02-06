@@ -73,7 +73,7 @@ const PartsView = ({ parts, setParts }: JobPartsProp) => {
 					setPartQty("");
 				}}
 			>
-				<JobPartsTable data={parts} />
+				<JobPartsTable setParts={setParts} data={parts} />
 				<CenterDiv>
 					<AddItemDiv>
 						<SectionElement>

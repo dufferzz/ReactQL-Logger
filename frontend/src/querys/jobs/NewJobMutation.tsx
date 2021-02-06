@@ -48,6 +48,8 @@ const NEWJOB_MUTATION = gql`
 				customername
 				email
 				city
+				address1
+				address2
 				district
 				postcode
 				contactphone

@@ -9,7 +9,7 @@ const partController = {
 		const query = new RegExp(args.query, "i");
 
 		if (query) {
-			return Part.find({
+			return await Part.find({
 				$and: [{ $or: [{ partName: query }, { partNumber: query }] }],
 			})
 				.sort({ _id: -1 })
@@ -19,14 +19,14 @@ const partController = {
 				.then((data) => sendResponse(data))
 				.catch((err) => sendError(err));
 		} else {
-			return Part.find()
+			return await Part.find()
 				.sort({ _id: -1 })
 				.limit(QueryLimiter(args.limit))
 				.then((data) => sendResponse(data));
 		}
 	},
-	countParts: (args: any) =>
-		Part.countDocuments({})
+	countParts: async (args: any) =>
+		await Part.countDocuments({})
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error)),
 

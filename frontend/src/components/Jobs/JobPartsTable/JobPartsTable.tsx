@@ -2,12 +2,11 @@ import React from "react";
 import Table from "../../DataTable/DataTable";
 import iconError from "../../../assets/icons/error.svg";
 
+import Swal from "sweetalert2";
+
 const RemovePartIcon = (props: any) => {
 	return (
 		<img
-			onClick={() => {
-				handleRemovePart(props.part);
-			}}
 			style={{
 				cursor: "pointer",
 				filter: "drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3))",
@@ -19,9 +18,6 @@ const RemovePartIcon = (props: any) => {
 		/>
 	);
 };
-const handleRemovePart = (part: any) => {
-	// console.log("Remove part:", part.partNumber, part.partQty);
-};
 
 const columns = [
 	{
@@ -30,7 +26,7 @@ const columns = [
 
 		width: "40px",
 		cell: (row: any) => (
-			<div style={{}} data-tag="allowRowEvents">
+			<div data-tag="allowRowEvents">
 				<RemovePartIcon part={row} />
 			</div>
 		),
@@ -70,17 +66,22 @@ const columns = [
 	},
 ];
 
-const JobPartsTable = ({ data }: any) => {
-	// console.log(data);
+const JobPartsTable = ({ data, setParts }: any) => {
+	const handleRowClicked = (row: any) => {
+		Swal.fire({
+			title: `${row.partName}`,
+			text: `Remove ${row.partName}?`,
+			showCancelButton: true,
+		}).then((s: any) => {
+			if (s.isConfirmed) {
+				console.log("remove part", row.partName);
+				setParts(data.filter((part: any) => part.partName !== row.partName));
+			}
+		});
+	};
+
 	return (
-		<Table
-			columns={columns}
-			data={data}
-			onRowClicked={(e: any) => {
-				// console.log(e);
-				// history.push(`/job/${e._id}`);
-			}}
-		/>
+		<Table onRowClicked={handleRowClicked} columns={columns} data={data} />
 	);
 };
 
