@@ -1,38 +1,42 @@
 import React, { useState } from "react";
-import Section from "../../_StyledComponents/Section";
-import Button from "../../_StyledComponents/Button";
-import CenterDiv from "../../_StyledComponents/CenteredDiv";
 import styled from "styled-components";
 import { ErrorMessage } from "formik";
-
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-import SectionElement from "../../_StyledComponents/SectionElement";
 
+import Section from "../../_StyledComponents/Section";
+import SectionElement from "../../_StyledComponents/SectionElement";
+import Button from "../../_StyledComponents/Button";
+import CenterDiv from "../../_StyledComponents/CenteredDiv";
 import JobPartsTable from "../JobPartsTable/JobPartsTable";
 
 import PackageIcon from "../../../assets/icons/package.svg";
 
-const MySwal = withReactContent(Swal);
-
 const AddItemDiv = styled.div`
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
 	grid-gap: 0.1rem;
 	align-items: flex-end;
 `;
 
 const PartsView = ({ parts, setParts }: JobPartsProp) => {
-	// const [jobParts, setJobParts] = useState<Array<JobPart>>([]);
-
 	const [partName, setPartName] = useState<string>("");
-	const [partNumber] = useState<string>("");
+	const [partNumber, setPartNumber] = useState<string>("");
 	const [partQty, setPartQty] = useState<string>("");
 	const [price, setPartPrice] = useState<string>("");
 
-	const addPart = () => {
+	const cleanForm = () => {
+		setPartName("");
+		setPartNumber("");
+		setPartPrice("");
+		setPartQty("");
+	};
+
+	const addPart = (e: any) => {
+		e.preventDefault();
+
 		if (partName === "" || partQty === "" || partQty === "0" || price === "") {
-			MySwal.fire({
+			cleanForm();
+			Swal.fire({
 				title: <p>Invalid Part</p>,
 				icon: "error",
 			});
@@ -40,13 +44,23 @@ const PartsView = ({ parts, setParts }: JobPartsProp) => {
 		}
 		const newPart = {
 			partName,
-			price,
-			partQty,
 			partNumber,
+			partQty,
+			price,
 		};
 
+		const p = parts.filter((part) => part.partName === partName);
+		if (p.length >= 1) {
+			Swal.fire({
+				title: "Duplicate Part",
+				icon: "error",
+				text: `${partName} is already attached.. Something something partQty++`,
+			});
+			cleanForm();
+			return;
+		}
+		cleanForm();
 		setParts([...parts, newPart]);
-		// console.log(parts);
 	};
 
 	return (
@@ -64,15 +78,7 @@ const PartsView = ({ parts, setParts }: JobPartsProp) => {
 				`,
 			}}
 		>
-			<form
-				onSubmit={(e) => {
-					e.preventDefault();
-					addPart();
-					setPartName("");
-					setPartPrice("");
-					setPartQty("");
-				}}
-			>
+			<form onSubmit={addPart}>
 				<JobPartsTable setParts={setParts} data={parts} />
 				<CenterDiv>
 					<AddItemDiv>
@@ -87,6 +93,18 @@ const PartsView = ({ parts, setParts }: JobPartsProp) => {
 								name="partName"
 							/>
 							<ErrorMessage name="partName" component="div" />
+						</SectionElement>
+						<SectionElement>
+							<label htmlFor="partNumber">Part #</label>
+							<input
+								value={partNumber}
+								onChange={(e) => {
+									setPartNumber(e.target.value);
+								}}
+								type="text"
+								name="partNumber"
+							/>
+							<ErrorMessage name="partNumber" component="div" />
 						</SectionElement>
 						<SectionElement>
 							<label htmlFor="partQty">Qty</label>
