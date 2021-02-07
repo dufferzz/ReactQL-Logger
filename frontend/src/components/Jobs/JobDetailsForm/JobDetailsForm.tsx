@@ -51,7 +51,18 @@ const handleResponse = (data: any, history: any) => {
 const JobDetailsForm = ({ job }: JobPropType) => {
 	const history = useHistory();
 	const [updateJob] = useMutation(UPDATE_JOB_MUTATION);
-	const [parts, setParts] = useState<JobPart[]>([...job.parts]);
+	let pa: any = [];
+	if (job.parts) {
+		pa = job.parts.map((part) => {
+			return {
+				partName: part.partName,
+				partNumber: part.partNumber,
+				partQty: part.partQty,
+				price: part.price,
+			};
+		});
+	}
+	const [parts, setParts] = useState<JobPart[]>([...pa]);
 
 	return (
 		<Formik

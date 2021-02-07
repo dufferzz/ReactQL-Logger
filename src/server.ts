@@ -72,7 +72,7 @@ const startServer = async () => {
 	app.use(cors(corsOptions));
 	app.use(
 		morgan(
-			":date[web] :status :res[content-length] - :response-time ms :total-time[3]"
+			":date[web] => :status - Size: :res[content-length] - :total-time[3] ms"
 		)
 	);
 	app.disable("x-powered-by");

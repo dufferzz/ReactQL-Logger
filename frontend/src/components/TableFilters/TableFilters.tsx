@@ -33,7 +33,7 @@ const TableFilters = ({
 	};
 	return (
 		<>
-			{width < config.mobileBreakpoint && (
+			{width <= config.mobileBreakpoint && (
 				<div style={{ textAlign: "center" }}>
 					<Button
 						onClick={() => {

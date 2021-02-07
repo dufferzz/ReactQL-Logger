@@ -54,6 +54,7 @@ const AllJobsSection = () => {
 
 	const { data: countData } = useQuery(JOB_COUNT_QUERY, {
 		fetchPolicy: "cache-and-network",
+		variables: { filters: { statusFilters: filters } },
 	});
 
 	let count = null;

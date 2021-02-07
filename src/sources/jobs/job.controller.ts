@@ -42,14 +42,17 @@ const jobController = {
 		}
 	},
 	countJobs: async (args: any) =>
-		await Job.countDocuments({})
+		await Job.countDocuments({ status: { $in: args.filters.statusFilters } })
 			.then((data) => {
 				return sendResponse(data);
 			})
 			.catch((error) => sendError(error)),
 
 	countAssignedJobs: async (args: any) =>
-		await Job.countDocuments({ assigned: args.user })
+		await Job.countDocuments({
+			assigned: args.user,
+			status: { $in: args.filters.statusFilters },
+		})
 			.then((data) => {
 				return sendResponse(data);
 			})

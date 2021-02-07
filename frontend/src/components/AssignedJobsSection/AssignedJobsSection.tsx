@@ -39,7 +39,7 @@ const AssignedJobsSection = () => {
 	);
 	const { data: countData } = useQuery(ASSIGNED_JOB_COUNT_QUERY, {
 		fetchPolicy: "cache-and-network",
-		variables: { user: user.nickname },
+		variables: { user: user.nickname, filters: { statusFilters: filters } },
 	});
 	let count = null;
 	if (countData && countData.countAssignedJobs.success)
