@@ -11,8 +11,8 @@ import QueryPagination from "../../utils/queryPagination";
 const jobController = {
 	jobs: async (args: any) =>
 		await Job.find({ status: { $in: args.filters.statusFilters } })
-			.sort({ created: -1 })
-
+			.sort({ _id: -1 })
+			.select(["customername", "todo", "make", "model", "status", "created"])
 			.skip(QueryPagination(args.page, args.limit))
 			.limit(QueryLimiter(args.limit))
 			.then((data) => sendResponse(data))
@@ -69,8 +69,8 @@ const jobController = {
 			assigned: args.user,
 			status: { $in: args.filters.statusFilters },
 		})
-			.sort({ created: -1 })
-
+			.sort({ _id: -1 })
+			.select(["customername", "todo", "make", "model", "status", "created"])
 			.skip(QueryPagination(args.page, args.limit))
 
 			.limit(QueryLimiter(args.limit))

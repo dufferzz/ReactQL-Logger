@@ -2,6 +2,7 @@ import Part from "./part.model";
 import { sendError, sendResponse } from "../../utils/responseHandlers";
 import QueryLimiter from "../../utils/queryLimiter";
 import QueryPagination from "../../utils/queryPagination";
+import { ObjectId } from "mongodb";
 
 const partController = {
 	parts: async (args: any) => {
@@ -30,11 +31,14 @@ const partController = {
 			.then((data) => sendResponse(data))
 			.catch((error) => sendError(error)),
 
-	getPart: async (args: any) =>
-		await Part.findById(args._id)
-			.then((data) => sendResponse(data))
-			.catch((err) => sendError(err)),
-
+	getPart: async (args: any) => {
+		if (ObjectId.isValid(args._id)) {
+			const part = await Part.findById(args._id);
+			if (part) return sendResponse(part);
+			return sendError("Part Not Found");
+		}
+		return sendError(`${args._id} is not a valid Part ID`);
+	},
 	updatePart: async (args: any, ctx: AppContext) => {
 		const updatedPart = {
 			created: new Date(),

@@ -1,3 +1,4 @@
+import React from "react";
 import {
 	ApolloClient,
 	ApolloProvider,
@@ -6,7 +7,6 @@ import {
 	HttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/link-context";
-import React from "react";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import config from "../config/config";
 
@@ -14,7 +14,7 @@ import { getMainDefinition } from "@apollo/client/utilities";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const AuthorizedApolloProvider = ({ children }: any) => {
-	const { getAccessTokenSilently } = useAuth0();
+	const { getAccessTokenSilently, logout } = useAuth0();
 
 	// Get our Auth0 token and append to request headers
 	// Need to handle long-life clients. Wake up to invalid tokens after expiry. GQL Subs / polling is no happy
@@ -22,6 +22,11 @@ const AuthorizedApolloProvider = ({ children }: any) => {
 		const token = await getAccessTokenSilently({
 			audience: `https://api.dufferz.net`,
 			scope: "openid email profile",
+		}).catch((err) => {
+			alert(
+				`Authentication error. You are being logged out.\n Error: ${err.error}`
+			);
+			logout({ returnTo: window.location.origin });
 		});
 		// console.log("token:", token);
 		if (token) {
@@ -30,8 +35,10 @@ const AuthorizedApolloProvider = ({ children }: any) => {
 					Authorization: `Bearer ${token}`,
 				},
 			};
+		} else {
+			logout({ returnTo: window.location.origin });
+			// window.location.reload();
 		}
-		return;
 	});
 
 	// Initialise our links

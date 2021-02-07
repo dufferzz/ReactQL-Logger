@@ -59,7 +59,9 @@ const AssignedJobsSection = () => {
 					});
 			},
 		});
-		return unsub();
+		return () => {
+			unsub();
+		};
 	});
 
 	return (

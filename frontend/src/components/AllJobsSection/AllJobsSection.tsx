@@ -47,7 +47,9 @@ const AllJobsSection = () => {
 					});
 			},
 		});
-		return unsub();
+		return () => {
+			unsub();
+		};
 	});
 
 	const { data: countData } = useQuery(JOB_COUNT_QUERY, {

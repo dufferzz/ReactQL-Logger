@@ -5,7 +5,7 @@ mongoose.set("useCreateIndex", true);
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useUnifiedTopology", true);
 mongoose.set("useFindAndModify", false);
-mongoose.set("debug", true);
+// mongoose.set("debug", true);
 
 const connectDB = async () => {
 	let attempts = 0;
